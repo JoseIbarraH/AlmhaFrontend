@@ -21,6 +21,34 @@ export const loginService = async (email: string, password: string) => {
   return response.data
 }
 
+
+export const logoutService = async () => {
+  const auth = useAuthStore()
+
+  const url = API_AUTH + 'logout'
+  try {
+    const response = await axios.post(
+      url,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
+    )
+
+    // Si el backend respondió bien, limpiamos la sesión local
+    auth.logout()
+    return response.data
+  } catch (error) {
+    console.error('Error en logout:', error)
+    // Igual limpiamos localmente por seguridad
+    auth.logout()
+    throw error
+  }
+}
+
+
 export const validateToken = async () => {
   const token = sesionGetService('auth-token');
   if (!token) return false;
@@ -40,10 +68,7 @@ export const validateToken = async () => {
     return true;
 
   } catch (err) {
-    if (axios.isAxiosError(err) && err.response?.status !== 401) {
-      console.error('Error validando token:', err);
-    }
-
+    console.error('Token Invalido: ', err)
     sesionDeleteService('auth-token');
     return false
   }

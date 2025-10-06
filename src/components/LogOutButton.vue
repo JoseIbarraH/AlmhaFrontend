@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { logoutService } from '@/services/authService'
 import { useAuthStore } from '@/stores/authStore'
 import { useRouter } from 'vue-router'
 
@@ -8,7 +7,6 @@ const router = useRouter()
 
 const handleLogout = async () => {
   try {
-    await logoutService()
     auth.logout()
     router.push({ name: 'auth.login' })
   } catch (error) {
