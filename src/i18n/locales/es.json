@@ -1,0 +1,237 @@
+{
+  "Content": "texto entre imagenes",
+  "Dashboard": {
+    "Navbar": {
+      "Dashboard": "Tablero",
+      "Team": "Equipo",
+      "Blog": "Blog",
+      "Design": "Diseño",
+      "Profile": "Perfil",
+      "Logout": "Cerrar sesión",
+      "Service": "Servicios"
+    },
+    "Dashboard": {
+      "Header": "Tablero",
+      "Title": "Tablero de Control"
+    },
+    "Team": {
+      "Header": "Equipo",
+      "Title": "Equipo - Gestión de Miembros del Equipo",
+      "TotalTeams": "Miembros del equipo totales",
+      "TeamsActives": "Miembros del equipo activos",
+      "TeamsInactives": "Miembros del equipo inactivos",
+      "LastTeams": "Nuevos Miembros (15d)",
+      "Form": {
+        "Create": "Agregar Miembro",
+        "Edit": "Editar Miembro",
+        "Delete": "Eliminar equipo",
+        "Members": "Miembros del equipo",
+        "AddMember": "Agregar miembro al equipo",
+        "Name": "Nombre",
+        "Specialization": "Especialización",
+        "Status": "Estado",
+        "Active": "Activo",
+        "Inactive": "Inactivo",
+        "Image": "Imagen del miembro del equipo",
+        "Cancel": "Cancelar",
+        "Save": "Guardar",
+        "Update": "Actualizar",
+        "UploadImage": "Arrastra o sube una imagen"
+      },
+      "List": {
+        "TeamMembers": "Equipo Médico",
+        "Doctor": "Medico",
+        "Status": "Estado",
+        "Contact": "Contacto",
+        "Actions": "Acciones",
+        "Created": "Creado",
+        "Updated": "Actualizado",
+        "NoMembers": "No hay miembros registrados aún.",
+        "Search": "Buscar por nombre"
+      },
+      "CreateUpdate": {
+        "CreateTitle": "Crear nuevo miembro del equipo",
+        "UpdateTitle": "Actualizar miembro del equipo",
+        "BackButton": "Volver",
+        "CreateButton": "Crear",
+        "UpdateButton": "Actualizar",
+        "PersonalInfo": {
+          "Specialization": "Especialización",
+          "Title": "Informacion personal",
+          "Biography": "Biografia",
+          "Image": "Imagen",
+          "Name": "Nombre",
+          "Result": {
+            "Title": "Galería de Resultados",
+            "Description": "Descripción"
+          },
+          "Status": {
+            "Title": "Estado",
+            "Active": "Activo",
+            "Inactive": "Inactivo"
+          }
+        }
+      }
+    },
+    "Blog": {
+      "Header": "Blog",
+      "Title": "Blog - Gestión de Contenido del Blog",
+      "CreatePost": "Crear post",
+      "Save": "Guardar",
+      "TotalBlogs": "Blogs totales",
+      "BlogsActives": "Blogs activos",
+      "BlogsInactives": "Blogs inactivos",
+      "LastBlogs": "Nuevos Blogs (15d)",
+      "Editor": {
+        "SaveDraft": "Guardar Borrador",
+        "PublishIt": "Publicar",
+        "ImagePost": "Imagen del post",
+        "TitlePost": "Titulo del post",
+        "RemoveImage": "Quitar Imagen",
+        "Category": "Categoría"
+      },
+      "Update": {
+        "TitleCreate": "Blog - Gestion de publicaciones - Crear",
+        "TitleUpdate": "Blog - Gestion de publicaciones - Editar",
+        "Save": "Guardar",
+        "Back": "Volver",
+        "Categories": {
+          "Facial": "Facial",
+          "Bodily": "Corporal",
+          "NonSurgical": "No Quirúrgico",
+          "General": "General"
+        },
+        "ConfirmDelete": "Confirmar cancelacion",
+        "ConfirmDeleteMessage": "¿Estás seguro de que deseas eliminar esta publicación?",
+        "ConfirmDeleteButton": "Si, volver",
+        "CancelDeleteButton": "Cancelar"
+      },
+      "List": {
+        "Edit": "Editar",
+        "Deactivate": "Desactivar",
+        "Activate": "Activar",
+        "Search": "Buscar por título",
+        "Active": "Activo",
+        "Inactive": "Inactivo",
+        "NoResults": "No se encontraron blogs",
+        "NoResultsFor": "No se encontraron elementos para mostrar.",
+        "LastUpdate": "Última actualización:",
+        "CreationDate": "Fecha de creacion:"
+      }
+    },
+    "Design": {
+      "Header": "Interfaz",
+      "Title": "Interfaz - Gestion de imagenes",
+      "ChooseCarouselImage": {
+        "Title": "Seleccionar Galería o Imagen/Video",
+        "LabelTitle": "Titulo",
+        "LabelTitlePlaceholder": "Ingrese título",
+        "LabelSlogan": "Eslogan",
+        "LabelSloganPlaceholder": "Ingrese título",
+        "VideoError": "Tu navegador no soporta la reproducción de videos.",
+        "DropImage": "Arrastra y suelta imágenes o videos aquí, o haz clic para seleccionarlos"
+      },
+      "Backgrounds": {
+        "Title": "Seleccionar Fondos"
+      },
+      "ChooseCarouselNavbar": {
+        "Title": "Seleccionar Fotos de Carrusel Navbar"
+      }
+    },
+    "Service": {
+      "Header": "Servicios",
+      "Title": "Servicios",
+      "CreateService": "Crear Servicio",
+      "TotalServices": "Servicios totales",
+      "ServicesActives": "Servicios activos",
+      "ServicesInactives": "Servicios inactivos",
+      "LastServices": "Nuevos servicios (15d)",
+      "Create": {
+        "Title": "Agregar un nuevo Procedimiento",
+        "Save": "Guardar Procedimiento",
+        "Back": "Volver"
+      },
+      "Edit": {
+        "Title": "Editar Procedimiento",
+        "Back": "Volver"
+      },
+      "List": {
+        "NoResults": "No se encontraron elementos",
+        "NoResultsFor": "No se encontraron elementos para mostrar.",
+        "LastUpdate": "Última actualización:",
+        "CreationDate": "Fecha de creacion:",
+        "Search": "Buscar por título"
+      }
+    },
+    "Profile": {
+      "EditProfile": "Editar perfil",
+      "UpdateProfile": "Actualizar perfil",
+      "DeleteProfile": "Eliminar perfil"
+    }
+  },
+  "Client": {
+    "Home": {
+      "MeetOur": "Conoce a nuestro",
+      "Team": "Equipo"
+    },
+    "Blog": {
+      "Index": {
+        "Presentation": {
+          "Text1": "Información Especializada",
+          "Text2": "Procedimientos",
+          "Text3": "Estéticos",
+          "Text4": "Descubre todo sobre los tratamientos más avanzados en cirugía y medicina estética"
+        },
+        "SearchEngine": {
+          "Placeholder": "Buscar procedimientos, tratamientos...",
+          "NotFound": "No se encontraron resultados"
+        },
+        "FilterHeader": {
+          "Title": "Todos los Procedimientos"
+        },
+        "Card": {
+          "Specialist": "Dr. Especialista",
+          "ReadMore": "Leer mas"
+        }
+      },
+      "View": {
+        "Breadcrumb": {
+          "Home": "Inicio",
+          "Blog": "Blog"
+        },
+        "Navigation": {
+          "NextArticle": "Siguiente Artículo",
+          "PreviousArticle": "Artículo Anterior",
+          "AllArticle": "Ver todos los artículos"
+        },
+        "Consultation": {
+          "Title": "¿Interesado en una Consulta?",
+          "Text": "Agenda una cita personalizada con nuestros especialistas",
+          "Button": "Agendar Consulta"
+        },
+        "SideBar": {
+          "InterestingArticles": "Artículos De Interes"
+        },
+        "Specialist": "Especialista",
+        "ReadingTime": "8 min de lectura"
+      },
+      "Categories": {
+        "Facial": "Facial",
+        "Bodily": "Corporal",
+        "NonSurgical": "No Quirúrgico",
+        "General": "General"
+      }
+    }
+  },
+  "Helper": {
+    "TimeSince": {
+      "years": "hace {n} año | hace {n} años",
+      "months": "hace {n} mes | hace {n} meses",
+      "weeks": "hace {n} semana | hace {n} semanas",
+      "days": "hace {n} día | hace {n} días",
+      "hours": "hace {n} hora | hace {n} horas",
+      "minutes": "hace {n} minuto | hace {n} minutos",
+      "seconds": "hace unos segundos"
+    }
+  }
+}

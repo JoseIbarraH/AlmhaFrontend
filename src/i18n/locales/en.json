@@ -1,0 +1,237 @@
+{
+  "Content": "text between images",
+  "Dashboard": {
+    "Navbar": {
+      "Dashboard": "Dashboard",
+      "Team": "Team",
+      "Blog": "Blog",
+      "Design": "Design",
+      "Profile": "Profile",
+      "Logout": "Logout",
+      "Service": "Services"
+    },
+    "Dashboard": {
+      "Header": "Dashboard",
+      "Title": "Control Panel"
+    },
+    "Team": {
+      "Header": "Team",
+      "Title": "Team - Member Management",
+      "TotalTeams": "Total team members",
+      "TeamsActives": "Active team members",
+      "TeamsInactives": "Inactive team members",
+      "LastTeams": "New Members (15d)",
+      "Form": {
+        "Create": "Add Member",
+        "Edit": "Edit Member",
+        "Delete": "Delete Team",
+        "Members": "Team Members",
+        "AddMember": "Add team member",
+        "Name": "Name",
+        "Specialization": "Specialization",
+        "Status": "Status",
+        "Active": "Active",
+        "Inactive": "Inactive",
+        "Image": "Team member image",
+        "Cancel": "Cancel",
+        "Save": "Save",
+        "Update": "Update",
+        "UploadImage": "Drag or upload an image"
+      },
+      "List": {
+        "TeamMembers": "Medical Team",
+        "Doctor": "Doctor",
+        "Status": "Status",
+        "Contact": "Contact",
+        "Actions": "Actions",
+        "Created": "Created",
+        "Updated": "Updated",
+        "NoMembers": "No members registered yet.",
+        "Search": "Search by name"
+      },
+      "CreateUpdate": {
+        "CreateTitle": "Create new team member",
+        "UpdateTitle": "Update team member",
+        "BackButton": "Back",
+        "CreateButton": "Create",
+        "UpdateButton": "Update",
+        "PersonalInfo": {
+          "Specialization": "Specialization",
+          "Title": "Personal Information",
+          "Biography": "Biography",
+          "Image": "Image",
+          "Name": "Name",
+          "Result": {
+            "Title": "Results Gallery",
+            "Description": "Description"
+          },
+          "Status": {
+            "Title": "Status",
+            "Active": "Active",
+            "Inactive": "Inactive"
+          }
+        }
+      }
+    },
+    "Blog": {
+      "Header": "Blog",
+      "Title": "Blog - Content Management",
+      "CreatePost": "Create Post",
+      "Save": "Save",
+      "TotalBlogs": "Total blogs",
+      "BlogsActives": "Active blogs",
+      "BlogsInactives": "Inactive blogs",
+      "LastBlogs": "New Blogs (15d)",
+      "Editor": {
+        "SaveDraft": "Save Draft",
+        "PublishIt": "Publish",
+        "ImagePost": "Post Image",
+        "TitlePost": "Post Title",
+        "RemoveImage": "Remove Image",
+        "Category": "Category"
+      },
+      "Update": {
+        "TitleCreate": "Blog - Post Management - Create",
+        "TitleUpdate": "Blog - Post Management - Edit",
+        "Save": "Save",
+        "Back": "Back",
+        "Categories": {
+          "Facial": "Facial",
+          "Bodily": "Body",
+          "NonSurgical": "Non-Surgical",
+          "General": "General"
+        },
+        "ConfirmDelete": "Confirm Deletion",
+        "ConfirmDeleteMessage": "Are you sure you want to delete this post?",
+        "ConfirmDeleteButton": "Yes, delete",
+        "CancelDeleteButton": "Cancel"
+      },
+      "List": {
+        "Edit": "Edit",
+        "Deactivate": "Deactivate",
+        "Activate": "Activate",
+        "Search": "Search by title",
+        "Active": "Active",
+        "Inactive": "Inactive",
+        "NoResults": "No blogs found",
+        "NoResultsFor": "No items to display.",
+        "LastUpdate": "Last update:",
+        "CreationDate": "Creation date:"
+      }
+    },
+    "Design": {
+      "Header": "Interface",
+      "Title": "Interface - Image Management",
+      "ChooseCarouselImage": {
+        "Title": "Select Gallery or Image/Video",
+        "LabelTitle": "Title",
+        "LabelTitlePlaceholder": "Enter title",
+        "LabelSlogan": "Slogan",
+        "LabelSloganPlaceholder": "Enter slogan",
+        "VideoError": "Your browser does not support video playback.",
+        "DropImage": "Drag and drop images or videos here, or click to select them"
+      },
+      "Backgrounds": {
+        "Title": "Select Backgrounds"
+      },
+      "ChooseCarouselNavbar": {
+        "Title": "Select Navbar Carousel Photos"
+      }
+    },
+    "Service": {
+      "Header": "Services",
+      "Title": "Services",
+      "CreateService": "Create Service",
+      "TotalServices": "Total services",
+      "ServicesActives": "Active services",
+      "ServicesInactives": "Inactive services",
+      "LastServices": "New Services (15d)",
+      "Create": {
+        "Title": "Add a New Procedure",
+        "Save": "Save Procedure",
+        "Back": "Back"
+      },
+      "Edit": {
+        "Title": "Edit Procedure",
+        "Back": "Back"
+      },
+      "List": {
+        "NoResults": "No items found",
+        "NoResultsFor": "No items to display.",
+        "LastUpdate": "Last update:",
+        "CreationDate": "Creation date:",
+        "Search": "Search by title"
+      }
+    },
+    "Profile": {
+      "EditProfile": "Edit Profile",
+      "UpdateProfile": "Update Profile",
+      "DeleteProfile": "Delete Profile"
+    }
+  },
+  "Client": {
+    "Home": {
+      "MeetOur": "Meet our",
+      "Team": "Team"
+    },
+    "Blog": {
+      "Index": {
+        "Presentation": {
+          "Text1": "Specialized Information",
+          "Text2": "Procedures",
+          "Text3": "Aesthetic",
+          "Text4": "Discover everything about the most advanced treatments in aesthetic and plastic surgery"
+        },
+        "SearchEngine": {
+          "Placeholder": "Search procedures, treatments...",
+          "NotFound": "No results found"
+        },
+        "FilterHeader": {
+          "Title": "All Procedures"
+        },
+        "Card": {
+          "Specialist": "Dr. Specialist",
+          "ReadMore": "Read more"
+        }
+      },
+      "View": {
+        "Breadcrumb": {
+          "Home": "Home",
+          "Blog": "Blog"
+        },
+        "Navigation": {
+          "NextArticle": "Next Article",
+          "PreviousArticle": "Previous Article",
+          "AllArticle": "View all articles"
+        },
+        "Consultation": {
+          "Title": "Interested in a Consultation?",
+          "Text": "Book a personalized appointment with our specialists",
+          "Button": "Book Consultation"
+        },
+        "SideBar": {
+          "InterestingArticles": "Interesting Articles"
+        },
+        "Specialist": "Specialist",
+        "ReadingTime": "8 min read"
+      },
+      "Categories": {
+        "Facial": "Facial",
+        "Bodily": "Body",
+        "NonSurgical": "Non-Surgical",
+        "General": "General"
+      }
+    }
+  },
+  "Helper": {
+    "TimeSince": {
+      "years": "{n} year ago | {n} years ago",
+      "months": "{n} month ago | {n} months ago",
+      "weeks": "{n} week ago | {n} weeks ago",
+      "days": "{n} day ago | {n} days ago",
+      "hours": "{n} hour ago | {n} hours ago",
+      "minutes": "{n} minute ago | {n} minutes ago",
+      "seconds": "a few seconds ago"
+    }
+  }
+}
