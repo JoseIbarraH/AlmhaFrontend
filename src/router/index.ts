@@ -6,17 +6,23 @@ import i18n, { SUPPORTED_LOCALES, DEFAULT_LOCALE, setI18nLocale, getI18nLocale, 
 
 import AuthenticatedLayout from "@/layouts/AuthenticatedLayout.vue"
 import GuestLayout from '@/layouts/GuestLayout.vue'
+import ClientLayout from '@/layouts/ClientLayout.vue'
 
 import NotFound from "@/views/errors/NotFound.vue"
 import DashboardBlog from "@/views/dashboard/blog/Index.vue"
 import DashboardHome from "@/views/dashboard/home/Index.vue"
 import DashboardDesign from "@/views/dashboard/design/Index.vue"
 import DashboardService from "@/views/dashboard/service/Index.vue"
-import ClientHome from "@/views/client/home/Index.vue"
 import DashboardTeam from "@/views/dashboard/team/Index.vue"
 import DashboardProfile from "@/views/dashboard/profile/Index.vue"
 
 import AuthLogin from "@/views/auth/Login.vue"
+
+import ClientHome from "@/views/client/home/Index.vue"
+import ClientService from "@/views/client/service/Index.vue"
+import ClientTeam from "@/views/client/team/Index.vue"
+import ClientBlog from "@/views/client/blog/Index.vue"
+import ClientAboutUs from "@/views/client/about_us/Index.vue"
 
 import { sesionGetService } from '@/services/sesionService'
 import { validateToken } from '@/services/authService'
@@ -57,9 +63,14 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: "",
-        name: "home",
-        component: ClientHome,
-        meta: { title: 'home' }
+        component: ClientLayout,
+        children: [
+          { path: "", name: "client.home", component: ClientHome, meta: { title: 'Home' }},
+          { path: "service", name: "client.service", component: ClientService, meta: { title: 'Service' }},
+          { path: "team", name: "client.team", component: ClientTeam, meta: { title: 'Team' }},
+          { path: "blog", name: "client.blog", component: ClientBlog, meta: { title: 'Blog' }},
+          { path: "about_us", name: "client.about_us", component: ClientAboutUs, meta: { title: 'About Us' }},
+        ]
       },
       {
         path: "auth",

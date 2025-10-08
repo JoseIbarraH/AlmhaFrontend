@@ -7,8 +7,8 @@ import TextInput from '@/components/TextInput.vue';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { api } from '@/plugins/api';
-import { useAuthStore } from '@/stores/authStore'; // para guardar token
-import { sesionSetService } from '@/services/sesionService'; // opcional si quieres backup local
+import { useAuthStore } from '@/stores/authStore'; 
+import { sesionSetService } from '@/services/sesionService';
 
 defineProps<{
   canResetPassword?: boolean;

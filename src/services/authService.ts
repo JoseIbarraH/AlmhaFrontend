@@ -4,7 +4,7 @@ import { useAuthStore } from '@/stores/authStore';
 import axios from 'axios';
 import { sesionDeleteService, sesionGetService } from './sesionService';
 
-export const loginService = async (email: string, password: string) => {
+/* export const loginService = async (email: string, password: string) => {
   const url = API_AUTH + 'login'
 
   const response = await axios.post(url, {
@@ -19,7 +19,7 @@ export const loginService = async (email: string, password: string) => {
   auth.setAuth(user, token)
 
   return response.data
-}
+} */
 
 export const validateToken = async () => {
   const token = sesionGetService('auth-token');
