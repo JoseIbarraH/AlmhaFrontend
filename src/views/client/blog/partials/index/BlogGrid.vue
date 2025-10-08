@@ -4,7 +4,7 @@
       class="bg-gray-50 rounded-2xl overflow-hidden hover-lift blog-card shadow-lg">
       <Reveal>
         <div class="relative overflow-hidden">
-          <SafeImage :src="resolveSrc(value.image_name)" :alt="value.title"
+          <SafeImage :src="value.image_name" :alt="value.title"
             class="w-full h-48 object-cover transition-transform duration-500 hover:scale-105" />
           <div class="absolute top-4 left-4">
             <span class="category-pill px-3 py-1 bg-custom-beige text-custom-dark rounded-full text-xs font-medium">
@@ -17,9 +17,9 @@
           <div class="flex items-center space-x-3 mb-3 text-xs text-gray-500">
             <span>{{ $t('Client.Blog.Index.Card.Specialist') }}</span>
             <span>•</span>
-            <span>{{ formatDate(value.created_at) }}</span>
+            <span>{{ value.created_at }}</span>
             <span>•</span>
-            <span>{{ timeSince(value.created_at) }}</span>
+            <span>{{ value.created_at }}</span>
           </div>
 
           <h3
@@ -72,6 +72,6 @@ const formatDate = (dateString: string): string => {
 }
 
 function handleBlogSelected(blogSlug: string) {
-  window.location.href = routeWithLocale('blog.detail', { blog: blogSlug });
+  
 }
 </script>
