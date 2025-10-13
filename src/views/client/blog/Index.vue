@@ -51,7 +51,7 @@
 import BlogFilterHeader from './partials/index/BlogFilterHeader.vue'
 import BlogSearchEngine from './partials/index/BlogSearchEngine.vue'
 import Consultation from '@/components/Consultation.vue'
-import FloatingBubbles from './components/FloatingBubbles.vue'
+import FloatingBubbles from './components/Decoratives.vue'
 import Presentation from './partials/index/Presentation.vue'
 import type { Blog, Data, PaginatedResponse } from './types'
 import SidebarRight from './partials/SidebarRight.vue'

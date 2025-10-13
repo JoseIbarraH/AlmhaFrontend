@@ -170,9 +170,22 @@
     }
   },
   "Client": {
+    "Meta": {
+      "Home": "Home",
+      "Services": "Services",
+      "Team": "Team",
+      "Blog": "Blog",
+      "AboutUs": "About Us"
+    },
     "Home": {
-      "MeetOur": "Meet our",
-      "Team": "Team"
+      "Team": {
+        "MeetOur": "Meet our",
+        "Title": "Team",
+        "Description": "At our clinic, a highly qualified and dedicated team supports each patient with personalized care, from the first consultation to post-operative follow-up, combining experience, empathy, and medical excellence.",
+        "NoTeamMember": "No team members available",
+        "AddMember": "Add members to display the team",
+        "TeamButton": "Meet our entire team"
+      }
     },
     "Blog": {
       "Index": {
@@ -220,6 +233,27 @@
         "Bodily": "Body",
         "NonSurgical": "Non-Surgical",
         "General": "General"
+      }
+    },
+    "Team": {
+      "Index": {
+        "Badge": "Medical Excellence",
+        "Title": "Our {span}Medical Team",
+        "Subtitle": "Highly qualified professionals dedicated to your {span} and {span2}",
+        "Words": {
+          "WellBeing": "well-being",
+          "Health": "holistic health"
+        },
+        "List": {
+          "Search": "Search by name"
+        }
+      }
+    },
+    "Global": {
+      "Consultation": {
+        "Text1": "Start your transformation",
+        "Text2": "Schedule a personalized consultation with our specialists",
+        "Button": "Request Consultation"
       }
     }
   },

@@ -6,9 +6,7 @@ import PrimaryButton from '@/components/PrimaryButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { api } from '@/plugins/api';
-import { useAuthStore } from '@/stores/authStore'; 
-import { sesionSetService } from '@/services/sesionService';
+import { useAuthStore } from '@/stores/authStore';
 
 defineProps<{
   canResetPassword?: boolean;
@@ -18,6 +16,7 @@ defineProps<{
 const router = useRouter();
 const loading = ref(false);
 const errorMessage = ref('');
+
 const form = reactive({
   email: '',
   password: '',
@@ -25,46 +24,36 @@ const form = reactive({
 });
 
 async function login() {
+  const auth = useAuthStore();
   loading.value = true;
   errorMessage.value = '';
 
   try {
-    const response = await api.post('login', {
-      email: form.email,
-      password: form.password,
-      remember: form.remember,
-    });
+    // 👇 Usamos directamente el método del store
+    await auth.login(form.email, form.password, form.remember);
 
-    const data = response.data;
-
-    if (data?.access_token && data?.user) {
-      const auth = useAuthStore();
-      auth.setAuth(data.user, data.access_token, form.remember);
-
-      // Opcional: backup extra
-      sesionSetService('auth-token', data.access_token);
-
-      router.push({ name: 'dashboard.home' });
-    } else {
-      errorMessage.value = data?.message || 'Error al iniciar sesión.';
-    }
+    // 👇 Redirigir al dashboard después del login exitoso
+    router.push({ name: 'dashboard.home' });
   } catch (err: any) {
     console.error(err);
-    errorMessage.value =
-      err?.response?.data?.message ?? 'Ocurrió un error al intentar iniciar sesión.';
+
+    if (err.response?.status === 422) {
+      errorMessage.value = 'Correo o contraseña incorrectos.';
+    } else if (err.response?.status === 419) {
+      errorMessage.value = 'Error de CSRF. Recarga la página e inténtalo de nuevo.';
+    } else {
+      errorMessage.value =
+        err?.response?.data?.message ??
+        'Ocurrió un error al intentar iniciar sesión.';
+    }
   } finally {
     loading.value = false;
   }
 }
-
 </script>
 
 <template>
   <div>
-    <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-      {{ status }}
-    </div>
-
     <form @submit.prevent="login" class="space-y-4">
       <div>
         <InputLabel for="email" value="Correo" />

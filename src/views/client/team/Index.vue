@@ -5,7 +5,7 @@
 
   <section class="bg-gradient-to-br from-[#F8F7F4] via-[#FFFFFF] to-[#F5F1EA]">
     <div class="p-6 rounded-lg flex justify-center items-center">
-      <Search v-model="search" @search="doSearch" :text="$t('Client.Team.List.Search')" class="w-96" />
+      <Search v-model="search" @search="doSearch" :text="$t('Client.Team.Index.List.Search')" class="w-96" />
     </div>
 
     <!-- <TeamGrid :data="paginate.data" :filters="filters" :links="paginate.links" /> -->

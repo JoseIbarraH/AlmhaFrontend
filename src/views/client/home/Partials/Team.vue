@@ -3,19 +3,17 @@
     class="relative font-light text-center py-10 sm:py-16 lg:py-20 xl:py-24 w-full max-w-[90rem] mx-auto px-2 sm:px-4 lg:px-6 xl:px-8 overflow-hidden">
     <!-- Encabezado -->
     <span class="block text-sm sm:text-base lg:text-lg uppercase text-neutral-400 tracking-wider mb-2">
-      meet our
+      {{ $t('Client.Home.Team.MeetOur') }}
     </span>
 
     <h2
       class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-light text-white -mt-1 sm:-mt-2 lg:-mt-2.5 mb-4 sm:mb-6 tracking-wider">
-      Team
+      {{ $t('Client.Home.Team.Title') }}
     </h2>
 
     <p
       class="text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed text-neutral-400 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto mb-5 sm:mb-10 lg:mb-10 tracking-wider ">
-      En nuestra clínica, un equipo altamente calificado y comprometido acompaña a cada paciente con atención
-      personalizada, desde la primera consulta hasta el postoperatorio, combinando experiencia, empatía y excelencia
-      médica.
+      {{ $t('Client.Home.Team.Description') }}
     </p>
 
     <!-- Grid estático si hay 4 o menos -->
@@ -96,15 +94,34 @@
     </div>
 
     <!-- Estado vacío -->
-    <div v-else class="flex flex-col items-center justify-center py-20">
-      <div class="text-neutral-500 text-6xl mb-4">👥</div>
-      <h3 class="text-xl text-neutral-400 mb-2">No hay miembros del equipo</h3>
-      <p class="text-neutral-500">Agrega miembros para mostrar el equipo</p>
+    <div v-else class="w-full">
+      <div class="grid items-center justify-center text-center py-20">
+        <div class="text-neutral-500 text-6xl mb-4">👥</div>
+        <h3 class="text-xl text-neutral-400 mb-2">
+          {{ $t('Client.Home.Team.NoTeamMember') }}
+        </h3>
+        <p class="text-neutral-500">
+          {{ $t('Client.Home.Team.AddMember') }}
+        </p>
+      </div>
     </div>
 
     <div>
-      <button class="bg-[#DCBE9A] px-[16px] py-[6px]">
-        Conoce a todo nuestro equipo
+      <button class="group relative bg-[#DCBE9A] cursor-pointer px-8 py-3 rounded-lg font-medium text-gray-900
+           overflow-hidden transition-all duration-300
+           hover:bg-[#c9ab85] hover:shadow-lg hover:shadow-[#DCBE9A]/20
+           hover:-translate-y-0.5 active:translate-y-0
+           before:absolute before:inset-0 before:bg-gradient-to-r
+           before:from-transparent before:via-white/20 before:to-transparent
+           before:-translate-x-full hover:before:translate-x-full
+           before:transition-transform before:duration-700">
+        <span class="relative z-10 flex items-center gap-2">
+          {{ $t('Client.Home.Team.TeamButton') }}
+          <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none"
+            stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </span>
       </button>
     </div>
   </section>

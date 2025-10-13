@@ -23,13 +23,14 @@ import ClientService from "@/views/client/service/Index.vue"
 import ClientTeam from "@/views/client/team/Index.vue"
 import ClientBlog from "@/views/client/blog/Index.vue"
 import ClientAboutUs from "@/views/client/about_us/Index.vue"
+import { api } from '@/plugins/api'
 
-import { sesionGetService } from '@/services/sesionService'
-import { validateToken } from '@/services/authService'
+// ⚙️ Asegúrate que axios tenga withCredentials=true
 
 declare module 'vue-router' {
   interface RouteMeta {
     title?: string
+    titleKey?: string
   }
 }
 
@@ -53,7 +54,18 @@ const routes: RouteRecordRaw[] = [
         return next(`/${DEFAULT_LOCALE}`)
       }
 
-      // Cambiar el idioma usando el helper
+      // Redirigir si la ruta termina con / (excepto /:locale exacto)
+      const path = to.path
+      if (path.endsWith('/') && path !== `/${locale}`) {
+        return next({
+          path: path.slice(0, -1),
+          query: to.query,
+          hash: to.hash,
+          replace: true
+        })
+      }
+
+      // Cambiar idioma dinámicamente
       if (getI18nLocale() !== locale) {
         setI18nLocale(locale)
       }
@@ -65,11 +77,11 @@ const routes: RouteRecordRaw[] = [
         path: "",
         component: ClientLayout,
         children: [
-          { path: "", name: "client.home", component: ClientHome, meta: { title: 'Home' }},
-          { path: "service", name: "client.service", component: ClientService, meta: { title: 'Service' }},
-          { path: "team", name: "client.team", component: ClientTeam, meta: { title: 'Team' }},
-          { path: "blog", name: "client.blog", component: ClientBlog, meta: { title: 'Blog' }},
-          { path: "about_us", name: "client.about_us", component: ClientAboutUs, meta: { title: 'About Us' }},
+          { path: "", name: "client.home", component: ClientHome, meta: { titleKey: 'Client.Meta.Home' } },
+          { path: "service", name: "client.service", component: ClientService, meta: { titleKey: 'Client.Meta.Services' } },
+          { path: "team", name: "client.team", component: ClientTeam, meta: { titleKey: 'Client.Meta.Team' } },
+          { path: "blog", name: "client.blog", component: ClientBlog, meta: { titleKey: 'Client.Meta.Blog' } },
+          { path: "about_us", name: "client.about_us", component: ClientAboutUs, meta: { titleKey: 'Client.Meta.AboutUs' } },
         ]
       },
       {
@@ -83,23 +95,14 @@ const routes: RouteRecordRaw[] = [
         path: "dashboard",
         component: AuthenticatedLayout,
         beforeEnter: async (to, __from) => {
-          const token = sesionGetService('auth-token')
           const locale = to.params.locale as Locale
 
-          // Si no hay token → redirigir
-          if (!token) {
+          try {
+            await api.get("/api/user")
+            return true
+          } catch (err: any) {
             return { name: 'auth.login', params: { locale } }
           }
-
-          // Validar el token con el backend
-          const isValid = await validateToken()
-          if (!isValid) {
-            // El token es inválido o expiró → limpiar y redirigir
-            sessionStorage.removeItem('auth-token')
-            return { name: 'auth.login', params: { locale } }
-          }
-
-          return true
         },
         children: [
           { path: "", name: "dashboard.home", component: DashboardHome, meta: { title: 'Dashboard' } },
@@ -110,10 +113,8 @@ const routes: RouteRecordRaw[] = [
           { path: "profile", name: "dashboard.profile", component: DashboardProfile, meta: { title: 'Profile' } },
         ],
       },
-
     ],
   },
-  // Redirigir la raíz al idioma por defecto
   {
     path: '/',
     redirect: (): string => {
@@ -121,7 +122,6 @@ const routes: RouteRecordRaw[] = [
       return `/${locale}`
     }
   },
-  // Capturar rutas no encontradas (debe ir al final)
   {
     path: "/:locale/:catchAll(.*)",
     name: "NotFound",
@@ -134,14 +134,34 @@ const router = createRouter({
   routes,
 })
 
-// Guard global para actualizar el título de la página
+// Guard global: redirigir trailing slashes
+router.beforeEach((to, __from, next) => {
+  const path = to.path
+
+  // Redirigir si termina con / y no es la raíz
+  if (path !== '/' && path.endsWith('/')) {
+    next({
+      path: path.slice(0, -1),
+      query: to.query,
+      hash: to.hash,
+      replace: true
+    })
+  } else {
+    next()
+  }
+})
+
+// Guard global: cambia título dinámicamente
 router.afterEach((to) => {
+  const titleKey = to.meta.titleKey
   const title = to.meta.title
-  if (title) {
+
+  if (titleKey) {
+    document.title = i18n.global.t(titleKey as string)
+  } else if (title) {
     document.title = i18n.global.t(title as string)
   } else {
-    // Título por defecto si no se especifica
-    document.title = 'Mi Aplicación'
+    document.title = 'AlmhaPlasticSurgery'
   }
 })
 

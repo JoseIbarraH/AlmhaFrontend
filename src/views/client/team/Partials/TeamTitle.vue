@@ -36,25 +36,33 @@
       <div
         class="inline-flex items-center gap-2 bg-[#DCBE9A]/10 backdrop-blur-sm border border-[#DCBE9A]/20 rounded-full px-5 py-2 mb-8 animate-fade-in">
         <div class="w-2 h-2 bg-[#DCBE9A] rounded-full animate-pulse"></div>
-        <span class="text-sm font-medium text-[#DCBE9A] tracking-wide">Excelencia Médica</span>
+        <span class="text-sm font-medium text-[#DCBE9A] tracking-wide">{{ $t('Client.Team.Index.Badge') }}</span>
       </div>
 
       <!-- Main heading with enhanced styling -->
-      <h1
+      <i18n-t keypath="Client.Team.Index.Title" tag="h1"
         class="font-serif text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-[#DCBE9A] leading-tight tracking-tight">
-        Nuestro Equipo
-        <span
-          class="block mt-2 bg-gradient-to-r from-[#DCBE9A] via-[#E8D4B8] to-[#DCBE9A] bg-clip-text text-transparent">
-          Médico
-        </span>
-      </h1>
+        <template #span>
+          <span class="block mt-2 bg-gradient-to-r from-[#DCBE9A] via-[#E8D4B8] to-[#DCBE9A] bg-clip-text text-transparent"></span>
+        </template>
+      </i18n-t>
 
       <!-- Subtitle with improved readability -->
-      <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed font-light">
-        Profesionales altamente calificados dedicados a su
-        <span class="text-[#DCBE9A] font-medium">bienestar</span> y
-        <span class="text-[#DCBE9A] font-medium">salud integral</span>
-      </p>
+      <i18n-t keypath="Client.Team.Index.Subtitle" tag="p"
+        class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed font-light"
+      >
+        <template #span>
+          <span class="text-[#DCBE9A] font-medium">
+            {{ $t('Client.Team.Index.Words.WellBeing') }}
+          </span>
+        </template>
+
+        <template #span2>
+          <span class="text-[#DCBE9A] font-medium">
+            {{ $t('Client.Team.Index.Words.Health') }}
+          </span>
+        </template>
+      </i18n-t>
 
       <!-- Decorative line -->
       <div class="flex items-center justify-center gap-3 mt-10">

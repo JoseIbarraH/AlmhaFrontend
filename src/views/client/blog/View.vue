@@ -68,7 +68,7 @@
 
 <script setup lang="ts">
 import BlogNavegation from './partials/view/BlogNavegation.vue';
-import FloatingBubbles from './components/FloatingBubbles.vue';
+import FloatingBubbles from './components/Decoratives.vue';
 import BlogAutorInfo from './partials/view/BlogAutorInfo.vue';
 import Breadcrumb from './partials/view/Breadcrumb.vue';
 import ProgressBar from './components/ProgressBar.vue';

@@ -1,6 +1,16 @@
 <template>
   <div class="max-w-7xl mx-auto text-center mb-16">
+
+    <div class="absolute inset-0">
+      <img
+      :src="bg3"
+      alt="Medical background"
+      class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-[#18181B]/70 backdrop-blur-xs"></div>
+    </div>
     <FloatingBubbles />
+
     <Reveal>
       <div
         class="inline-flex items-center gap-2 bg-[#DCBE9A]/10 backdrop-blur-sm border border-[#DCBE9A]/20 rounded-full px-5 py-2 mb-8 animate-fade-in">
@@ -43,5 +53,6 @@
 
 <script setup lang="ts">
 import Reveal from '@/components/Reveal.vue';
-import FloatingBubbles from '../../components/FloatingBubbles.vue';
+import FloatingBubbles from '../../components/Decoratives.vue';
+import bg3 from '@/assets/images/about_us/bg2.png'
 </script>

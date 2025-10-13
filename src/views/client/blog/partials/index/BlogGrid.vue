@@ -17,9 +17,9 @@
           <div class="flex items-center space-x-3 mb-3 text-xs text-gray-500">
             <span>{{ $t('Client.Blog.Index.Card.Specialist') }}</span>
             <span>•</span>
-            <span>{{ value.created_at }}</span>
+            <span>{{ timeSince(value.created_at) }}</span>
             <span>•</span>
-            <span>{{ value.created_at }}</span>
+            <span>{{ timeSince(value.created_at) }}</span>
           </div>
 
           <h3
@@ -47,6 +47,7 @@
 import type { Data } from '../../types';
 import Reveal from '@/components/Reveal.vue';
 import SafeImage from '@/components/SafeImage.vue';
+import { timeSince } from '@/composables/useTimeSince';
 
 const props = defineProps<{
   data: Data[]
@@ -72,6 +73,6 @@ const formatDate = (dateString: string): string => {
 }
 
 function handleBlogSelected(blogSlug: string) {
-  
+
 }
 </script>

@@ -36,6 +36,10 @@ import FullScreenBackground from '@/components/FullScreenBackground.vue';
 import CarouselTw from '@/views/client/home/Partials/CarouselTw.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 import Team from './Partials/Team.vue';
+import bg1 from '@/assets/images/about_us/bg1.png'
+import bg2 from '@/assets/images/about_us/bg2.png'
+import bg3 from '@/assets/images/about_us/bg3.jpeg'
+
 
 /* const props = defineProps<{
   members?: {
@@ -52,30 +56,30 @@ import Team from './Partials/Team.vue';
 
 const members: any = []
 const background: Background = {
-  background1: "img1.jpg",
-  background2: "img2.jpg",
-  background3: "img3.jpg",
+  background1: bg1,
+  background2: bg2,
+  background3: bg3,
 };
 const carouselImage: ChooseCarouselStaticForm = {
   carousel: true,
   imageVideo: null,
   carouselUrls: [
     {
-      url: "img1.jpg",
+      url: bg1,
       title: "Título 1",
       text: "Descripción 1",
       titleen: "Title 1",
       texten: "Description 1"
     },
     {
-      url: "img2.jpg",
+      url: bg2,
       title: "Título 2",
       text: "Descripción 2",
       titleen: "Title 2",
       texten: "Description 2"
     },
     {
-      url: "img3.jpg",
+      url: bg3,
       title: "Título 3",
       text: "Descripción 3",
       titleen: "Title 3",

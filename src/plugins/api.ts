@@ -1,88 +1,52 @@
-// src/plugins/api.ts
 import axios from 'axios'
 import { useAuthStore } from '@/stores/authStore'
 
-// ✅ Crea la instancia de axios
+//Configuración base para Laravel Sanctum
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_AUTH,
-  withCredentials: true, // importante si usas cookies httpOnly
+  withCredentials: true,
   headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "X-Requested-With": "XMLHttpRequest",
   },
-})
+});
 
-// ✅ Interceptor para agregar el token automáticamente a cada request
+//Interceptor para leer el token XSRF de las cookies
 api.interceptors.request.use((config) => {
-  const auth = useAuthStore()
-  const access_token = auth.access_token
-  if (access_token) {
-    config.headers.Authorization = `Bearer ${access_token}`
+  //Search local with backend
+  const lang = localStorage.getItem('lang') || document.documentElement.lang || 'es'
+  config.headers['Accept-Language'] = lang
+
+  //Read the XSRF-Token of cookie
+  const token = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('XSRF-TOKEN='))
+    ?.split('=')[1];
+
+  if (token) {
+    config.headers['X-XSRF-TOKEN'] = decodeURIComponent(token);
   }
-  return config
-})
 
-// =======================================================
-// 🧠 Interceptor de respuesta con manejo de refresh token
-// =======================================================
+  return config;
+});
 
-let isRefreshing = false
-let failedQueue: Array<{ resolve: Function; reject: Function; config: any }> = []
-
-const processQueue = (error: any, token: string | null = null) => {
-  failedQueue.forEach((prom) => {
-    if (error) prom.reject(error)
-    else prom.resolve(token)
-  })
-  failedQueue = []
-}
-
+// Interceptor de respuesta global (manejo de 401 y 419)
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config
+    const status = error.response?.status
 
-    // Si es 401 (token expirado) y no se ha reintentado aún
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true
-
-      // Si ya hay un refresh en curso → espera a que termine
-      if (isRefreshing) {
-        return new Promise((resolve, reject) => {
-          failedQueue.push({ resolve, reject, config: originalRequest })
-        }).then((token) => {
-          originalRequest.headers['Authorization'] = `Bearer ${token}`
-          return api(originalRequest)
-        })
-      }
-
-      isRefreshing = true
-
+    if (status === 401) {
       try {
-        // ✅ Llamada al endpoint de refresh token
-        const refreshResp = await api.post('refresh-token')
-        const newToken = refreshResp.data.access_token
-
-        // ✅ Actualiza token en el store y storage
-        const auth = useAuthStore()
-        auth.setToken(newToken)
-
-        // ✅ Reprocesa la cola de peticiones en espera
-        processQueue(null, newToken)
-
-        // ✅ Reintenta la petición original
-        originalRequest.headers['Authorization'] = `Bearer ${newToken}`
-        return api(originalRequest)
-      } catch (err) {
-        processQueue(err, null)
-
-        // ❌ Si falla el refresh → logout forzoso
+        console.log('Usuario no autorizado');
         const auth = useAuthStore()
         auth.logout()
-        throw err
-      } finally {
-        isRefreshing = false
-      }
+      } catch {}
+    }
+
+    if (status === 419) {
+      return Promise.reject({ silent: true })
     }
 
     return Promise.reject(error)

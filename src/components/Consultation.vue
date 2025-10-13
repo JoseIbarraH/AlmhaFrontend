@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Reveal from './Reveal.vue';
-
 </script>
 
 <template>
@@ -8,18 +7,18 @@ import Reveal from './Reveal.vue';
     <div class="max-w-4xl mx-auto text-center">
       <Reveal>
         <h2 class="heading-font text-4xl md:text-5xl font-light text-[#202020] mb-6">
-          Comienza tu transformación
+          {{ $t('Client.Global.Consultation.Text1') }}
         </h2>
       </Reveal>
       <Reveal>
         <p class="text-lg text-[#202020] mb-8 leading-relaxed opacity-90">
-          Agenda una consulta personalizada con nuestros especialistas
+          {{ $t('Client.Global.Consultation.Text2') }}
         </p>
       </Reveal>
       <Reveal>
         <button
           class="bg-[#202020] text-white px-10 py-4 text-lg font-medium hover:bg-[#303030] transition-colors duration-300">
-          Solicitar Consulta
+          {{ $t('Client.Global.Consultation.Button') }}
         </button>
       </Reveal>
     </div>

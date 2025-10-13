@@ -170,9 +170,22 @@
     }
   },
   "Client": {
+    "Meta": {
+      "Home": "Inicio",
+      "Services": "Servicios",
+      "Team": "Equipo",
+      "Blog": "Blog",
+      "AboutUs": "Sobre nosotros"
+    },
     "Home": {
-      "MeetOur": "Conoce a nuestro",
-      "Team": "Equipo"
+      "Team": {
+        "MeetOur": "Conoce a nuestro",
+        "Title": "Equipo",
+        "Description": "En nuestra clínica, un equipo altamente calificado y comprometido acompaña a cada paciente con atención personalizada, desde la primera consulta hasta el postoperatorio, combinando experiencia, empatía y excelencia médica.",
+        "NoTeamMember": "No hay miembros del equipo",
+        "AddMember": "Agrega miembros para mostrar el equipo",
+        "TeamButton": "Conoce a todo nuestro equipo"
+      }
     },
     "Blog": {
       "Index": {
@@ -220,6 +233,27 @@
         "Bodily": "Corporal",
         "NonSurgical": "No Quirúrgico",
         "General": "General"
+      }
+    },
+    "Team": {
+      "Index": {
+        "Badge": "Excelencia Médica",
+        "Title": "Nuestro Equipo {span}Médico",
+        "Subtitle": "Profesionales altamente calificados dedicados a su {span} y {span2}",
+        "Words": {
+          "WellBeing": "bienestar",
+          "Health": "salud integral"
+        },
+        "List": {
+          "Search": "Buscar por nombre"
+        }
+      }
+    },
+    "Global": {
+      "Consultation": {
+        "Text1": "Comienza tu transformación",
+        "Text2": "Agenda una consulta personalizada con nuestros especialistas",
+        "Button": "Solicitar Consulta"
       }
     }
   },
