@@ -10,7 +10,7 @@
       <div class="absolute top-1/4 left-10 w-32 h-32 bg-[#DCBE9A]/10 rounded-full blur-3xl"></div>
       <div class="absolute bottom-1/4 right-10 w-40 h-40 bg-[#DCBE9A]/10 rounded-full blur-3xl"></div>
 
-      <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#DCBE9A]/10 border border-[#DCBE9A]/30 rounded-full mb-6">
           <Award class="w-4 h-4 text-[#DCBE9A]" />
           <span class="text-sm text-[#DCBE9A] font-medium">Excelencia en Cirugía Estética</span>

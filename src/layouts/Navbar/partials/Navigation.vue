@@ -17,6 +17,7 @@ const links = [
   { name: "service", route: "client.service" },
   { name: "about us", route: "client.about_us" },
   { name: "team", route: "client.team" },
+  { name: "blog", route: "client.blog" }
   /*{ name: "Products", route: "product" },
   { name: "Blog", route: "blog" }, */
 ]
