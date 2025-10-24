@@ -12,4 +12,6 @@
 <script setup lang="ts">
 import CarouselNavbar from '../components/CarouselNavbar.vue';
 
+
+
 </script>

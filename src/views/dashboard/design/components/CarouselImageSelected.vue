@@ -15,11 +15,11 @@
         <div class="grid grid-cols-1 md:grid-cols-3 w-full gap-4">
           <!-- Imagen / Video -->
           <div class="w-full">
-            <img v-if="isImage(item.url)" :src="item.url" alt="Gallery Image"
+            <img v-if="item.url" :src="item.url" alt="Gallery Image"
               class="object-cover w-full h-36 rounded-md" />
 
             <video v-else controls class="object-cover w-full h-36 rounded-md">
-              <source :src="resolveSrc(item.url)" type="video/mp4" />
+              <source :src="item.url" type="video/mp4" />
               {{ $t('Dashboard.Design.ChooseCarouselImage.LabelTitle') }}
             </video>
 
@@ -55,20 +55,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import CloseButton from '@/components/CloseButton.vue';
-import type { ChooseCarouselStaticForm, carouselUrlsInt } from '../types';
 import InputLabel from '@/components/InputLabel.vue';
 import TextInput from '@/components/TextInput.vue';
 
-const fileInput = ref<HTMLInputElement | null>(null);
+const props = defineProps<{
+  carousel: Carousel
+}>()
+
 const isDragging = ref(false);
+const fileInput = ref<HTMLInputElement | null>(null);
 const carouselItems = ref<carouselUrlsInt[]>([])
 
-// Inicializar con lo que viene del backend
-onMounted(() => {
-  if (props.form.carouselUrls && Array.isArray(props.form.carouselUrls)) {
-    carouselItems.value = [...props.form.carouselUrls];
-  }
-});
+
 
 // Abrir file picker
 function openFilePicker() {

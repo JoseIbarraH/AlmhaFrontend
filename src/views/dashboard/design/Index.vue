@@ -6,8 +6,8 @@
   </template>
   <div class="p-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="bg-white p-6 rounded-lg shadow-md ">
-        <ChooseCarouselStatic />
+      <div class="bg-white p-6 rounded-lg shadow-md h-fit">
+        <ChooseCarouselStatic :carousel-static="form.carouselStatic" />
       </div>
       <div class="h-fit">
         <div class="bg-white p-6 rounded-lg shadow-md">
@@ -39,10 +39,14 @@ const form = reactive<DesignResponse>({
   background1: { path: null, title: '', subtitle: '' },
   background2: { path: null, title: '', subtitle: '' },
   background3: { path: null, title: '', subtitle: '' },
-  carousel: [],
+  carouselStatic: {
+    carouselSetting: null,
+    imageVideoSetting: null,
+    carousel: [],
+    imageVideo: { path: null, title: '', subtitle: '' }
+  },
   carouselNavbar: [],
   carouselTool: [],
-  imageVideo: { path: null, title: '', subtitle: '' }
 })
 
 onMounted(async () => {

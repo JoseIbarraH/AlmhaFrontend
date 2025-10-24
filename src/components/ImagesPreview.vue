@@ -5,30 +5,41 @@
   >
     <input
       type="file"
-      accept="image/*"
+      accept="image/*,video/*"
       class="absolute inset-0 opacity-0 cursor-pointer"
       @change="handleFileChange"
     />
 
-    <!-- Si no hay imagen: mostrar "+" -->
+    <!-- Si no hay imagen/video: mostrar "+" -->
     <span v-if="!preview" class="text-4xl text-gray-400 font-bold">+</span>
 
-    <!-- Si hay imagen: mostrar imagen -->
+    <!-- Si hay imagen/video: mostrar preview -->
     <div v-else class="w-full h-full relative">
-      <img :src="preview" alt="Preview" class="w-full h-full object-cover rounded" />
-      <button
-        type="button"
-        @click="removeImage"
-        class="absolute top-2 right-2 bg-black/50 text-white rounded-full p-1 hover:bg-black/70"
-      >
-        ✕
-      </button>
+      <!-- Imagen -->
+      <img
+        v-if="isImage"
+        :src="preview"
+        alt="Preview"
+        class="w-full h-full object-cover rounded"
+      />
+
+      <!-- Video -->
+      <video
+        v-else-if="isVideo"
+        :src="preview"
+        class="w-full h-full object-cover rounded"
+        controls
+        muted
+      />
+
+      <CloseButton @click="removeImage" class="absolute top-2 right-2 p-1 bg-black/100 hover:bg-black/70" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
+import CloseButton from '@/components/CloseButton.vue'
 
 const props = defineProps<{
   modelValue: File | string | null
@@ -38,21 +49,32 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue'])
 
 const preview = ref<string | null>(null)
+const fileType = ref<'image' | 'video' | null>(null)
+
+const isImage = computed(() => fileType.value === 'image')
+const isVideo = computed(() => fileType.value === 'video')
 
 // Observa cambios en el valor para generar preview
 watch(
   () => props.modelValue,
   (value) => {
     if (value instanceof File) {
-      // Si es un archivo, generar URL temporal
+      // Si es un archivo, generar URL temporal y detectar tipo
       preview.value = URL.createObjectURL(value)
+      fileType.value = value.type.startsWith('image/') ? 'image' : 'video'
     } else if (typeof value === 'string' && value.trim() !== '') {
       // Si es una URL existente (por ejemplo de tu backend)
       preview.value = value.startsWith('http')
         ? value
         : `${window.location.origin}/${value.replace(/^\/+/, '')}`
+
+      // Detectar tipo por extensión
+      const extension = value.split('.').pop()?.toLowerCase()
+      const videoExtensions = ['mp4', 'webm', 'ogg', 'mov', 'avi']
+      fileType.value = videoExtensions.includes(extension || '') ? 'video' : 'image'
     } else {
       preview.value = null
+      fileType.value = null
     }
   },
   { immediate: true }
@@ -69,5 +91,6 @@ function handleFileChange(event: Event) {
 function removeImage() {
   emit('update:modelValue', null)
   preview.value = null
+  fileType.value = null
 }
 </script>
