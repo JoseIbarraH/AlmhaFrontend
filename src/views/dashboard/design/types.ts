@@ -25,8 +25,8 @@ export interface ApiResponse<T> {
 }
 
 export interface CarouselStatic {
-  carouselSetting: boolean | null
-  imageVideoSetting: boolean | null
+  carouselSetting: boolean | number | null
+  imageVideoSetting: boolean | number | null
   carousel: CarouselItem[]
   imageVideo: Background | null
 }

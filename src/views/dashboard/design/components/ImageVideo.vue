@@ -33,7 +33,7 @@
 <script setup lang="ts">
 
 defineProps<{
-  selected: boolean|null|undefined;
+  selected: boolean|number|null|undefined;
 }>();
 
 </script>

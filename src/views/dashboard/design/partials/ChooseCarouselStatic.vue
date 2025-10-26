@@ -21,90 +21,135 @@
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
     <div class="bg-white rounded-2xl shadow-md">
-      <Gallery :selected="form.carouselSetting" @click="handleGallery" />
+      <Gallery :selected="form.carouselStatic.carouselSetting" @click="handleGallery" />
     </div>
     <div class="bg-white rounded-2xl shadow-md">
-      <ImageVideo :selected="form.imageVideoSetting" @click="handleImageVideo" />
+      <ImageVideo :selected="form.carouselStatic.imageVideoSetting" @click="handleImageVideo" />
     </div>
   </div>
 
   <div class="w-full pt-4">
-    <!-- <GalleryImageSelected v-if="form.carousel" :form="form" /> -->
-    <ImageVideoSelected v-if="form.imageVideoSetting" v-model:image-video="form.imageVideo" />
+    <GalleryImageSelected v-if="form.carouselStatic.carouselSetting" v-model:carousel="form.carouselStatic.carousel" />
+    <ImageVideoSelected v-if="form.carouselStatic.imageVideoSetting" v-model:image-video="form.carouselStatic.imageVideo" />
   </div>
 </template>
 
 <script setup lang="ts">
 import GalleryImageSelected from '../components/CarouselImageSelected.vue';
-import type { CarouselStatic, CarouselItem, Background } from '../types';
 import ImageVideoSelected from '../components/ImageVideoSelected.vue';
 import SecondaryButton from '@/components/SecondaryButton.vue';
 import { onMounted, reactive, watch, ref, toRaw } from 'vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import ImageVideo from '../components/ImageVideo.vue';
 import Gallery from '../components/Carousel.vue';
+import type { CarouselStatic } from '../types';
 import { api } from '@/plugins/api'
 
 const props = defineProps<{
   carouselStatic: CarouselStatic
 }>()
 
-const form = reactive({
-  carouselSetting: null as boolean | null,
-  imageVideoSetting: null as boolean | null,
-  carousel: [] as CarouselItem[],
-  imageVideo: null as Background | null
+const carouselStatic = (): CarouselStatic => ({
+  carouselSetting: false,
+  imageVideoSetting: false,
+  carousel: [],
+  imageVideo: {
+    path: '',
+    title: '',
+    subtitle: ''
+  }
 })
 
+const form = reactive({
+  carouselStatic: carouselStatic()
+})
+
+// Usamos el mismo tipo para el original
 const originalData = ref({
-  carouselSetting: null as boolean | null,
-  imageVideoSetting: null as boolean | null,
-  carousel: [] as CarouselItem[],
-  imageVideo: null as Background | null
+  carouselStatic: carouselStatic()
 })
 
 const hasChanges = ref(false)
 const loading = ref(false)
 
 function handleGallery() {
-  form.carouselSetting = true
-  form.imageVideoSetting = false
+  form.carouselStatic.carouselSetting = true ? 1 : 0
+  form.carouselStatic.imageVideoSetting = false ? 1 : 0
 }
 
 function handleImageVideo() {
-  form.imageVideoSetting = true
-  form.carouselSetting = false
+  form.carouselStatic.imageVideoSetting = true
+  form.carouselStatic.carouselSetting = false
 }
 
 const detectChanges = () => {
-  const current = JSON.stringify(toRaw(form))
-  const original = JSON.stringify(originalData.value)
-  hasChanges.value = current !== original
-}
+  const current = toRaw(form.carouselStatic)
+  const original = originalData.value.carouselStatic
 
-const restoreDefaults = () => {
-  if (!originalData.value) return
-  const orig = originalData.value
+  // Comparar settings
+  if ((current.carouselSetting ? 1 : 0) !== (original.carouselSetting)  ||
+      (current.imageVideoSetting ? 1 : 0) !== original.imageVideoSetting) {
+    hasChanges.value = true
+    return
+  }
 
-  form.carouselSetting = orig.carouselSetting
-  form.imageVideoSetting = orig.imageVideoSetting
+  // Comparar carousel
+  if (current.carousel.length !== original.carousel.length) {
+    hasChanges.value = true
+    return
+  }
 
-  // mantener la reactividad
-  form.carousel.splice(0, form.carousel.length, ...(orig.carousel || []))
-  form.imageVideo = orig.imageVideo ? { ...orig.imageVideo } : null
+  for (let i = 0; i < current.carousel.length; i++) {
+    const curr = current.carousel[i]
+    const orig = original.carousel[i]
+
+    if (!curr || !orig) {
+      if (curr !== orig) {
+        hasChanges.value = true
+        return
+      }
+      continue
+    }
+
+    // Comparar path (puede ser File o string)
+    const currPath = curr.path instanceof File ? curr.path.name : curr.path
+    const origPath = orig.path instanceof File ? orig.path.name : orig.path
+
+    if (currPath !== origPath || curr.title !== orig.title || curr.subtitle !== orig.subtitle) {
+      hasChanges.value = true
+      return
+    }
+  }
+
+  // Comparar imageVideo
+  const currIV = current.imageVideo
+  const origIV = original.imageVideo
+
+  if (!currIV || !origIV) {
+    hasChanges.value = currIV !== origIV
+    return
+  }
+
+  const currIVPath = currIV.path instanceof File ? currIV.path.name : currIV.path
+  const origIVPath = origIV.path instanceof File ? origIV.path.name : origIV.path
+
+  if (currIVPath !== origIVPath ||
+      currIV.title !== origIV.title ||
+      currIV.subtitle !== origIV.subtitle) {
+    hasChanges.value = true
+    return
+  }
 
   hasChanges.value = false
-  console.log('🔄 Restaurado a valores originales:', toRaw(form))
 }
 
 const buildFormData = (): FormData => {
   const formData = new FormData()
 
-  // ✅ enviar booleanos reales, Laravel los reconoce correctamente
-  formData.append('carouselSetting', form.carouselSetting ? '1' : '0')
-  formData.append('imageVideoSetting', form.imageVideoSetting ? '1' : '0')
+  formData.append('carouselSetting', form.carouselStatic.carouselSetting ? '1' : '0')
+  formData.append('imageVideoSetting', form.carouselStatic.imageVideoSetting ? '1' : '0')
 
-  form.carousel.forEach((item, i) => {
+  form.carouselStatic.carousel.forEach((item, i) => {
     if (!item) return
     if (item.path instanceof File) {
       formData.append(`carousel[${i}][path]`, item.path)
@@ -115,7 +160,7 @@ const buildFormData = (): FormData => {
     formData.append(`carousel[${i}][subtitle]`, item.subtitle || '')
   })
 
-  const imgVid = form.imageVideo
+  const imgVid = form.carouselStatic.imageVideo
   if (imgVid) {
     if (imgVid.path instanceof File) {
       formData.append('imageVideo[path]', imgVid.path)
@@ -138,19 +183,20 @@ const saveChanges = async () => {
       console.log(`${key}:`, val)
     }
 
+    console.log(
+      form.carouselStatic.carousel
+    )
+
+
     const response = await api.post('/api/design/carouselImage', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
 
-    // Guardar el estado actual como original
-    originalData.value = {
-      carouselSetting: form.carouselSetting,
-      imageVideoSetting: form.imageVideoSetting,
-      carousel: [...form.carousel],
-      imageVideo: form.imageVideo ? { ...form.imageVideo } : null
-    }
+    originalData.value = JSON.parse(JSON.stringify(toRaw(form)))
 
+    detectChanges()
     hasChanges.value = false
+
     console.log('✅ Enviado correctamente:', response.data)
   } catch (error) {
     console.error('❌ Error al enviar:', error)
@@ -159,21 +205,20 @@ const saveChanges = async () => {
   }
 }
 
+const restoreDefaults = () => {
+  Object.assign(form.carouselStatic, originalData.value.carouselStatic)
+  hasChanges.value = false
+  console.log('Restaurado a los valores originales:', toRaw(form))
+}
+
 // sincronizar props iniciales
 watch(
   () => props.carouselStatic,
   (value) => {
-    if (!value) return
-    form.carouselSetting = value.carouselSetting
-    form.imageVideoSetting = value.imageVideoSetting
-    form.carousel = value.carousel
-    form.imageVideo = value.imageVideo
-    originalData.value = {
-      carouselSetting: value.carouselSetting,
-      imageVideoSetting: value.imageVideoSetting,
-      carousel: [...value.carousel],
-      imageVideo: value.imageVideo ? { ...value.imageVideo } : null
-    }
+    // 1. Asignar los valores del 'form'
+    form.carouselStatic = { ...carouselStatic(), ...value}
+
+    originalData.value = JSON.parse(JSON.stringify(toRaw(form)))
     hasChanges.value = false
   },
   { immediate: true, deep: true }

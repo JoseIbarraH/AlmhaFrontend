@@ -88,7 +88,6 @@ const createBackground = (): Background => ({
   title: '',
   subtitle: ''
 })
-
 const form = reactive({
   background1: createBackground(),
   background2: createBackground(),
@@ -129,11 +128,14 @@ const buildFormData = (): FormData => {
 }
 
 const saveChanges = async () => {
-
   loading.value = true;
-
   try {
     const formData = buildFormData()
+
+    for (const [key, val] of formData.entries()) {
+      console.log(`${key}:`, val)
+    }
+
     const response = await api.post('/api/design/backgrounds', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
