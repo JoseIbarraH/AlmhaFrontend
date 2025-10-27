@@ -30,20 +30,26 @@
 
   <div class="w-full pt-4">
     <GalleryImageSelected v-if="form.carouselStatic.carouselSetting" v-model:carousel="form.carouselStatic.carousel" />
-    <ImageVideoSelected v-if="form.carouselStatic.imageVideoSetting" v-model:image-video="form.carouselStatic.imageVideo" />
+    <ImageVideoSelected v-if="form.carouselStatic.imageVideoSetting"
+      v-model:image-video="form.carouselStatic.imageVideo" />
   </div>
 </template>
 
 <script setup lang="ts">
 import GalleryImageSelected from '../components/CarouselImageSelected.vue';
 import ImageVideoSelected from '../components/ImageVideoSelected.vue';
+import { showNotification } from '@/composables/useNotification';
 import SecondaryButton from '@/components/SecondaryButton.vue';
-import { onMounted, reactive, watch, ref, toRaw } from 'vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import ImageVideo from '../components/ImageVideo.vue';
+import { reactive, watch, ref, toRaw } from 'vue';
 import Gallery from '../components/Carousel.vue';
 import type { CarouselStatic } from '../types';
 import { api } from '@/plugins/api'
+import type { AxiosError } from 'axios'
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
 
 const props = defineProps<{
   carouselStatic: CarouselStatic
@@ -64,7 +70,6 @@ const form = reactive({
   carouselStatic: carouselStatic()
 })
 
-// Usamos el mismo tipo para el original
 const originalData = ref({
   carouselStatic: carouselStatic()
 })
@@ -87,8 +92,8 @@ const detectChanges = () => {
   const original = originalData.value.carouselStatic
 
   // Comparar settings
-  if ((current.carouselSetting ? 1 : 0) !== (original.carouselSetting)  ||
-      (current.imageVideoSetting ? 1 : 0) !== original.imageVideoSetting) {
+  if ((current.carouselSetting ? 1 : 0) !== (original.carouselSetting) ||
+    (current.imageVideoSetting ? 1 : 0) !== original.imageVideoSetting) {
     hasChanges.value = true
     return
   }
@@ -134,13 +139,38 @@ const detectChanges = () => {
   const origIVPath = origIV.path instanceof File ? origIV.path.name : origIV.path
 
   if (currIVPath !== origIVPath ||
-      currIV.title !== origIV.title ||
-      currIV.subtitle !== origIV.subtitle) {
+    currIV.title !== origIV.title ||
+    currIV.subtitle !== origIV.subtitle) {
     hasChanges.value = true
     return
   }
 
   hasChanges.value = false
+}
+
+const validateBeforeSave = () => {
+  if (form.carouselStatic.carouselSetting) {
+
+    for (let i = 0; i < form.carouselStatic.carousel.length; i++) {
+      const item = form.carouselStatic.carousel[i]
+      const hasPath = item && (item.path instanceof File || (typeof item.path === 'string' && item.path.trim() !== ''))
+      if (!hasPath) {
+        showNotification('warning', t('Dashboard.Design.ChooseCarouselImage.Validations.Carousel', { n: i + 1  }), 3000)
+        return false
+      }
+    }
+  }
+
+  if (form.carouselStatic.imageVideoSetting) {
+    const imgVid = form.carouselStatic.imageVideo
+    const hasIVPath = imgVid && (imgVid.path instanceof File || (typeof imgVid.path === 'string' && imgVid.path.trim() !== ''))
+    if (!hasIVPath) {
+      showNotification('warning', t('Dashboard.Design.ChooseCarouselImage.Validations.ImageVideo'), 3000)
+      return false
+    }
+  }
+
+  return true
 }
 
 const buildFormData = (): FormData => {
@@ -175,18 +205,15 @@ const buildFormData = (): FormData => {
 }
 
 const saveChanges = async () => {
+  if (!validateBeforeSave()) return
+
   loading.value = true
   try {
     const formData = buildFormData()
 
-    for (const [key, val] of formData.entries()) {
+    /* for (const [key, val] of formData.entries()) {
       console.log(`${key}:`, val)
-    }
-
-    console.log(
-      form.carouselStatic.carousel
-    )
-
+    } */
 
     const response = await api.post('/api/design/carouselImage', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
@@ -198,8 +225,19 @@ const saveChanges = async () => {
     hasChanges.value = false
 
     console.log('✅ Enviado correctamente:', response.data)
+    showNotification('success', response.data.message, 3000)
   } catch (error) {
-    console.error('❌ Error al enviar:', error)
+    const err = error as AxiosError<any>
+    const errors = err.response?.data?.errors
+    const message = errors
+    ? Object.values(errors)
+        .flat()
+        .join('\n')
+    : err.response?.data?.message || 'Ocurrió un error inesperado'
+
+    console.error('❌ Error al enviar:', err)
+
+    showNotification('error', message, 4000)
   } finally {
     loading.value = false
   }
@@ -216,7 +254,7 @@ watch(
   () => props.carouselStatic,
   (value) => {
     // 1. Asignar los valores del 'form'
-    form.carouselStatic = { ...carouselStatic(), ...value}
+    form.carouselStatic = { ...carouselStatic(), ...value }
 
     originalData.value = JSON.parse(JSON.stringify(toRaw(form)))
     hasChanges.value = false
@@ -226,9 +264,6 @@ watch(
 
 watch(form, detectChanges, { deep: true })
 
-onMounted(() => {
-  console.log("📦 props recibidas:", props)
-})
 </script>
 
 

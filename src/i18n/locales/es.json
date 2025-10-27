@@ -129,10 +129,19 @@
         "LabelSlogan": "Eslogan",
         "LabelSloganPlaceholder": "Ingrese título",
         "VideoError": "Tu navegador no soporta la reproducción de videos.",
-        "DropImage": "Arrastra y suelta imágenes o videos aquí, o haz clic para seleccionarlos"
+        "NewImage": "Agrega una nueva imagen.",
+        "Validations": {
+          "ImageVideo": "El elemento Imagen/Video no tiene archivo seleccionado.",
+          "Carousel": "La imagen # {n} del carrusel no tiene archivo seleccionado."
+        }
       },
       "Backgrounds": {
-        "Title": "Seleccionar Fondos"
+        "Title": "Seleccionar Fondos",
+        "Validations": {
+          "Path1": "El fondo 1 no tiene archivo seleccionado.",
+          "Path2": "El fondo 2 no tiene archivo seleccionado.",
+          "Path3": "El fondo 3 no tiene archivo seleccionado."
+        }
       },
       "ChooseCarouselNavbar": {
         "Title": "Seleccionar Fotos de Carrusel Navbar"

@@ -68,14 +68,19 @@
 </template>
 
 <script setup lang="ts">
+import { showNotification } from '@/composables/useNotification'
+import SecondaryButton from '@/components/SecondaryButton.vue'
 import ImagesPreview from '@/components/ImagesPreview.vue'
 import PrimaryButton from '@/components/PrimaryButton.vue'
-import SecondaryButton from '@/components/SecondaryButton.vue'
-import TextInput from '@/components/TextInput.vue'
 import InputLabel from '@/components/InputLabel.vue'
-import { api } from '@/plugins/api'
+import TextInput from '@/components/TextInput.vue'
 import { watch, reactive, ref, toRaw } from 'vue'
 import type { Background } from '../types'
+import type { AxiosError } from 'axios'
+import { api } from '@/plugins/api'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   background1: Background | null
@@ -127,7 +132,28 @@ const buildFormData = (): FormData => {
   return formData
 }
 
+const validateBeforeSave = () => {
+  if (!form.background1.path) {
+    showNotification('warning', t('Dashboard.Design.Backgrounds.Validations.Path1'), 3000)
+    return false
+  }
+
+  if (!form.background2.path) {
+    showNotification('warning', t('Dashboard.Design.Backgrounds.Validations.Path2'), 3000)
+    return false
+  }
+
+  if (!form.background3.path) {
+    showNotification('warning', t('Dashboard.Design.Backgrounds.Validations.Path3'), 3000)
+    return false
+  }
+
+  return true
+}
+
 const saveChanges = async () => {
+  if (!validateBeforeSave()) return
+
   loading.value = true;
   try {
     const formData = buildFormData()
@@ -145,9 +171,12 @@ const saveChanges = async () => {
     detectChanges()
     hasChanges.value = false
 
+    showNotification('success', response.data.message, 3000)
     console.log('Enviado correctamente:', response.data)
   } catch (error) {
-    console.error('Error al enviar:', error)
+    const err = error as AxiosError<any>
+    const message = err.response?.data?.message || 'Ocurrió un error inesperado'
+    showNotification('error', message, 3000)
   } finally {
     loading.value = false;
   }

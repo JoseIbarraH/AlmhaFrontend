@@ -18,11 +18,11 @@ import DashboardProfile from "@/views/dashboard/profile/Index.vue"
 
 import AuthLogin from "@/views/auth/Login.vue"
 
-import ClientHome from "@/views/client/home/Index.vue"
+/* import ClientHome from "@/views/client/home/Index.vue"
 import ClientService from "@/views/client/service/Index.vue"
 import ClientTeam from "@/views/client/team/Index.vue"
 import ClientBlog from "@/views/client/blog/Index.vue"
-import ClientAboutUs from "@/views/client/about_us/Index.vue"
+import ClientAboutUs from "@/views/client/about_us/Index.vue" */
 import { api } from '@/plugins/api'
 
 // ⚙️ Asegúrate que axios tenga withCredentials=true
@@ -73,7 +73,7 @@ const routes: RouteRecordRaw[] = [
       return next()
     },
     children: [
-      {
+      /* {
         path: "",
         component: ClientLayout,
         children: [
@@ -83,7 +83,7 @@ const routes: RouteRecordRaw[] = [
           { path: "blog", name: "client.blog", component: ClientBlog, meta: { titleKey: 'Client.Meta.Blog' } },
           { path: "about_us", name: "client.about_us", component: ClientAboutUs, meta: { titleKey: 'Client.Meta.AboutUs' } },
         ]
-      },
+      }, */
       {
         path: "auth",
         component: GuestLayout,

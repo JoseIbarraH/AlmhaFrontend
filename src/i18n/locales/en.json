@@ -129,7 +129,11 @@
         "LabelSlogan": "Slogan",
         "LabelSloganPlaceholder": "Enter slogan",
         "VideoError": "Your browser does not support video playback.",
-        "DropImage": "Drag and drop images or videos here, or click to select them"
+        "NewImage": "Add a new image.",
+        "Validations": {
+          "ImageVideo": "The Image/Video element has no file selected.",
+          "Carousel": "Carousel image # {n} has no file selected."
+        }
       },
       "Backgrounds": {
         "Title": "Select Backgrounds"

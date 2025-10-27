@@ -56,7 +56,6 @@ onMounted(async () => {
     const data = response.data.data
 
     Object.assign(form, data)
-    console.log('respuesta', form)
   } catch (error) {
     console.log('Error al obtener los diseños: ', error)
   }
