@@ -32,19 +32,25 @@
         muted
       />
 
-      <CloseButton @click="removeImage" class="absolute top-2 right-2 p-1 bg-black/100 hover:bg-black/70" />
+      <CloseButton @click="removeImage" v-if="closeButton" class="absolute top-2 right-2 p-1 bg-black/100 hover:bg-black/70" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
-import CloseButton from '@/components/CloseButton.vue'
+import CloseButton from '@/components/ui/CloseButton.vue'
 
-const props = defineProps<{
-  modelValue: File | string | null
-  error?: string
-}>()
+const props = withDefaults(
+  defineProps<{
+    modelValue: File | string | null
+    error?: string
+    closeButton?: boolean
+  }>(),
+  {
+    closeButton: true,
+  }
+)
 
 const emit = defineEmits(['update:modelValue'])
 

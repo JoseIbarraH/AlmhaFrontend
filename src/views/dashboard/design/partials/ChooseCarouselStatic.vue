@@ -6,6 +6,8 @@
 
     <transition name="fade">
       <div v-if="hasChanges" class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+        <Divider />
+
         <SecondaryButton @click="restoreDefaults" :disabled="loading" class="w-full sm:w-auto">
           Restablecer
         </SecondaryButton>
@@ -19,11 +21,12 @@
     </transition>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-    <div class="bg-white rounded-2xl shadow-md">
+  <div class="grid grid-cols-2 gap-6 mt-4">
+    <div class="bg-white rounded-2xl shadow-md flex justify-center items-center">
       <Gallery :selected="form.carouselStatic.carouselSetting" @click="handleGallery" />
     </div>
-    <div class="bg-white rounded-2xl shadow-md">
+
+    <div class="bg-white rounded-2xl shadow-md flex justify-center items-center">
       <ImageVideo :selected="form.carouselStatic.imageVideoSetting" @click="handleImageVideo" />
     </div>
   </div>
@@ -39,15 +42,16 @@
 import GalleryImageSelected from '../components/CarouselImageSelected.vue';
 import ImageVideoSelected from '../components/ImageVideoSelected.vue';
 import { showNotification } from '@/composables/useNotification';
-import SecondaryButton from '@/components/SecondaryButton.vue';
-import PrimaryButton from '@/components/PrimaryButton.vue';
+import SecondaryButton from '@/components/ui/SecondaryButton.vue';
+import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import ImageVideo from '../components/ImageVideo.vue';
 import { reactive, watch, ref, toRaw } from 'vue';
 import Gallery from '../components/Carousel.vue';
 import type { CarouselStatic } from '../types';
-import { api } from '@/plugins/api'
-import type { AxiosError } from 'axios'
+import type { AxiosError } from 'axios';
+import { api } from '@/plugins/api';
 import { useI18n } from 'vue-i18n';
+import Divider from '@/components/ui/Divider.vue';
 
 const { t } = useI18n()
 
@@ -155,7 +159,7 @@ const validateBeforeSave = () => {
       const item = form.carouselStatic.carousel[i]
       const hasPath = item && (item.path instanceof File || (typeof item.path === 'string' && item.path.trim() !== ''))
       if (!hasPath) {
-        showNotification('warning', t('Dashboard.Design.ChooseCarouselImage.Validations.Carousel', { n: i + 1  }), 3000)
+        showNotification('warning', t('Dashboard.Design.ChooseCarouselImage.Validations.Carousel', { n: i + 1 }), 4000)
         return false
       }
     }
@@ -165,7 +169,7 @@ const validateBeforeSave = () => {
     const imgVid = form.carouselStatic.imageVideo
     const hasIVPath = imgVid && (imgVid.path instanceof File || (typeof imgVid.path === 'string' && imgVid.path.trim() !== ''))
     if (!hasIVPath) {
-      showNotification('warning', t('Dashboard.Design.ChooseCarouselImage.Validations.ImageVideo'), 3000)
+      showNotification('warning', t('Dashboard.Design.ChooseCarouselImage.Validations.ImageVideo'), 4000)
       return false
     }
   }
@@ -224,19 +228,15 @@ const saveChanges = async () => {
     detectChanges()
     hasChanges.value = false
 
-    console.log('✅ Enviado correctamente:', response.data)
     showNotification('success', response.data.message, 3000)
   } catch (error) {
     const err = error as AxiosError<any>
     const errors = err.response?.data?.errors
     const message = errors
-    ? Object.values(errors)
+      ? Object.values(errors)
         .flat()
         .join('\n')
-    : err.response?.data?.message || 'Ocurrió un error inesperado'
-
-    console.error('❌ Error al enviar:', err)
-
+      : err.response?.data?.message || t('Dashboard.Design.ChooseCarouselImage.Validations.ErrorUpss')
     showNotification('error', message, 4000)
   } finally {
     loading.value = false
@@ -255,7 +255,6 @@ watch(
   (value) => {
     // 1. Asignar los valores del 'form'
     form.carouselStatic = { ...carouselStatic(), ...value }
-
     originalData.value = JSON.parse(JSON.stringify(toRaw(form)))
     hasChanges.value = false
   },

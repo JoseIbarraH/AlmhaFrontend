@@ -63,8 +63,8 @@
 </template>
 
 <script setup lang="ts">
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
-import ApplicationLogo from '@/components/ApplicationLogo.vue';
+import LanguageSwitcher from '@/components/app/LanguageSwitcher.vue';
+import ApplicationLogo from '@/components/app/ApplicationLogo.vue';
 import CarouselNavbar from './CarouselNavbar.vue';
 import Navigation from './Navigation.vue';
 import SocialMedia from './SocialMedia.vue';

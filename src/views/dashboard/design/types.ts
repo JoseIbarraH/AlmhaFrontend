@@ -30,3 +30,7 @@ export interface CarouselStatic {
   carousel: CarouselItem[]
   imageVideo: Background | null
 }
+
+export interface CarouselToolInt {
+  path: string | File | null
+}

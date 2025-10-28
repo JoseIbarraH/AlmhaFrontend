@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, useRoute } from 'vue-router'
-import type { Locale } from '@/i18n'
+import type { Locale } from '@/plugins/i18n'
 
 defineProps<{
   color?: string

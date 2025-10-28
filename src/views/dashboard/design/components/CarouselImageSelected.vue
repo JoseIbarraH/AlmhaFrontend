@@ -26,9 +26,9 @@
 
             <div>
               <InputLabel :for="`design_slogan_${index}`"
-                :value="$t('Dashboard.Design.ChooseCarouselImage.LabelSlogan')" />
+                :value="$t('Dashboard.Design.ChooseCarouselImage.LabelSubtitle')" />
               <TextInput :id="`design_slogan_${index}`" v-model="item.subtitle" type="text" class="mt-1 block w-full"
-                :placeholder="$t('Dashboard.Design.ChooseCarouselImage.LabelSloganPlaceholder')" />
+                :placeholder="$t('Dashboard.Design.ChooseCarouselImage.LabelSubtitlePlaceholder')" />
             </div>
           </div>
 
@@ -49,10 +49,10 @@
 </template>
 
 <script setup lang="ts">
-import ImagesPreview from '@/components/ImagesPreview.vue'
-import CloseButton from '@/components/CloseButton.vue'
-import InputLabel from '@/components/InputLabel.vue'
-import TextInput from '@/components/TextInput.vue'
+import ImagesPreview from '@/components/ui/ImagesPreview.vue'
+import CloseButton from '@/components/ui/CloseButton.vue'
+import InputLabel from '@/components/ui/InputLabel.vue'
+import TextInput from '@/components/ui/TextInput.vue'
 import type { CarouselItem } from '../types'
 import { ref, watch } from 'vue'
 
@@ -82,7 +82,6 @@ watch(
                             item.subtitle !== current[i]?.subtitle)
 
     if (isDifferent) {
-      // Crear copia superficial para evitar referencia directa
       model.value = val.map(item => ({ ...item }))
     }
   },

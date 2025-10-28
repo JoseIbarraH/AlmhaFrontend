@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import Notification from '@/components/Notification.vue'
+import Notification from '@/components/app/Notification.vue'
 
 export function showNotification(type: string, message: string, duration = 3000) {
   const div = document.createElement('div')

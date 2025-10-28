@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw, NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import { h } from 'vue'
 import { RouterView } from 'vue-router'
-import i18n, { SUPPORTED_LOCALES, DEFAULT_LOCALE, setI18nLocale, getI18nLocale, type Locale } from '@/i18n/index'
+import i18n, { SUPPORTED_LOCALES, DEFAULT_LOCALE, setI18nLocale, getI18nLocale, type Locale } from '@/plugins/i18n/index'
 
 import AuthenticatedLayout from "@/layouts/AuthenticatedLayout.vue"
 import GuestLayout from '@/layouts/GuestLayout.vue'

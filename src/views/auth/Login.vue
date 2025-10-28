@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Checkbox from '@/components/Checkbox.vue';
-import InputError from '@/components/InputError.vue';
-import InputLabel from '@/components/InputLabel.vue';
-import PrimaryButton from '@/components/PrimaryButton.vue';
-import TextInput from '@/components/TextInput.vue';
+import Checkbox from '@/components/ui/Checkbox.vue';
+import InputError from '@/components/ui/InputError.vue';
+import InputLabel from '@/components/ui/InputLabel.vue';
+import PrimaryButton from '@/components/ui/PrimaryButton.vue';
+import TextInput from '@/components/ui/TextInput.vue';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';

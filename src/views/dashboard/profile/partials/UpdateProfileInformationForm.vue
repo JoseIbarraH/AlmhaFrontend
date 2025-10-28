@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import InputError from '@/components/InputError.vue';
-import InputLabel from '@/components/InputLabel.vue';
+import InputError from '@/components/ui/InputError.vue';
+import InputLabel from '@/components/ui/InputLabel.vue';
 /* import PrimaryButton from '@/components/PrimaryButton.vue'; */
-import TextInput from '@/components/TextInput.vue';
+import TextInput from '@/components/ui/TextInput.vue';
 import { ref } from 'vue';
 
 defineProps<{

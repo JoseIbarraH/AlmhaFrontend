@@ -9,6 +9,8 @@
         <!-- Botones condicionales -->
         <transition name="fade">
           <div v-if="hasChanges" class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <Divider />
+
             <SecondaryButton @click="restoreDefaults" :disabled="loading" class="w-full sm:w-auto">
               Restablecer
             </SecondaryButton>
@@ -30,10 +32,12 @@
             <ImagesPreview v-model="form.background1.path" class="w-full h-full object-cover" />
           </div>
           <div class="p-4 flex flex-col">
-            <InputLabel for="title1" value="Título" />
-            <TextInput id="title1" v-model="form.background1.title" placeholder="Título" />
-            <InputLabel for="subtitle1" value="Subtítulo" class="mt-2" />
-            <TextInput id="subtitle1" v-model="form.background1.subtitle" placeholder="Subtítulo" />
+            <InputLabel for="title1" :value="$t('Dashboard.Design.Backgrounds.LabelTitle')" />
+            <TextInput id="title1" v-model="form.background1.title"
+              :placeholder="$t('Dashboard.Design.Backgrounds.InputTitlePlaceholder')" />
+            <InputLabel for="subtitle1" :value="$t('Dashboard.Design.Backgrounds.LabelSubtitle')" class="mt-2" />
+            <TextInput id="subtitle1" v-model="form.background1.subtitle"
+              :placeholder="$t('Dashboard.Design.Backgrounds.InputSubtitlePlaceholder')" />
           </div>
         </div>
 
@@ -43,10 +47,12 @@
             <ImagesPreview v-model="form.background2.path" class="w-full h-full object-cover" />
           </div>
           <div class="p-4 flex flex-col">
-            <InputLabel for="title2" value="Título" />
-            <TextInput id="title2" v-model="form.background2.title" placeholder="Título" />
-            <InputLabel for="subtitle2" value="Subtítulo" class="mt-2" />
-            <TextInput id="subtitle2" v-model="form.background2.subtitle" placeholder="Subtítulo" />
+            <InputLabel for="title2" :value="$t('Dashboard.Design.Backgrounds.LabelTitle')" />
+            <TextInput id="title2" v-model="form.background2.title"
+              :placeholder="$t('Dashboard.Design.Backgrounds.InputTitlePlaceholder')" />
+            <InputLabel for="subtitle2" :value="$t('Dashboard.Design.Backgrounds.LabelSubtitle')" class="mt-2" />
+            <TextInput id="subtitle2" v-model="form.background2.subtitle"
+              :placeholder="$t('Dashboard.Design.Backgrounds.InputSubtitlePlaceholder')" />
           </div>
         </div>
 
@@ -56,10 +62,12 @@
             <ImagesPreview v-model="form.background3.path" class="w-full h-full object-cover" />
           </div>
           <div class="p-4 flex flex-col">
-            <InputLabel for="title3" value="Título" />
-            <TextInput id="title3" v-model="form.background3.title" placeholder="Título" />
-            <InputLabel for="subtitle3" value="Subtítulo" class="mt-2" />
-            <TextInput id="subtitle3" v-model="form.background3.subtitle" placeholder="Subtítulo" />
+            <InputLabel for="title3" :value="$t('Dashboard.Design.Backgrounds.LabelTitle')" />
+            <TextInput id="title3" v-model="form.background3.title"
+              :placeholder="$t('Dashboard.Design.Backgrounds.InputTitlePlaceholder')" />
+            <InputLabel for="subtitle3" :value="$t('Dashboard.Design.Backgrounds.LabelSubtitle')" class="mt-2" />
+            <TextInput id="subtitle3" v-model="form.background3.subtitle"
+              :placeholder="$t('Dashboard.Design.Backgrounds.InputSubtitlePlaceholder')" />
           </div>
         </div>
       </div>
@@ -69,16 +77,17 @@
 
 <script setup lang="ts">
 import { showNotification } from '@/composables/useNotification'
-import SecondaryButton from '@/components/SecondaryButton.vue'
-import ImagesPreview from '@/components/ImagesPreview.vue'
-import PrimaryButton from '@/components/PrimaryButton.vue'
-import InputLabel from '@/components/InputLabel.vue'
-import TextInput from '@/components/TextInput.vue'
+import SecondaryButton from '@/components/ui/SecondaryButton.vue'
+import ImagesPreview from '@/components/ui/ImagesPreview.vue'
+import PrimaryButton from '@/components/ui/PrimaryButton.vue'
+import InputLabel from '@/components/ui/InputLabel.vue'
+import TextInput from '@/components/ui/TextInput.vue'
 import { watch, reactive, ref, toRaw } from 'vue'
 import type { Background } from '../types'
 import type { AxiosError } from 'axios'
 import { api } from '@/plugins/api'
 import { useI18n } from 'vue-i18n'
+import Divider from '@/components/ui/Divider.vue'
 
 const { t } = useI18n()
 
@@ -134,17 +143,17 @@ const buildFormData = (): FormData => {
 
 const validateBeforeSave = () => {
   if (!form.background1.path) {
-    showNotification('warning', t('Dashboard.Design.Backgrounds.Validations.Path1'), 3000)
+    showNotification('warning', t('Dashboard.Design.Backgrounds.Validations.Path1'), 4000)
     return false
   }
 
   if (!form.background2.path) {
-    showNotification('warning', t('Dashboard.Design.Backgrounds.Validations.Path2'), 3000)
+    showNotification('warning', t('Dashboard.Design.Backgrounds.Validations.Path2'), 4000)
     return false
   }
 
   if (!form.background3.path) {
-    showNotification('warning', t('Dashboard.Design.Backgrounds.Validations.Path3'), 3000)
+    showNotification('warning', t('Dashboard.Design.Backgrounds.Validations.Path3'), 4000)
     return false
   }
 
@@ -175,8 +184,8 @@ const saveChanges = async () => {
     console.log('Enviado correctamente:', response.data)
   } catch (error) {
     const err = error as AxiosError<any>
-    const message = err.response?.data?.message || 'Ocurrió un error inesperado'
-    showNotification('error', message, 3000)
+    const message = err.response?.data?.message || t('Dashboard.Design.Backgrounds.Validations.ErrorUpss')
+    showNotification('error', message, 4000)
   } finally {
     loading.value = false;
   }
@@ -187,15 +196,20 @@ const restoreDefaults = () => {
   Object.assign(form.background2, originalData.value.background2)
   Object.assign(form.background3, originalData.value.background3)
   hasChanges.value = false
-  console.log('Restaurado a los valores originales:', toRaw(form))
 }
+
+const normalizeBackground = (bg: Background | null | undefined): Background => ({
+  path: bg?.path ?? '',
+  title: bg?.title ?? '',
+  subtitle: bg?.subtitle ?? ''
+})
 
 watch(
   () => [props.background1, props.background2, props.background3],
   ([b1, b2, b3]) => {
-    form.background1 = { ...createBackground(), ...b1 }
-    form.background2 = { ...createBackground(), ...b2 }
-    form.background3 = { ...createBackground(), ...b3 }
+    form.background1 = normalizeBackground(b1)
+    form.background2 = normalizeBackground(b2)
+    form.background3 = normalizeBackground(b3)
 
     originalData.value = JSON.parse(JSON.stringify(toRaw(form)))
     hasChanges.value = false

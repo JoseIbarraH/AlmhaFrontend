@@ -124,32 +124,53 @@
       "Title": "Interfaz - Gestion de imagenes",
       "ChooseCarouselImage": {
         "Title": "Seleccionar Galería o Imagen/Video",
-        "LabelTitle": "Titulo",
+        "LabelTitle": "Titulo (Opcional)",
         "LabelTitlePlaceholder": "Ingrese título",
-        "LabelSlogan": "Eslogan",
-        "LabelSloganPlaceholder": "Ingrese título",
+        "LabelSubtitle": "Subtitulo (Opcional)",
+        "LabelSubtitlePlaceholder": "Ingrese título",
         "VideoError": "Tu navegador no soporta la reproducción de videos.",
         "NewImage": "Agrega una nueva imagen.",
         "Validations": {
           "ImageVideo": "El elemento Imagen/Video no tiene archivo seleccionado.",
-          "Carousel": "La imagen # {n} del carrusel no tiene archivo seleccionado."
+          "Carousel": "La imagen #{n} del carrusel no tiene archivo seleccionado.",
+          "ErrorUpss": "Ocurrió un error inesperado"
         }
       },
       "Backgrounds": {
         "Title": "Seleccionar Fondos",
+        "LabelTitle": "Titulo (Opcional)",
+        "InputTitlePlaceholder": "Ingrese título",
+        "LabelSubtitle": "Subtitulo (Opcional)",
+        "InputSubtitlePlaceholder": "Ingrese título",
         "Validations": {
           "Path1": "El fondo 1 no tiene archivo seleccionado.",
           "Path2": "El fondo 2 no tiene archivo seleccionado.",
-          "Path3": "El fondo 3 no tiene archivo seleccionado."
+          "Path3": "El fondo 3 no tiene archivo seleccionado.",
+          "ErrorUpss": "Ocurrió un error inesperado"
         }
       },
       "ChooseCarouselNavbar": {
-        "Title": "Seleccionar Fotos de Carrusel Navbar"
+        "Title": "Seleccionar Fotos de Carrusel Navbar",
+        "LabelTitle": "Titulo (Opcional)",
+        "InputTitlePlaceholder": "Ingrese título",
+        "LabelSubtitle": "Subtitulo (Opcional)",
+        "InputSubtitlePlaceholder": "Ingrese título",
+        "Validations": {
+          "Carousel": "La imagen #{n} del carrusel navbar no tiene archivo seleccionado.",
+          "ErrorUpss": "Ocurrió un error inesperado"
+        }
+      },
+      "ChooseCarouselTool" : {
+        "Title" : "Seleccionar Fotos de Carrusel de Herramientas",
+        "Validations" : {
+          "path" : "La imagen #{n} del carrusel de herramientas no tiene archivo seleccionado",
+          "ErrorUpss": "Ocurrió un error inesperado"
+        }
       }
     },
     "Service": {
       "Header": "Servicios",
-      "Title": "Servicios",
+      "Title": "Servicios - Gestion de Servicios",
       "CreateService": "Crear Servicio",
       "TotalServices": "Servicios totales",
       "ServicesActives": "Servicios activos",

@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import type { RouteLocationNamedRaw, RouteLocationRaw } from 'vue-router'
-import { getI18nLocale, type Locale } from '@/i18n'
+import { getI18nLocale, type Locale } from '@/plugins/i18n'
 
 export function useLocalizedRoute() {
   const route = useRoute()

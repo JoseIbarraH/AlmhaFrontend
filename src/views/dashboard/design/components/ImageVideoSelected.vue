@@ -22,10 +22,10 @@
 
 
 <script setup lang="ts">
-import ImagesPreview from '@/components/ImagesPreview.vue';
+import ImagesPreview from '@/components/ui/ImagesPreview.vue';
 import { reactive, watch } from 'vue';
-import TextInput from '@/components/TextInput.vue';
-import InputLabel from '@/components/InputLabel.vue';
+import TextInput from '@/components/ui/TextInput.vue';
+import InputLabel from '@/components/ui/InputLabel.vue';
 
 // v-model:imageVideo
 const model = defineModel('imageVideo', { type: Object })

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
     <h3 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left">
-      {{ $t('Dashboard.Design.ChooseCarouselNavbar.Title') }}
+      {{ $t('Dashboard.Design.ChooseCarouselTool.Title') }}
     </h3>
 
     <transition name="fade">
@@ -22,18 +22,17 @@
   </div>
 
   <div>
-    <CarouselNavbar v-model:carousel-navbar="form.carouselNavbar" />
+    <CarouselTool v-model:carousel-tool="form.carouselTool" />
   </div>
-
 </template>
 
 <script setup lang="ts">
 import { showNotification } from '@/composables/useNotification';
 import SecondaryButton from '@/components/ui/SecondaryButton.vue';
-import CarouselNavbar from '../components/CarouselNavbar.vue';
 import PrimaryButton from '@/components/ui/PrimaryButton.vue';
+import CarouselTool from '../components/CarouselTool.vue';
 import { reactive, ref, toRaw, watch } from 'vue';
-import type { CarouselItem } from '../types';
+import type { CarouselToolInt } from '../types';
 import type { AxiosError } from 'axios';
 import { api } from '@/plugins/api';
 import { useI18n } from 'vue-i18n';
@@ -42,29 +41,27 @@ import Divider from '@/components/ui/Divider.vue';
 const { t } = useI18n()
 
 const props = defineProps<{
-  carouselNavbar: CarouselItem[]
+  carouselTool: CarouselToolInt[]
 }>()
 
-const carouselNavbar = (): CarouselItem => ({
-  path: '',
-  title: '',
-  subtitle: ''
+const carouselTool = (): CarouselToolInt => ({
+  path: ''
 })
 
 const form = reactive({
-  carouselNavbar: [carouselNavbar()]
+  carouselTool: [carouselTool()]
 })
 
 const originalData = ref({
-  carouselNavbar: [carouselNavbar()]
+  carouselTool: [carouselTool()]
 })
 
 const hasChanges = ref(false)
 const loading = ref(false)
 
 const detectChanges = () => {
-  const current = toRaw(form.carouselNavbar)
-  const original = originalData.value.carouselNavbar
+  const current = toRaw(form.carouselTool)
+  const original = originalData.value.carouselTool
 
   if (current.length !== original.length) {
     hasChanges.value = true
@@ -78,17 +75,17 @@ const detectChanges = () => {
     const currPath = curr.path instanceof File ? curr.path.name : curr.path
     const origPath = orig.path instanceof File ? orig.path.name : orig.path
 
-    return currPath !== origPath || curr.title !== orig.title || curr.subtitle !== orig.subtitle
+    return currPath !== origPath
   })
 }
 
 const validateBeforeSave = () => {
-  if (form.carouselNavbar) {
-    for (let i = 0; i < form.carouselNavbar.length; i++) {
-      const item = form.carouselNavbar[i]
+  if (form.carouselTool) {
+    for (let i = 0; i < form.carouselTool.length; i++) {
+      const item = form.carouselTool[i]
       const hasPath = item && (item.path instanceof File || (typeof item.path === 'string' && item.path.trim() !== ''))
       if (!hasPath) {
-        showNotification('warning', t('Dashboard.Design.ChooseCarouselNavbar.Validations.Carousel', { n: i + 1 }), 4000)
+        showNotification('warning', t('Dashboard.Design.ChooseCarouselTool.Validations.path'), 4000)
         return false
       }
     }
@@ -100,24 +97,20 @@ const validateBeforeSave = () => {
 const buildFormData = (): FormData => {
   const formData = new FormData()
 
-  form.carouselNavbar.forEach((item, i) => {
+  form.carouselTool.forEach((item, i) => {
     if (!item) return
 
-    const prefix = `carouselNavbar[${i}]`
+    const prefix = `carouselTool[${i}]`
 
     if (item.path instanceof File) {
       formData.append(`${prefix}[path]`, item.path)
     } else if (typeof item.path === 'string' && item.path.trim() !== '') {
       formData.append(`${prefix}[path]`, item.path)
     }
-
-    formData.append(`${prefix}[title]`, item.title || '')
-    formData.append(`${prefix}[subtitle]`, item.subtitle || '')
   })
 
   return formData
 }
-
 
 const saveChanges = async () => {
   if (!validateBeforeSave()) return
@@ -130,8 +123,8 @@ const saveChanges = async () => {
       console.log(`${key}:`, val)
     }
 
-    const response = await api.post('/api/design/carouselNavbar', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
+    const response = await api.post('/api/design/carouselTool', formData, {
+      headers: { 'Content-Type': 'multipart/form-data'}
     })
 
     originalData.value = JSON.parse(JSON.stringify(toRaw(form)))
@@ -148,7 +141,7 @@ const saveChanges = async () => {
       ? Object.values(errors)
         .flat()
         .join('\n')
-      : err.response?.data?.message || t('Dashboard.Design.ChooseCarouselNavbar.Validations.ErrorUpss')
+      : err.response?.data?.message || t('Dashboard.Design.ChooseCarouselTool.Validations.ErrorUpss')
 
     showNotification('error', message, 4000)
   } finally {
@@ -157,14 +150,14 @@ const saveChanges = async () => {
 }
 
 const restoreDefaults = () => {
-  Object.assign(form.carouselNavbar, originalData.value.carouselNavbar)
+  Object.assign(form.carouselTool, originalData.value.carouselTool)
   hasChanges.value = false
 }
 
 watch(
-  () => props.carouselNavbar,
+  () => props.carouselTool,
   (value) => {
-    form.carouselNavbar = (value ?? []).map(item => ({ ...carouselNavbar(), ...item }))
+    form.carouselTool = (value ?? []).map(item => ({ ...carouselTool(), ...item }))
 
     originalData.value = JSON.parse(JSON.stringify(toRaw(form)))
 
@@ -174,16 +167,5 @@ watch(
 )
 
 watch(form, detectChanges, { deep: true })
+
 </script>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

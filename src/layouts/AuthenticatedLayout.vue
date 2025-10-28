@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import ResponsiveNavLink from '@/components/ResponsiveNavLink.vue';
-import LanguageSwitcher from '../components/LanguageSwitcher.vue';
-import ApplicationLogo from '../components/ApplicationLogo.vue';
+import ResponsiveNavLink from '@/components/ui/ResponsiveNavLink.vue';
+import LanguageSwitcher from '../components/app/LanguageSwitcher.vue';
+import ApplicationLogo from '../components/app/ApplicationLogo.vue';
 import { useRouteHelper} from '@/composables/useRouteHelper';
-import DropdownLink from '../components/DropdownLink.vue';
-import Dropdown from '../components/Dropdown.vue';
+import DropdownLink from '../components/ui/DropdownLink.vue';
+import Dropdown from '../components/ui/Dropdown.vue';
 import { useAuthStore } from '@/stores/authStore'
-import NavLink from '../components/NavLink.vue';
+import NavLink from '../components/ui/NavLink.vue';
 import { RouterView } from 'vue-router';
 import { ref } from 'vue';
-import LogOutButton from '@/components/LogOutButton.vue';
-import LogOutButtonResponsive from '@/components/LogOutButtonResponsive.vue';
+import LogOutButton from '@/components/app/LogOutButton.vue';
+import LogOutButtonResponsive from '@/components/app/LogOutButtonResponsive.vue';
 
 const auth = useAuthStore()
 
