@@ -6,7 +6,6 @@ import i18n, { SUPPORTED_LOCALES, DEFAULT_LOCALE, setI18nLocale, getI18nLocale, 
 
 import AuthenticatedLayout from "@/layouts/AuthenticatedLayout.vue"
 import GuestLayout from '@/layouts/GuestLayout.vue'
-import ClientLayout from '@/layouts/ClientLayout.vue'
 
 import NotFound from "@/views/errors/NotFound.vue"
 import DashboardBlog from "@/views/dashboard/blog/Index.vue"

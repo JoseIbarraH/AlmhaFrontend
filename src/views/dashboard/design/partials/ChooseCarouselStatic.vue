@@ -1,19 +1,28 @@
 <template>
-  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+  <!-- Contenedor con z-index para asegurar que los botones estén encima -->
+  <div class="relative z-10 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 min-h-[2.25rem] mb-4">
     <h3 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left">
       {{ $t('Dashboard.Design.ChooseCarouselImage.Title') }}
     </h3>
 
     <transition name="fade">
       <div v-if="hasChanges" class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-        <Divider />
+        <Divider class="hidden sm:block" />
 
-        <SecondaryButton @click="restoreDefaults" :disabled="loading" class="w-full sm:w-auto">
+        <SecondaryButton
+          @click="restoreDefaults"
+          :disabled="loading"
+          class="w-full sm:w-auto relative z-20"
+        >
           Restablecer
         </SecondaryButton>
 
-        <PrimaryButton @click="saveChanges" :class="{ 'opacity-50 cursor-not-allowed': loading }" :disabled="loading"
-          class="w-full sm:w-auto">
+        <PrimaryButton
+          @click="saveChanges"
+          :class="{ 'opacity-50 cursor-not-allowed': loading }"
+          :disabled="loading"
+          class="w-full sm:w-auto relative z-20"
+        >
           <span v-if="loading">Guardando...</span>
           <span v-else>Guardar</span>
         </PrimaryButton>
@@ -21,27 +30,34 @@
     </transition>
   </div>
 
-  <div class="grid grid-cols-2 gap-6 mt-4">
-    <div class="bg-white rounded-2xl shadow-md flex justify-center items-center">
+  <!-- Grid de componentes -->
+  <div class="grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-6 relative z-0">
+    <div class="bg-white rounded-2xl shadow-md flex justify-center items-center aspect-video sm:aspect-auto sm:h-40">
       <Gallery :selected="form.carouselStatic.carouselSetting" @click="handleGallery" />
     </div>
 
-    <div class="bg-white rounded-2xl shadow-md flex justify-center items-center">
+    <div class="bg-white rounded-2xl shadow-md flex justify-center items-center aspect-video sm:aspect-auto sm:h-40">
       <ImageVideo :selected="form.carouselStatic.imageVideoSetting" @click="handleImageVideo" />
     </div>
   </div>
 
-  <div class="w-full pt-4">
-    <GalleryImageSelected v-if="form.carouselStatic.carouselSetting" v-model:carousel="form.carouselStatic.carousel" />
-    <ImageVideoSelected v-if="form.carouselStatic.imageVideoSetting"
-      v-model:image-video="form.carouselStatic.imageVideo" />
+  <!-- Contenido adicional -->
+  <div class="w-full pt-4 relative z-0">
+    <GalleryImageSelected
+      v-if="form.carouselStatic.carouselSetting"
+      v-model:carousel="form.carouselStatic.carousel"
+    />
+    <ImageVideoSelected
+      v-if="form.carouselStatic.imageVideoSetting"
+      v-model:image-video="form.carouselStatic.imageVideo"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import GalleryImageSelected from '../components/CarouselImageSelected.vue';
 import ImageVideoSelected from '../components/ImageVideoSelected.vue';
-import { showNotification } from '@/composables/useNotification';
+import { showNotification } from '@/components/composables/useNotification';
 import SecondaryButton from '@/components/ui/SecondaryButton.vue';
 import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import ImageVideo from '../components/ImageVideo.vue';

@@ -2,7 +2,7 @@
 import ResponsiveNavLink from '@/components/ui/ResponsiveNavLink.vue';
 import LanguageSwitcher from '../components/app/LanguageSwitcher.vue';
 import ApplicationLogo from '../components/app/ApplicationLogo.vue';
-import { useRouteHelper} from '@/composables/useRouteHelper';
+import { useRouteHelper } from '@/components/composables/useRouteHelper';
 import DropdownLink from '../components/ui/DropdownLink.vue';
 import Dropdown from '../components/ui/Dropdown.vue';
 import { useAuthStore } from '@/stores/authStore'

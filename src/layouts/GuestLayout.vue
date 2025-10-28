@@ -5,7 +5,7 @@ import ApplicationLogo from '@/components/app/ApplicationLogo.vue';
 <template>
   <div class="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0">
     <div>
-      <router-link :to="{ name: 'client.home' }">
+      <router-link :to="{ name: 'auth.login' }">
         <ApplicationLogo class="h-20 w-20 fill-current text-gray-500" />
       </router-link>
     </div>

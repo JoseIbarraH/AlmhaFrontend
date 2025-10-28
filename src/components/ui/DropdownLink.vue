@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue"
 import type { RouterLinkProps } from "vue-router"
-import { useLocalizedRoute } from "@/composables/useLocalizedRoute"
+import { useLocalizedRoute } from "@/components/composables/useLocalizedRoute"
 
 const props = defineProps<{
   href: RouterLinkProps["to"]

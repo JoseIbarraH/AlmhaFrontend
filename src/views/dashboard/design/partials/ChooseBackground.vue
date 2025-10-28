@@ -76,7 +76,7 @@
 </template>
 
 <script setup lang="ts">
-import { showNotification } from '@/composables/useNotification'
+import { showNotification } from '@/components/composables/useNotification'
 import SecondaryButton from '@/components/ui/SecondaryButton.vue'
 import ImagesPreview from '@/components/ui/ImagesPreview.vue'
 import PrimaryButton from '@/components/ui/PrimaryButton.vue'
