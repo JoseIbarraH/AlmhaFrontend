@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useAuthStore } from '@/stores/authStore'
+import router from '@/router'
 
 //Configuración base para Laravel Sanctum
 export const api = axios.create({
@@ -31,18 +32,17 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Interceptor de respuesta global (manejo de 401 y 419)
 api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
+  response => response,
+  async error => {
     const status = error.response?.status
+    const isLoginRoute = router.currentRoute.value.name === 'auth.login'
+    const isLoginRequest = error.config.url?.endsWith('/api/login')
 
-    if (status === 401) {
-      try {
-        console.log('Usuario no autorizado');
-        const auth = useAuthStore()
-        auth.logout()
-      } catch {}
+    if (status === 401 && !isLoginRoute && !isLoginRequest) {
+      const auth = useAuthStore()
+      auth.logout()
+      router.push({ name: 'auth.login' })
     }
 
     if (status === 419) {

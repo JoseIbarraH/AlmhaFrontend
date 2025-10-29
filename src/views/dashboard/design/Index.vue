@@ -1,33 +1,32 @@
 <template>
-  <div class="bg-white p-6 drop-shadow-sm">
-    <h2 class="text-xl font-semibold leading-tight text-gray-800 flex justify-between">
-      {{ $t('Dashboard.Design.Title') }}
-    </h2>
-  </div>
-  <div class="p-6">
+  <section class="p-6 space-y-6">
+    <header
+      class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 bg-white p-4 sm:p-6 shadow-sm rounded-lg">
+      <h2 class="text-xl font-semibold text-gray-800">
+        {{ $t('Dashboard.Design.Title') }}
+      </h2>
+    </header>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="h-fit">
         <div class="bg-white p-6 rounded-lg shadow-md h-fit">
           <ChooseCarouselStatic :carousel-static="form.carouselStatic" />
         </div>
         <div class="bg-white p-6 rounded-lg shadow-md mt-4">
-          <ChooseCarouselNavbar :carousel-navbar="form.carouselNavbar"/>
+          <ChooseCarouselNavbar :carousel-navbar="form.carouselNavbar" />
         </div>
       </div>
       <div class="h-fit">
         <div class="bg-white p-6 rounded-lg shadow-md">
-          <ChooseBackground
-            :background1="form.background1"
-            :background2="form.background2"
-            :background3="form.background3"
-          />
+          <ChooseBackground :background1="form.background1" :background2="form.background2"
+            :background3="form.background3" />
         </div>
         <div class="bg-white p-6 rounded-lg shadow-md mt-4">
-          <ChooseCarouselTool :carousel-tool="form.carouselTool"/>
+          <ChooseCarouselTool :carousel-tool="form.carouselTool" />
         </div>
       </div>
     </div>
-  </div>
+
+  </section>
 </template>
 
 <script setup lang="ts">

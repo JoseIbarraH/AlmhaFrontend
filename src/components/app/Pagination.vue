@@ -1,100 +1,167 @@
-<script setup lang="ts">
-import { computed, defineEmits } from 'vue'
+<template>
+  <nav
+    v-if="pagination.last_page > 1"
+    class="flex flex-wrap justify-center items-center gap-2 mt-6"
+    aria-label="Navegación de páginas"
+  >
+    <!-- Botón Anterior -->
+    <button
+      class="px-3 py-1 rounded-md border text-sm transition-colors"
+      :class="[
+        !pagination.prev_page_url
+          ? 'opacity-50 cursor-not-allowed text-gray-400 border-gray-300'
+          : 'text-gray-700 hover:bg-gray-100 border-gray-300'
+      ]"
+      :disabled="!pagination.prev_page_url"
+      :aria-disabled="!pagination.prev_page_url"
+      @click="changePage(pagination.current_page - 1)"
+    >
+      Anterior
+    </button>
 
-interface PaginationLink {
-  url: string | null
-  label: string
-  active: boolean
+    <!-- Primera página si no está visible -->
+    <template v-if="showFirstPage">
+      <button
+        class="px-3 py-1 rounded-md border text-sm text-gray-700 hover:bg-gray-100 border-gray-300 transition-colors"
+        @click="changePage(1)"
+      >
+        1
+      </button>
+      <span v-if="showStartEllipsis" class="px-2 text-gray-500">...</span>
+    </template>
+
+    <!-- Páginas visibles -->
+    <button
+      v-for="link in visiblePages"
+      :key="link.label"
+      :class="[
+        'px-3 py-1 rounded-md border text-sm transition-colors',
+        link.active
+          ? 'bg-blue-600 text-white border-blue-600 font-semibold cursor-default'
+          : 'text-gray-700 hover:bg-gray-100 border-gray-300'
+      ]"
+      :aria-current="link.active ? 'page' : undefined"
+      :disabled="link.active"
+      @click="changePage(Number(link.label))"
+    >
+      {{ link.label }}
+    </button>
+
+    <!-- Última página si no está visible -->
+    <template v-if="showLastPage">
+      <span v-if="showEndEllipsis" class="px-2 text-gray-500">...</span>
+      <button
+        class="px-3 py-1 rounded-md border text-sm text-gray-700 hover:bg-gray-100 border-gray-300 transition-colors"
+        @click="changePage(pagination.last_page)"
+      >
+        {{ pagination.last_page }}
+      </button>
+    </template>
+
+    <!-- Botón Siguiente -->
+    <button
+      class="px-3 py-1 rounded-md border text-sm transition-colors"
+      :class="[
+        !pagination.next_page_url
+          ? 'opacity-50 cursor-not-allowed text-gray-400 border-gray-300'
+          : 'text-gray-700 hover:bg-gray-100 border-gray-300'
+      ]"
+      :disabled="!pagination.next_page_url"
+      :aria-disabled="!pagination.next_page_url"
+      @click="changePage(pagination.current_page + 1)"
+    >
+      Siguiente
+    </button>
+  </nav>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue';
+import type { PaginatedResponse, Data } from '@/views/dashboard/team/types';
+
+interface Props {
+  pagination: PaginatedResponse<Data>;
+  maxVisible?: number;
 }
 
-const props = defineProps<{
-  current_page: number
-  last_page: number
-  links: PaginationLink[]
-  color?: boolean
-}>()
+const props = withDefaults(defineProps<Props>(), {
+  maxVisible: 5
+});
 
 const emit = defineEmits<{
-  (e: 'page-change', pageUrl: string): void
-}>()
+  'page-change': [page: number];
+}>();
 
-const windowSize = 5
+// Páginas numéricas visibles
+const visiblePages = computed(() => {
+  const pages = props.pagination.links.filter(link => !isNaN(Number(link.label)));
 
-// Calcular las páginas visibles
-const pageLinks = computed(() => {
-  if (!props.links?.length) return []
+  const currentPage = props.pagination.current_page;
+  const lastPage = props.pagination.last_page;
+  const maxVisible = props.maxVisible;
 
-  const half = Math.floor(windowSize / 2)
-  let start = Math.max(1, props.current_page - half)
-  let end = Math.min(props.last_page, start + windowSize - 1)
-
-  if (end - start < windowSize - 1) {
-    start = Math.max(1, end - windowSize + 1)
+  // Si hay pocas páginas, mostrar todas
+  if (lastPage <= maxVisible) {
+    return pages;
   }
 
-  return props.links.filter((link) => {
-    const num = Number(link.label)
-    return !isNaN(num) && num >= start && num <= end
-  })
-})
+  // Calcular rango visible
+  let start = Math.max(currentPage - Math.floor(maxVisible / 2), 1);
+  let end = start + maxVisible - 1;
 
-// Referencias seguras al primer y último link
-const firstLink = computed(() => props.links?.[0])
-const lastLink = computed(() =>
-  props.links?.length ? props.links[props.links.length - 1] : undefined
-)
+  if (end > lastPage) {
+    end = lastPage;
+    start = Math.max(end - maxVisible + 1, 1);
+  }
 
-// Función para manejar el clic en una página
-const goToPage = (url: string | null) => {
-  if (!url) return
-  emit('page-change', url)
+  return pages.filter(link => {
+    const pageNum = Number(link.label);
+    return pageNum >= start && pageNum <= end;
+  });
+});
+
+const showFirstPage = computed(() => {
+  if (visiblePages.value.length === 0) return false;
+  const firstPage = visiblePages.value[0];
+  if (!firstPage) return false;
+  const firstVisible = Number(firstPage.label);
+  return firstVisible > 1;
+});
+
+// Mostrar última página
+const showLastPage = computed(() => {
+  if (visiblePages.value.length === 0) return false;
+  const lastPage = visiblePages.value[visiblePages.value.length - 1];
+  if (!lastPage) return false;
+  const lastVisible = Number(lastPage.label);
+  return lastVisible < props.pagination.last_page;
+});
+
+// Mostrar puntos suspensivos al inicio
+const showStartEllipsis = computed(() => {
+  if (visiblePages.value.length === 0) return false;
+  const firstPage = visiblePages.value[0];
+  if (!firstPage) return false;
+  const firstVisible = Number(firstPage.label);
+  return firstVisible > 2;
+});
+
+// Mostrar puntos suspensivos al final
+const showEndEllipsis = computed(() => {
+  if (visiblePages.value.length === 0) return false;
+  const lastPage = visiblePages.value[visiblePages.value.length - 1];
+  if (!lastPage) return false;
+  const lastVisible = Number(lastPage.label);
+  return lastVisible < props.pagination.last_page - 1;
+});
+
+function changePage(page: number) {
+  if (
+    page !== props.pagination.current_page &&
+    page >= 1 &&
+    page <= props.pagination.last_page
+  ) {
+    emit('page-change', page);
+  }
 }
 </script>
-
-<template>
-  <nav v-if="links?.length" class="flex gap-1 mt-6">
-    <!-- Botón "Anterior" -->
-    <button
-      v-if="firstLink?.url"
-      @click="goToPage(firstLink.url)"
-      v-html="firstLink.label"
-      class="px-3 py-1 border rounded hover:bg-gray-100"
-    />
-    <span
-      v-else
-      v-html="firstLink?.label"
-      class="px-3 py-1 border rounded text-gray-400 cursor-not-allowed select-none"
-    />
-
-    <!-- Números de página -->
-    <button
-      v-for="(link, index) in pageLinks"
-      :key="index"
-      @click="goToPage(link.url)"
-      v-html="link.label"
-      class="px-3 py-1 border rounded hover:bg-gray-100"
-      :class="{
-        'border-[#1F2937] border-2 text-[#1F2937] font-bold': link.active && color,
-        'border-[#DCBE9A] border-2 text-[#DCBE9A] font-bold': link.active && !color,
-        'text-gray-500': !link.active
-      }"
-    />
-
-    <!-- Botón "Siguiente" -->
-    <button
-      v-if="lastLink?.url"
-      @click="goToPage(lastLink.url)"
-      v-html="lastLink.label"
-      class="px-3 py-1 border rounded hover:bg-gray-100"
-    />
-    <span
-      v-else
-      v-html="lastLink?.label"
-      class="px-3 py-1 border rounded text-gray-400 cursor-not-allowed select-none"
-    />
-  </nav>
-
-  <div v-else class="text-gray-400 text-sm mt-6 text-center">
-    No hay páginas disponibles
-  </div>
-</template>

@@ -1,33 +1,27 @@
-
+import axios from 'axios'
 import { API_AUTH } from '@/config';
+import { api } from '@/plugins/api';
 import { useAuthStore } from '@/stores/authStore';
-import axios from 'axios';
-import { sesionDeleteService, sesionGetService } from './sesionService';
 
 export const validateToken = async () => {
-  const token = sesionGetService('auth-token');
-  if (!token) return false;
-
   const url = API_AUTH + 'validate-token'
 
   try {
-    const response = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
+    const response = await api.get(url);
     const auth = useAuthStore();
     auth.user = response.data.user;
 
     return true;
 
-  } catch (err) {
-    if (axios.isAxiosError(err) && err.response?.status !== 401) {
-      console.error('Error validando token:', err);
+  } catch (err: unknown) {
+    if (axios.isAxiosError(err)) {
+      // Solo loguea si NO es 401
+      if (err.response?.status !== 401) {
+        console.error('Error validando token:', err)
+      }
+    } else {
+      console.error('Error inesperado validando token:', err)
     }
-
-    sesionDeleteService('auth-token');
     return false
   }
 }
