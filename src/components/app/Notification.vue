@@ -1,30 +1,21 @@
 <template>
   <Transition name="slide-fade">
-    <div
-      v-if="visible"
-      :class="[
-        'fixed top-4 right-4 z-50 min-w-[300px] max-w-md rounded-lg shadow-lg p-4 flex items-start gap-3',
-        notificationClasses
-      ]"
-    >
+    <div v-if="visible" :class="[
+      // ❌ ELIMINAMOS: 'fixed top-4 right-4 z-50'
+      'z-50 min-w-[300px] max-w-md rounded-lg shadow-lg p-4 flex items-start gap-3',
+      notificationClasses
+    ]">
       <div class="flex-shrink-0">
         <component :is="iconComponent" :class="iconClasses" />
       </div>
 
       <div class="flex-1 space-y-1">
-        <p
-          v-for="(line, index) in messageLines"
-          :key="index"
-          class="font-medium text-sm leading-snug"
-        >
+        <p v-for="(line, index) in messageLines" :key="index" class="font-medium text-sm leading-snug">
           {{ line }}
         </p>
       </div>
 
-      <button
-        @click="close"
-        class="flex-shrink-0 text-current opacity-70 hover:opacity-100 transition-opacity"
-      >
+      <button @click="close" class="flex-shrink-0 text-current opacity-70 hover:opacity-100 transition-opacity">
         <X :size="18" />
       </button>
     </div>
@@ -97,13 +88,9 @@ onMounted(() => {
   transition: all 0.3s ease-in;
 }
 
-.slide-fade-enter-from {
-  transform: translateX(20px);
-  opacity: 0;
-}
-
+.slide-fade-enter-from,
 .slide-fade-leave-to {
-  transform: translateX(20px);
   opacity: 0;
+  transform: scale(0.95);
 }
 </style>

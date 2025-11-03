@@ -9,9 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-vue": "^7.3.0",
     "@primeuix/themes": "^1.2.5",
     "@tailwindcss/vite": "^4.1.14",
     "axios": "^1.12.2",
+    "ckeditor5": "^47.1.0",
     "lodash": "^4.17.21",
     "lucide-vue-next": "^0.545.0",
     "pinia": "^3.0.3",
@@ -20,6 +22,7 @@
     "tailwindcss": "^4.1.14",
     "vue": "^3.5.22",
     "vue-i18n": "^11.1.12",
+    "vue-picture-cropper": "^0.7.0",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {

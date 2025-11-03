@@ -43,7 +43,7 @@ const { current } = useRouteHelper();
                 <NavLink :href="{ name: 'dashboard.design' }" :active="current({ name: 'dashboard.design' })">
                   {{ $t('Dashboard.Navbar.Design') }}
                 </NavLink>
-                <NavLink :href="{ name: 'dashboard.team' }" :active="current({ name: 'dashboard.team' })">
+                <NavLink :href="{ name: 'dashboard.team' }" :active="current({ name: 'dashboard.team' }) || current({ name: 'dashboard.team.create' })">
                   {{ $t('Dashboard.Navbar.Team') }}
                 </NavLink>
                 <NavLink :href="{ name: 'dashboard.blog' }" :active="current({ name: 'dashboard.blog' })">

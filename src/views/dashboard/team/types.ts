@@ -43,12 +43,10 @@ export interface TeamMember {
   id: number
   name: string
   status: string
-  image: string | null
+  image: string  | File | null
   biography: string
   specialization: string
   results: TeamMemberImage[]
-  created_at: string
-  updated_at: string
 }
 
 export interface Data {
@@ -61,7 +59,8 @@ export interface Data {
 }
 
 export interface TeamMemberImage {
-  url: string
+  id: number | null
+  url: string | File | null
   description: string
 }
 

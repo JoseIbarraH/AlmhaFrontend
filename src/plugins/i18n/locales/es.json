@@ -15,28 +15,14 @@
       "Title": "Tablero de Control"
     },
     "Team": {
-      "Header": "Equipo",
       "Title": "Equipo - Gestión de Miembros del Equipo",
-      "TotalTeams": "Miembros del equipo totales",
-      "TeamsActives": "Miembros del equipo activos",
-      "TeamsInactives": "Miembros del equipo inactivos",
-      "LastTeams": "Nuevos Miembros (15d)",
-      "Form": {
-        "Create": "Agregar Miembro",
-        "Edit": "Editar Miembro",
-        "Delete": "Eliminar equipo",
-        "Members": "Miembros del equipo",
-        "AddMember": "Agregar miembro al equipo",
-        "Name": "Nombre",
-        "Specialization": "Especialización",
-        "Status": "Estado",
-        "Active": "Activo",
-        "Inactive": "Inactivo",
-        "Image": "Imagen del miembro del equipo",
-        "Cancel": "Cancelar",
-        "Save": "Guardar",
-        "Update": "Actualizar",
-        "UploadImage": "Arrastra o sube una imagen"
+      "CreateButton": "Agregar Miembro",
+
+      "Statistics": {
+        "TotalTeams": "Miembros del equipo totales",
+        "TeamsActives": "Miembros del equipo activos",
+        "TeamsInactives": "Miembros del equipo inactivos",
+        "LastTeams": "Nuevos Miembros (15d)"
       },
       "List": {
         "TeamMembers": "Equipo Médico",
@@ -70,54 +56,22 @@
             "Active": "Activo",
             "Inactive": "Inactivo"
           }
+        },
+        "Validations": {
+          "Name": "El nombre es obligatorio.",
+          "Image": "La imagen es obligatoria.",
+          "Status": "El estado es obligatorio.",
+          "Specialization": "La especializacion es obligatoria.",
+          "Biography": "La biografia es obligatoria",
+          "Error": {
+            "Status": "Error al actualizar el estado."
+          }
         }
       }
     },
     "Blog": {
-      "Header": "Blog",
       "Title": "Blog - Gestión de Contenido del Blog",
-      "CreatePost": "Crear post",
-      "Save": "Guardar",
-      "TotalBlogs": "Blogs totales",
-      "BlogsActives": "Blogs activos",
-      "BlogsInactives": "Blogs inactivos",
-      "LastBlogs": "Nuevos Blogs (15d)",
-      "Editor": {
-        "SaveDraft": "Guardar Borrador",
-        "PublishIt": "Publicar",
-        "ImagePost": "Imagen del post",
-        "TitlePost": "Titulo del post",
-        "RemoveImage": "Quitar Imagen",
-        "Category": "Categoría"
-      },
-      "Update": {
-        "TitleCreate": "Blog - Gestion de publicaciones - Crear",
-        "TitleUpdate": "Blog - Gestion de publicaciones - Editar",
-        "Save": "Guardar",
-        "Back": "Volver",
-        "Categories": {
-          "Facial": "Facial",
-          "Bodily": "Corporal",
-          "NonSurgical": "No Quirúrgico",
-          "General": "General"
-        },
-        "ConfirmDelete": "Confirmar cancelacion",
-        "ConfirmDeleteMessage": "¿Estás seguro de que deseas eliminar esta publicación?",
-        "ConfirmDeleteButton": "Si, volver",
-        "CancelDeleteButton": "Cancelar"
-      },
-      "List": {
-        "Edit": "Editar",
-        "Deactivate": "Desactivar",
-        "Activate": "Activar",
-        "Search": "Buscar por título",
-        "Active": "Activo",
-        "Inactive": "Inactivo",
-        "NoResults": "No se encontraron blogs",
-        "NoResultsFor": "No se encontraron elementos para mostrar.",
-        "LastUpdate": "Última actualización:",
-        "CreationDate": "Fecha de creacion:"
-      }
+      "CreateButton": "Crear Publicacion"
     },
     "Design": {
       "Header": "Interfaz",
@@ -160,10 +114,10 @@
           "ErrorUpss": "Ocurrió un error inesperado"
         }
       },
-      "ChooseCarouselTool" : {
-        "Title" : "Seleccionar Fotos de Carrusel de Herramientas",
-        "Validations" : {
-          "path" : "La imagen #{n} del carrusel de herramientas no tiene archivo seleccionado",
+      "ChooseCarouselTool": {
+        "Title": "Seleccionar Fotos de Carrusel de Herramientas",
+        "Validations": {
+          "path": "La imagen #{n} del carrusel de herramientas no tiene archivo seleccionado",
           "ErrorUpss": "Ocurrió un error inesperado"
         }
       }

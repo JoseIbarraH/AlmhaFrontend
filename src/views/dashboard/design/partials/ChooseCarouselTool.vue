@@ -79,16 +79,26 @@ const detectChanges = () => {
   })
 }
 
-const validateBeforeSave = () => {
+const validateBeforeSave = (): boolean => {
+  const errors: string[] = []
+
   if (form.carouselTool) {
     for (let i = 0; i < form.carouselTool.length; i++) {
       const item = form.carouselTool[i]
+
       const hasPath = item && (item.path instanceof File || (typeof item.path === 'string' && item.path.trim() !== ''))
+
       if (!hasPath) {
-        showNotification('warning', t('Dashboard.Design.ChooseCarouselTool.Validations.path'), 4000)
-        return false
+        errors.push(t('Dashboard.Design.ChooseCarouselTool.Validations.path'))
       }
     }
+  }
+
+  if (errors.length > 0) {
+    errors.forEach(message => {
+      showNotification('warning', message, 4000)
+    })
+    return false
   }
 
   return true

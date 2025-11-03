@@ -1,37 +1,79 @@
-<script setup lang="ts">
-import { ref, watch } from 'vue'
-
-const props = defineProps<{
-  modelValue: string
-  text?: string
-}>()
-
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
-  (e: 'search', value: string): void
-}>()
-
-const inputValue = ref(props.modelValue)
-
-let timeout: ReturnType<typeof setTimeout>
-watch(inputValue, (val) => {
-  emit('update:modelValue', val)
-
-  clearTimeout(timeout)
-  timeout = setTimeout(() => {
-    emit('search', val)
-  }, 400)
-})
-</script>
-
 <template>
-  <div class="relative">
-    <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" fill="none"
-      stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-    </svg>
-    <input v-model="inputValue" type="text" :placeholder="props.text ?? 'Buscar...'"
-      class="w-full pl-10 pr-4 py-2 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" />
+  <div class="flex items-center gap-2 w-full md:w-72">
+    <input
+      v-model="query"
+      type="text"
+      :placeholder="placeholder"
+      class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm
+             focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+    />
+
+    <button
+      v-if="query"
+      @click="clearSearch"
+      class="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+      title="Limpiar"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref, watch } from 'vue'
+import axios from 'axios'
+import { api } from '@/plugins/api'
+
+interface Props {
+  /** Endpoint completo o relativo, ej: "/api/team-members" */
+  endpoint: string
+  /** Nombre del parámetro de búsqueda (por defecto: "search") */
+  paramName?: string
+  /** Placeholder del input */
+  placeholder?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  paramName: 'search',
+  placeholder: 'Buscar...',
+})
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: any[]): void
+  (e: 'loading', value: boolean): void
+}>()
+
+const query = ref('')
+let debounceTimer: number | undefined
+
+watch(query, (newValue) => {
+  clearTimeout(debounceTimer)
+  debounceTimer = window.setTimeout(() => {
+    fetchResults(newValue)
+  }, 500)
+})
+
+async function fetchResults(searchTerm: string) {
+  emit('loading', true)
+  try {
+    const { data } = await api.get(props.endpoint, {
+      params: { [props.paramName]: searchTerm || undefined },
+    })
+    // Intenta detectar si la respuesta tiene paginación
+    const results = data.data?.pagination?.data || data.data || []
+    emit('update:modelValue', results)
+  } catch (error) {
+    console.error('Error en SearchInput:', error)
+    emit('update:modelValue', [])
+  } finally {
+    emit('loading', false)
+  }
+}
+
+function clearSearch() {
+  query.value = ''
+  fetchResults('')
+}
+</script>

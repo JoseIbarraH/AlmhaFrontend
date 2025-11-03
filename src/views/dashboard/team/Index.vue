@@ -1,75 +1,63 @@
 <template>
-  <section class="p-6 space-y-6">
-    <!-- Header -->
-    <header
-      class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 bg-white p-4 sm:p-6 shadow-sm rounded-lg"
-    >
-      <h2 class="text-xl font-semibold text-gray-800">
-        {{ $t('Dashboard.Team.Title') }}
-      </h2>
+  <div v-if="loading">
+    <TeamSkeleton />
+  </div>
 
-      <CreateButton
-        @click="createTeamMember"
-        class="flex items-center justify-center w-full sm:w-auto"
-      >
-        {{ $t('Dashboard.Team.Form.Create') }}
-      </CreateButton>
-    </header>
+  <div v-else>
+    <section class="p-6 space-y-6">
+      <header
+        class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 bg-white p-4 sm:p-6 shadow-sm rounded-lg h-[82px]">
+        <h2 class="text-xl font-semibold text-gray-800">
+          {{ $t('Dashboard.Team.Title') }}
+        </h2>
 
-    <!-- Statistics -->
-    <div class="bg-white p-6 rounded-lg shadow-md">
-      <Statistics
-        :total-object-title="$t('Dashboard.Team.TotalTeams')"
-        :total-object="stats?.total"
-        :total-activated-title="$t('Dashboard.Team.TeamsActives')"
-        :total-activated="stats?.totalActivated"
-        :total-deactivated-title="$t('Dashboard.Team.TeamsInactives')"
-        :total-deactivated="stats?.totalDeactivated"
-        :last-object-title="$t('Dashboard.Team.LastTeams')"
-        :last-object="stats?.lastCreated"
-      />
-    </div>
+        <CreateButton @click="createTeamMember" class="flex items-center justify-center w-full sm:w-auto">
+          {{ $t('Dashboard.Team.CreateButton') }}
+        </CreateButton>
+      </header>
 
-    <!-- Content -->
-    <TeamTable :data="paginate?.data ?? []"
-    @status-updated="fetchTeamMembers(route.query.page ? Number(route.query.page) : 1)" />
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <Statistics :total-object-title="$t('Dashboard.Team.Statistics.TotalTeams')" :total-object="stats?.total"
+          :total-activated-title="$t('Dashboard.Team.Statistics.TeamsActives')" :total-activated="stats?.totalActivated"
+          :total-deactivated-title="$t('Dashboard.Team.Statistics.TeamsInactives')"
+          :total-deactivated="stats?.totalDeactivated" :last-object-title="$t('Dashboard.Team.Statistics.LastTeams')"
+          :last-object="stats?.lastCreated" />
+      </div>
 
-    <!-- Pagination -->
-    <Pagination
-      v-if="paginate"
-      :pagination="paginate"
-      @page-change="handlePageChange"
-    />
-  </section>
+      <TeamTable :data="paginate?.data ?? []"
+        @status-updated="fetchTeamMembers(route.query.page ? Number(route.query.page) : 1)"
+        @refresh-requested="fetchTeamMembers(route.query.page ? Number(route.query.page) : 1)" />
+
+      <Pagination v-if="paginate" :pagination="paginate" @page-change="handlePageChange" />
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">
 import type { ApiResponse, Default, PaginatedResponse, Stats, Data } from './types'
 import { showNotification } from '@/components/composables/useNotification'
+import TeamSkeleton from './partials/TeamSkeleton.vue'
 import CreateButton from '@/components/ui/CreateButton.vue'
 import Statistics from '@/components/app/Statistics.vue'
-import TeamTable from './partials/TeamTable.vue'
 import Pagination from '@/components/app/Pagination.vue'
 import { ref, computed, onMounted, watch } from 'vue'
-import { api } from '@/plugins/api'
+import TeamTable from './partials/TeamTable.vue'
 import { useRoute, useRouter } from 'vue-router'
+import { api } from '@/plugins/api'
 
 const route = useRoute()
 const router = useRouter()
 
-// --- State ---
 const apiResponse = ref<Default | null>(null)
 const loading = ref(true)
 const paginate = ref<PaginatedResponse<Data> | null>(null)
 
 const stats = computed<Stats | null>(() => apiResponse.value?.stats ?? null)
 
-// --- Methods ---
 const createTeamMember = () => {
-  // abrir modal o redirigir
+  router.push({ name: 'dashboard.team.create' })
 }
 
-// --- Fetch Data ---
 async function fetchTeamMembers(page = 1) {
   try {
     loading.value = true;
@@ -77,31 +65,24 @@ async function fetchTeamMembers(page = 1) {
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
 
-    // Actualiza la URL sin recargar la página
     router.replace({ query: { page } });
   } catch (error) {
-    console.error('Error al obtener miembros del equipo:', error);
     showNotification('error', 'Ocurrió un error al obtener los datos del equipo', 4000);
   } finally {
     loading.value = false;
   }
 }
 
-// --- Navegación entre páginas ---
 function handlePageChange(page: number) {
-  // Actualizamos la URL sin recargar la página
   router.push({ query: { ...route.query, page } })
-  // Llamamos al fetch con la página seleccionada
   fetchTeamMembers(page)
 }
 
-// --- Lifecycle ---
 onMounted(() => {
   const page = Number(route.query.page) || 1
   fetchTeamMembers(page)
 })
 
-// Si cambia el parámetro ?page= en la URL (por navegación manual)
 watch(
   () => route.query.page,
   (newPage) => {

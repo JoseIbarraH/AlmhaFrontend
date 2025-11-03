@@ -12,7 +12,10 @@ import DashboardBlog from "@/views/dashboard/blog/Index.vue"
 import DashboardHome from "@/views/dashboard/home/Index.vue"
 import DashboardDesign from "@/views/dashboard/design/Index.vue"
 import DashboardService from "@/views/dashboard/service/Index.vue"
+
 import DashboardTeam from "@/views/dashboard/team/Index.vue"
+import DashboardTeamCreate from "@/views/dashboard/team/CreateUpdate.vue"
+
 import DashboardProfile from "@/views/dashboard/profile/Index.vue"
 
 import AuthLogin from "@/views/auth/Login.vue"
@@ -72,17 +75,6 @@ const routes: RouteRecordRaw[] = [
       return next()
     },
     children: [
-      /* {
-        path: "",
-        component: ClientLayout,
-        children: [
-          { path: "", name: "client.home", component: ClientHome, meta: { titleKey: 'Client.Meta.Home' } },
-          { path: "service", name: "client.service", component: ClientService, meta: { titleKey: 'Client.Meta.Services' } },
-          { path: "team", name: "client.team", component: ClientTeam, meta: { titleKey: 'Client.Meta.Team' } },
-          { path: "blog", name: "client.blog", component: ClientBlog, meta: { titleKey: 'Client.Meta.Blog' } },
-          { path: "about_us", name: "client.about_us", component: ClientAboutUs, meta: { titleKey: 'Client.Meta.AboutUs' } },
-        ]
-      }, */
       {
         path: "auth",
         component: GuestLayout,
@@ -108,7 +100,11 @@ const routes: RouteRecordRaw[] = [
           { path: "design", name: "dashboard.design", component: DashboardDesign, meta: { title: 'Design' } },
           { path: "service", name: "dashboard.service", component: DashboardService, meta: { title: 'Service' } },
           { path: "blog", name: "dashboard.blog", component: DashboardBlog, meta: { title: 'Blog' } },
+
           { path: "team", name: "dashboard.team", component: DashboardTeam, meta: { title: 'Team' } },
+          { path: "team/create", name: "dashboard.team.create", component: DashboardTeamCreate, props: true, meta: { title: 'Create Team' } },
+          { path: "team/:id/edit", name: "dashboard.team.edit", component: DashboardTeamCreate, props: true, meta: { title: 'Edit Team' } },
+
           { path: "profile", name: "dashboard.profile", component: DashboardProfile, meta: { title: 'Profile' } },
         ],
       },

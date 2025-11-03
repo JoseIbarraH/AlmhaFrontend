@@ -168,26 +168,40 @@ const detectChanges = () => {
   hasChanges.value = false
 }
 
-const validateBeforeSave = () => {
-  if (form.carouselStatic.carouselSetting) {
+const validateBeforeSave = (): boolean => {
+  // Inicializa un array para guardar todos los mensajes de error
+  const errors: string[] = []
 
+  // 1. Revisar y acumular errores del Carrusel Estático
+
+  if (form.carouselStatic.carouselSetting) {
     for (let i = 0; i < form.carouselStatic.carousel.length; i++) {
       const item = form.carouselStatic.carousel[i]
+
       const hasPath = item && (item.path instanceof File || (typeof item.path === 'string' && item.path.trim() !== ''))
+
       if (!hasPath) {
-        showNotification('warning', t('Dashboard.Design.ChooseCarouselImage.Validations.Carousel', { n: i + 1 }), 4000)
-        return false
+        // 💡 Acumula el error en el array
+        errors.push(t('Dashboard.Design.ChooseCarouselImage.Validations.Carousel', { n: i + 1 }))
       }
     }
   }
 
   if (form.carouselStatic.imageVideoSetting) {
     const imgVid = form.carouselStatic.imageVideo
+
     const hasIVPath = imgVid && (imgVid.path instanceof File || (typeof imgVid.path === 'string' && imgVid.path.trim() !== ''))
+
     if (!hasIVPath) {
-      showNotification('warning', t('Dashboard.Design.ChooseCarouselImage.Validations.ImageVideo'), 4000)
-      return false
+      errors.push(t('Dashboard.Design.ChooseCarouselImage.Validations.ImageVideo'))
     }
+  }
+
+  if (errors.length > 0) {
+    errors.forEach(message => {
+      showNotification('warning', message, 4000)
+    })
+    return false
   }
 
   return true

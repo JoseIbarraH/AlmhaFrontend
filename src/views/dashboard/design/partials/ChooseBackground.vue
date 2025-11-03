@@ -141,19 +141,25 @@ const buildFormData = (): FormData => {
   return formData
 }
 
-const validateBeforeSave = () => {
+const validateBeforeSave = (): boolean => {
+  const errors: string[] = []
+
   if (!form.background1.path) {
-    showNotification('warning', t('Dashboard.Design.Backgrounds.Validations.Path1'), 4000)
-    return false
+    errors.push(t('Dashboard.Design.Backgrounds.Validations.Path1'))
   }
 
   if (!form.background2.path) {
-    showNotification('warning', t('Dashboard.Design.Backgrounds.Validations.Path2'), 4000)
-    return false
+    errors.push(t('Dashboard.Design.Backgrounds.Validations.Path2'))
   }
 
   if (!form.background3.path) {
-    showNotification('warning', t('Dashboard.Design.Backgrounds.Validations.Path3'), 4000)
+    errors.push(t('Dashboard.Design.Backgrounds.Validations.Path3'))
+  }
+
+  if (errors.length > 0) {
+    errors.forEach(message => {
+      showNotification('warning', message, 4000)
+    })
     return false
   }
 
