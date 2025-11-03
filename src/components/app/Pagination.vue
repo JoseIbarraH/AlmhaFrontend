@@ -1,6 +1,6 @@
 <template>
   <nav
-    v-if="pagination.last_page > 1"
+    v-if="pagination && pagination.last_page > 1"
     class="flex flex-wrap justify-center items-center gap-2 mt-6"
     aria-label="Navegación de páginas"
   >
@@ -19,7 +19,7 @@
       Anterior
     </button>
 
-    <!-- Primera página si no está visible -->
+    <!-- Primera página -->
     <template v-if="showFirstPage">
       <button
         class="px-3 py-1 rounded-md border text-sm text-gray-700 hover:bg-gray-100 border-gray-300 transition-colors"
@@ -47,7 +47,7 @@
       {{ link.label }}
     </button>
 
-    <!-- Última página si no está visible -->
+    <!-- Última página -->
     <template v-if="showLastPage">
       <span v-if="showEndEllipsis" class="px-2 text-gray-500">...</span>
       <button
@@ -76,84 +76,63 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import type { PaginatedResponse, Data } from '@/views/dashboard/team/types';
+import { computed } from 'vue'
+import type { PaginatedResponse } from '@/types/apiResponse'
 
-interface Props {
-  pagination: PaginatedResponse<Data>;
-  maxVisible?: number;
+interface Props<T> {
+  pagination: PaginatedResponse<T>
+  maxVisible?: number
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props<any>>(), {
   maxVisible: 5
-});
+})
 
 const emit = defineEmits<{
-  'page-change': [page: number];
-}>();
+  (e: 'page-change', page: number): void
+}>()
 
-// Páginas numéricas visibles
+// Computed: páginas visibles
 const visiblePages = computed(() => {
-  const pages = props.pagination.links.filter(link => !isNaN(Number(link.label)));
+  const pages = props.pagination.links.filter(link => !isNaN(Number(link.label)))
+  const { current_page, last_page } = props.pagination
+  const { maxVisible } = props
 
-  const currentPage = props.pagination.current_page;
-  const lastPage = props.pagination.last_page;
-  const maxVisible = props.maxVisible;
+  if (last_page <= maxVisible) return pages
 
-  // Si hay pocas páginas, mostrar todas
-  if (lastPage <= maxVisible) {
-    return pages;
-  }
+  let start = Math.max(current_page - Math.floor(maxVisible / 2), 1)
+  let end = start + maxVisible - 1
 
-  // Calcular rango visible
-  let start = Math.max(currentPage - Math.floor(maxVisible / 2), 1);
-  let end = start + maxVisible - 1;
-
-  if (end > lastPage) {
-    end = lastPage;
-    start = Math.max(end - maxVisible + 1, 1);
+  if (end > last_page) {
+    end = last_page
+    start = Math.max(end - maxVisible + 1, 1)
   }
 
   return pages.filter(link => {
-    const pageNum = Number(link.label);
-    return pageNum >= start && pageNum <= end;
-  });
-});
+    const pageNum = Number(link.label)
+    return pageNum >= start && pageNum <= end
+  })
+})
 
 const showFirstPage = computed(() => {
-  if (visiblePages.value.length === 0) return false;
-  const firstPage = visiblePages.value[0];
-  if (!firstPage) return false;
-  const firstVisible = Number(firstPage.label);
-  return firstVisible > 1;
-});
+  const first = visiblePages.value[0]
+  return first && Number(first.label) > 1
+})
 
-// Mostrar última página
 const showLastPage = computed(() => {
-  if (visiblePages.value.length === 0) return false;
-  const lastPage = visiblePages.value[visiblePages.value.length - 1];
-  if (!lastPage) return false;
-  const lastVisible = Number(lastPage.label);
-  return lastVisible < props.pagination.last_page;
-});
+  const last = visiblePages.value[visiblePages.value.length - 1]
+  return last && Number(last.label) < props.pagination.last_page
+})
 
-// Mostrar puntos suspensivos al inicio
 const showStartEllipsis = computed(() => {
-  if (visiblePages.value.length === 0) return false;
-  const firstPage = visiblePages.value[0];
-  if (!firstPage) return false;
-  const firstVisible = Number(firstPage.label);
-  return firstVisible > 2;
-});
+  const first = visiblePages.value[0]
+  return first && Number(first.label) > 2
+})
 
-// Mostrar puntos suspensivos al final
 const showEndEllipsis = computed(() => {
-  if (visiblePages.value.length === 0) return false;
-  const lastPage = visiblePages.value[visiblePages.value.length - 1];
-  if (!lastPage) return false;
-  const lastVisible = Number(lastPage.label);
-  return lastVisible < props.pagination.last_page - 1;
-});
+  const last = visiblePages.value[visiblePages.value.length - 1]
+  return last && Number(last.label) < props.pagination.last_page - 1
+})
 
 function changePage(page: number) {
   if (
@@ -161,7 +140,7 @@ function changePage(page: number) {
     page >= 1 &&
     page <= props.pagination.last_page
   ) {
-    emit('page-change', page);
+    emit('page-change', page)
   }
 }
 </script>

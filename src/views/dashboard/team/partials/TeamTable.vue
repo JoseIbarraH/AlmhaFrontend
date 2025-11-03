@@ -84,7 +84,7 @@
                   </svg>
                 </button>
 
-                <button @click="deleteTeam(value)"
+                <button @click="openModal(value)"
                   class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-100 rounded-lg transition-colors"
                   title="Eliminar">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,13 +106,38 @@
       </table>
     </div>
   </div>
-</template>
 
+  <Modal :show="isOpen" max-width="md" @close="closeModal">
+    <div class="p-6">
+      <h2 class="text-lg font-semibold text-gray-800 mb-2">
+        {{ t('Dashboard.Blog.Delete.ConfirmTitle') }}
+      </h2>
+      <p class="text-gray-600 mb-6">
+        ¿Estás seguro de que quieres eliminar al miembro
+        <span class="font-semibold text-gray-900">
+          “{{ memberToDelete?.name }}”
+        </span>?
+        Esta acción no se puede deshacer.
+      </p>
+
+      <div class="flex justify-end gap-3">
+        <button class="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200" @click="closeModal">
+          Cancelar
+        </button>
+
+        <button class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700" @click="confirmDelete">
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </Modal>
+</template>
 
 <script setup lang="ts">
 import { showNotification } from '@/components/composables/useNotification';
 import ToggleButton from '@/components/ui/ToggleButton.vue';
-import Search from '@/components/ui/Search.vue'
+import Search from '@/components/ui/Search.vue';
+import Modal from '@/components/app/Modal.vue';
 import { useRouter } from 'vue-router';
 import type { Data } from '../types';
 import { api } from '@/plugins/api';
@@ -122,6 +147,10 @@ import { ref } from 'vue'
 const { t } = useI18n()
 
 const router = useRouter()
+
+
+const isOpen = ref(false)
+const memberToDelete = ref<Data | null>(null)
 
 const loading = ref(false)
 const localData = ref<Data[]>([])
@@ -135,17 +164,29 @@ const props = defineProps<{
   data: Data[]
 }>()
 
+const openModal = (blog: Data) => {
+  memberToDelete.value = blog
+  isOpen.value = true
+}
+
+const closeModal = () => {
+  isOpen.value = false
+  memberToDelete.value = null
+}
 function handleEdit(id: number) {
   router.push({ name: 'dashboard.team.edit', params: { id } })
 }
 
-const deleteTeam = async (data: Data) => {
+const confirmDelete = async () => {
+  if (!memberToDelete.value) return
+
   try {
-    await api.delete(`/api/team_member/${data.id}`)
-    showNotification('success', 'Eliminado correctamente', 3000)
+    await api.delete(`/api/team_member/${memberToDelete.value.id}`)
+    showNotification('success', t('Dashboard.Team.CreateUpdate.Validations.Success.Delete'), 3000)
     emit('status-updated')
+    closeModal()
   } catch (error) {
-    showNotification('error', 'asd', 4000)
+    showNotification('error', 'Error al eliminar el miembro', 4000)
   }
 }
 
@@ -156,7 +197,7 @@ const handleToggleStatus = async (data: Data) => {
     await api.post(`/api/team_member/update_status/${data.id}`, { status: newStatus });
     // Actualizamos el valor localmente si la API responde bien
     data.status = newStatus;
-    showNotification('success', 'Estado actualizado correctamente', 3000)
+    showNotification('success', t('Dashboard.Team.CreateUpdate.Validations.Success.Status'), 3000)
     emit('status-updated')
   } catch (error) {
     showNotification('error', t('Dashboard.Team.CreateUpdate.Validations.Error.Status'), 4000)

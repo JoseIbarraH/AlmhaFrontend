@@ -23,7 +23,6 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import axios from 'axios'
 import { api } from '@/plugins/api'
 
 interface Props {

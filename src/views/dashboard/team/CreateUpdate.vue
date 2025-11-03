@@ -200,7 +200,6 @@ const saveChanges = async () => {
       })
 
       showNotification('success', response.data.message, 3000)
-      console.log(response.data.message)
     }
 
     if (editing.value === true) {
@@ -209,7 +208,6 @@ const saveChanges = async () => {
       })
 
       showNotification('success', response.data.message, 3000)
-      console.log(response.data.message)
     }
 
     loading.value = false

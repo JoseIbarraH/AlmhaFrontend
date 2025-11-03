@@ -19,10 +19,10 @@
       "CreateButton": "Agregar Miembro",
 
       "Statistics": {
-        "TotalTeams": "Miembros del equipo totales",
+        "Total": "Miembros del equipo totales",
         "TeamsActives": "Miembros del equipo activos",
         "TeamsInactives": "Miembros del equipo inactivos",
-        "LastTeams": "Nuevos Miembros (15d)"
+        "Last": "Nuevos Miembros (15d)"
       },
       "List": {
         "TeamMembers": "Equipo Médico",
@@ -63,18 +63,51 @@
           "Status": "El estado es obligatorio.",
           "Specialization": "La especializacion es obligatoria.",
           "Biography": "La biografia es obligatoria",
+          "Success": {
+            "Status": "Estado actualizado correctamente.",
+            "Delete": "Miembro eliminado correctamente"
+          },
           "Error": {
-            "Status": "Error al actualizar el estado."
+            "Status": "Error al actualizar el estado.",
+            "Delete": "Error al eliminar al miembro."
           }
         }
       }
     },
     "Blog": {
       "Title": "Blog - Gestión de Contenido del Blog",
-      "CreateButton": "Crear Publicacion"
+      "CreateButton": "Crear Publicacion",
+      "Statistics": {
+        "Total": "Blogs totales",
+        "TeamsActives": "Blogs activos",
+        "TeamsInactives": "Blogs inactivos",
+        "Last": "Nuevos Blogs (15d)"
+      },
+      "List": {
+        "Blogs": "Blogs",
+        "Active": "Activo",
+        "Inactive": "Inactivo",
+        "LastUpdate": "Última actualización:",
+        "CreationDate":"Fecha de creacion:",
+        "Edit": "Editar",
+        "Activate": "Activar",
+        "Deactivate": "Desactivar",
+        "NoResults": "No hay resultados",
+        "Search": "Buscar por título"
+      },
+      "Validations": {
+        "Success":{
+          "Status": "Estado actualizado correctamente.",
+          "Create": "Creado con exito."
+        },
+        "Error": {
+          "GetData": "Error al obtener los datos.",
+          "Status": "Error al actualizar el estado.",
+          "Create": "Error al crear el blog en blanco."
+        }
+      }
     },
     "Design": {
-      "Header": "Interfaz",
       "Title": "Interfaz - Gestion de imagenes",
       "ChooseCarouselImage": {
         "Title": "Seleccionar Galería o Imagen/Video",
@@ -83,7 +116,7 @@
         "LabelSubtitle": "Subtitulo (Opcional)",
         "LabelSubtitlePlaceholder": "Ingrese título",
         "VideoError": "Tu navegador no soporta la reproducción de videos.",
-        "NewImage": "Agrega una nueva imagen.",
+        "NewImage": "Agrega una imagen.",
         "Validations": {
           "ImageVideo": "El elemento Imagen/Video no tiene archivo seleccionado.",
           "Carousel": "La imagen #{n} del carrusel no tiene archivo seleccionado.",
@@ -151,94 +184,6 @@
       "EditProfile": "Editar perfil",
       "UpdateProfile": "Actualizar perfil",
       "DeleteProfile": "Eliminar perfil"
-    }
-  },
-  "Client": {
-    "Meta": {
-      "Home": "Inicio",
-      "Services": "Servicios",
-      "Team": "Equipo",
-      "Blog": "Blog",
-      "AboutUs": "Sobre nosotros"
-    },
-    "Home": {
-      "Team": {
-        "MeetOur": "Conoce a nuestro",
-        "Title": "Equipo",
-        "Description": "En nuestra clínica, un equipo altamente calificado y comprometido acompaña a cada paciente con atención personalizada, desde la primera consulta hasta el postoperatorio, combinando experiencia, empatía y excelencia médica.",
-        "NoTeamMember": "No hay miembros del equipo",
-        "AddMember": "Agrega miembros para mostrar el equipo",
-        "TeamButton": "Conoce a todo nuestro equipo"
-      }
-    },
-    "Blog": {
-      "Index": {
-        "Presentation": {
-          "Text1": "Información Especializada",
-          "Text2": "Procedimientos",
-          "Text3": "Estéticos",
-          "Text4": "Descubre todo sobre los tratamientos más avanzados en cirugía y medicina estética"
-        },
-        "SearchEngine": {
-          "Placeholder": "Buscar procedimientos, tratamientos...",
-          "NotFound": "No se encontraron resultados"
-        },
-        "FilterHeader": {
-          "Title": "Todos los Procedimientos"
-        },
-        "Card": {
-          "Specialist": "Dr. Especialista",
-          "ReadMore": "Leer mas"
-        }
-      },
-      "View": {
-        "Breadcrumb": {
-          "Home": "Inicio",
-          "Blog": "Blog"
-        },
-        "Navigation": {
-          "NextArticle": "Siguiente Artículo",
-          "PreviousArticle": "Artículo Anterior",
-          "AllArticle": "Ver todos los artículos"
-        },
-        "Consultation": {
-          "Title": "¿Interesado en una Consulta?",
-          "Text": "Agenda una cita personalizada con nuestros especialistas",
-          "Button": "Agendar Consulta"
-        },
-        "SideBar": {
-          "InterestingArticles": "Artículos De Interes"
-        },
-        "Specialist": "Especialista",
-        "ReadingTime": "8 min de lectura"
-      },
-      "Categories": {
-        "Facial": "Facial",
-        "Bodily": "Corporal",
-        "NonSurgical": "No Quirúrgico",
-        "General": "General"
-      }
-    },
-    "Team": {
-      "Index": {
-        "Badge": "Excelencia Médica",
-        "Title": "Nuestro Equipo {span}Médico",
-        "Subtitle": "Profesionales altamente calificados dedicados a su {span} y {span2}",
-        "Words": {
-          "WellBeing": "bienestar",
-          "Health": "salud integral"
-        },
-        "List": {
-          "Search": "Buscar por nombre"
-        }
-      }
-    },
-    "Global": {
-      "Consultation": {
-        "Text1": "Comienza tu transformación",
-        "Text2": "Agenda una consulta personalizada con nuestros especialistas",
-        "Button": "Solicitar Consulta"
-      }
     }
   },
   "Helper": {

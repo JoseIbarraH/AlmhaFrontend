@@ -64,8 +64,9 @@
     <!-- Table skeleton -->
     <div class="bg-white border border-gray-200 rounded-lg overflow-hidden">
       <!-- Header -->
-      <div class="px-6 py-4 border-b border-gray-200">
-        <div class="h-5 w-40 bg-gray-200 rounded"></div>
+      <div class="flex justify-between px-6 py-4 border-b border-gray-200">
+        <div class="h-6 w-40 bg-gray-200 rounded animate-pulse"></div>
+        <div class="h-10 w-64 bg-gray-200 rounded animate-pulse"></div>
       </div>
 
       <!-- Tabla responsive -->
