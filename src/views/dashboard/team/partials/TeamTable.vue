@@ -182,7 +182,7 @@ const confirmDelete = async () => {
 
   try {
     await api.delete(`/api/team_member/${memberToDelete.value.id}`)
-    showNotification('success', t('Dashboard.Team.CreateUpdate.Validations.Success.Delete'), 3000)
+    showNotification('success', t('Dashboard.Team.Validations.Success.Delete'), 3000)
     emit('status-updated')
     closeModal()
   } catch (error) {
@@ -197,10 +197,10 @@ const handleToggleStatus = async (data: Data) => {
     await api.post(`/api/team_member/update_status/${data.id}`, { status: newStatus });
     // Actualizamos el valor localmente si la API responde bien
     data.status = newStatus;
-    showNotification('success', t('Dashboard.Team.CreateUpdate.Validations.Success.Status'), 3000)
+    showNotification('success', t('Dashboard.Team.Validations.Success.Status'), 3000)
     emit('status-updated')
   } catch (error) {
-    showNotification('error', t('Dashboard.Team.CreateUpdate.Validations.Error.Status'), 4000)
+    showNotification('error', t('Dashboard.Team.Validations.Error.Status'), 4000)
     data.status = original
   }
 };

@@ -1,81 +1,84 @@
 <script setup lang="ts">
-import InputError from '@/components/ui/InputError.vue';
+import { showNotification } from '@/components/composables/useNotification';
 import InputLabel from '@/components/ui/InputLabel.vue';
-/* import PrimaryButton from '@/components/PrimaryButton.vue'; */
+import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import TextInput from '@/components/ui/TextInput.vue';
+import { api } from '@/plugins/api';
+import { useAuthStore } from '@/stores/authStore';
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
+
+const auth = useAuthStore()
+
+const loading = ref(false)
 
 defineProps<{
   mustVerifyEmail?: Boolean;
   status?: String;
 }>();
 
-/* const user = usePage().props.auth.user;
-
-const form = useForm({
-  name: user.name,
-  email: user.email,
-}); */
-
 const form = ref({
-  name: "",
-  email: "",
+  name: auth?.user?.name,
+  email: auth?.user?.email,
 })
+
+const SaveChanges = async () => {
+  loading.value = true
+  try {
+    const formData = new FormData()
+
+    formData.append('name', form.value.name)
+    formData.append('email', form.value.email)
+
+    for (const [key, val] of formData.entries()) {
+      console.log(`${key}:`, val)
+    }
+
+    const { data } = await api.post('/api/profile/info', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+
+    showNotification('success', t('Auth.Validations.Success.ProfileUpdate'), 3000)
+    auth.user = data.data
+
+  } catch (error) {
+    showNotification('error', t('Auth.Validations.Error.ProfileUpdate'), 4000)
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <template>
   <section>
     <header>
-      <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
+      <h2 class="text-lg font-medium text-gray-900">{{ $t('Auth.Profile.Title') }}</h2>
 
       <p class="mt-1 text-sm text-gray-600">
-        Update your account's profile information and email address.
+        {{ $t('Auth.Profile.Subtitle') }}
       </p>
     </header>
 
-    <form @submit.prevent="" class="mt-6 space-y-6">
+    <form @submit.prevent="SaveChanges" class="mt-6 space-y-6">
       <div>
-        <InputLabel for="name" value="Name" />
+        <InputLabel for="name" :value="$t('Auth.Profile.Name')" />
 
         <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus
           autocomplete="name" />
-
-        <InputError class="mt-2" />
       </div>
 
       <div>
-        <InputLabel for="email" value="Email" />
+        <InputLabel for="email" :value="$t('Auth.Profile.Email')" />
 
         <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
-          autocomplete="username" />
-
-        <InputError class="mt-2"  />
-      </div>
-
-      <!-- <div v-if="mustVerifyEmail && user.email_verified_at === null">
-        <p class="mt-2 text-sm text-gray-800">
-          Your email address is unverified.
-          <Link :href="routeWithLocale('verification.send')" method="post" as="button"
-            class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-          Click here to re-send the verification email.
-          </Link>
-        </p>
-
-        <div v-show="status === 'verification-link-sent'" class="mt-2 text-sm font-medium text-green-600">
-          A new verification link has been sent to your email address.
-        </div>
+          autocomplete="email" />
       </div>
 
       <div class="flex items-center gap-4">
-        <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
-
-        <Transition enter-active-class="transition ease-in-out" enter-from-class="opacity-0"
-          leave-active-class="transition ease-in-out" leave-to-class="opacity-0">
-          <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">
-            Saved.
-          </p>
-        </Transition>
-      </div> -->
+        <PrimaryButton :disabled="loading">{{ $t('Auth.Profile.Save') }}</PrimaryButton>
+      </div>
     </form>
   </section>
 </template>

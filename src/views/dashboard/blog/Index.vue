@@ -39,21 +39,22 @@
       <!-- Header -->
       <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
         <h2 class="text-xl font-semibold text-gray-800">
-          {{ t('Dashboard.Blog.Create.Title') }}
+          {{ $t('Dashboard.Blog.Create.Title') }}
         </h2>
         <p class="text-sm text-gray-600 mt-1">
-          {{ t('Dashboard.Blog.Create.Subtitle') }}
+          {{ $t('Dashboard.Blog.Create.Subtitle') }}
         </p>
       </div>
 
       <!-- Content -->
       <div class="px-6 py-6">
         <div class="space-y-2">
-          <InputLabel for="title" value="Título del blog" class="text-sm font-medium text-gray-700" />
+          <InputLabel for="title" :value="$t('Dashboard.Blog.Create.Title')"
+            class="text-sm font-medium text-gray-700" />
           <TextInput id="title" v-model="form.title"
             class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-            placeholder="Ingresa el título de tu blog..." />
-          <p class="text-xs text-gray-500 mt-1">Opcional: Puedes agregar el título ahora o después</p>
+            :placeholder="$t('Dashboard.Blog.Create.Placeholder')" />
+          <p class="text-xs text-gray-500 mt-1">{{ $t('Dashboard.Blog.Create.Optional') }}</p>
         </div>
       </div>
 
@@ -61,12 +62,12 @@
       <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-end gap-3">
         <SecondaryButton @click="closeModal"
           class="px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition-colors duration-200">
-          Cancelar
+          {{ $t('Dashboard.Blog.Create.Cancel') }}
         </SecondaryButton>
 
         <PrimaryButton @click="confirmCreate"
           class="px-5 py-2.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors duration-200 shadow-sm hover:shadow-md">
-          Crear blog
+          {{ $t('Dashboard.Blog.Create.CreateButton') }}
         </PrimaryButton>
       </div>
     </div>

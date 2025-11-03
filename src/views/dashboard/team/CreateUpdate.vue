@@ -136,23 +136,23 @@ const validateBeforeSave = (): boolean => {
   const errors: string[] = []
 
   if (!form.name) {
-    errors.push(t('Dashboard.Team.CreateUpdate.Validations.Name'))
+    errors.push(t('Dashboard.Team.Validations.Name'))
   }
 
   if (!form.image) {
-    errors.push(t('Dashboard.Team.CreateUpdate.Validations.Image'))
+    errors.push(t('Dashboard.Team.Validations.Image'))
   }
 
   if (!form.status) {
-    errors.push(t('Dashboard.Team.CreateUpdate.Validations.Status'))
+    errors.push(t('Dashboard.Team.Validations.Status'))
   }
 
   if (!form.specialization) {
-    errors.push(t('Dashboard.Team.CreateUpdate.Validations.Specialization'))
+    errors.push(t('Dashboard.Team.Validations.Specialization'))
   }
 
   if (!form.biography) {
-    errors.push(t('Dashboard.Team.CreateUpdate.Validations.Biography'))
+    errors.push(t('Dashboard.Team.Validations.Biography'))
   }
 
   if (form.results && form.results.length > 0) {
@@ -165,7 +165,7 @@ const validateBeforeSave = (): boolean => {
 
       if (!hasPath) {
         errors.push(
-          t('Dashboard.Design.ChooseCarouselNavbar.Validations.Carousel', { n: i + 1 })
+          t('Dashboard.Team.Validations.Error.Results', { n: i + 1 })
         )
       }
     }

@@ -5,7 +5,7 @@ import ApplicationLogo from '../components/app/ApplicationLogo.vue';
 import { useRouteHelper } from '@/components/composables/useRouteHelper';
 import DropdownLink from '../components/ui/DropdownLink.vue';
 import Dropdown from '../components/ui/Dropdown.vue';
-import { useAuthStore } from '@/stores/authStore'
+import { useAuthStore } from '@/stores/authStore';
 import NavLink from '../components/ui/NavLink.vue';
 import { RouterView } from 'vue-router';
 import { ref } from 'vue';
@@ -18,6 +18,9 @@ const showingNavigationDropdown = ref(false);
 
 const { current } = useRouteHelper();
 
+/* onMounted(() => {
+  console.log('auth?', auth.user)
+}) */
 </script>
 
 <template>
@@ -136,12 +139,10 @@ const { current } = useRouteHelper();
           <div class="border-t border-gray-200 pb-1 pt-4">
             <div class="px-4">
               <div class="text-base font-medium text-gray-800">
-                <!-- {{ $page.props.auth.user.name }} -->
-                Aqui va el nombre
+                {{ auth?.user?.name }}
               </div>
               <div class="text-sm font-medium text-gray-500">
-                <!-- {{ $page.props.auth.user.email }} -->
-                Aqui va el email
+                {{ auth?.user?.email }}
               </div>
             </div>
 

@@ -1,5 +1,4 @@
 {
-  "Content": "texto entre imagenes",
   "Dashboard": {
     "Navbar": {
       "Dashboard": "Tablero",
@@ -17,7 +16,6 @@
     "Team": {
       "Title": "Equipo - Gestión de Miembros del Equipo",
       "CreateButton": "Agregar Miembro",
-
       "Statistics": {
         "Total": "Miembros del equipo totales",
         "TeamsActives": "Miembros del equipo activos",
@@ -56,27 +54,36 @@
             "Active": "Activo",
             "Inactive": "Inactivo"
           }
+        }
+      },
+      "Validations": {
+        "Name": "El nombre es obligatorio.",
+        "Image": "La imagen es obligatoria.",
+        "Status": "El estado es obligatorio.",
+        "Specialization": "La especializacion es obligatoria.",
+        "Biography": "La biografia es obligatoria",
+        "Success": {
+          "Status": "Estado actualizado correctamente.",
+          "Delete": "Miembro eliminado correctamente"
         },
-        "Validations": {
-          "Name": "El nombre es obligatorio.",
-          "Image": "La imagen es obligatoria.",
-          "Status": "El estado es obligatorio.",
-          "Specialization": "La especializacion es obligatoria.",
-          "Biography": "La biografia es obligatoria",
-          "Success": {
-            "Status": "Estado actualizado correctamente.",
-            "Delete": "Miembro eliminado correctamente"
-          },
-          "Error": {
-            "Status": "Error al actualizar el estado.",
-            "Delete": "Error al eliminar al miembro."
-          }
+        "Error": {
+          "Status": "Error al actualizar el estado.",
+          "Delete": "Error al eliminar al miembro.",
+          "Results": "La imagen #{n} de los resultados no tiene archivo seleccionado."
         }
       }
     },
     "Blog": {
       "Title": "Blog - Gestión de Contenido del Blog",
       "CreateButton": "Crear Publicacion",
+      "Create": {
+        "Title": "Título del blog",
+        "Subtitle": "Crea tu blog.",
+        "Optional": "Opcional: Puedes agregar el título ahora o después",
+        "Placeholder": "Ingresa el título de tu blog...",
+        "Cancel": "Cancelar",
+        "CreateButton": "Crear Blog"
+      },
       "Statistics": {
         "Total": "Blogs totales",
         "TeamsActives": "Blogs activos",
@@ -88,7 +95,7 @@
         "Active": "Activo",
         "Inactive": "Inactivo",
         "LastUpdate": "Última actualización:",
-        "CreationDate":"Fecha de creacion:",
+        "CreationDate": "Fecha de creacion:",
         "Edit": "Editar",
         "Activate": "Activar",
         "Deactivate": "Desactivar",
@@ -96,7 +103,7 @@
         "Search": "Buscar por título"
       },
       "Validations": {
-        "Success":{
+        "Success": {
           "Status": "Estado actualizado correctamente.",
           "Create": "Creado con exito."
         },
@@ -195,6 +202,23 @@
       "hours": "hace {n} hora | hace {n} horas",
       "minutes": "hace {n} minuto | hace {n} minutos",
       "seconds": "hace unos segundos"
+    }
+  },
+  "Auth": {
+    "Profile":{
+      "Title": "Informacion de perfil",
+      "Subtitle": "Actualiza tu nombre y correo de perfil",
+      "Name": "Nombre",
+      "Email": "Correo",
+      "Save": "Guardar"
+    },
+    "Validations": {
+      "Success": {
+        "ProfileUpdate": "Perfil actualizado"
+      },
+      "Error": {
+        "ProfileUpdate": "Error al actualizar el perfil"
+      }
     }
   }
 }
