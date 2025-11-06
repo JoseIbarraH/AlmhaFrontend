@@ -8,7 +8,10 @@ import AuthenticatedLayout from "@/layouts/AuthenticatedLayout.vue"
 import GuestLayout from '@/layouts/GuestLayout.vue'
 
 import NotFound from "@/views/errors/NotFound.vue"
+
 import DashboardBlog from "@/views/dashboard/blog/Index.vue"
+import DashboardBlogEdit from "@/views/dashboard/blog/Edit.vue"
+
 import DashboardHome from "@/views/dashboard/home/Index.vue"
 import DashboardDesign from "@/views/dashboard/design/Index.vue"
 import DashboardService from "@/views/dashboard/service/Index.vue"
@@ -99,7 +102,9 @@ const routes: RouteRecordRaw[] = [
           { path: "", name: "dashboard.home", component: DashboardHome, meta: { title: 'Dashboard' } },
           { path: "design", name: "dashboard.design", component: DashboardDesign, meta: { title: 'Design' } },
           { path: "service", name: "dashboard.service", component: DashboardService, meta: { title: 'Service' } },
+
           { path: "blog", name: "dashboard.blog", component: DashboardBlog, meta: { title: 'Blog' } },
+          { path: "blog/:id/edit", name: "dashboard.blog.edit", component: DashboardBlogEdit, props: true, meta: { title: 'Edit Blog' } },
 
           { path: "team", name: "dashboard.team", component: DashboardTeam, meta: { title: 'Team' } },
           { path: "team/create", name: "dashboard.team.create", component: DashboardTeamCreate, props: true, meta: { title: 'Create Team' } },

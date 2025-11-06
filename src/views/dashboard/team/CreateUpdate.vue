@@ -18,7 +18,8 @@
           {{ $t('Dashboard.Team.CreateUpdate.BackButton') }}
         </BackButton>
 
-        <CreateButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center" :disabled="loading">
+        <CreateButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center"
+          :disabled="loading">
           {{ editing
             ? $t('Dashboard.Team.CreateUpdate.UpdateButton')
             : $t('Dashboard.Team.CreateUpdate.CreateButton')
@@ -195,25 +196,28 @@ const saveChanges = async () => {
     }
 
     if (editing.value === false) {
-      const response = await api.post('/api/team_member', formData, {
+      await api.post('/api/team_member', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
-      showNotification('success', response.data.message, 3000)
+      showNotification('success', t('Dashboard.Team.Validations.Success.Create'), 3000)
     }
 
     if (editing.value === true) {
-      const response = await api.post(`/api/team_member/${form.id}`, formData, {
+      await api.post(`/api/team_member/${form.id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
-      showNotification('success', response.data.message, 3000)
+      showNotification('success', t('Dashboard.Team.Validations.Success.Update'), 3000)
     }
 
     loading.value = false
     router.push({ name: 'dashboard.team' })
   } catch (err) {
-    console.log('Aqui paso algo', err)
+    const message = editing.value
+      ? t('Dashboard.Team.Validations.Error.Update')
+      : t('Dashboard.Team.Validations.Error.Create');
+    showNotification('error', message, 3000)
   }
 }
 

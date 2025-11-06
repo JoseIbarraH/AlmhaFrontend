@@ -1,22 +1,13 @@
 <template>
   <div>
-    <label
-      v-if="label"
-      class="block mb-1 text-sm font-medium text-gray-700"
-    >
+    <label v-if="label" class="block mb-1 text-sm font-medium text-gray-700">
       {{ label }}
     </label>
 
-    <select
-      v-model="model"
-      class="w-full border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
-    >
+    <select v-model="model"
+      :class="['w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300', $attrs.class]">
       <option disabled value="">{{ default }}</option>
-      <option
-        v-for="option in options"
-        :key="option.value"
-        :value="option.value"
-      >
+      <option v-for="option in options" :key="option.value" :value="option.value">
         {{ option.label }}
       </option>
     </select>

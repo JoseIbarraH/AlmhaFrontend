@@ -58,7 +58,7 @@
 
       <!-- Botones de acción -->
       <div class="flex gap-2">
-        <button @click="handleEdit(value)"
+        <button @click="handleEdit(value.id)"
           class="flex-1 px-4 py-2 text-sm font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md hover:bg-blue-100 transition-colors duration-200">
           {{ $t('Dashboard.Blog.List.Edit') }}
         </button>
@@ -119,6 +119,7 @@ import { showNotification } from '@/components/composables/useNotification';
 import Search from '@/components/ui/Search.vue';
 import Modal from '@/components/app/Modal.vue';
 import { FileX } from 'lucide-vue-next';
+import { useRouter } from 'vue-router';
 import type { Data } from '../type';
 import { api } from '@/plugins/api';
 import { useI18n } from 'vue-i18n';
@@ -130,6 +131,8 @@ const emit = defineEmits<{
   (e: 'status-updated'): void
   (e: 'refresh-requested'): void
 }>()
+
+const router = useRouter()
 
 const isOpen = ref(false)
 const blogToDelete = ref<Data | null>(null)
@@ -151,8 +154,9 @@ const closeModal = () => {
   blogToDelete.value = null
 }
 
-const handleEdit = (data: Data) => {
-  return data
+const handleEdit = (id: number) => {
+  router.push({ name: 'dashboard.blog.edit', params: { id } })
+  console.log("id: ", id)
 }
 
 const confirmDelete = async () => {

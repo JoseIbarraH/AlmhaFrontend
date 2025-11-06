@@ -80,7 +80,7 @@ import { showNotification } from '@/components/composables/useNotification';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import Statistics from '@/components/app/Statistics.vue';
 import Pagination from '@/components/app/Pagination.vue';
-import { ref, computed, watch, onMounted, reactive } from 'vue';
+import { ref, computed, onMounted, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Modal from '@/components/app/Modal.vue';
 import BlogGrid from './partials/BlogGrid.vue';
@@ -151,7 +151,7 @@ async function fetchBlogs(page = 1) {
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
 
-    router.replace({ query: { page } });
+    /* router.replace({ query: { page } }); */
   } catch (error) {
     showNotification('error', t('Dashboard.Blog.Validations.Error.GetData'), 4000);
   } finally {
@@ -173,14 +173,19 @@ const closeModal = () => {
   isOpen.value = false
 }
 
+let initialized = false;
+
 onMounted(() => {
-  fetchBlogs(page)
+  if (!initialized) {
+    fetchBlogs(page);
+    initialized = true;
+  }
 })
 
-watch(
+/* watch(
   () => route.query.page,
   (newPage) => {
     if (newPage) fetchBlogs(Number(newPage))
   }
-)
+) */
 </script>

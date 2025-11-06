@@ -39,7 +39,7 @@ import { showNotification } from '@/components/composables/useNotification';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import Statistics from '@/components/app/Statistics.vue';
 import Pagination from '@/components/app/Pagination.vue';
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import TeamTable from './partials/TeamTable.vue';
 import { useRoute, useRouter } from 'vue-router';
 import Skeleton from './partials/Skeleton.vue';
@@ -68,8 +68,8 @@ async function fetchTeamMembers(page = 1) {
     const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/team_member?page=${page}`);
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
-
-    router.replace({ query: { page } });
+    console.log('pa: ', paginate.value)
+    /* router.replace({ query: { page } }); */
   } catch (error) {
     showNotification('error', 'Ocurrió un error al obtener los datos del equipo', 4000);
   } finally {
@@ -88,10 +88,10 @@ onMounted(() => {
   fetchTeamMembers(page)
 })
 
-watch(
+/* watch(
   () => route.query.page,
   (newPage) => {
     if (newPage) fetchTeamMembers(Number(newPage))
   }
-)
+) */
 </script>

@@ -7,27 +7,23 @@
     <InputLabel for="name" :value="$t('Dashboard.Team.CreateUpdate.PersonalInfo.Name')" />
     <TextInput id="name" ref="nameInput" v-model="modelValue.name" type="text" class="mt-1 block w-full"
       :placeholder="$t('Dashboard.Team.CreateUpdate.PersonalInfo.Name')" />
-    <InputError :message="errors?.name" class="mt-2" />
   </div>
 
   <div class="mt-2">
     <InputLabel for="category" :value="$t('Dashboard.Team.CreateUpdate.PersonalInfo.Status.Title')" />
     <Select class="mt-1 block w-full" id="category" :default="'Seleccione'" v-model="modelValue.status"
       :options="status" />
-    <InputError class="mt-2" :message="errors?.status" />
   </div>
 
   <div class="mt-2">
     <InputLabel for="specialization" :value="$t('Dashboard.Team.CreateUpdate.PersonalInfo.Specialization')" />
     <TextArea id="specialization" ref="nameInput" v-model="modelValue.specialization" type="text"
       class="mt-1 block w-full h-40" :placeholder="$t('Dashboard.Team.CreateUpdate.PersonalInfo.Specialization')" />
-    <InputError class="mt-2" :message="errors?.specialization" />
   </div>
 </template>
 
 <script setup lang="ts">
 import InputLabel from '@/components/ui/InputLabel.vue';
-import InputError from '@/components/ui/InputError.vue';
 import TextInput from '@/components/ui/TextInput.vue';
 import TextArea from '@/components/ui/TextArea.vue';
 import Select from '@/components/ui/Select.vue';
@@ -51,7 +47,6 @@ const modelValue = defineModel<TeamMember>({
 defineProps<{
   errors?: TeamMemberErrors;
 }>();
-
 
 const status = [
   { value: "active", label: t('Dashboard.Team.CreateUpdate.PersonalInfo.Status.Active') },

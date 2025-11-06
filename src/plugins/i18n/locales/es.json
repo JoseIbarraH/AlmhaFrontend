@@ -64,12 +64,16 @@
         "Biography": "La biografia es obligatoria",
         "Success": {
           "Status": "Estado actualizado correctamente.",
-          "Delete": "Miembro eliminado correctamente"
+          "Delete": "Miembro eliminado correctamente.",
+          "Create": "Miembro creado correctamente.",
+          "Update": "Miembro actualizado correctamente."
         },
         "Error": {
           "Status": "Error al actualizar el estado.",
           "Delete": "Error al eliminar al miembro.",
-          "Results": "La imagen #{n} de los resultados no tiene archivo seleccionado."
+          "Results": "La imagen #{n} de los resultados no tiene archivo seleccionado.",
+          "Create": "No se pudo crear el miembro del equipo. Por favor, verifica los datos e intenta nuevamente.",
+          "Update": "No se pudo actualizar la información del miembro del equipo. Por favor, verifica los datos e intenta nuevamente."
         }
       }
     },
@@ -101,6 +105,20 @@
         "Deactivate": "Desactivar",
         "NoResults": "No hay resultados",
         "Search": "Buscar por título"
+      },
+      "Edit": {
+        "Title": "Actualizar Blog",
+        "BackButton": "Volver",
+        "SaveChanges": "Guardar Cambios",
+        "Saving": "Guardando...",
+        "TitlePost": "Titulo del post",
+        "Category": "Categoria",
+        "Categories": {
+          "General": "General",
+          "Facial": "Facial",
+          "NonSurgical": "No Quirúrgico",
+          "Bodily": "Corporal"
+        }
       },
       "Validations": {
         "Success": {
@@ -193,17 +211,6 @@
       "DeleteProfile": "Eliminar perfil"
     }
   },
-  "Helper": {
-    "TimeSince": {
-      "years": "hace {n} año | hace {n} años",
-      "months": "hace {n} mes | hace {n} meses",
-      "weeks": "hace {n} semana | hace {n} semanas",
-      "days": "hace {n} día | hace {n} días",
-      "hours": "hace {n} hora | hace {n} horas",
-      "minutes": "hace {n} minuto | hace {n} minutos",
-      "seconds": "hace unos segundos"
-    }
-  },
   "Auth": {
     "Profile":{
       "Title": "Informacion de perfil",
@@ -219,6 +226,20 @@
       "Error": {
         "ProfileUpdate": "Error al actualizar el perfil"
       }
+    }
+  },
+  "Helper": {
+    "TimeSince": {
+      "years": "hace {n} año | hace {n} años",
+      "months": "hace {n} mes | hace {n} meses",
+      "weeks": "hace {n} semana | hace {n} semanas",
+      "days": "hace {n} día | hace {n} días",
+      "hours": "hace {n} hora | hace {n} horas",
+      "minutes": "hace {n} minuto | hace {n} minutos",
+      "seconds": "hace unos segundos"
+    },
+    "Pagination": {
+      "Showing": "Mostrando {from} – {to} de {total} registros"
     }
   }
 }

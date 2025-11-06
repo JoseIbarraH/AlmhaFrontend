@@ -6,8 +6,8 @@
         {{ $t('Dashboard.Team.List.TeamMembers') }}
       </h2>
 
-      <Search endpoint="/api/team_member" :placeholder="$t('Dashboard.Team.List.Search')" @update:modelValue="handleSearch"
-        @loading="loading = $event" />
+      <Search endpoint="/api/team_member" :placeholder="$t('Dashboard.Team.List.Search')"
+        @update:modelValue="handleSearch" @loading="loading = $event" />
     </div>
 
 
