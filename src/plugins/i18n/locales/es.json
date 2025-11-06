@@ -123,12 +123,27 @@
       "Validations": {
         "Success": {
           "Status": "Estado actualizado correctamente.",
-          "Create": "Creado con exito."
+          "Create": "Creado con exito.",
+          "Delete": "Blog eliminado correctamente"
         },
         "Error": {
           "GetData": "Error al obtener los datos.",
           "Status": "Error al actualizar el estado.",
-          "Create": "Error al crear el blog en blanco."
+          "Create": "Error al crear el blog en blanco.",
+          "Delete": "Error al eliminar el blog"
+        }
+      },
+      "Delete": {
+        "ConfirmTitle": "Confirmar Eliminación",
+        "ConfirmSubtitle": "Esta acción es permanente y no se puede revertir",
+        "Confirm_delete": "¿Estás seguro de que deseas eliminar el blog",
+        "Cancel": "Cancelar",
+        "Delete": "Eliminar Blog",
+        "Consequences": {
+          "Title": "Al eliminar este blog:",
+          "First": "Se eliminará todo el contenido permanentemente",
+          "Second": "Las imágenes asociadas se eliminarán del servidor",
+          "Third": "No podrás recuperar esta información"
         }
       }
     },
@@ -183,11 +198,13 @@
     "Service": {
       "Header": "Servicios",
       "Title": "Servicios - Gestion de Servicios",
-      "CreateService": "Crear Servicio",
-      "TotalServices": "Servicios totales",
-      "ServicesActives": "Servicios activos",
-      "ServicesInactives": "Servicios inactivos",
-      "LastServices": "Nuevos servicios (15d)",
+      "CreateButton": "Crear Servicio",
+      "Statistics": {
+        "Total": "Servicios totales",
+        "TeamsActives": "Servicios activos",
+        "TeamsInactives": "Servicios inactivos",
+        "Last": "Nuevos servicios (15d)"
+      },
       "Create": {
         "Title": "Agregar un nuevo Procedimiento",
         "Save": "Guardar Procedimiento",
@@ -198,11 +215,39 @@
         "Back": "Volver"
       },
       "List": {
-        "NoResults": "No se encontraron elementos",
-        "NoResultsFor": "No se encontraron elementos para mostrar.",
+        "Services": "Servicios",
+        "Search": "Buscar por título",
+        "Active": "Activo",
+        "Inactive": "Inactivo",
         "LastUpdate": "Última actualización:",
         "CreationDate": "Fecha de creacion:",
-        "Search": "Buscar por título"
+        "Edit": "Editar",
+        "Deactivate": "Desactivar",
+        "Activate": "Activar",
+        "NoResults":"No hay resultados"
+      },
+      "Delete": {
+        "ConfirmTitle": "Confirmar Eliminación",
+        "ConfirmSubtitle": "Esta acción es permanente y no se puede revertir",
+        "Confirm_delete": "¿Estás seguro de que deseas eliminar el servicio",
+        "Cancel": "Cancelar",
+        "Delete": "Eliminar Servicio",
+        "Consequences": {
+          "Title": "Al eliminar este servicio:",
+          "First": "Se eliminará todo el contenido permanentemente",
+          "Second": "Las imágenes asociadas se eliminarán del servidor",
+          "Third": "No podrás recuperar esta información"
+        }
+      },
+      "Validations": {
+        "Success": {
+          "Status": "Estado actualizado correctamente.",
+          "Delete": "Servicio eliminado correctamente"
+        },
+        "Error": {
+          "Status": "Error al actualizar el estado.",
+          "Delete": "Error al eliminr el servicio"
+        }
       }
     },
     "Profile": {

@@ -85,7 +85,7 @@ import { useRoute, useRouter } from 'vue-router';
 import Modal from '@/components/app/Modal.vue';
 import BlogGrid from './partials/BlogGrid.vue';
 import { api } from '@/plugins/api';
-import type { Data } from './type';
+import type { Data } from './types';
 import { useI18n } from 'vue-i18n';
 import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import InputLabel from '@/components/ui/InputLabel.vue';

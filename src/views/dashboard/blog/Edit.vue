@@ -51,7 +51,7 @@ import Editor from './partials/Editor.vue';
 import { onMounted, reactive, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { api } from '@/plugins/api';
-import type { Blog } from './type';
+import type { Blog } from './types';
 
 const router = useRouter();
 

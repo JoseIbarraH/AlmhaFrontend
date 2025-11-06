@@ -27,7 +27,7 @@ import ImagesPreview from '@/components/ui/ImagesPreview.vue';
 import InputLabel from '@/components/ui/InputLabel.vue';
 import TextInput from '@/components/ui/TextInput.vue';
 import Select from '@/components/ui/Select.vue';
-import type { Blog } from '../type';
+import type { Blog } from '../types';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();

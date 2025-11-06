@@ -69,7 +69,6 @@ async function fetchTeamMembers(page = 1) {
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
     console.log('pa: ', paginate.value)
-    /* router.replace({ query: { page } }); */
   } catch (error) {
     showNotification('error', 'Ocurrió un error al obtener los datos del equipo', 4000);
   } finally {
@@ -88,10 +87,4 @@ onMounted(() => {
   fetchTeamMembers(page)
 })
 
-/* watch(
-  () => route.query.page,
-  (newPage) => {
-    if (newPage) fetchTeamMembers(Number(newPage))
-  }
-) */
 </script>
