@@ -1,13 +1,13 @@
 <template>
   <h3 class="text-lg font-semibold leading-tight text-gray-800 mb-3">
-    Fases del Procedimiento
+    {{ $t('Dashboard.Service.CreateUpdate.Phases.Title') }}
   </h3>
 
   <div class="grid grid-cols-1 md:grid-cols-3">
     <!-- 🩹 Recuperación -->
     <div class="rounded-lg p-2 flex flex-col">
       <h3 class="block text-sm font-medium text-gray-700 text-center my-2">
-        Tiempo de recuperación
+        {{ $t('Dashboard.Service.CreateUpdate.Phases.RecoveryTime') }}
       </h3>
 
       <!-- Contenedor con scroll -->
@@ -36,7 +36,7 @@
     <!-- 🧠 Sugerencias Pre -->
     <div class="rounded-lg p-2 flex flex-col">
       <h3 class="block text-sm font-medium text-gray-700 text-center my-2">
-        Sugerencias Prequirúrgicas
+        {{ $t('Dashboard.Service.CreateUpdate.Phases.PreOperative') }}
       </h3>
 
       <div class="overflow-y-auto overflow-x-hidden max-h-[300px] pt-2 px-1">
@@ -63,7 +63,7 @@
     <!-- 💊 Sugerencias Post -->
     <div class="rounded-lg p-2 flex flex-col">
       <h3 class="block text-sm font-medium text-gray-700 text-center my-2">
-        Sugerencias Postquirúrgicas
+        {{ $t('Dashboard.Service.CreateUpdate.Phases.PostOperative') }}
       </h3>
 
       <div class="overflow-y-auto overflow-x-hidden max-h-[300px] pt-2 px-1">

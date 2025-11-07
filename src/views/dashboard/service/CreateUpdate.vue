@@ -56,6 +56,7 @@
 
 <script setup lang="ts">
 import FrequentlyAskedQuestions from './partials/FrequentlyAskedQuestions.vue';
+import { showNotification } from '@/components/composables/useNotification';
 import MainInfoService from './partials/MainInfoService.vue';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import ResultsGallery from './partials/ResultsGallery.vue';
@@ -66,6 +67,9 @@ import { onMounted, reactive, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import type { Service } from './types';
 import { api } from '@/plugins/api';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
 
 const props = defineProps<{ id?: string }>()
 
@@ -75,6 +79,7 @@ const form = reactive<Service>({
   id: 0,
   status: 'active',
   image: null,
+  slug: '',
 
   // Traducción (nivel principal)
   title: '',
@@ -98,7 +103,7 @@ const form = reactive<Service>({
 
   // Arrays
   frequently_asked_questions: [],
-  result_gallery: []
+  results_gallery: []
 });
 
 const editing = ref(false)
@@ -110,11 +115,166 @@ const editingForm = () => {
     Object.assign(form, ServiceResponse.value)
 }
 
+const buildFormData = (): FormData => {
+  const formData = new FormData()
+
+  formData.append('title', form.title)
+  formData.append('description', form.description)
+  formData.append('status', form.status)
+  formData.append('slug', form.slug)
+
+  if (form.image instanceof File) {
+    formData.append('image', form.image)
+  } else if (typeof form.image === 'string' && form.image.trim() !== '') {
+    formData.append('image', form.image)
+  }
+
+  form.surgery_phases.recovery_time.forEach((item, i) => {
+    if (!item) return
+    formData.append(`surgery_phases[recovery_time][${i}]`, item)
+  })
+
+  form.surgery_phases.preoperative_recommendations.forEach((item, i) => {
+    if (!item) return
+    formData.append(`surgery_phases[preoperative_recommendations][${i}]`, item)
+  })
+
+  form.surgery_phases.postoperative_recommendations.forEach((item, i) => {
+    if (!item) return
+    formData.append(`surgery_phases[postoperative_recommendations][${i}]`, item)
+  })
+
+  const appendIfExists = (key: string, value: File | string | null | undefined) => {
+    if (value instanceof File) formData.append(key, value)
+    else if (typeof value === 'string' && value.trim() !== '') formData.append(key, value)
+  }
+
+  appendIfExists('sample_images[recovery]', form.sample_images.recovery)
+  appendIfExists('sample_images[postoperative_care]', form.sample_images.postoperative_care)
+  appendIfExists('sample_images[technique]', form.sample_images.technique)
+
+  form.results_gallery.forEach((item, i) => {
+    if (!item) return
+
+    if (item.path instanceof File) {
+      formData.append(`results_gallery[${i}]`, item.path)
+    } else if (typeof item.path === 'string' && item.path.trim() !== '') {
+      formData.append(`results_gallery[${i}]`, item.path)
+    }
+  })
+
+  form.frequently_asked_questions.forEach((item, i) => {
+    if (!item) return
+
+    const prefix = `frequently_asked_questions[${i}]`
+    formData.append(`${prefix}[question]`, item.question)
+    formData.append(`${prefix}[answer]`, item.answer)
+  })
+
+  return formData
+}
+
+const validateBeforeSave = (): boolean => {
+  const errors: string[] = []
+
+  // Campos básicos
+  if (!form.title?.trim()) {
+    errors.push(t('Dashboard.Service.Validations.Form.Title'))
+  }
+
+  if (!form.description?.trim()) {
+    errors.push(t('Dashboard.Service.Validations.Form.Description'))
+  }
+
+  if (!form.status?.trim()) {
+    errors.push(t('Dashboard.Service.Validations.Form.Status'))
+  }
+
+  if (!form.image) {
+    errors.push(t('Dashboard.Service.Validations.Form.Image'))
+  }
+
+  // Validaciones de surgery_phases
+  const validateArray = (array: string[], key: string) => {
+    if (!array || array.length === 0) {
+      errors.push(t(`Dashboard.Service.Validations.Form.${key}.Empty`))
+      return
+    }
+
+    array.forEach((item, i) => {
+      if (!item || (typeof item === 'string' && item.trim() === '')) {
+        errors.push(t(`Dashboard.Service.Validations.Form.${key}.Item`, { n: i + 1 }))
+      }
+    })
+  }
+
+  validateArray(form.surgery_phases.recovery_time, 'RecoveryTime')
+  validateArray(form.surgery_phases.preoperative_recommendations, 'PreoperativeRecommendations')
+  validateArray(form.surgery_phases.postoperative_recommendations, 'PostoperativeRecommendations')
+
+  // Validaciones de sample_images
+  const checkImage = (value: File | string | null | undefined, key: string) => {
+    if (!value || (typeof value === 'string' && value.trim() === '')) {
+      errors.push(t(`Dashboard.Service.Validations.Form.SampleImages.${key}`))
+    }
+  }
+
+  checkImage(form.sample_images.recovery, 'Recovery')
+  checkImage(form.sample_images.postoperative_care, 'PostoperativeCare')
+  checkImage(form.sample_images.technique, 'Technique')
+
+  // Validación de results_gallery
+  form.results_gallery.forEach((item, i) => {
+    if (!item?.path || (typeof item.path === 'string' && item.path.trim() === '')) {
+      errors.push(t('Dashboard.Service.Validations.Form.ResultsGallery.Item', { n: i + 1 }))
+    }
+  })
+
+  // Validación de FAQ
+  form.frequently_asked_questions.forEach((item, i) => {
+    if (!item.question?.trim()) {
+      errors.push(t('Dashboard.Service.Validations.Form.FAQ.Question', { n: i + 1 }))
+    }
+    if (!item.answer?.trim()) {
+      errors.push(t('Dashboard.Service.Validations.Form.FAQ.Answer', { n: i + 1 }))
+    }
+  })
+
+  // Mostrar errores si hay
+  if (errors.length > 0) {
+    errors.forEach((err, index) => {
+      setTimeout(() => {
+        showNotification('warning', err, 4000)
+      }, index * 300)
+    })
+    return false
+  }
+
+  return true
+}
+
+
+const saveChanges = () => {
+  if (!validateBeforeSave()) return
+
+  loading.value = true
+  try {
+    const formData = buildFormData()
+
+    for (const [key, val] of formData.entries()) {
+      console.log(`${key}:`, val)
+    }
+
+  } catch (err) {
+
+  } finally {
+    loading.value = false
+  }
+}
+
 const backToIndex = () => {
   router.push({ name: 'dashboard.service' })
 }
-
-const saveChanges = () => { }
 
 watch(form, (val) => {
   console.log(val)

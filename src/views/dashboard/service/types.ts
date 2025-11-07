@@ -25,6 +25,7 @@ export interface Service {
   id: number;
   status: string;
   image: string | File | null;
+  slug: string
   created_at?: string;
   updated_at?: string;
 
@@ -37,7 +38,7 @@ export interface Service {
   sample_images: SampleImages
   frequently_asked_questions: FrequentlyAskedQuestion[];
   surgery_phases: SurgeryPhases;
-  result_gallery: ResultGallery[];
+  results_gallery: ResultGallery[];
 }
 
 export interface Data {

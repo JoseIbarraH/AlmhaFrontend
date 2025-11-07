@@ -57,11 +57,14 @@
         }
       },
       "Validations": {
-        "Name": "El nombre es obligatorio.",
-        "Image": "La imagen es obligatoria.",
-        "Status": "El estado es obligatorio.",
-        "Specialization": "La especializacion es obligatoria.",
-        "Biography": "La biografia es obligatoria",
+        "Form": {
+          "Name": "El nombre es obligatorio.",
+          "Image": "La imagen es obligatoria.",
+          "Status": "El estado es obligatorio.",
+          "Specialization": "La especializacion es obligatoria.",
+          "Biography": "La biografia es obligatoria",
+          "Results": "La imagen #{n} de los resultados no tiene archivo seleccionado."
+        },
         "Success": {
           "Status": "Estado actualizado correctamente.",
           "Delete": "Miembro eliminado correctamente.",
@@ -71,7 +74,6 @@
         "Error": {
           "Status": "Error al actualizar el estado.",
           "Delete": "Error al eliminar al miembro.",
-          "Results": "La imagen #{n} de los resultados no tiene archivo seleccionado.",
           "Create": "No se pudo crear el miembro del equipo. Por favor, verifica los datos e intenta nuevamente.",
           "Update": "No se pudo actualizar la información del miembro del equipo. Por favor, verifica los datos e intenta nuevamente."
         }
@@ -211,7 +213,34 @@
         "BackButton": "Volver",
         "CreateButton": "Crear Servicio",
         "UpdateButton": "Actualizar",
-        "Information": "Información del Procedimiento"
+        "MainInfo": {
+          "Information": "Información del Procedimiento",
+          "Title": "Nombre del Procedimiento",
+          "TitlePlaceholder": "Ingrese el nombre del procedimiento",
+          "Description": "Descripción del Procedimiento",
+          "DescriptionPlaceholder": "Ingrese la descripción del procedimiento",
+          "Image": "Imagen del Procedimiento"
+        },
+        "Phases": {
+          "Title": "Fases del Procedimiento",
+          "RecoveryTime": "Tiempo de recuperación",
+          "PreOperative": "Sugerencias Prequirúrgicas",
+          "PostOperative": "Sugerencias Postquirúrgicas"
+        },
+        "SampleImages": {
+          "Title": "Imagenes de muestra",
+          "Technique": "Tecnica",
+          "Recovery": "Recuperación",
+          "PostOperativeCare": "Cuidado Postoperatorio"
+        },
+        "ResultsGallery": {
+          "Title": "Galería de Resultados"
+        },
+        "FrequentlyAskedQuestions": {
+          "Title": "Preguntas Frecuentes",
+          "Question": "Pregunta",
+          "Answer": "Respuesta"
+        }
       },
       "List": {
         "Services": "Servicios",
@@ -223,7 +252,7 @@
         "Edit": "Editar",
         "Deactivate": "Desactivar",
         "Activate": "Activar",
-        "NoResults":"No hay resultados"
+        "NoResults": "No hay resultados"
       },
       "Delete": {
         "ConfirmTitle": "Confirmar Eliminación",
@@ -239,13 +268,43 @@
         }
       },
       "Validations": {
+        "Form": {
+          "Title": "El titulo es obligatorio.",
+          "Description": "La descripcion es obligatoria.",
+          "Status": "El estado es obligatorio.",
+          "Image": "La imagen es obligatoria.",
+          "RecoveryTime": {
+            "Empty": "El tiempo de recuperación no puede estar vacío.",
+            "Item": "El tiempo de recuperación n.º {n} no puede estar vacío."
+          },
+          "PreoperativeRecommendations": {
+            "Empty": "Las recomendaciones preoperatorias no pueden estar vacías.",
+            "Item": "La recomendación preoperatoria n.º {n} no puede estar vacía."
+          },
+          "PostoperativeRecommendations": {
+            "Empty": "Las recomendaciones postoperatorias no pueden estar vacías.",
+            "Item": "La recomendación postoperatoria n.º {n} no puede estar vacía."
+          },
+          "SampleImages": {
+            "Recovery": "La imagen de muestra del proceso de recuperación no puede estar vacía.",
+            "PostoperativeCare": "La imagen de muestra del cuidado postoperatorio no puede estar vacía.",
+            "Technique": "La imagen de muestra de la técnica quirúrgica no puede estar vacía."
+          },
+          "ResultsGallery": {
+            "Item": "El resultado n.º {n} no puede estar vacío."
+          },
+          "FAQ": {
+            "Question": "La pregunta n.º {n} no puede estar vacía.",
+            "Answer": "La respuesta n.º {n} no puede estar vacía."
+          }
+        },
         "Success": {
           "Status": "Estado actualizado correctamente.",
-          "Delete": "Servicio eliminado correctamente"
+          "Delete": "Servicio eliminado correctamente."
         },
         "Error": {
           "Status": "Error al actualizar el estado.",
-          "Delete": "Error al eliminr el servicio"
+          "Delete": "Error al eliminr el servicio."
         }
       }
     },
@@ -256,7 +315,7 @@
     }
   },
   "Auth": {
-    "Profile":{
+    "Profile": {
       "Title": "Informacion de perfil",
       "Subtitle": "Actualiza tu nombre y correo de perfil",
       "Name": "Nombre",

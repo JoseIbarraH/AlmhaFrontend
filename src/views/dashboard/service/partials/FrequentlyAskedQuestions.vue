@@ -1,6 +1,6 @@
 <template>
   <h3 class="text-lg font-semibold leading-tight text-gray-800">
-    Preguntas Frecuentes
+    {{ $t('Dashboard.Service.CreateUpdate.FrequentlyAskedQuestions.Title') }}
   </h3>
 
   <!-- Contenedor scrollable -->
@@ -15,13 +15,13 @@
 
       <!-- Campo Pregunta -->
       <div>
-        <InputLabel class="block text-sm font-medium">Pregunta</InputLabel>
+        <InputLabel class="block text-sm font-medium">{{ $t('Dashboard.Service.CreateUpdate.FrequentlyAskedQuestions.Question') }}</InputLabel>
         <TextInput type="text" v-model="item.question" class="w-full border rounded px-2 py-1" />
       </div>
 
       <!-- Campo Respuesta -->
       <div>
-        <InputLabel class="block text-sm font-medium">Respuesta</InputLabel>
+        <InputLabel class="block text-sm font-medium">{{ $t('Dashboard.Service.CreateUpdate.FrequentlyAskedQuestions.Answer') }}</InputLabel>
         <TextArea type="text" v-model="item.answer" class="w-full h-auto border rounded px-2 py-1" />
       </div>
     </div>

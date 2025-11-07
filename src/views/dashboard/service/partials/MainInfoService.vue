@@ -1,22 +1,22 @@
 <template>
-  <h3 class="text-lg font-semibold leading-tight text-gray-800">{{ $t('Dashboard.Service.CreateUpdate.Information') }}</h3>
+  <h3 class="text-lg font-semibold leading-tight text-gray-800">
+    {{ $t('Dashboard.Service.CreateUpdate.MainInfo.Information') }}
+  </h3>
   <div class="mt-4">
-    <InputLabel for="procedure-title" value="Nombre del Procedimiento" />
-
+    <InputLabel for="procedure-title" :value="$t('Dashboard.Service.CreateUpdate.MainInfo.Title')" />
     <TextInput id="procedure-title" v-model="modelValue.title" type="text" class="w-full border rounded px-2 py-1"
-      placeholder="Ingrese el nombre del procedimiento" />
+      :placeholder="$t('Dashboard.Service.CreateUpdate.MainInfo.TitlePlaceholder')" />
   </div>
 
   <div>
-    <InputLabel for="procedure-description" value="Descripción del Procedimiento" class="mt-4" />
-
+    <InputLabel for="procedure-description" :value="$t('Dashboard.Service.CreateUpdate.MainInfo.Description')"
+      class="mt-4" />
     <TextArea id="procedure-description" v-model="modelValue.description" class="w-full border rounded px-2 py-1 h-32"
-      placeholder="Ingrese la descripción del procedimiento" />
+      :placeholder="$t('Dashboard.Service.CreateUpdate.MainInfo.DescriptionPlaceholder')" />
   </div>
 
   <div>
-    <InputLabel for="procedure-image" value="Imagen del Procedimiento" class="mt-4" />
-
+    <InputLabel for="procedure-image" :value="$t('Dashboard.Service.CreateUpdate.MainInfo.Image')" class="mt-4" />
     <div class="relative w-full h-40 rounded-lg flex items-center justify-center cursor-pointer mt-1">
       <ImagesPreview v-model="modelValue.image" aspect="16:9" class="h-40 w-full object-cover rounded-lg" />
     </div>

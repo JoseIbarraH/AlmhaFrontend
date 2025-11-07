@@ -137,37 +137,32 @@ const validateBeforeSave = (): boolean => {
   const errors: string[] = []
 
   if (!form.name) {
-    errors.push(t('Dashboard.Team.Validations.Name'))
+    errors.push(t('Dashboard.Team.Validations.Form.Name'))
   }
 
   if (!form.image) {
-    errors.push(t('Dashboard.Team.Validations.Image'))
+    errors.push(t('Dashboard.Team.Validations.Form.Image'))
   }
 
   if (!form.status) {
-    errors.push(t('Dashboard.Team.Validations.Status'))
+    errors.push(t('Dashboard.Team.Validations.Form.Status'))
   }
 
   if (!form.specialization) {
-    errors.push(t('Dashboard.Team.Validations.Specialization'))
+    errors.push(t('Dashboard.Team.Validations.Form.Specialization'))
   }
 
   if (!form.biography) {
-    errors.push(t('Dashboard.Team.Validations.Biography'))
+    errors.push(t('Dashboard.Team.Validations.Form.Biography'))
   }
 
   if (form.results && form.results.length > 0) {
     for (let i = 0; i < form.results.length; i++) {
       const item = form.results[i]
-      const hasPath =
-        item &&
-        (item.url instanceof File ||
-          (typeof item.url === 'string' && item.url.trim() !== ''))
+      const hasPath = item && (item.url instanceof File || (typeof item.url === 'string' && item.url.trim() !== ''))
 
       if (!hasPath) {
-        errors.push(
-          t('Dashboard.Team.Validations.Error.Results', { n: i + 1 })
-        )
+        errors.push( t('Dashboard.Team.Validations.Form.Results', { n: i + 1 }))
       }
     }
   }

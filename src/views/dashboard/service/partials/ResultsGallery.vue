@@ -1,11 +1,11 @@
 <template>
   <h3 class="text-lg font-semibold leading-tight text-gray-800">
-    Galería de Resultados
+    {{ $t('Dashboard.Service.CreateUpdate.ResultsGallery.Title') }}
   </h3>
 
   <div class="mt-4 max-h-[400px] overflow-y-auto p-2 rounded-lg">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <template v-for="(value, index) in modelValue.result_gallery" :key="index">
+      <template v-for="(value, index) in modelValue.results_gallery" :key="index">
         <div class="relative">
           <ImagesPreview v-model="value.path" :close-button="false" />
           <CloseButton @click.stop="removeAfterBefore(index)" class="absolute top-1 right-1"
@@ -32,11 +32,11 @@ const modelValue = defineModel<Service>({
 })
 
 const removeAfterBefore = (index: number) => {
-  modelValue.value.result_gallery.splice(index, 1)
+  modelValue.value.results_gallery.splice(index, 1)
 }
 
 const addBeforeAfterGallery = () => {
-  modelValue.value.result_gallery.push({
+  modelValue.value.results_gallery.push({
     path: null
   })
 }
