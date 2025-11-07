@@ -1,75 +1,71 @@
 <template>
-  <div class="w-full">
-    <div class="max-w-4xl mx-auto">
-      <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-        <h3 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left">
-          {{ $t('Dashboard.Design.Backgrounds.Title') }}
-        </h3>
+  <div class="relative z-10 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 min-h-[2.25rem] mb-4">
+    <h3 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left">
+      {{ $t('Dashboard.Design.Backgrounds.Title') }}
+    </h3>
 
-        <!-- Botones condicionales -->
-        <transition name="fade">
-          <div v-if="hasChanges" class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-            <Divider />
+    <!-- Botones condicionales -->
+    <transition name="fade">
+      <div v-if="hasChanges" class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+        <Divider />
 
-            <SecondaryButton @click="restoreDefaults" :disabled="loading" class="w-full sm:w-auto">
-              Restablecer
-            </SecondaryButton>
+        <SecondaryButton @click="restoreDefaults" :disabled="loading" class="w-full sm:w-auto">
+          Restablecer
+        </SecondaryButton>
 
-            <PrimaryButton @click="saveChanges" :class="{ 'opacity-50 cursor-not-allowed': loading }"
-              :disabled="loading" class="w-full sm:w-auto">
-              <span v-if="loading">Guardando...</span>
-              <span v-else>Guardar</span>
-            </PrimaryButton>
-          </div>
-        </transition>
+        <PrimaryButton @click="saveChanges" :class="{ 'opacity-50 cursor-not-allowed': loading }" :disabled="loading"
+          class="w-full sm:w-auto">
+          <span v-if="loading">Guardando...</span>
+          <span v-else>Guardar</span>
+        </PrimaryButton>
       </div>
+    </transition>
+  </div>
 
-      <!-- Contenedor -->
-      <div class="space-y-6 mt-6">
-        <!-- Card 1 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 items-center bg-gray-100 rounded-lg overflow-hidden shadow">
-          <div class="aspect-video">
-            <ImagesPreview v-model="form.background1.path" class="w-full h-full object-cover" />
-          </div>
-          <div class="p-4 flex flex-col">
-            <InputLabel for="title1" :value="$t('Dashboard.Design.Backgrounds.LabelTitle')" />
-            <TextInput id="title1" v-model="form.background1.title"
-              :placeholder="$t('Dashboard.Design.Backgrounds.InputTitlePlaceholder')" />
-            <InputLabel for="subtitle1" :value="$t('Dashboard.Design.Backgrounds.LabelSubtitle')" class="mt-2" />
-            <TextInput id="subtitle1" v-model="form.background1.subtitle"
-              :placeholder="$t('Dashboard.Design.Backgrounds.InputSubtitlePlaceholder')" />
-          </div>
-        </div>
+  <!-- Contenedor -->
+  <div class="space-y-6 mt-6">
+    <!-- Card 1 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 items-center bg-gray-100 rounded-lg overflow-hidden shadow">
+      <div class="aspect-video">
+        <ImagesPreview v-model="form.background1.path" class="w-full h-full object-cover" />
+      </div>
+      <div class="p-4 flex flex-col">
+        <InputLabel for="title1" :value="$t('Dashboard.Design.Backgrounds.LabelTitle')" />
+        <TextInput id="title1" v-model="form.background1.title"
+          :placeholder="$t('Dashboard.Design.Backgrounds.InputTitlePlaceholder')" />
+        <InputLabel for="subtitle1" :value="$t('Dashboard.Design.Backgrounds.LabelSubtitle')" class="mt-2" />
+        <TextInput id="subtitle1" v-model="form.background1.subtitle"
+          :placeholder="$t('Dashboard.Design.Backgrounds.InputSubtitlePlaceholder')" />
+      </div>
+    </div>
 
-        <!-- Card 2 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 items-center bg-gray-100 rounded-lg overflow-hidden shadow">
-          <div class="aspect-video">
-            <ImagesPreview v-model="form.background2.path" class="w-full h-full object-cover" />
-          </div>
-          <div class="p-4 flex flex-col">
-            <InputLabel for="title2" :value="$t('Dashboard.Design.Backgrounds.LabelTitle')" />
-            <TextInput id="title2" v-model="form.background2.title"
-              :placeholder="$t('Dashboard.Design.Backgrounds.InputTitlePlaceholder')" />
-            <InputLabel for="subtitle2" :value="$t('Dashboard.Design.Backgrounds.LabelSubtitle')" class="mt-2" />
-            <TextInput id="subtitle2" v-model="form.background2.subtitle"
-              :placeholder="$t('Dashboard.Design.Backgrounds.InputSubtitlePlaceholder')" />
-          </div>
-        </div>
+    <!-- Card 2 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 items-center bg-gray-100 rounded-lg overflow-hidden shadow">
+      <div class="aspect-video">
+        <ImagesPreview v-model="form.background2.path" class="w-full h-full object-cover" />
+      </div>
+      <div class="p-4 flex flex-col">
+        <InputLabel for="title2" :value="$t('Dashboard.Design.Backgrounds.LabelTitle')" />
+        <TextInput id="title2" v-model="form.background2.title"
+          :placeholder="$t('Dashboard.Design.Backgrounds.InputTitlePlaceholder')" />
+        <InputLabel for="subtitle2" :value="$t('Dashboard.Design.Backgrounds.LabelSubtitle')" class="mt-2" />
+        <TextInput id="subtitle2" v-model="form.background2.subtitle"
+          :placeholder="$t('Dashboard.Design.Backgrounds.InputSubtitlePlaceholder')" />
+      </div>
+    </div>
 
-        <!-- Card 3 -->
-        <div class="grid grid-cols-1 md:grid-cols-2 items-center bg-gray-100 rounded-lg overflow-hidden shadow">
-          <div class="aspect-video">
-            <ImagesPreview v-model="form.background3.path" class="w-full h-full object-cover" />
-          </div>
-          <div class="p-4 flex flex-col">
-            <InputLabel for="title3" :value="$t('Dashboard.Design.Backgrounds.LabelTitle')" />
-            <TextInput id="title3" v-model="form.background3.title"
-              :placeholder="$t('Dashboard.Design.Backgrounds.InputTitlePlaceholder')" />
-            <InputLabel for="subtitle3" :value="$t('Dashboard.Design.Backgrounds.LabelSubtitle')" class="mt-2" />
-            <TextInput id="subtitle3" v-model="form.background3.subtitle"
-              :placeholder="$t('Dashboard.Design.Backgrounds.InputSubtitlePlaceholder')" />
-          </div>
-        </div>
+    <!-- Card 3 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 items-center bg-gray-100 rounded-lg overflow-hidden shadow">
+      <div class="aspect-video">
+        <ImagesPreview v-model="form.background3.path" class="w-full h-full object-cover" />
+      </div>
+      <div class="p-4 flex flex-col">
+        <InputLabel for="title3" :value="$t('Dashboard.Design.Backgrounds.LabelTitle')" />
+        <TextInput id="title3" v-model="form.background3.title"
+          :placeholder="$t('Dashboard.Design.Backgrounds.InputTitlePlaceholder')" />
+        <InputLabel for="subtitle3" :value="$t('Dashboard.Design.Backgrounds.LabelSubtitle')" class="mt-2" />
+        <TextInput id="subtitle3" v-model="form.background3.subtitle"
+          :placeholder="$t('Dashboard.Design.Backgrounds.InputSubtitlePlaceholder')" />
       </div>
     </div>
   </div>

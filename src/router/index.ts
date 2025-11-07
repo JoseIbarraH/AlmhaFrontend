@@ -16,7 +16,7 @@ import DashboardHome from "@/views/dashboard/home/Index.vue"
 import DashboardDesign from "@/views/dashboard/design/Index.vue"
 
 import DashboardService from "@/views/dashboard/service/Index.vue"
-import DashboardServiceEdit from "@/views/dashboard/service/Edit.vue"
+import DashboardServiceCreateUpdate from "@/views/dashboard/service/CreateUpdate.vue"
 
 import DashboardTeam from "@/views/dashboard/team/Index.vue"
 import DashboardTeamCreate from "@/views/dashboard/team/CreateUpdate.vue"
@@ -105,7 +105,8 @@ const routes: RouteRecordRaw[] = [
           { path: "design", name: "dashboard.design", component: DashboardDesign, meta: { title: 'Design' } },
 
           { path: "service", name: "dashboard.service", component: DashboardService, meta: { title: 'Service' } },
-          { path: "service/:id/edit", name: "dashboard.service.edit", component: DashboardServiceEdit, props: true, meta: { title: 'Edit Service' } },
+          { path: "service/create", name: "dashboard.service.create", component: DashboardServiceCreateUpdate, props: true, meta: { title: 'Create Service' } },
+          { path: "service/:id/edit", name: "dashboard.service.edit", component: DashboardServiceCreateUpdate, props: true, meta: { title: 'Edit Service' } },
 
           { path: "blog", name: "dashboard.blog", component: DashboardBlog, meta: { title: 'Blog' } },
           { path: "blog/:id/edit", name: "dashboard.blog.edit", component: DashboardBlogEdit, props: true, meta: { title: 'Edit Blog' } },

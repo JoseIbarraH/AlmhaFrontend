@@ -18,6 +18,6 @@ defineExpose({
 </script>
 
 <template>
-  <textarea class="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" v-model="model"
+  <textarea class="rounded-md border-gray-300 shadow-sm p-2" v-model="model"
     ref="input" :autofocus="autofocus"></textarea>
 </template>

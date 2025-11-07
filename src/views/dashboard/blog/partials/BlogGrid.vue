@@ -229,7 +229,6 @@ const closeModal = () => {
 
 const handleEdit = (id: number) => {
   router.push({ name: 'dashboard.blog.edit', params: { id } })
-  console.log("id: ", id)
 }
 
 const confirmDelete = async () => {

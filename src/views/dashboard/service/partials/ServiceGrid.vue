@@ -127,7 +127,7 @@
       <div class="p-6 bg-white">
         <div class="mb-6">
           <p class="text-gray-700 leading-relaxed">
-            {{ $t('Dashboard.Service.Delete.Confirm_delete_blog') }}
+            {{ $t('Dashboard.Service.Delete.Confirm_delete') }}
             <span
               class="inline-flex items-center px-2 py-0.5 mx-1 rounded-md bg-gray-100 text-gray-900 font-semibold text-sm border border-gray-200">
               "{{ serviceToDelete?.title }}"

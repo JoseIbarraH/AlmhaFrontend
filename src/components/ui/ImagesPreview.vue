@@ -1,7 +1,10 @@
 <template>
   <div
-    class="relative h-[300px] rounded w-full justify-center flex items-center border-2 border-dashed"
-    :class="error ? 'border-red-500' : 'border-gray-300'"
+    class="relative rounded w-full justify-center flex items-center border-2 border-dashed overflow-hidden"
+    :class="[
+      error ? 'border-red-500' : 'border-gray-300',
+      aspectClass
+    ]"
   >
     <input
       type="file"
@@ -32,7 +35,11 @@
         muted
       />
 
-      <CloseButton @click="removeImage" v-if="closeButton" class="absolute top-2 right-2 p-1 bg-black/100 hover:bg-black/70" />
+      <CloseButton
+        v-if="closeButton"
+        @click="removeImage"
+        class="absolute top-2 right-2 p-1 bg-black/100 hover:bg-black/70"
+      />
     </div>
   </div>
 </template>
@@ -46,9 +53,11 @@ const props = withDefaults(
     modelValue: File | string | null
     error?: string
     closeButton?: boolean
+    aspect?: 'square' | '16:9'
   }>(),
   {
     closeButton: true,
+    aspect: 'square',
   }
 )
 
@@ -60,21 +69,22 @@ const fileType = ref<'image' | 'video' | null>(null)
 const isImage = computed(() => fileType.value === 'image')
 const isVideo = computed(() => fileType.value === 'video')
 
+// Cambia la clase según el aspect ratio
+const aspectClass = computed(() => {
+  return props.aspect === '16:9' ? 'aspect-video' : 'aspect-square'
+})
+
 // Observa cambios en el valor para generar preview
 watch(
   () => props.modelValue,
   (value) => {
     if (value instanceof File) {
-      // Si es un archivo, generar URL temporal y detectar tipo
       preview.value = URL.createObjectURL(value)
       fileType.value = value.type.startsWith('image/') ? 'image' : 'video'
     } else if (typeof value === 'string' && value.trim() !== '') {
-      // Si es una URL existente (por ejemplo de tu backend)
       preview.value = value.startsWith('http')
         ? value
         : `${window.location.origin}/${value.replace(/^\/+/, '')}`
-
-      // Detectar tipo por extensión
       const extension = value.split('.').pop()?.toLowerCase()
       const videoExtensions = ['mp4', 'webm', 'ogg', 'mov', 'avi']
       fileType.value = videoExtensions.includes(extension || '') ? 'video' : 'image'

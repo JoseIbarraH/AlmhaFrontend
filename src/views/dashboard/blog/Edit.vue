@@ -48,7 +48,7 @@ import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import BackButton from '@/components/ui/BackButton.vue';
 import BlogInfo from './partials/BlogInfo.vue';
 import Editor from './partials/Editor.vue';
-import { onMounted, reactive, ref, watch } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { api } from '@/plugins/api';
 import type { Blog } from './types';

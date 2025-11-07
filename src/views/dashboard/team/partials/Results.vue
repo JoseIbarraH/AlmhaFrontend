@@ -9,7 +9,7 @@
       <input type="text" v-model="value.id" class="hidden">
       <!-- Imagen -->
       <div class="relative w-full sm:w-32 sm:flex-shrink-0">
-        <div class="w-full aspect-square overflow-hidden rounded border">
+        <div class="w-full aspect-square overflow-hidden rounded ">
           <ImagesPreview v-model="value.url" class="w-full h-full object-cover" />
         </div>
       </div>

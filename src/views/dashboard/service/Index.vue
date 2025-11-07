@@ -1,6 +1,6 @@
 <template>
   <div v-if="loading">
-
+    <Skeleton />
   </div>
 
   <div v-else>
@@ -18,7 +18,8 @@
 
       <div class="bg-white p-6 rounded-lg shadow-md">
         <Statistics :total-object-title="$t('Dashboard.Service.Statistics.Total')" :total-object="stats?.total"
-          :total-activated-title="$t('Dashboard.Service.Statistics.TeamsActives')" :total-activated="stats?.totalActivated"
+          :total-activated-title="$t('Dashboard.Service.Statistics.TeamsActives')"
+          :total-activated="stats?.totalActivated"
           :total-deactivated-title="$t('Dashboard.Service.Statistics.TeamsInactives')"
           :total-deactivated="stats?.totalDeactivated" :last-object-title="$t('Dashboard.Service.Statistics.Last')"
           :last-object="stats?.lastCreated" />
@@ -41,23 +42,22 @@ import { showNotification } from '@/components/composables/useNotification';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import Statistics from '@/components/app/Statistics.vue';
 import Pagination from '@/components/app/Pagination.vue';
+import ServiceGrid from './partials/ServiceGrid.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ref, computed, onMounted } from 'vue';
+import Skeleton from './partials/Skeleton.vue';
 import type { Data } from './types';
 import { api } from '@/plugins/api';
-import ServiceGrid from './partials/ServiceGrid.vue';
 
 const route = useRoute()
 const router = useRouter()
 
 const apiResponse = ref<Default<Data> | null>(null)
 const initialLoading = ref(true)
-const loading = ref(true) //debe estar TRUE
+const loading = ref(true)
 const paginate = ref<PaginatedResponse<Data> | null>(null)
 
 const stats = computed<Stats | null>(() => apiResponse.value?.stats ?? null)
-
-const createService = () => { }
 
 const fetchServices = async (page = 1) => {
   try {
@@ -75,6 +75,10 @@ const fetchServices = async (page = 1) => {
     loading.value = false;
     initialLoading.value = false
   }
+}
+
+const createService = () => {
+  router.push({ name: 'dashboard.service.create' })
 }
 
 const handlePageChange = (page: number) => {

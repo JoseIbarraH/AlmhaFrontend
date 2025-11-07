@@ -205,14 +205,13 @@
         "TeamsInactives": "Servicios inactivos",
         "Last": "Nuevos servicios (15d)"
       },
-      "Create": {
-        "Title": "Agregar un nuevo Procedimiento",
-        "Save": "Guardar Procedimiento",
-        "Back": "Volver"
-      },
-      "Edit": {
-        "Title": "Editar Procedimiento",
-        "Back": "Volver"
+      "CreateUpdate": {
+        "UpdateTitle": "Actualizar servicio",
+        "CreateTitle": "Crear nuevo servicio",
+        "BackButton": "Volver",
+        "CreateButton": "Crear Servicio",
+        "UpdateButton": "Actualizar",
+        "Information": "Información del Procedimiento"
       },
       "List": {
         "Services": "Servicios",
