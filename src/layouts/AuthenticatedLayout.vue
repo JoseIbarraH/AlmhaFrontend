@@ -4,6 +4,8 @@ import { useRouteHelper } from '@/components/composables/useRouteHelper';
 import ResponsiveNavLink from '@/components/ui/ResponsiveNavLink.vue';
 import LanguageSwitcher from '../components/app/LanguageSwitcher.vue';
 import ApplicationLogo from '../components/app/ApplicationLogo.vue';
+import { useDarkMode } from '@/components/composables/useDarkMode';
+import ThemeSwitcher from '@/components/app/ThemeSwitcher.vue';
 import LogOutButton from '@/components/app/LogOutButton.vue';
 import DropdownLink from '../components/ui/DropdownLink.vue';
 import Dropdown from '../components/ui/Dropdown.vue';
@@ -17,24 +19,25 @@ const auth = useAuthStore()
 const showingNavigationDropdown = ref(false);
 
 const { current } = useRouteHelper();
+
+
+const { isDark } = useDarkMode()
 </script>
 
 <template>
   <div>
-    <div class="min-h-screen bg-gray-100">
-      <nav class="border-b border-gray-100 bg-white">
-        <!-- Primary Navigation Menu -->
+    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+
+      <nav class="border-b border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="flex h-16 justify-between">
             <div class="flex">
-              <!-- Logo -->
               <div class="flex shrink-0 items-center">
                 <router-link :to="{ name: 'dashboard.home' }">
-                  <ApplicationLogo class="block h-9 w-auto fill-current" :color="'#11184F'" />
+                  <ApplicationLogo class="block h-9 w-auto fill-current" :color=" isDark ? '#fff' : '#11184F'" />
                 </router-link>
               </div>
 
-              <!-- Navigation Links -->
               <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                 <NavLink :href="{ name: 'dashboard.home' }" :active="current({ name: 'dashboard.home' })">
                   {{ $t('Dashboard.Navbar.Dashboard') }}
@@ -46,29 +49,31 @@ const { current } = useRouteHelper();
                   :active="current({ name: 'dashboard.team' }) || current({ name: 'dashboard.team.create' }) || current({ name: 'dashboard.team.edit' })">
                   {{ $t('Dashboard.Navbar.Team') }}
                 </NavLink>
-                <NavLink :href="{ name: 'dashboard.blog' }" :active="current({ name: 'dashboard.blog' }) || current({ name: 'dashboard.blog.edit'})">
+                <NavLink :href="{ name: 'dashboard.blog' }"
+                  :active="current({ name: 'dashboard.blog' }) || current({ name: 'dashboard.blog.edit' })">
                   {{ $t('Dashboard.Navbar.Blog') }}
                 </NavLink>
-                <NavLink :href="{ name: 'dashboard.service' }" :active="current({ name: 'dashboard.service' }) || current({ name: 'dashboard.service.create' }) || current({ name: 'dashboard.service.edit' })">
+                <NavLink :href="{ name: 'dashboard.service' }"
+                  :active="current({ name: 'dashboard.service' }) || current({ name: 'dashboard.service.create' }) || current({ name: 'dashboard.service.edit' })">
                   {{ $t('Dashboard.Navbar.Service') }}
                 </NavLink>
-                <NavLink :href="{ name: 'dashboard.user' }" :active="current({ name: 'dashboard.user' })">
+                <!-- <NavLink :href="{ name: 'dashboard.user' }" :active="current({ name: 'dashboard.user' })">
                   {{ $t('Dashboard.Navbar.User') }}
-                </NavLink>
+                </NavLink> -->
               </div>
             </div>
 
-            <div class="hidden sm:ms-6 sm:flex sm:items-center">
-              <div>
-                <LanguageSwitcher />
-              </div>
-              <!-- Settings Dropdown -->
+            <div class="hidden sm:ms-6 sm:flex sm:items-center gap-4">
+
+              <ThemeSwitcher />
+              <LanguageSwitcher />
+
               <div class="relative ms-3">
                 <Dropdown align="right" width="48">
                   <template #trigger>
                     <span class="inline-flex rounded-md">
                       <button type="button"
-                        class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none">
+                        class="inline-flex items-center rounded-md border border-transparent bg-white dark:bg-gray-800 px-3 py-2 text-sm font-medium leading-4 text-gray-500 dark:text-gray-300 transition duration-150 ease-in-out hover:text-gray-700 dark:hover:text-gray-100 focus:outline-none">
                         {{ auth?.user?.name }}
                         <svg class="-me-0.5 ms-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                           fill="currentColor">
@@ -82,7 +87,7 @@ const { current } = useRouteHelper();
 
                   <template #content>
                     <DropdownLink :href="{ name: 'dashboard.profile' }">
-                      {{ $t('Dashboard.Navbar.Profile') }}
+                      {{ $t('Dashboard.Navbar.Setting') }}
                     </DropdownLink>
                     <LogOutButton />
                   </template>
@@ -90,13 +95,12 @@ const { current } = useRouteHelper();
               </div>
             </div>
 
-            <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
               <div>
-                <LanguageSwitcher />
+                <LanguageSwitcher color="bg-blue-500" />
               </div>
               <button @click="showingNavigationDropdown = !showingNavigationDropdown"
-                class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none">
+                class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 dark:text-gray-500 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-500 dark:hover:text-gray-300 focus:bg-gray-100 dark:focus:bg-gray-700 focus:text-gray-500 dark:focus:text-gray-300 focus:outline-none">
                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                   <path :class="{
                     hidden: showingNavigationDropdown,
@@ -112,11 +116,11 @@ const { current } = useRouteHelper();
           </div>
         </div>
 
-        <!-- Responsive Navigation Menu -->
         <div :class="{
           block: showingNavigationDropdown,
           hidden: !showingNavigationDropdown,
-        }" class="sm:hidden">
+          // CAMBIO 5: Fondo y borde del menú responsive
+        }" class="sm:hidden border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800">
           <div class="space-y-1 pb-3 pt-2">
             <ResponsiveNavLink :href="{ name: 'dashboard.home' }" :active="current({ name: 'dashboard.home' })">
               {{ $t('Dashboard.Navbar.Dashboard') }}
@@ -133,25 +137,24 @@ const { current } = useRouteHelper();
             <ResponsiveNavLink :href="{ name: 'dashboard.service' }" :active="current({ name: 'dashboard.service' })">
               {{ $t('Dashboard.Navbar.Service') }}
             </ResponsiveNavLink>
-            <ResponsiveNavLink :href="{ name: 'dashboard.user' }" :active="current({ name: 'dashboard.user' })">
+            <!-- <ResponsiveNavLink :href="{ name: 'dashboard.user' }" :active="current({ name: 'dashboard.user' })">
               {{ $t('Dashboard.Navbar.User') }}
-            </ResponsiveNavLink>
+            </ResponsiveNavLink> -->
           </div>
 
-          <!-- Responsive Settings Options -->
-          <div class="border-t border-gray-200 pb-1 pt-4">
+          <div class="border-t border-gray-200 dark:border-gray-700 pb-1 pt-4">
             <div class="px-4">
-              <div class="text-base font-medium text-gray-800">
+              <div class="text-base font-medium text-gray-800 dark:text-gray-200">
                 {{ auth?.user?.name }}
               </div>
-              <div class="text-sm font-medium text-gray-500">
+              <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
                 {{ auth?.user?.email }}
               </div>
             </div>
 
             <div class="mt-3 space-y-1">
-              <ResponsiveNavLink :href="{ name: 'dashboard.profile' }" :active="current({ name: 'dashboard.profile' })">
-                Profile
+              <ResponsiveNavLink :href="{ name: 'dashboard.profile' }" :active="current({ name: 'dashboard.setting' })">
+                {{ $t('Dashboard.Navbar.Setting') }}
               </ResponsiveNavLink>
               <LogOutButtonResponsive />
             </div>
@@ -159,12 +162,6 @@ const { current } = useRouteHelper();
         </div>
       </nav>
 
-      <!-- Page Heading -->
-      <header class="bg-white shadow" v-if="$slots.header">
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <slot name="header" />
-        </div>
-      </header>
       <main>
         <RouterView />
       </main>

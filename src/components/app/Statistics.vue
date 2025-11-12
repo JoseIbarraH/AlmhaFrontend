@@ -1,23 +1,19 @@
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 bg-white">
-    <div
-      v-for="card in cards"
-      :key="card.id"
-      class="bg-white border-2 border-gray-200 rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300"
-    >
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-sm font-medium text-gray-600">{{ card.title }}</p>
-          <p class="text-2xl font-bold" :class="card.textColor">{{ card.value ?? 0 }}</p>
-        </div>
-        <div
-          class="w-8 h-8 rounded-lg flex items-center justify-center"
-          :class="[card.iconBg, card.shape]"
-        >
-          <!-- Renderiza ícono SVG si es string -->
-          <div v-if="typeof card.icon === 'string'" v-html="card.icon" class="w-4 h-4"></div>
-          <!-- Renderiza componente si es función/componente -->
-          <component v-else :is="card.icon" />
+  <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 sm:p-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 bg-white dark:bg-gray-900">
+      <div v-for="card in cards" :key="card.id" class="rounded-lg p-6 shadow-md hover:shadow-lg transition duration-300
+            bg-white border-2 border-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:shadow-xl">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600 dark:text-gray-400">{{ card.title }}</p>
+
+            <p class="text-2xl font-bold dark:text-white" :class="card.textColor">{{ card.value ?? 0 }}</p>
+          </div>
+
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center" :class="[card.iconBg, card.shape]">
+            <div v-if="typeof card.icon === 'string'" v-html="card.icon" class="w-4 h-4"></div>
+            <component v-else :is="card.icon" />
+          </div>
         </div>
       </div>
     </div>

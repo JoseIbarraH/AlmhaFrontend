@@ -50,17 +50,22 @@ const SaveChanges = async () => {
 <template>
   <section>
     <header>
-      <h2 class="text-lg font-medium text-gray-900">{{ $t('Auth.Profile.Title') }}</h2>
+      <!-- Título: Aseguramos texto blanco en modo oscuro -->
+      <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ $t('Auth.Profile.Title') }}</h2>
 
-      <p class="mt-1 text-sm text-gray-600">
+      <!-- Subtítulo: Aseguramos texto gris claro en modo oscuro -->
+      <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
         {{ $t('Auth.Profile.Subtitle') }}
       </p>
     </header>
 
     <form @submit.prevent="SaveChanges" class="mt-6 space-y-6">
       <div>
+        <!-- InputLabel debe manejar Dark Mode internamente, pero el TextInput es clave -->
         <InputLabel for="name" :value="$t('Auth.Profile.Name')" />
 
+        <!-- Asumo que TextInput maneja dark mode internamente, especialmente bordes y fondo.
+             Si no lo hace, necesitarías agregar dark:clases aquí o, mejor aún, dentro del componente TextInput. -->
         <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus
           autocomplete="name" />
       </div>
@@ -73,6 +78,7 @@ const SaveChanges = async () => {
       </div>
 
       <div class="flex items-center gap-4">
+        <!-- Asumo que PrimaryButton maneja dark mode internamente para fondo y hover. -->
         <PrimaryButton :disabled="auth.loading">
           {{ $t('Auth.Profile.Save') }}
         </PrimaryButton>

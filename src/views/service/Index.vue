@@ -4,26 +4,23 @@
   </div>
 
   <div v-else>
-    <section class="p-6 space-y-6">
-      <header
-        class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 bg-white p-4 sm:p-6 shadow-sm rounded-lg h-[82px]">
-        <h2 class="text-xl font-semibold text-gray-800">
+    <section class="p-6 space-y-6 dark:bg-gray-950">
+      <header class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 h-[82px] sm:p-8">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100"> <!-- Texto claro en dark mode -->
           {{ $t('Dashboard.Service.Title') }}
         </h2>
 
-        <CreateButton @click="createService" class="flex items-center justify-center w-full sm:w-auto">
+        <CreateButton @click="createService" class="flex items-center justify-center w-full sm:w-auto mt-4 sm:mt-0">
           {{ $t('Dashboard.Service.CreateButton') }}
         </CreateButton>
       </header>
 
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <Statistics :total-object-title="$t('Dashboard.Service.Statistics.Total')" :total-object="stats?.total"
-          :total-activated-title="$t('Dashboard.Service.Statistics.TeamsActives')"
-          :total-activated="stats?.totalActivated"
-          :total-deactivated-title="$t('Dashboard.Service.Statistics.TeamsInactives')"
-          :total-deactivated="stats?.totalDeactivated" :last-object-title="$t('Dashboard.Service.Statistics.Last')"
-          :last-object="stats?.lastCreated" />
-      </div>
+      <Statistics :total-object-title="$t('Dashboard.Service.Statistics.Total')" :total-object="stats?.total"
+        :total-activated-title="$t('Dashboard.Service.Statistics.TeamsActives')"
+        :total-activated="stats?.totalActivated"
+        :total-deactivated-title="$t('Dashboard.Service.Statistics.TeamsInactives')"
+        :total-deactivated="stats?.totalDeactivated" :last-object-title="$t('Dashboard.Service.Statistics.Last')"
+        :last-object="stats?.lastCreated" />
 
       <div class="bg-white rounded-lg shadow-md">
         <ServiceGrid :data="paginate?.data ?? []"

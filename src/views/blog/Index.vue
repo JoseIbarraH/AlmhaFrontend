@@ -4,25 +4,28 @@
   </div>
 
   <div v-else>
-    <section class="p-6 space-y-6">
-      <header
-        class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 bg-white p-4 sm:p-6 shadow-sm rounded-lg h-[82px]">
-        <h2 class="text-xl font-semibold text-gray-800">
+    <section class="p-6 space-y-6 dark:bg-gray-950">
+      <header class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 sm:p-8 h-[82px]">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">
           {{ $t('Dashboard.Blog.Title') }}
         </h2>
 
-        <CreateButton @click="openModal" class="flex items-center justify-center w-full sm:w-auto" :disabled="creating">
+        <CreateButton @click="openModal" class="flex items-center justify-center w-full sm:w-auto mt-4 sm:mt-0" :disabled="creating">
           {{ $t('Dashboard.Blog.CreateButton') }}
         </CreateButton>
       </header>
 
-      <div class="bg-white p-6 rounded-lg shadow-md">
-        <Statistics :total-object-title="$t('Dashboard.Blog.Statistics.Total')" :total-object="stats?.total"
-          :total-activated-title="$t('Dashboard.Blog.Statistics.TeamsActives')" :total-activated="stats?.totalActivated"
-          :total-deactivated-title="$t('Dashboard.Blog.Statistics.TeamsInactives')"
-          :total-deactivated="stats?.totalDeactivated" :last-object-title="$t('Dashboard.Blog.Statistics.Last')"
-          :last-object="stats?.lastCreated" />
-      </div>
+      <Statistics
+        :total-object-title="$t('Dashboard.Blog.Statistics.Total')"
+        :total-object="stats?.total"
+        :total-object-icon="LucideNewspaper"
+        :total-activated-title="$t('Dashboard.Blog.Statistics.TeamsActives')"
+        :total-activated="stats?.totalActivated"
+        :total-deactivated-title="$t('Dashboard.Blog.Statistics.TeamsInactives')"
+        :total-deactivated="stats?.totalDeactivated"
+        :last-object-title="$t('Dashboard.Blog.Statistics.Last')"
+        :last-object="stats?.lastCreated" />
+
       <div class="bg-white rounded-lg shadow-md">
         <BlogGrid :data="paginate?.data ?? []"
           @status-updated="fetchBlogs(route.query.page ? Number(route.query.page) : 1)"
@@ -92,6 +95,7 @@ import InputLabel from '@/components/ui/InputLabel.vue';
 import TextInput from '@/components/ui/TextInput.vue';
 import SecondaryButton from '@/components/ui/SecondaryButton.vue';
 import Skeleton from './partials/Skeleton.vue';
+import { LucideNewspaper } from 'lucide-vue-next';
 
 const { t } = useI18n()
 

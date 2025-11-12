@@ -6,6 +6,7 @@ import i18n, { SUPPORTED_LOCALES, DEFAULT_LOCALE, setI18nLocale, getI18nLocale, 
 
 import AuthenticatedLayout from "@/layouts/AuthenticatedLayout.vue"
 import GuestLayout from '@/layouts/GuestLayout.vue'
+import SettingsLayout from '@/layouts/SettingsLayout.vue'
 
 import NotFound from "@/views/errors/NotFound.vue"
 
@@ -168,16 +169,24 @@ const routes: RouteRecordRaw[] = [
             meta: { title: 'Edit Team' }
           },
           {
-            path: "profile",
-            name: "dashboard.profile",
-            component: DashboardProfile,
-            meta: { title: 'Profile' }
+            path: "settings",
+            name: "dashboard.setting",
+            component: SettingsLayout,
+            meta: { title: 'Settings' },
+            children: [
+              {
+                path: "profile",
+                name: "dashboard.profile",
+                component: DashboardProfile,
+                meta: { title: 'Profile' }
+              }
+            ]
           },
           {
             path: "user",
             name: "dashboard.user",
             component: DashboardUser,
-            meta: { title: 'User'}
+            meta: { title: 'User' }
           }
         ],
       },
