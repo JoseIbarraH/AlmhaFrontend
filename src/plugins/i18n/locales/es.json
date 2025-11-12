@@ -7,7 +7,8 @@
       "Design": "Diseño",
       "Profile": "Perfil",
       "Logout": "Cerrar sesión",
-      "Service": "Servicios"
+      "Service": "Servicios",
+      "User": "Usuarios"
     },
     "Dashboard": {
       "Header": "Tablero",
@@ -300,11 +301,15 @@
         },
         "Success": {
           "Status": "Estado actualizado correctamente.",
-          "Delete": "Servicio eliminado correctamente."
+          "Delete": "Servicio eliminado correctamente.",
+          "Create": "Servicio creado correctamente.",
+          "Update": "Servicio actualizado correctamente."
         },
         "Error": {
           "Status": "Error al actualizar el estado.",
-          "Delete": "Error al eliminr el servicio."
+          "Delete": "Error al eliminar el servicio.",
+          "Create": "Error al crear el servicio.",
+          "Update": "Error al actualizar el servicio."
         }
       }
     },
@@ -320,7 +325,14 @@
       "Subtitle": "Actualiza tu nombre y correo de perfil",
       "Name": "Nombre",
       "Email": "Correo",
-      "Save": "Guardar"
+      "Save": "Guardar",
+      "PasswordUpdate": {
+        "Title": "Actualizar contraseña",
+        "Subtitle": "Asegúrate de que tu cuenta utilice una contraseña larga y aleatoria para mantener la seguridad.",
+        "CurrentPassword": "Contraseña Actual",
+        "NewPassword": "Nueva Contraseña",
+        "ConfirmPassword": "Confirmar Contraseña"
+      }
     },
     "Validations": {
       "Success": {

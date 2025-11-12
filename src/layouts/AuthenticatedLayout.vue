@@ -1,26 +1,22 @@
 <script setup lang="ts">
+import LogOutButtonResponsive from '@/components/app/LogOutButtonResponsive.vue';
+import { useRouteHelper } from '@/components/composables/useRouteHelper';
 import ResponsiveNavLink from '@/components/ui/ResponsiveNavLink.vue';
 import LanguageSwitcher from '../components/app/LanguageSwitcher.vue';
 import ApplicationLogo from '../components/app/ApplicationLogo.vue';
-import { useRouteHelper } from '@/components/composables/useRouteHelper';
+import LogOutButton from '@/components/app/LogOutButton.vue';
 import DropdownLink from '../components/ui/DropdownLink.vue';
 import Dropdown from '../components/ui/Dropdown.vue';
-import { useAuthStore } from '@/stores/authStore';
 import NavLink from '../components/ui/NavLink.vue';
+import { useAuthStore } from '@/stores/authStore';
 import { RouterView } from 'vue-router';
 import { ref } from 'vue';
-import LogOutButton from '@/components/app/LogOutButton.vue';
-import LogOutButtonResponsive from '@/components/app/LogOutButtonResponsive.vue';
 
 const auth = useAuthStore()
 
 const showingNavigationDropdown = ref(false);
 
 const { current } = useRouteHelper();
-
-/* onMounted(() => {
-  console.log('auth?', auth.user)
-}) */
 </script>
 
 <template>
@@ -46,14 +42,18 @@ const { current } = useRouteHelper();
                 <NavLink :href="{ name: 'dashboard.design' }" :active="current({ name: 'dashboard.design' })">
                   {{ $t('Dashboard.Navbar.Design') }}
                 </NavLink>
-                <NavLink :href="{ name: 'dashboard.team' }" :active="current({ name: 'dashboard.team' }) || current({ name: 'dashboard.team.create' })">
+                <NavLink :href="{ name: 'dashboard.team' }"
+                  :active="current({ name: 'dashboard.team' }) || current({ name: 'dashboard.team.create' }) || current({ name: 'dashboard.team.edit' })">
                   {{ $t('Dashboard.Navbar.Team') }}
                 </NavLink>
-                <NavLink :href="{ name: 'dashboard.blog' }" :active="current({ name: 'dashboard.blog' })">
+                <NavLink :href="{ name: 'dashboard.blog' }" :active="current({ name: 'dashboard.blog' }) || current({ name: 'dashboard.blog.edit'})">
                   {{ $t('Dashboard.Navbar.Blog') }}
                 </NavLink>
-                <NavLink :href="{ name: 'dashboard.service' }" :active="current({ name: 'dashboard.service' })">
+                <NavLink :href="{ name: 'dashboard.service' }" :active="current({ name: 'dashboard.service' }) || current({ name: 'dashboard.service.create' }) || current({ name: 'dashboard.service.edit' })">
                   {{ $t('Dashboard.Navbar.Service') }}
+                </NavLink>
+                <NavLink :href="{ name: 'dashboard.user' }" :active="current({ name: 'dashboard.user' })">
+                  {{ $t('Dashboard.Navbar.User') }}
                 </NavLink>
               </div>
             </div>
@@ -132,6 +132,9 @@ const { current } = useRouteHelper();
             </ResponsiveNavLink>
             <ResponsiveNavLink :href="{ name: 'dashboard.service' }" :active="current({ name: 'dashboard.service' })">
               {{ $t('Dashboard.Navbar.Service') }}
+            </ResponsiveNavLink>
+            <ResponsiveNavLink :href="{ name: 'dashboard.user' }" :active="current({ name: 'dashboard.user' })">
+              {{ $t('Dashboard.Navbar.User') }}
             </ResponsiveNavLink>
           </div>
 

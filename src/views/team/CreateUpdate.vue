@@ -162,7 +162,7 @@ const validateBeforeSave = (): boolean => {
       const hasPath = item && (item.url instanceof File || (typeof item.url === 'string' && item.url.trim() !== ''))
 
       if (!hasPath) {
-        errors.push( t('Dashboard.Team.Validations.Form.Results', { n: i + 1 }))
+        errors.push(t('Dashboard.Team.Validations.Form.Results', { n: i + 1 }))
       }
     }
   }
@@ -213,6 +213,8 @@ const saveChanges = async () => {
       ? t('Dashboard.Team.Validations.Error.Update')
       : t('Dashboard.Team.Validations.Error.Create');
     showNotification('error', message, 3000)
+  } finally {
+    loading.value = false
   }
 }
 

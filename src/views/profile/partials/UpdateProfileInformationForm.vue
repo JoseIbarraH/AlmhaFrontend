@@ -20,8 +20,8 @@ defineProps<{
 }>();
 
 const form = ref({
-  name: auth?.user?.name,
-  email: auth?.user?.email,
+  name: auth.user?.name ?? '',
+  email: auth.user?.email ?? '',
 })
 
 const SaveChanges = async () => {
@@ -29,12 +29,8 @@ const SaveChanges = async () => {
   try {
     const formData = new FormData()
 
-    formData.append('name', form.value.name)
-    formData.append('email', form.value.email)
-
-    for (const [key, val] of formData.entries()) {
-      console.log(`${key}:`, val)
-    }
+    formData.append('name', form.value.name ?? '')
+    formData.append('email', form.value.email ?? '')
 
     const { data } = await api.post('/api/profile/info', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
@@ -77,7 +73,9 @@ const SaveChanges = async () => {
       </div>
 
       <div class="flex items-center gap-4">
-        <PrimaryButton :disabled="loading">{{ $t('Auth.Profile.Save') }}</PrimaryButton>
+        <PrimaryButton :disabled="auth.loading">
+          {{ $t('Auth.Profile.Save') }}
+        </PrimaryButton>
       </div>
     </form>
   </section>

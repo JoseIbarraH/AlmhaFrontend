@@ -9,13 +9,14 @@ import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import { showNotification } from '@/components/composables/useNotification';
 
+const auth = useAuthStore();
+
 defineProps<{
   canResetPassword?: boolean;
   status?: string;
 }>();
 
 const router = useRouter();
-const loading = ref(false);
 
 const form = reactive({
   email: '',
@@ -24,23 +25,12 @@ const form = reactive({
 });
 
 async function login() {
-  const auth = useAuthStore();
-  loading.value = true;
+  const { success, message } = await auth.login(form.email, form.password, form.remember);
 
-  try {
-    await auth.login(form.email, form.password, form.remember);
+  if (success) {
     router.push({ name: 'dashboard.home' });
-  } catch (err: any) {
-    // Capturamos los errores lanzados por el store
-    if (err.silent) return
-
-    if (err instanceof Error) {
-      showNotification('error', 'Error al autenticarse', 4000)
-    } else {
-      showNotification('error', 'Ocurrió un error al iniciar sesión', 4000)
-    }
-  } finally {
-    loading.value = false;
+  } else {
+    showNotification('error', message, 4000);
   }
 }
 </script>
@@ -70,8 +60,8 @@ async function login() {
       </div>
 
       <div class="flex items-center justify-center">
-        <PrimaryButton type="submit" class="mt-4" :disabled="loading">
-          <span v-if="loading">Cargando...</span>
+        <PrimaryButton type="submit" class="mt-4" :disabled="auth.loading">
+          <span v-if="auth.loading">Cargando...</span>
           <span v-else>Iniciar sesión</span>
         </PrimaryButton>
       </div>

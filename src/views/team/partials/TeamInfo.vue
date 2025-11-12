@@ -28,11 +28,7 @@ import TextInput from '@/components/ui/TextInput.vue';
 import TextArea from '@/components/ui/TextArea.vue';
 import Select from '@/components/ui/Select.vue';
 import type { TeamMember } from '../types';
-import { useI18n } from 'vue-i18n';
 
-const { t } = useI18n();
-
-// 1. Define la estructura de TeamMember
 interface TeamMemberErrors {
   name?: string;
   status?: string;
@@ -49,8 +45,8 @@ defineProps<{
 }>();
 
 const status = [
-  { value: "active", label: t('Dashboard.Team.CreateUpdate.PersonalInfo.Status.Active') },
-  { value: "inactive", label: t('Dashboard.Team.CreateUpdate.PersonalInfo.Status.Inactive') },
+  { value: "active", label: "Activo" },
+  { value: "inactive", label: "Inactivo" },
 ];
 
 </script>

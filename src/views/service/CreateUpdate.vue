@@ -253,8 +253,7 @@ const validateBeforeSave = (): boolean => {
   return true
 }
 
-
-const saveChanges = () => {
+const saveChanges = async () => {
   if (!validateBeforeSave()) return
 
   loading.value = true
@@ -265,8 +264,34 @@ const saveChanges = () => {
       console.log(`${key}:`, val)
     }
 
-  } catch (err) {
+    if (editing.value === false) {
+      await api.post('/api/service', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
 
+      showNotification('success', t('Dashboard.Service.Validations.Success.Create'), 3000)
+    }
+
+    if (editing.value === true) {
+      await api.post(`/api/service/${form.id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+
+      showNotification('success', t('Dashboard.Service.Validations.Success.Update'), 3000)
+    }
+
+    loading.value = false
+    /* router.push({ name: 'dashboard.service' }) */
+  } catch (err: any) {
+    const message = editing.value
+      ? t('Dashboard.Service.Validations.Error.Update')
+      : t('Dashboard.Service.Validations.Error.Create');
+    showNotification('error', message, 3000)
+    if (err.response?.status === 422) {
+      console.error("Errores de validación:", err.response.data.errors)
+    } else {
+      console.error("Error inesperado:", err)
+    }
   } finally {
     loading.value = false
   }

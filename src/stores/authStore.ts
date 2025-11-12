@@ -1,11 +1,13 @@
+import type { User } from '@/types/user'
 import { defineStore } from 'pinia'
 import { api } from '@/plugins/api'
 import axios from 'axios'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: null as any,
-    loading: false,
+    /* user: null as any, */
+    user: null as User | null,
+    loading: false
   }),
 
   getters: {
@@ -14,26 +16,43 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     async login(email: string, password: string, remember = false) {
-      this.loading = true
+      this.loading = true;
+
       try {
-        // Paso CSRF necesario para Laravel Sanctum
-        await api.get('/sanctum/csrf-cookie')
+        // Obtener cookie CSRF
+        await api.get('/sanctum/csrf-cookie');
 
-        // Login
-        await api.post('/api/login', { email, password, remember })
+        // Intentar login
+        const { data } = await api.post('/api/login', { email, password, remember });
 
-        // Obtener usuario
-        const response = await api.get('/api/user')
-        this.user = response.data
+        // Guardar usuario y respuesta completa
+        this.user = data?.data;
 
+        // Retornar resultado exitoso
+        return {
+          success: true,
+          message: 'Autenticación exitosa',
+          data: data
+        };
       } catch (err: unknown) {
-        if (axios.isAxiosError(err) && err.response?.status === 401) {
-          throw new Error(err.response.data.message || 'Credenciales inválidas')
+        let message = 'Ocurrió un error al iniciar sesión';
+
+        if (axios.isAxiosError(err)) {
+          if (err.response?.status === 401) {
+            message = err.response.data.message || 'Credenciales inválidas';
+          } else if (err.response?.data?.message) {
+            message = err.response.data.message;
+          }
         }
 
-        throw err;
+        // Retornar resultado fallido sin lanzar excepción
+        return {
+          success: false,
+          message,
+          data: null
+        };
       } finally {
-        this.loading = false
+        this.loading = false;
       }
     },
 
