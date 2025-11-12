@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, useAttrs, computed } from 'vue';
 
 const model = defineModel<string>({ required: true });
+const attrs = useAttrs();
 
 const input = ref<HTMLInputElement | null>(null);
 
@@ -12,17 +13,27 @@ onMounted(() => {
 });
 
 defineExpose({ focus: () => input.value?.focus() });
+
+const inputClasses = computed(() => {
+  if (attrs.class) {
+    return attrs.class;
+  }
+
+  return `
+    rounded-md py-2 px-4 shadow-sm w-full
+    border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
+    bg-white text-gray-900
+    dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
+    dark:focus:border-indigo-600 dark:focus:ring-indigo-600
+  `;
+});
 </script>
 
 <template>
   <input
-    class="rounded-md py-2 px-4 shadow-sm
-
-           border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 bg-white text-gray-900
-
-           dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
-           dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
-    v-model="model"
     ref="input"
+    v-model="model"
+    v-bind="attrs"
+    :class="inputClasses"
   />
 </template>

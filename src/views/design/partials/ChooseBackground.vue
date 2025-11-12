@@ -1,6 +1,6 @@
 <template>
   <div class="relative z-10 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 min-h-[2.25rem] mb-4">
-    <h3 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left">
+    <h3 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left dark:text-gray-100">
       {{ $t('Dashboard.Design.Backgrounds.Title') }}
     </h3>
 
@@ -25,7 +25,7 @@
   <!-- Contenedor -->
   <div class="space-y-6 mt-6">
     <!-- Card 1 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 items-center bg-gray-100 rounded-lg overflow-hidden shadow">
+    <div class="grid grid-cols-1 md:grid-cols-2 items-center bg-gray-100 rounded-lg overflow-hidden shadow dark:bg-gray-800 dark:border-gray-700 dark:shadow-xl">
       <div class="aspect-video">
         <ImagesPreview v-model="form.background1.path" class="w-full h-full object-cover" />
       </div>
@@ -40,7 +40,7 @@
     </div>
 
     <!-- Card 2 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 items-center bg-gray-100 rounded-lg overflow-hidden shadow">
+    <div class="grid grid-cols-1 md:grid-cols-2 items-center bg-gray-100 rounded-lg overflow-hidden shadow dark:bg-gray-800 dark:border-gray-700 dark:shadow-xl">
       <div class="aspect-video">
         <ImagesPreview v-model="form.background2.path" class="w-full h-full object-cover" />
       </div>
@@ -55,7 +55,7 @@
     </div>
 
     <!-- Card 3 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 items-center bg-gray-100 rounded-lg overflow-hidden shadow">
+    <div class="grid grid-cols-1 md:grid-cols-2 items-center bg-gray-100 rounded-lg overflow-hidden shadow dark:bg-gray-800 dark:border-gray-700 dark:shadow-xl">
       <div class="aspect-video">
         <ImagesPreview v-model="form.background3.path" class="w-full h-full object-cover" />
       </div>

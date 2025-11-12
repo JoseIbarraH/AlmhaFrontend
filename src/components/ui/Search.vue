@@ -4,7 +4,7 @@
       v-model="query"
       type="text"
       :placeholder="placeholder"
-      class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm
+      class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-gray-600 dark:text-gray-400
              focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
     />
 

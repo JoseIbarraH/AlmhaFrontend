@@ -18,6 +18,19 @@ defineExpose({
 </script>
 
 <template>
-  <textarea class="rounded-md border-gray-300 shadow-sm p-2" v-model="model"
-    ref="input" :autofocus="autofocus"></textarea>
+  <textarea :class="[
+    // Estilos base y transición
+    'w-full rounded-lg shadow-sm p-3 transition duration-150 ease-in-out',
+
+    // Modo Claro (Light Mode)
+    'border border-gray-300 text-gray-900 bg-white',
+    'focus:ring-blue-500 focus:border-blue-500',
+
+    // Modo Oscuro (Dark Mode)
+    'dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100',
+    'dark:focus:ring-blue-400 dark:focus:border-blue-400',
+
+    // Clases adicionales pasadas
+    $attrs.class
+  ]" v-model="model" ref="input" :autofocus="autofocus"></textarea>
 </template>

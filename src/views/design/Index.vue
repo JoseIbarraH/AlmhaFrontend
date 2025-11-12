@@ -14,19 +14,19 @@
       </header>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="h-fit">
-          <div class="bg-white p-6 rounded-lg shadow-md h-fit">
+          <div class="bg-white p-6 rounded-lg shadow-md h-fit dark:bg-gray-900">
             <ChooseCarouselStatic :carousel-static="form.carouselStatic" />
           </div>
-          <div class="bg-white p-6 rounded-lg shadow-md mt-4">
+          <div class="bg-white p-6 rounded-lg shadow-md mt-4 dark:bg-gray-900">
             <ChooseCarouselNavbar :carousel-navbar="form.carouselNavbar" />
           </div>
         </div>
         <div class="h-fit">
-          <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="bg-white p-6 rounded-lg shadow-md dark:bg-gray-900">
             <ChooseBackground :background1="form.background1" :background2="form.background2"
               :background3="form.background3" />
           </div>
-          <div class="bg-white p-6 rounded-lg shadow-md mt-4">
+          <div class="bg-white p-6 rounded-lg shadow-md mt-4 dark:bg-gray-900">
             <ChooseCarouselTool :carousel-tool="form.carouselTool" />
           </div>
         </div>

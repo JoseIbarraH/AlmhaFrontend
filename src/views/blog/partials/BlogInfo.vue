@@ -7,7 +7,7 @@
     <div class="px-2 py-8 md:p-0 md:pl-4 w-full">
       <div class="p-0 sm:p-2">
         <InputLabel for="title_blog" :value="$t('Dashboard.Blog.Edit.TitlePost')" />
-        <TextInput id="title" type="text" v-model="modelValue.title" class="w-full" />
+        <TextInput id="title" type="text" v-model="modelValue.title" />
       </div>
 
       <div class="p-0 sm:p-2">

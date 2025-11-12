@@ -15,14 +15,17 @@
         </CreateButton>
       </header>
 
-      <Statistics :total-object-title="$t('Dashboard.Service.Statistics.Total')" :total-object="stats?.total"
+      <Statistics
+        :total-object-title="$t('Dashboard.Service.Statistics.Total')"
+        :total-object="stats?.total"
+        :total-object-icon="LucideClipboardList"
         :total-activated-title="$t('Dashboard.Service.Statistics.TeamsActives')"
         :total-activated="stats?.totalActivated"
         :total-deactivated-title="$t('Dashboard.Service.Statistics.TeamsInactives')"
         :total-deactivated="stats?.totalDeactivated" :last-object-title="$t('Dashboard.Service.Statistics.Last')"
         :last-object="stats?.lastCreated" />
 
-      <div class="bg-white rounded-lg shadow-md">
+      <div class="bg-white rounded-lg shadow-md dark:bg-gray-900">
         <ServiceGrid :data="paginate?.data ?? []"
           @status-updated="fetchServices(route.query.page ? Number(route.query.page) : 1)"
           @refresh-requested="fetchServices(route.query.page ? Number(route.query.page) : 1)" />
@@ -45,6 +48,7 @@ import { ref, computed, onMounted } from 'vue';
 import Skeleton from './partials/Skeleton.vue';
 import type { Data } from './types';
 import { api } from '@/plugins/api';
+import { LucideClipboardList } from 'lucide-vue-next';
 
 const route = useRoute()
 const router = useRouter()

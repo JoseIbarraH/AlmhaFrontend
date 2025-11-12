@@ -14,7 +14,7 @@
           />
         </div>
       </div>
-      <div class="editor_container__word-count" ref="editorWordCountElement"></div>
+      <div class="editor_container__word-count dark" ref="editorWordCountElement"></div>
     </div>
   </div>
 </template>
@@ -651,6 +651,11 @@ function onReady(editor: any) {
   padding: var(--ck-spacing-small) var(--ck-spacing-standard);
 }
 
+/* .dark .editor_container__word-count .ck-word-count {
+  color: red
+} */
+
+
 .editor-container_include-word-count.editor-container_classic-editor .editor_container__word-count {
   border: 1px solid var(--ck-color-base-border);
   border-radius: var(--ck-border-radius);
@@ -668,6 +673,10 @@ function onReady(editor: any) {
   gap: 10px;
   padding: 10px;
   justify-content: end;
+}
+
+.dark :deep(.ck-word-count) {
+  color: #d1d5db !important; /* texto gris claro */
 }
 
 :deep(.ck.ck-dropdown__panel .ck.ck-list) {

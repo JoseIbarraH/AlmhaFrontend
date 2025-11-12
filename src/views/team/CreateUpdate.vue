@@ -1,18 +1,15 @@
 <template>
-  <section class="p-6 space-y-6">
+  <section class="p-6 space-y-6 dark:bg-gray-950">
     <!-- Header -->
     <header
-      class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4 bg-white p-4 sm:p-6 shadow-sm rounded-lg">
-
-      <!-- Título -->
-      <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left">
+      class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 h-[82px] sm:p-8">
+      <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left dark:text-gray-100">
         {{ editing
           ? $t('Dashboard.Team.CreateUpdate.UpdateTitle')
           : $t('Dashboard.Team.CreateUpdate.CreateTitle')
         }}
       </h2>
 
-      <!-- Botones -->
       <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
         <BackButton @click="backToIndex" class="w-full sm:w-auto justify-center" :disabled="loading">
           {{ $t('Dashboard.Team.CreateUpdate.BackButton') }}
@@ -30,20 +27,20 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       <!-- Imagen -->
-      <div class="bg-white p-6 rounded-lg shadow-md h-fit order-1">
+      <div class="bg-white p-6 rounded-lg shadow-md h-fit order-1 dark:bg-gray-900">
         <SelectedImage v-model:model-value="form.image" />
       </div>
 
-      <div class="bg-white p-6 rounded-lg shadow-md h-fit order-2">
+      <div class="bg-white p-6 rounded-lg shadow-md h-fit order-2 dark:bg-gray-900">
         <TeamInfo :model-value="form" />
       </div>
 
       <div class="md:col-start-3 md:col-end-5 order-3">
-        <div class="bg-white p-6 rounded-lg shadow-md order-3 md:col-span-2 lg:col-span-4 h-72">
+        <div class="bg-white p-6 rounded-lg shadow-md order-3 md:col-span-2 lg:col-span-4 h-72 dark:bg-gray-900">
           <Biography v-model="form" />
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-md h-fit order-4 md:col-span-2 lg:col-span-4 mt-4">
+        <div class="bg-white p-6 rounded-lg shadow-md h-fit order-4 md:col-span-2 lg:col-span-4 mt-4 dark:bg-gray-900">
           <Results v-bind:model-value="form" />
         </div>
       </div>

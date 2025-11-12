@@ -1,5 +1,5 @@
 <template>
-  <h3 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left mb-4">
+  <h3 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left mb-4 dark:text-gray-100">
     {{ $t('Dashboard.Team.CreateUpdate.PersonalInfo.Biography') }}
   </h3>
 

@@ -1,9 +1,9 @@
 <template>
-  <section class="p-6 space-y-6">
+  <section class="p-6 space-y-6 dark:bg-gray-950">
     <header
-      class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4 bg-white p-4 sm:p-6 shadow-sm rounded-lg">
+      class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 h-[82px] sm:p-8">
 
-      <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left">
+      <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left dark:text-gray-100">
         {{ $t('Dashboard.Blog.Edit.Title') }}
       </h2>
 

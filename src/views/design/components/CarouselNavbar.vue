@@ -1,6 +1,5 @@
 <template>
   <div class="grid grid-cols-1 gap-4 mt-4 border-2 border-dashed border-gray-300 rounded-md p-4">
-
     <span v-if="localValue.length === 0" class="text-gray-500 col-span-full text-center">
       {{ $t('Dashboard.Design.ChooseCarouselImage.NewImage') }}
     </span>
@@ -8,7 +7,7 @@
     <!-- Contenedor scrollable -->
     <div class="max-h-[500px] overflow-y-auto space-y-4 pr-2">
       <div v-for="(item, index) in localValue" :key="index"
-        class="relative group rounded-md p-3 bg-white shadow-sm">
+        class="relative group rounded-md p-3 bg-white shadow-sm dark:bg-gray-800 dark:border-gray-700 dark:shadow-xl">
         <div class="grid grid-cols-1 md:grid-cols-3 w-full gap-4">
           <!-- Imagen / Video -->
           <div class="w-full relative aspect-square">

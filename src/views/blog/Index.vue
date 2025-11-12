@@ -26,7 +26,7 @@
         :last-object-title="$t('Dashboard.Blog.Statistics.Last')"
         :last-object="stats?.lastCreated" />
 
-      <div class="bg-white rounded-lg shadow-md">
+      <div class="bg-white rounded-lg shadow-md dark:bg-gray-900">
         <BlogGrid :data="paginate?.data ?? []"
           @status-updated="fetchBlogs(route.query.page ? Number(route.query.page) : 1)"
           @refresh-requested="fetchBlogs(route.query.page ? Number(route.query.page) : 1)" />

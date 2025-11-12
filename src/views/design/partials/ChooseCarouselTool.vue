@@ -1,6 +1,6 @@
 <template>
   <div class="relative z-10 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 min-h-[2.25rem] mb-4">
-    <h3 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left">
+    <h3 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left dark:text-gray-100">
       {{ $t('Dashboard.Design.ChooseCarouselTool.Title') }}
     </h3>
 

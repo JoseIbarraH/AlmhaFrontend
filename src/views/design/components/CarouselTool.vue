@@ -8,7 +8,7 @@
     <div class="max-h-[500px] overflow-y-auto">
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-4 pr-2">
         <div v-for="(item, index) in localValue" :key="index"
-          class="relative group rounded-md p-1 bg-white shadow-sm flex flex-col items-center">
+          class="relative group rounded-md p-1 bg-white shadow-sm flex flex-col items-center dark:bg-gray-800 dark:border-gray-700 dark:shadow-xl">
           <div class="relative w-full aspect-square overflow-hidden rounded-md">
             <ImagesPreview v-model="item.path" :close-button="false" alt="Gallery Image"
               class="object-cover w-full h-full rounded-md" />
