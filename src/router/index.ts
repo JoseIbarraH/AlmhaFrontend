@@ -22,9 +22,9 @@ import DashboardServiceCreateUpdate from "@/views/service/CreateUpdate.vue"
 import DashboardTeam from "@/views/team/Index.vue"
 import DashboardTeamCreate from "@/views/team/CreateUpdate.vue"
 
-import DashboardProfile from "@/views/profile/Index.vue"
-
-import DashboardUser from "@/views/user/Index.vue"
+import SettingProfile from "@/views/setting/profile/Index.vue"
+import SettingUser from "@/views/setting/user/Index.vue"
+import SettingRole from "@/views/setting/role/Index.vue"
 
 import AuthLogin from "@/views/auth/Login.vue"
 
@@ -169,25 +169,31 @@ const routes: RouteRecordRaw[] = [
             meta: { title: 'Edit Team' }
           },
           {
-            path: "settings",
+            path: "setting",
             name: "dashboard.setting",
             component: SettingsLayout,
             meta: { title: 'Settings' },
             children: [
               {
                 path: "profile",
-                name: "dashboard.profile",
-                component: DashboardProfile,
+                name: "setting.profile",
+                component: SettingProfile,
                 meta: { title: 'Profile' }
+              },
+              {
+                path: "user",
+                name: "setting.user",
+                component: SettingUser,
+                meta: { title: 'User' }
+              },
+              {
+                path: "role",
+                name: "setting.role",
+                component: SettingRole,
+                meta: { title: 'Role' }
               }
             ]
           },
-          {
-            path: "user",
-            name: "dashboard.user",
-            component: DashboardUser,
-            meta: { title: 'User' }
-          }
         ],
       },
     ],

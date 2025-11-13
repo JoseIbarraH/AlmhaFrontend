@@ -5,25 +5,23 @@
 
   <div v-else>
     <section class="p-6 space-y-6 dark:bg-gray-950">
-      <header class="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 sm:p-8 h-[82px]">
+      <header
+        class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 w-full">
         <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">
           {{ $t('Dashboard.Blog.Title') }}
         </h2>
 
-        <CreateButton @click="openModal" class="flex items-center justify-center w-full sm:w-auto mt-4 sm:mt-0" :disabled="creating">
+        <CreateButton @click="openModal" class="flex items-center justify-center w-full sm:w-auto mt-4 sm:mt-0"
+          :disabled="creating">
           {{ $t('Dashboard.Blog.CreateButton') }}
         </CreateButton>
       </header>
 
-      <Statistics
-        :total-object-title="$t('Dashboard.Blog.Statistics.Total')"
-        :total-object="stats?.total"
-        :total-object-icon="LucideNewspaper"
-        :total-activated-title="$t('Dashboard.Blog.Statistics.TeamsActives')"
+      <Statistics :total-object-title="$t('Dashboard.Blog.Statistics.Total')" :total-object="stats?.total"
+        :total-object-icon="LucideNewspaper" :total-activated-title="$t('Dashboard.Blog.Statistics.TeamsActives')"
         :total-activated="stats?.totalActivated"
         :total-deactivated-title="$t('Dashboard.Blog.Statistics.TeamsInactives')"
-        :total-deactivated="stats?.totalDeactivated"
-        :last-object-title="$t('Dashboard.Blog.Statistics.Last')"
+        :total-deactivated="stats?.totalDeactivated" :last-object-title="$t('Dashboard.Blog.Statistics.Last')"
         :last-object="stats?.lastCreated" />
 
       <div class="bg-white rounded-lg shadow-md dark:bg-gray-900">
@@ -31,15 +29,13 @@
           @status-updated="fetchBlogs(route.query.page ? Number(route.query.page) : 1)"
           @refresh-requested="fetchBlogs(route.query.page ? Number(route.query.page) : 1)" />
       </div>
-      <div class="w-full flex items-center justify-center">
-        <Pagination v-if="paginate" :pagination="paginate" @page-change="handlePageChange" />
-      </div>
+      <Pagination v-if="paginate" :pagination="paginate" @page-change="handlePageChange" />
     </section>
   </div>
 
   <Modal :show="isOpen" max-width="md" @close="closeModal">
     <div class="bg-white rounded-lg overflow-hidden">
-      <!-- Header -->
+
       <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
         <h2 class="text-xl font-semibold text-gray-800">
           {{ $t('Dashboard.Blog.Create.Title') }}
@@ -49,7 +45,6 @@
         </p>
       </div>
 
-      <!-- Content -->
       <div class="px-6 py-6">
         <div class="space-y-2">
           <InputLabel for="title" :value="$t('Dashboard.Blog.Create.Title')"
@@ -61,7 +56,6 @@
         </div>
       </div>
 
-      <!-- Footer -->
       <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-end gap-3">
         <SecondaryButton @click="closeModal"
           class="px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition-colors duration-200">

@@ -62,8 +62,8 @@
             <!-- Estado -->
             <td class="px-6 py-4">
               <div class="flex items-center gap-2">
-                <ToggleButton :model-value="value.status === 'active'"
-                  @update:model-value="handleToggleStatus(value)" color="green" />
+                <ToggleButton :model-value="value.status === 'active'" @update:model-value="handleToggleStatus(value)"
+                  color="green" />
                 <span :class="[
                   'text-sm font-medium',
                   value.status === 'active' ? 'text-green-600' : 'text-red-600',
@@ -86,8 +86,7 @@
             <td class="px-6 py-4">
               <div class="flex items-center justify-end gap-2">
                 <!-- Botón Editar -->
-                <button @click="handleEdit(value.id)" title="Editar"
-                  class="p-2 text-gray-500 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-colors
+                <button @click="handleEdit(value.id)" title="Editar" class="p-2 text-gray-500 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-colors
                          dark:text-gray-400 dark:hover:text-yellow-400 dark:hover:bg-gray-700">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -96,8 +95,7 @@
                 </button>
 
                 <!-- Botón Eliminar -->
-                <button @click="openModal(value)" title="Eliminar"
-                  class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-100 rounded-lg transition-colors
+                <button @click="openModal(value)" title="Eliminar" class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-100 rounded-lg transition-colors
                          dark:text-gray-400 dark:hover:text-red-400 dark:hover:bg-gray-700">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -121,9 +119,18 @@
     </div>
   </div>
 
+  <ConfirmDeleteModal :show="isOpen" :title="$t('Dashboard.Team.Delete.ConfirmTitle')"
+    :subtitle="$t('Dashboard.Team.Delete.ConfirmSubtitle')" :message="$t('Dashboard.Team.Delete.ConfirmDelete')"
+    :itemName="memberToDelete?.name" :consequences-title="$t('Dashboard.Team.Delete.Consequences.Title')" :consequences="[
+      $t('Dashboard.Team.Delete.Consequences.First'),
+      $t('Dashboard.Team.Delete.Consequences.Second'),
+      $t('Dashboard.Team.Delete.Consequences.Third')
+    ]" :cancel-text="$t('Dashboard.Team.Delete.Cancel')" :confirm-text="$t('Dashboard.Team.Delete.Delete')"
+    @close="closeModal" @confirm="confirmDelete" />
+
   <!-- Modal de confirmación de eliminación -->
   <!-- Nota: El componente Modal debe tener su propio estilo de dark mode o se le debe pasar la clase. Asumiendo que el componente Modal maneja su contenedor principal. -->
-  <Modal :show="isOpen" max-width="md" @close="closeModal">
+  <!-- <Modal :show="isOpen" max-width="md" @close="closeModal">
     <div class="p-6 bg-white dark:bg-gray-800 rounded-lg">
       <h2 class="text-lg font-semibold text-gray-800 mb-2 dark:text-white">
         {{ t('Dashboard.Blog.Delete.ConfirmTitle') }}
@@ -137,28 +144,27 @@
       </p>
 
       <div class="flex justify-end gap-3">
-        <!-- Botón Cancelar -->
         <button class="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200
                        dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
                 @click="closeModal">
           Cancelar
         </button>
 
-        <!-- Botón Eliminar -->
         <button class="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700"
                 @click="confirmDelete">
           Eliminar
         </button>
       </div>
     </div>
-  </Modal>
+  </Modal> -->
 </template>
 
 <script setup lang="ts">
 import { showNotification } from '@/components/composables/useNotification';
+import ConfirmDeleteModal from '@/components/app/ConfirmDeleteModal.vue';
 import ToggleButton from '@/components/ui/ToggleButton.vue';
 import Search from '@/components/ui/Search.vue';
-import Modal from '@/components/app/Modal.vue';
+/* import Modal from '@/components/app/Modal.vue'; */
 import { useRouter } from 'vue-router';
 import type { Data } from '../types';
 import { api } from '@/plugins/api';
@@ -168,7 +174,6 @@ import { ref } from 'vue'
 const { t } = useI18n()
 
 const router = useRouter()
-
 
 const isOpen = ref(false)
 const memberToDelete = ref<Data | null>(null)

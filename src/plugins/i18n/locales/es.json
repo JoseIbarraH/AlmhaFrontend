@@ -78,6 +78,19 @@
           "Create": "No se pudo crear el miembro del equipo. Por favor, verifica los datos e intenta nuevamente.",
           "Update": "No se pudo actualizar la información del miembro del equipo. Por favor, verifica los datos e intenta nuevamente."
         }
+      },
+      "Delete": {
+        "ConfirmTitle": "Confirmar Eliminación",
+        "ConfirmSubtitle": "Esta acción es permanente y no se puede revertir",
+        "ConfirmDelete": "¿Estás seguro de que deseas eliminar el miembro",
+        "Cancel": "Cancelar",
+        "Delete": "Eliminar",
+        "Consequences": {
+          "Title": "Al eliminar este Miembro:",
+          "First": "Se eliminará todo el contenido permanentemente",
+          "Second": "Las imágenes asociadas se eliminarán del servidor",
+          "Third": "No podrás recuperar esta información"
+        }
       }
     },
     "Blog": {
@@ -139,7 +152,7 @@
       "Delete": {
         "ConfirmTitle": "Confirmar Eliminación",
         "ConfirmSubtitle": "Esta acción es permanente y no se puede revertir",
-        "Confirm_delete": "¿Estás seguro de que deseas eliminar el blog",
+        "ConfirmDelete": "¿Estás seguro de que deseas eliminar el blog",
         "Cancel": "Cancelar",
         "Delete": "Eliminar Blog",
         "Consequences": {
@@ -355,6 +368,19 @@
     },
     "Pagination": {
       "Showing": "Mostrando {from} – {to} de {total} registros"
+    },
+    "Setting": {
+      "Title": "Configuración",
+      "Subtitle": "Gestiona tus preferencias y ajustes",
+      "Personal": {
+        "Title": "Personal",
+        "Profile": "Perfil"
+      },
+      "Administration": {
+        "Title": "Administración",
+        "User": "Usuarios",
+        "RolePermission": "Roles y Permisos"
+      }
     }
   }
 }

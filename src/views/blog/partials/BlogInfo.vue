@@ -1,17 +1,17 @@
 <template>
-  <div class="flex flex-col h-full sm:flex-row w-full px-8 pt-8">
-    <div class="relative w-80">
-      <ImagesPreview v-model="modelValue.image" class="w-80 max-h-48" />
+  <div class="flex flex-col h-full sm:flex-row w-full p-8 rounded-2xl dark:bg-gray-800">
+    <div class="relative w-full sm:w-80">
+      <ImagesPreview v-model="modelValue.image" class="max-h-48" />
     </div>
 
     <div class="px-2 py-8 md:p-0 md:pl-4 w-full">
-      <div class="p-0 sm:p-2">
-        <InputLabel for="title_blog" :value="$t('Dashboard.Blog.Edit.TitlePost')" />
+      <div class="mb-4">
+        <InputLabel for="title_blog" class="mb-1" :value="$t('Dashboard.Blog.Edit.TitlePost')" />
         <TextInput id="title" type="text" v-model="modelValue.title" />
       </div>
 
-      <div class="p-0 sm:p-2">
-        <InputLabel for="category" :value="$t('Dashboard.Blog.Edit.Category')" />
+      <div>
+        <InputLabel for="category" class="mb-1" :value="$t('Dashboard.Blog.Edit.Category')" />
         <Select class=" block w-full md:w-[400px]"
           v-model="modelValue.category"
           :options="categories"

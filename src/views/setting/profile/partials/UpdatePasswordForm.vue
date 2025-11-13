@@ -20,9 +20,9 @@ const form = ref({
 <template>
   <section>
     <header>
-      <h2 class="text-lg font-medium text-gray-900">{{ $t('Auth.Profile.PasswordUpdate.Title') }}</h2>
+      <h2 class="text-lg font-medium dark:text-gray-100">{{ $t('Auth.Profile.PasswordUpdate.Title') }}</h2>
 
-      <p class="mt-1 text-sm text-gray-600">
+      <p class="mt-1 text-sm text-gray-400">
         {{ $t('Auth.Profile.PasswordUpdate.Subtitle') }}
       </p>
     </header>
@@ -32,27 +32,21 @@ const form = ref({
         <InputLabel for="current_password" :value="$t('Auth.Profile.PasswordUpdate.CurrentPassword')" />
 
         <TextInput id="current_password" ref="currentPasswordInput" v-model="form.current_password" type="password"
-          class="mt-1 block w-full" autocomplete="current-password" />
-
-        <InputError class="mt-2" />
+          autocomplete="current-password" />
       </div>
 
       <div>
         <InputLabel for="password" :value="$t('Auth.Profile.PasswordUpdate.NewPassword')" />
 
-        <TextInput id="password" ref="passwordInput" v-model="form.password" type="password" class="mt-1 block w-full"
+        <TextInput id="password" ref="passwordInput" v-model="form.password" type="password"
           autocomplete="new-password" />
-
-        <InputError class="mt-2" />
       </div>
 
       <div>
         <InputLabel for="password_confirmation" :value="$t('Auth.Profile.PasswordUpdate.ConfirmPassword')" />
 
         <TextInput id="password_confirmation" v-model="form.password_confirmation" type="password"
-          class="mt-1 block w-full" autocomplete="new-password" />
-
-        <InputError class="mt-2" />
+          autocomplete="new-password" />
       </div>
     </form>
   </section>

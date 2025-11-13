@@ -66,14 +66,14 @@ const SaveChanges = async () => {
 
         <!-- Asumo que TextInput maneja dark mode internamente, especialmente bordes y fondo.
              Si no lo hace, necesitarías agregar dark:clases aquí o, mejor aún, dentro del componente TextInput. -->
-        <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus
+        <TextInput id="name" type="text" v-model="form.name" required autofocus
           autocomplete="name" />
       </div>
 
       <div>
         <InputLabel for="email" :value="$t('Auth.Profile.Email')" />
 
-        <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
+        <TextInput id="email" type="email" v-model="form.email" required
           autocomplete="email" />
       </div>
 
