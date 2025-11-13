@@ -9,6 +9,7 @@ import { nextTick, ref } from 'vue';
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref<HTMLInputElement | null>(null);
+const loading = ref(false);
 
 const form = ref({
   password: '',
@@ -20,7 +21,9 @@ const confirmUserDeletion = () => {
   nextTick(() => passwordInput.value?.focus());
 };
 
+const deleteUser = () => {
 
+}
 
 const closeModal = () => {
   confirmingUserDeletion.value = false;
@@ -67,10 +70,10 @@ const closeModal = () => {
         <div class="mt-6 flex justify-end">
           <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
 
-          <!-- <DangerButton class="ms-3" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"
+          <DangerButton class="ms-3" :class="{ 'opacity-25': loading }" :disabled="loading"
             @click="deleteUser">
             Delete Account
-          </DangerButton> -->
+          </DangerButton>
         </div>
       </div>
     </Modal>

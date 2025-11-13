@@ -325,11 +325,6 @@
           "Update": "Error al actualizar el servicio."
         }
       }
-    },
-    "Profile": {
-      "EditProfile": "Editar perfil",
-      "UpdateProfile": "Actualizar perfil",
-      "DeleteProfile": "Eliminar perfil"
     }
   },
   "Auth": {
@@ -345,14 +340,23 @@
         "CurrentPassword": "Contraseña Actual",
         "NewPassword": "Nueva Contraseña",
         "ConfirmPassword": "Confirmar Contraseña"
+      },
+      "DeleteAccount": {
+        "Title": "Eliminar cuenta"
       }
     },
     "Validations": {
       "Success": {
-        "ProfileUpdate": "Perfil actualizado"
+        "ProfileUpdate": "Perfil actualizado",
+        "UpdatePassword": "Contraseña actualizada correctamente."
       },
       "Error": {
-        "ProfileUpdate": "Error al actualizar el perfil"
+        "RequiredCurrentPassword": "Debes ingresar tu contraseña actual.",
+        "ShortPassword": "La nueva contraseña debe tener al menos 8 caracteres.",
+        "WeakPassword": "La contraseña debe incluir mayúsculas, minúsculas, números y símbolos.",
+        "SamePassword": "La nueva contraseña no puede ser igual a la actual.",
+        "ConfirmationPassword": "Las contraseñas no coinciden.",
+        "UpdatePassword": "No se pudo actualizar la contraseña."
       }
     }
   },
