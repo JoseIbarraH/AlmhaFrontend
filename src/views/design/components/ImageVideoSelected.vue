@@ -6,15 +6,15 @@
     </div>
 
     <!-- Formulario -->
-    <div class="p-4 flex flex-col gap-3">
+    <div class="p-4 flex flex-col gap-3 dark:bg-gray-800">
       <div>
         <InputLabel for="title1" value="Título" />
-        <TextInput id="title1" class="w-full" v-model="localValue.title" placeholder="Título" />
+        <TextInput id="title1" v-model="localValue.title" placeholder="Título" />
       </div>
 
       <div>
         <InputLabel for="subtitle1" value="Subtítulo" />
-        <TextInput id="subtitle1" class="w-full" v-model="localValue.subtitle" placeholder="Subtítulo" />
+        <TextInput id="subtitle1" v-model="localValue.subtitle" placeholder="Subtítulo" />
       </div>
     </div>
   </div>

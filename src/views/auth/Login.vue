@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import Checkbox from '@/components/ui/Checkbox.vue';
+import { showNotification } from '@/components/composables/useNotification';
+import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import InputError from '@/components/ui/InputError.vue';
 import InputLabel from '@/components/ui/InputLabel.vue';
-import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import TextInput from '@/components/ui/TextInput.vue';
-import { reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import Checkbox from '@/components/ui/Checkbox.vue';
 import { useAuthStore } from '@/stores/authStore';
-import { showNotification } from '@/components/composables/useNotification';
+import { useRouter } from 'vue-router';
+import { reactive } from 'vue';
 
 const auth = useAuthStore();
 
@@ -36,18 +36,21 @@ async function login() {
 </script>
 
 <template>
+  <!-- El div principal no necesita cambios si el fondo de la página maneja el dark mode -->
   <div>
     <form @submit.prevent="login" class="space-y-4">
       <div>
-        <InputLabel for="email" value="Correo" />
-        <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
+        <!-- El InputLabel debería manejar su propio dark mode, pero por si acaso, añadimos la clase -->
+        <InputLabel for="email" class="mb-1 dark:text-gray-300" value="Correo" />
+        <TextInput id="email" type="email" v-model="form.email" required
           autocomplete="username" />
         <InputError class="mt-2" />
       </div>
 
       <div>
-        <InputLabel for="password" value="Contraseña" />
-        <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required
+        <!-- El InputLabel debería manejar su propio dark mode, pero por si acaso, añadimos la clase -->
+        <InputLabel for="password" class="mb-1 dark:text-gray-300" value="Contraseña" />
+        <TextInput id="password" type="password" v-model="form.password" required
           autocomplete="current-password" />
         <InputError class="mt-2" />
       </div>
@@ -55,7 +58,8 @@ async function login() {
       <div class="flex justify-between items-center">
         <label class="flex items-center">
           <Checkbox name="remember" v-model:checked="form.remember" />
-          <span class="ms-2 text-sm text-gray-600">Recuérdame</span>
+          <!-- Clase crucial: Cambia el color del texto a gris claro en Dark Mode -->
+          <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Recuérdame</span>
         </label>
       </div>
 

@@ -55,9 +55,6 @@ const { isDark } = useDarkMode()
                 :active="current({ name: 'dashboard.service' }) || current({ name: 'dashboard.service.create' }) || current({ name: 'dashboard.service.edit' })">
                 {{ $t('Dashboard.Navbar.Service') }}
               </NavLink>
-              <!-- <NavLink :href="{ name: 'dashboard.user' }" :active="current({ name: 'dashboard.user' })">
-                  {{ $t('Dashboard.Navbar.User') }}
-                </NavLink> -->
             </div>
           </div>
 
@@ -134,9 +131,6 @@ const { isDark } = useDarkMode()
           <ResponsiveNavLink :href="{ name: 'dashboard.service' }" :active="current({ name: 'dashboard.service' })">
             {{ $t('Dashboard.Navbar.Service') }}
           </ResponsiveNavLink>
-          <!-- <ResponsiveNavLink :href="{ name: 'dashboard.user' }" :active="current({ name: 'dashboard.user' })">
-              {{ $t('Dashboard.Navbar.User') }}
-            </ResponsiveNavLink> -->
         </div>
 
         <div class="border-t border-gray-200 dark:border-gray-700 pb-1 pt-4">

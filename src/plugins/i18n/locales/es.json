@@ -325,38 +325,51 @@
           "Update": "Error al actualizar el servicio."
         }
       }
-    }
-  },
-  "Auth": {
-    "Profile": {
-      "Title": "Informacion de perfil",
-      "Subtitle": "Actualiza tu nombre y correo de perfil",
-      "Name": "Nombre",
-      "Email": "Correo",
-      "Save": "Guardar",
-      "PasswordUpdate": {
-        "Title": "Actualizar contraseña",
-        "Subtitle": "Asegúrate de que tu cuenta utilice una contraseña larga y aleatoria para mantener la seguridad.",
-        "CurrentPassword": "Contraseña Actual",
-        "NewPassword": "Nueva Contraseña",
-        "ConfirmPassword": "Confirmar Contraseña"
-      },
-      "DeleteAccount": {
-        "Title": "Eliminar cuenta"
-      }
     },
-    "Validations": {
-      "Success": {
-        "ProfileUpdate": "Perfil actualizado",
-        "UpdatePassword": "Contraseña actualizada correctamente."
+    "Setting": {
+      "Profile": {
+        "Title": "Informacion de perfil",
+        "Subtitle": "Actualiza tu nombre y correo de perfil",
+        "Name": "Nombre",
+        "Email": "Correo",
+        "Save": "Guardar",
+        "PasswordUpdate": {
+          "Title": "Actualizar contraseña",
+          "Subtitle": "Asegúrate de que tu cuenta utilice una contraseña larga y aleatoria para mantener la seguridad.",
+          "CurrentPassword": "Contraseña Actual",
+          "NewPassword": "Nueva Contraseña",
+          "ConfirmPassword": "Confirmar Contraseña"
+        },
+        "DeleteAccount": {
+          "Title": "Eliminar cuenta",
+          "Text": "Una vez eliminada tu cuenta, todos sus recursos y datos se eliminarán de forma permanente. Antes de eliminar tu cuenta, descarga cualquier dato o información que desees conservar.",
+          "ModalTitle": "¿Estás seguro de que quieres eliminar tu cuenta?",
+          "ModalText": "Una vez eliminada tu cuenta, todos sus recursos y datos se eliminarán de forma permanente. Introduce tu contraseña para confirmar que deseas eliminar tu cuenta de forma permanente."
+        }
       },
-      "Error": {
-        "RequiredCurrentPassword": "Debes ingresar tu contraseña actual.",
-        "ShortPassword": "La nueva contraseña debe tener al menos 8 caracteres.",
-        "WeakPassword": "La contraseña debe incluir mayúsculas, minúsculas, números y símbolos.",
-        "SamePassword": "La nueva contraseña no puede ser igual a la actual.",
-        "ConfirmationPassword": "Las contraseñas no coinciden.",
-        "UpdatePassword": "No se pudo actualizar la contraseña."
+      "RolePermission": {
+        "List": {
+          "Role": "Rol",
+          "Description": "Descripcion",
+          "Status": "Estado",
+          "Created": "Creado",
+          "Updated": "Actualizado",
+          "Actions": "Acciones"
+        }
+      },
+      "Validations": {
+        "Success": {
+          "ProfileUpdate": "Perfil actualizado",
+          "UpdatePassword": "Contraseña actualizada correctamente.",
+          "DeleteAccount": "Cuenta eliminada correctamente"
+        },
+        "Error": {
+          "RequiredCurrentPassword": "Debes ingresar tu contraseña actual.",
+          "ShortPassword": "La nueva contraseña debe tener al menos 8 caracteres.",
+          "WeakPassword": "La contraseña debe incluir mayúsculas, minúsculas, números y símbolos.",
+          "ConfirmationPassword": "Las contraseñas no coinciden.",
+          "UpdatePassword": "No se pudo actualizar la contraseña."
+        }
       }
     }
   },

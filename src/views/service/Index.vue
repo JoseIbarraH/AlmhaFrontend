@@ -23,7 +23,9 @@
         :total-activated="stats?.totalActivated"
         :total-deactivated-title="$t('Dashboard.Service.Statistics.TeamsInactives')"
         :total-deactivated="stats?.totalDeactivated" :last-object-title="$t('Dashboard.Service.Statistics.Last')"
-        :last-object="stats?.lastCreated" />
+        :last-object="stats?.lastCreated"
+        :last-object-icon="LucideClipboardPlus"
+      />
 
       <div class="bg-white rounded-lg shadow-md dark:bg-gray-900">
         <ServiceGrid :data="paginate?.data ?? []"
@@ -48,7 +50,7 @@ import { ref, computed, onMounted } from 'vue';
 import Skeleton from './partials/Skeleton.vue';
 import type { Data } from './types';
 import { api } from '@/plugins/api';
-import { LucideClipboardList } from 'lucide-vue-next';
+import { LucideClipboardList, LucideClipboardPlus } from 'lucide-vue-next';
 
 const route = useRoute()
 const router = useRouter()

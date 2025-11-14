@@ -67,7 +67,6 @@ async function fetchTeamMembers(page = 1) {
     const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/team_member?page=${page}`);
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
-    console.log('pa: ', paginate.value)
   } catch (error) {
     showNotification('error', 'Ocurrió un error al obtener los datos del equipo', 4000);
   } finally {

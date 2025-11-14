@@ -38,7 +38,7 @@ const SaveChanges = async () => {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
 
-    showNotification('success', t('Auth.Validations.Success.ProfileUpdate'), 3000)
+    showNotification('success', t('Dashboard.Setting.Validations.Success.ProfileUpdate'), 3000)
     auth.user = data.data
 
     // 🔹 Actualizamos el original y marcamos como sin cambios
@@ -46,7 +46,7 @@ const SaveChanges = async () => {
     changed.value = false
 
   } catch (error) {
-    showNotification('error', t('Auth.Validations.Error.ProfileUpdate'), 4000)
+    showNotification('error', t('Dashboard.Setting.Validations.Error.ProfileUpdate'), 4000)
   } finally {
     loading.value = false
   }
@@ -68,31 +68,29 @@ onMounted(() => {
 <template>
   <section>
     <header>
-      <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ $t('Auth.Profile.Title') }}</h2>
+      <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ $t('Dashboard.Setting.Profile.Title') }}</h2>
 
       <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-        {{ $t('Auth.Profile.Subtitle') }}
+        {{ $t('Dashboard.Setting.Profile.Subtitle') }}
       </p>
     </header>
 
     <form @submit.prevent="SaveChanges" class="mt-6 space-y-4">
       <div>
-        <InputLabel for="name" class="mb-1" :value="$t('Auth.Profile.Name')" />
+        <InputLabel for="name" class="mb-1" :value="$t('Dashboard.Setting.Profile.Name')" />
 
-        <TextInput id="name" type="text" v-model="form.name" required autofocus
-          autocomplete="name" />
+        <TextInput id="name" type="text" v-model="form.name" required autofocus autocomplete="name" />
       </div>
 
       <div>
-        <InputLabel for="email" class="mb-1" :value="$t('Auth.Profile.Email')" />
+        <InputLabel for="email" class="mb-1" :value="$t('Dashboard.Setting.Profile.Email')" />
 
-        <TextInput id="email" type="email" v-model="form.email" required
-          autocomplete="email" />
+        <TextInput id="email" type="email" v-model="form.email" required autocomplete="email" />
       </div>
 
       <div class="flex items-center gap-4">
         <PrimaryButton :disabled="loading || !changed">
-          {{ $t('Auth.Profile.Save') }}
+          {{ $t('Dashboard.Setting.Profile.Save') }}
         </PrimaryButton>
       </div>
     </form>

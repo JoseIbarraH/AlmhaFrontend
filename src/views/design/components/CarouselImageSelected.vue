@@ -18,16 +18,16 @@
           <!-- Inputs -->
           <div class="w-full md:col-span-2 space-y-3">
             <div>
-              <InputLabel :for="`design_title_${index}`"
+              <InputLabel :for="`design_title_${index}`" class="mb-1"
                 :value="$t('Dashboard.Design.ChooseCarouselImage.LabelTitle')" />
-              <TextInput :id="`design_title_${index}`" v-model="item.title" type="text" class="mt-1 block w-full"
+              <TextInput :id="`design_title_${index}`" v-model="item.title" type="text"
                 :placeholder="$t('Dashboard.Design.ChooseCarouselImage.LabelTitlePlaceholder')" />
             </div>
 
             <div>
-              <InputLabel :for="`design_slogan_${index}`"
+              <InputLabel :for="`design_slogan_${index}`" class="mb-1"
                 :value="$t('Dashboard.Design.ChooseCarouselImage.LabelSubtitle')" />
-              <TextInput :id="`design_slogan_${index}`" v-model="item.subtitle" type="text" class="mt-1 block w-full"
+              <TextInput :id="`design_slogan_${index}`" v-model="item.subtitle" type="text"
                 :placeholder="$t('Dashboard.Design.ChooseCarouselImage.LabelSubtitlePlaceholder')" />
             </div>
           </div>

@@ -35,12 +35,12 @@ const validateForm = (): boolean => {
   let valid = true;
 
   if (!form.value.current_password.trim()) {
-    errors.value.current_password = t('Auth.Validations.Error.RequiredCurrentPassword');
+    errors.value.current_password = t('Dashboard.Setting.Validations.Error.RequiredCurrentPassword');
     valid = false;
   }
 
   if (form.value.password.length < 8) {
-    errors.value.password = t('Auth.Validations.Error.ShortPassword');
+    errors.value.password = t('Dashboard.Setting.Validations.Error.ShortPassword');
     valid = false;
   }
 
@@ -50,13 +50,8 @@ const validateForm = (): boolean => {
     valid = false;
   } */
 
- /*  if (form.value.password === form.value.current_password && form.value.password) {
-    errors.value.password = t('Auth.Validations.Error.SamePassword');
-    valid = false;
-  } */
-
   if (form.value.password !== form.value.password_confirmation) {
-    errors.value.password_confirmation = t('Auth.Validations.Error.ConfirmationPassword');
+    errors.value.password_confirmation = t('Dashboard.Setting.Validations.Error.ConfirmationPassword');
     valid = false;
   }
 
@@ -77,7 +72,7 @@ const SaveChanges = async () => {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
 
-    showNotification('success', t('Auth.Validations.Success.UpdatePassword'), 3000);
+    showNotification('success', t('Dashboard.Setting.Validations.Success.UpdatePassword'), 3000);
 
     // Reset
     form.value = { current_password: '', password: '', password_confirmation: '' };
@@ -85,7 +80,7 @@ const SaveChanges = async () => {
     changed.value = false;
     errors.value = { current_password: '', password: '', password_confirmation: '' };
   } catch (err: any) {
-    showNotification('error', err?.response?.data?.message || t('Auth.Validations.Error.UpdatePassword'), 4000);
+    showNotification('error', err?.response?.data?.message || t('Dashboard.Setting.Validations.Error.UpdatePassword'), 4000);
   } finally {
     loading.value = false;
   }
@@ -102,7 +97,7 @@ watch(
       return;
     }
     if (newPass !== newConfirm) {
-      errors.value.password_confirmation = t('Auth.Validations.Error.ConfirmationPassword');
+      errors.value.password_confirmation = t('Dashboard.Setting.Validations.Error.ConfirmationPassword');
     } else {
       errors.value.password_confirmation = '';
     }
@@ -125,16 +120,16 @@ onMounted(() => {
 <template>
   <section>
     <header>
-      <h2 class="text-lg font-medium dark:text-gray-100">{{ $t('Auth.Profile.PasswordUpdate.Title') }}</h2>
+      <h2 class="text-lg font-medium dark:text-gray-100">{{ $t('Dashboard.Setting.Profile.PasswordUpdate.Title') }}</h2>
       <p class="mt-1 text-sm text-gray-400">
-        {{ $t('Auth.Profile.PasswordUpdate.Subtitle') }}
+        {{ $t('Dashboard.Setting.Profile.PasswordUpdate.Subtitle') }}
       </p>
     </header>
 
     <form @submit.prevent="SaveChanges" class="mt-6 space-y-4">
       <!-- Contraseña actual -->
       <div>
-        <InputLabel for="current_password" class="mb-1" :value="$t('Auth.Profile.PasswordUpdate.CurrentPassword')" />
+        <InputLabel for="current_password" class="mb-1" :value="$t('Dashboard.Setting.Profile.PasswordUpdate.CurrentPassword')" />
         <TextInput
           id="current_password"
           v-model="form.current_password"
@@ -149,7 +144,7 @@ onMounted(() => {
 
       <!-- Nueva contraseña -->
       <div>
-        <InputLabel for="password" class="mb-1" :value="$t('Auth.Profile.PasswordUpdate.NewPassword')" />
+        <InputLabel for="password" class="mb-1" :value="$t('Dashboard.Setting.Profile.PasswordUpdate.NewPassword')" />
         <TextInput
           id="password"
           v-model="form.password"
@@ -163,7 +158,7 @@ onMounted(() => {
 
       <!-- Confirmar contraseña -->
       <div>
-        <InputLabel for="password_confirmation" class="mb-1" :value="$t('Auth.Profile.PasswordUpdate.ConfirmPassword')" />
+        <InputLabel for="password_confirmation" class="mb-1" :value="$t('Dashboard.Setting.Profile.PasswordUpdate.ConfirmPassword')" />
         <TextInput
           id="password_confirmation"
           v-model="form.password_confirmation"
@@ -178,7 +173,7 @@ onMounted(() => {
       <!-- Botón -->
       <div class="flex items-center gap-4">
         <PrimaryButton :disabled="loading || !changed">
-          {{ $t('Auth.Profile.Save') }}
+          {{ $t('Dashboard.Setting.Profile.Save') }}
         </PrimaryButton>
       </div>
     </form>

@@ -7,8 +7,8 @@
       </h2>
 
       <!-- Assuming Search component handles its own dark mode styling -->
-      <Search endpoint="/api/team_member" :placeholder="$t('Dashboard.Team.List.Search')"
-        @update:modelValue="handleSearch" @loading="loading = $event" />
+      <!-- <Search endpoint="/api/team_member" :placeholder="$t('Dashboard.Team.List.Search')"
+        @update:modelValue="handleSearch" @loading="loading = $event" /> -->
     </div>
 
     <!-- Tabla responsive -->
@@ -18,19 +18,22 @@
         <thead class="bg-gray-50 dark:bg-gray-900/50">
           <tr>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Team.List.Doctor') }}
+              {{ $t('Dashboard.Setting.RolePermission.List.Role') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Team.List.Status') }}
+              {{ $t('Dashboard.Setting.RolePermission.List.Description') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Team.List.Created') }}
+              {{ $t('Dashboard.Setting.RolePermission.List.Status') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Team.List.Updated') }}
+              {{ $t('Dashboard.Setting.RolePermission.List.Created') }}
+            </th>
+            <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
+              {{ $t('Dashboard.Setting.RolePermission.List.Updated') }}
             </th>
             <th class="text-right px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Team.List.Actions') }}
+              {{ $t('Dashboard.Setting.RolePermission.List.Actions') }}
             </th>
           </tr>
         </thead>
@@ -41,19 +44,7 @@
             class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
             <!-- Doctor -->
             <td class="px-6 py-4">
-              <div class="flex items-center gap-3">
-                <!-- Avatar -->
-                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center
-                            dark:bg-blue-900">
-                  <span class="text-sm font-medium text-blue-600 dark:text-blue-300">
-                    {{ getInitials(value.name) }}
-                  </span>
-                </div>
-                <!-- Name -->
-                <div>
-                  <p class="font-medium text-gray-900 dark:text-white">{{ value.name }}</p>
-                </div>
-              </div>
+              <p class="text-sm text-gray-700 dark:text-gray-300">{{ value.description }}</p>
             </td>
 
             <!-- Estado -->
@@ -118,7 +109,7 @@
 
   <ConfirmDeleteModal :show="isOpen" :title="$t('Dashboard.Team.Delete.ConfirmTitle')"
     :subtitle="$t('Dashboard.Team.Delete.ConfirmSubtitle')" :message="$t('Dashboard.Team.Delete.ConfirmDelete')"
-    :itemName="memberToDelete?.name" :consequences-title="$t('Dashboard.Team.Delete.Consequences.Title')" :consequences="[
+    :itemName="roleToDelete?.title" :consequences-title="$t('Dashboard.Team.Delete.Consequences.Title')" :consequences="[
       $t('Dashboard.Team.Delete.Consequences.First'),
       $t('Dashboard.Team.Delete.Consequences.Second'),
       $t('Dashboard.Team.Delete.Consequences.Third')
@@ -127,89 +118,36 @@
 </template>
 
 <script setup lang="ts">
-import { showNotification } from '@/components/composables/useNotification';
-import ConfirmDeleteModal from '@/components/app/ConfirmDeleteModal.vue';
-import ToggleButton from '@/components/ui/ToggleButton.vue';
-import Search from '@/components/ui/Search.vue';
-import { useRouter } from 'vue-router';
-import type { Data } from '../types';
-import { api } from '@/plugins/api';
-import { useI18n } from 'vue-i18n';
 import { ref } from 'vue'
-
-const { t } = useI18n()
-
-const router = useRouter()
-
-const isOpen = ref(false)
-const memberToDelete = ref<Data | null>(null)
-
-const loading = ref(false)
-const localData = ref<Data[]>([])
-
-const emit = defineEmits<{
-  (e: 'status-updated'): void
-  (e: 'refresh-requested'): void
-}>()
+import type { Data } from '../types'
 
 const props = defineProps<{
   data: Data[]
 }>()
 
+const isOpen = ref(false)
+const roleToDelete = ref<Data | null>(null)
+const localData = ref<Data[]>([])
+
 const openModal = (blog: Data) => {
-  memberToDelete.value = blog
+  roleToDelete.value = blog
   isOpen.value = true
 }
 
 const closeModal = () => {
   isOpen.value = false
-  memberToDelete.value = null
-}
-function handleEdit(id: number) {
-  router.push({ name: 'dashboard.team.edit', params: { id } })
+  roleToDelete.value = null
 }
 
-const confirmDelete = async () => {
-  if (!memberToDelete.value) return
+const confirmDelete = () => {}
 
-  try {
-    await api.delete(`/api/team_member/${memberToDelete.value.id}`)
-    showNotification('success', t('Dashboard.Team.Validations.Success.Delete'), 3000)
-    emit('status-updated')
-    closeModal()
-  } catch (error) {
-    showNotification('error', 'Error al eliminar el miembro', 4000)
-  }
-}
+const handleEdit = (id: number) => {}
 
-const handleToggleStatus = async (data: Data) => {
-  const newStatus = data.status === 'active' ? 'inactive' : 'active';
-  const original = data.status
-  try {
-    await api.post(`/api/team_member/update_status/${data.id}`, { status: newStatus });
-    // Actualizamos el valor localmente si la API responde bien
-    data.status = newStatus;
-    showNotification('success', t('Dashboard.Team.Validations.Success.Status'), 3000)
-    emit('status-updated')
-  } catch (error) {
-    showNotification('error', t('Dashboard.Team.Validations.Error.Status'), 4000)
-    data.status = original
-  }
-};
+const handleToggleStatus = (data: Data) => {}
 
 function currentData() {
   return localData.value.length > 0 ? localData.value : props.data
 }
 
-async function handleSearch(results: any[]) {
-  localData.value = results ?? []
-}
 
-function getInitials(text: string): string {
-  const cleanText = text.trim().replace(/\s+/g, " ");
-  const words = cleanText.split(" ");
-  const firstTwo = words.slice(0, 2);
-  const initials = firstTwo.map(word => word.charAt(0).toUpperCase()).join("");
-  return initials;
-}
 </script>

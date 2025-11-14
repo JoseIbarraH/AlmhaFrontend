@@ -18,11 +18,13 @@
       </header>
 
       <Statistics :total-object-title="$t('Dashboard.Blog.Statistics.Total')" :total-object="stats?.total"
-        :total-object-icon="LucideNewspaper" :total-activated-title="$t('Dashboard.Blog.Statistics.TeamsActives')"
+        :total-object-icon="LucideFileText" :total-activated-title="$t('Dashboard.Blog.Statistics.TeamsActives')"
         :total-activated="stats?.totalActivated"
         :total-deactivated-title="$t('Dashboard.Blog.Statistics.TeamsInactives')"
         :total-deactivated="stats?.totalDeactivated" :last-object-title="$t('Dashboard.Blog.Statistics.Last')"
-        :last-object="stats?.lastCreated" />
+        :last-object="stats?.lastCreated"
+        :last-object-icon="LucideFilePlus"
+        />
 
       <div class="bg-white rounded-lg shadow-md dark:bg-gray-900">
         <BlogGrid :data="paginate?.data ?? []"
@@ -74,22 +76,22 @@
 <script setup lang="ts">
 import type { Default, PaginatedResponse, ApiResponse, Stats } from '@/types/apiResponse';
 import { showNotification } from '@/components/composables/useNotification';
+import SecondaryButton from '@/components/ui/SecondaryButton.vue';
+import { LucideFilePlus, LucideFileText } from 'lucide-vue-next';
+import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import Statistics from '@/components/app/Statistics.vue';
 import Pagination from '@/components/app/Pagination.vue';
 import { ref, computed, onMounted, reactive } from 'vue';
+import InputLabel from '@/components/ui/InputLabel.vue';
+import TextInput from '@/components/ui/TextInput.vue';
 import { useRoute, useRouter } from 'vue-router';
 import Modal from '@/components/app/Modal.vue';
 import BlogGrid from './partials/BlogGrid.vue';
+import Skeleton from './partials/Skeleton.vue';
 import { api } from '@/plugins/api';
 import type { Data } from './types';
 import { useI18n } from 'vue-i18n';
-import PrimaryButton from '@/components/ui/PrimaryButton.vue';
-import InputLabel from '@/components/ui/InputLabel.vue';
-import TextInput from '@/components/ui/TextInput.vue';
-import SecondaryButton from '@/components/ui/SecondaryButton.vue';
-import Skeleton from './partials/Skeleton.vue';
-import { LucideNewspaper } from 'lucide-vue-next';
 
 const { t } = useI18n()
 
