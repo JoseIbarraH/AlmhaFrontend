@@ -73,6 +73,7 @@ const fetchServices = async (page = 1) => {
     console.log('Paginacion? ', paginate.value)
 
   } catch (error) {
+    console.log(error)
     showNotification('error', 'Ocurrió un error al obtener los datos de los servicios', 4000);
   } finally {
     loading.value = false;

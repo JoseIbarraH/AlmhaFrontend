@@ -1,15 +1,18 @@
 <template>
   <div class="bg-white border border-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 dark:border-gray-700">
     <!-- Header -->
-    <div class="flex justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-      <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
-        {{ $t('Dashboard.Team.List.TeamMembers') }}
+    <div class="flex items-center justify-between px-6 py-4 border-b
+            border-gray-200 bg-white/70 backdrop-blur
+            dark:border-gray-700 dark:bg-gray-800/50">
+
+      <h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+        {{ $t('Dashboard.Setting.RolePermission.List.Title') }}
       </h2>
 
-      <!-- Assuming Search component handles its own dark mode styling -->
-      <!-- <Search endpoint="/api/team_member" :placeholder="$t('Dashboard.Team.List.Search')"
-        @update:modelValue="handleSearch" @loading="loading = $event" /> -->
+      <Search endpoint="/api/setting/role" :placeholder="$t('Dashboard.Team.List.Search')"
+        @update:modelValue="handleSearch" @loading="loading = $event" />
     </div>
+
 
     <!-- Tabla responsive -->
     <div class="overflow-x-auto">
@@ -42,7 +45,11 @@
         <tbody v-if="data.length > 0" class="divide-y divide-gray-200 dark:divide-gray-700">
           <tr v-for="(value, index) in currentData()" :key="index"
             class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-            <!-- Doctor -->
+            <!-- Role -->
+            <td class="px-6 py-4">
+              <p class="font-medium text-gray-900 dark:text-white line-clamp-1">{{ value.title }}</p>
+              <p class="text-sm text-gray-700 dark:text-gray-300">{{ value.code }}</p>
+            </td>
             <td class="px-6 py-4">
               <p class="text-sm text-gray-700 dark:text-gray-300">{{ value.description }}</p>
             </td>
@@ -95,11 +102,10 @@
           </tr>
         </tbody>
 
-        <!-- Empty State -->
         <tbody v-else>
           <tr>
-            <td colspan="5" class="py-10 text-center text-gray-500 dark:text-gray-400">
-              {{ $t('Dashboard.Team.List.NoMembers') }}
+            <td colspan="6" class="py-10 text-center text-gray-500 dark:text-gray-400">
+              {{ $t('Dashboard.Setting.RolePermission.List.NoMembers') }}
             </td>
           </tr>
         </tbody>
@@ -107,19 +113,21 @@
     </div>
   </div>
 
-  <ConfirmDeleteModal :show="isOpen" :title="$t('Dashboard.Team.Delete.ConfirmTitle')"
+  <!-- <ConfirmDeleteModal :show="isOpen" :title="$t('Dashboard.Team.Delete.ConfirmTitle')"
     :subtitle="$t('Dashboard.Team.Delete.ConfirmSubtitle')" :message="$t('Dashboard.Team.Delete.ConfirmDelete')"
     :itemName="roleToDelete?.title" :consequences-title="$t('Dashboard.Team.Delete.Consequences.Title')" :consequences="[
       $t('Dashboard.Team.Delete.Consequences.First'),
       $t('Dashboard.Team.Delete.Consequences.Second'),
       $t('Dashboard.Team.Delete.Consequences.Third')
     ]" :cancel-text="$t('Dashboard.Team.Delete.Cancel')" :confirm-text="$t('Dashboard.Team.Delete.Delete')"
-    @close="closeModal" @confirm="confirmDelete" />
+    @close="closeModal" @confirm="confirmDelete" /> -->
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import ToggleButton from '@/components/ui/ToggleButton.vue';
+import Search from '@/components/ui/Search.vue';
 import type { Data } from '../types'
+import { ref } from 'vue';
 
 const props = defineProps<{
   data: Data[]
@@ -128,22 +136,31 @@ const props = defineProps<{
 const isOpen = ref(false)
 const roleToDelete = ref<Data | null>(null)
 const localData = ref<Data[]>([])
+const loading = ref(false)
 
 const openModal = (blog: Data) => {
   roleToDelete.value = blog
   isOpen.value = true
 }
 
-const closeModal = () => {
+/* const closeModal = () => {
   isOpen.value = false
   roleToDelete.value = null
+} */
+
+/* const confirmDelete = () => {} */
+
+const handleEdit = (id: number) => {
+  console.log(id)
 }
 
-const confirmDelete = () => {}
+const handleToggleStatus = (data: Data) => {
+  console.log(data)
+}
 
-const handleEdit = (id: number) => {}
-
-const handleToggleStatus = (data: Data) => {}
+const handleSearch = (results: any[]) => {
+  localData.value = results ?? []
+}
 
 function currentData() {
   return localData.value.length > 0 ? localData.value : props.data

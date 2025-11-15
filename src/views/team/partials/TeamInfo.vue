@@ -17,14 +17,14 @@
 
   <div class="mt-2">
     <InputLabel for="category" :value="$t('Dashboard.Team.CreateUpdate.PersonalInfo.Status.Title')" />
-    <Select class="mt-1 block w-full" id="category" :default="'Seleccione'" v-model="modelValue.status"
+    <Select class="mt-1 block w-full" id="category" :default="$t('Dashboard.Team.CreateUpdate.PersonalInfo.Status.Title')" v-model="modelValue.status"
       :options="status" />
   </div>
 
   <div class="mt-2">
     <InputLabel for="specialization" :value="$t('Dashboard.Team.CreateUpdate.PersonalInfo.Specialization')" />
     <TextArea id="specialization" ref="nameInput" v-model="modelValue.specialization" type="text"
-      class="mt-1 block w-full h-40" :placeholder="$t('Dashboard.Team.CreateUpdate.PersonalInfo.Specialization')" />
+      class="mt-1 block w-full h-40" :placeholder="$t('Dashboard.Team.CreateUpdate.PersonalInfo.Status.Title')" />
   </div>
 </template>
 
@@ -34,6 +34,9 @@ import TextInput from '@/components/ui/TextInput.vue';
 import TextArea from '@/components/ui/TextArea.vue';
 import Select from '@/components/ui/Select.vue';
 import type { TeamMember } from '../types';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
 
 interface TeamMemberErrors {
   name?: string;
@@ -51,8 +54,8 @@ defineProps<{
 }>();
 
 const status = [
-  { value: "active", label: "Activo" },
-  { value: "inactive", label: "Inactivo" },
+  { value: "active", label: t('Dashboard.Team.CreateUpdate.PersonalInfo.Status.Active') },
+  { value: "inactive", label: t('Dashboard.Team.CreateUpdate.PersonalInfo.Status.Inactive') },
 ];
 
 </script>

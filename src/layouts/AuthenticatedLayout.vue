@@ -144,7 +144,7 @@ const { isDark } = useDarkMode()
           </div>
 
           <div class="mt-3 space-y-1">
-            <ResponsiveNavLink :href="{ name: 'setting.profile' }" :active="current({ name: 'setting.setting' })">
+            <ResponsiveNavLink :href="{ name: 'setting.profile' }" :active="current({ name: 'setting.profile' })">
               {{ $t('Dashboard.Navbar.Setting') }}
             </ResponsiveNavLink>
             <LogOutButtonResponsive />

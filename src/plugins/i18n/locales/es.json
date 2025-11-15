@@ -342,6 +342,9 @@
         },
         "DeleteAccount": {
           "Title": "Eliminar cuenta",
+          "DeleteButton": "Eliminar cuenta",
+          "CancelButton": "Cancelar",
+          "PasswordPlaceholder": "Contraseña",
           "Text": "Una vez eliminada tu cuenta, todos sus recursos y datos se eliminarán de forma permanente. Antes de eliminar tu cuenta, descarga cualquier dato o información que desees conservar.",
           "ModalTitle": "¿Estás seguro de que quieres eliminar tu cuenta?",
           "ModalText": "Una vez eliminada tu cuenta, todos sus recursos y datos se eliminarán de forma permanente. Introduce tu contraseña para confirmar que deseas eliminar tu cuenta de forma permanente."
@@ -349,12 +352,14 @@
       },
       "RolePermission": {
         "List": {
+          "Title": "Roles",
           "Role": "Rol",
           "Description": "Descripcion",
           "Status": "Estado",
           "Created": "Creado",
           "Updated": "Actualizado",
-          "Actions": "Acciones"
+          "Actions": "Acciones",
+          "NoMembers": "No hay roles registrados aún."
         }
       },
       "Validations": {

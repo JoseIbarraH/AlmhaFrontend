@@ -24,7 +24,6 @@ const form = ref({
   email: auth.user?.email ?? '',
 })
 
-// 🔹 formOriginal debe ser una copia real del objeto original
 const formOriginal = ref({ name: '', email: '' })
 
 const SaveChanges = async () => {
@@ -34,7 +33,7 @@ const SaveChanges = async () => {
     formData.append('name', form.value.name ?? '')
     formData.append('email', form.value.email ?? '')
 
-    const { data } = await api.post('/api/profile/info', formData, {
+    const { data } = await api.post('/api/setting/profile/info', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
 

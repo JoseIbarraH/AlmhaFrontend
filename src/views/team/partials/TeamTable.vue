@@ -6,7 +6,6 @@
         {{ $t('Dashboard.Team.List.TeamMembers') }}
       </h2>
 
-      <!-- Assuming Search component handles its own dark mode styling -->
       <Search endpoint="/api/team_member" :placeholder="$t('Dashboard.Team.List.Search')"
         @update:modelValue="handleSearch" @loading="loading = $event" />
     </div>
@@ -39,7 +38,7 @@
         <tbody v-if="data.length > 0" class="divide-y divide-gray-200 dark:divide-gray-700">
           <tr v-for="(value, index) in currentData()" :key="index"
             class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-            <!-- Doctor -->
+
             <td class="px-6 py-4">
               <div class="flex items-center gap-3">
                 <!-- Avatar -->

@@ -5,10 +5,9 @@
       'translate-x-0': showSidebar,
       '-translate-x-full': !showSidebar,
     }" class="w-80 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800
-             fixed lg:static inset-y-0 left-0
-             lg:translate-x-0 transition-transform duration-300 ease-in-out
+             fixed lg:static inset-y-0 left-0 z-20 lg:translate-x-0 transition-transform duration-300 ease-in-out
              overflow-y-auto flex flex-col">
-
+      <div :class="{'h-16': showSidebar}"></div>
       <!-- Header dentro del sidebar -->
       <div class="p-6 border-b border-gray-200 dark:border-gray-800">
         <div class="flex items-start justify-between mb-4">
@@ -101,7 +100,7 @@
     </Transition>
 
     <!-- Botón menú móvil -->
-    <button @click="showSidebar = true"
+    <button @click="toggleSidebar"
       class="lg:hidden fixed bottom-10 right-4 z-30 p-3 rounded-xl bg-white dark:bg-gray-950 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 shadow-lg border border-gray-200 dark:border-gray-800 transition-all duration-200 active:scale-95"
       aria-label="Open Menu">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,6 +130,12 @@ const { current } = useRouteHelper();
 
 // Variable reactiva para controlar la visibilidad de la barra lateral en móvil
 const showSidebar = ref(false)
+
+
+const toggleSidebar = () => {
+  showSidebar.value = !showSidebar.value
+}
+
 </script>
 
 <style scoped>

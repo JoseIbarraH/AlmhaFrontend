@@ -2,7 +2,6 @@
 import { showNotification } from '@/components/composables/useNotification';
 import SecondaryButton from '@/components/ui/SecondaryButton.vue';
 import DangerButton from '@/components/ui/DangerButton.vue';
-import InputError from '@/components/ui/InputError.vue';
 import InputLabel from '@/components/ui/InputLabel.vue';
 import TextInput from '@/components/ui/TextInput.vue';
 import Modal from '@/components/app/Modal.vue';
@@ -31,16 +30,16 @@ const confirmUserDeletion = () => {
 
 const deleteUser = async () => {
   try {
-    await api.delete('/api/profile/delete', {
+    await api.delete('/api/setting/profile/delete', {
       data: { password: form.value.password }
     });
 
     showNotification('success', t('Dashboard.Setting.Validations.Success.DeleteAccount'), 3000)
     router.push({ name: 'auth.login' });
-  }catch (err: any) {
+  } catch (err: any) {
     console.error('Error Delete: ', err)
     showNotification('error', err?.response?.data?.message ?? '', 3000)
-  }finally{
+  } finally {
     closeModal()
   }
 }
@@ -55,7 +54,8 @@ const closeModal = () => {
 <template>
   <section class="space-y-6">
     <header>
-      <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ $t('Dashboard.Setting.Profile.DeleteAccount.Title') }}</h2>
+      <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{
+        $t('Dashboard.Setting.Profile.DeleteAccount.Title') }}</h2>
 
       <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
         {{ $t('Dashboard.Setting.Profile.DeleteAccount.Text') }}
@@ -75,19 +75,15 @@ const closeModal = () => {
         </p>
 
         <div class="mt-6">
-          <InputLabel for="password" value="Password" class="sr-only" />
-
-          <!-- Asumiendo que TextInput tiene soporte Dark Mode interno (dark:bg, dark:text, dark:border) -->
-          <TextInput id="password" ref="passwordInput" v-model="form.password" type="password" placeholder="Password" />
-
-          <InputError class="mt-2" />
+          <InputLabel for="password" :value="$t('Dashboard.Setting.Profile.DeleteAccount.PasswordPlaceholder')" class="mb-1"/>
+          <TextInput id="password" ref="passwordInput" v-model="form.password" type="password" :placeholder="$t('Dashboard.Setting.Profile.DeleteAccount.PasswordPlaceholder')" />
         </div>
 
         <div class="mt-6 flex justify-end">
-          <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>
+          <SecondaryButton @click="closeModal"> {{ $t('Dashboard.Setting.Profile.DeleteAccount.CancelButton') }} </SecondaryButton>
 
           <DangerButton class="ms-3" :class="{ 'opacity-25': loading }" :disabled="loading" @click="deleteUser">
-            Delete Account
+            {{ $t('Dashboard.Setting.Profile.DeleteAccount.DeleteButton') }}
           </DangerButton>
         </div>
       </div>
