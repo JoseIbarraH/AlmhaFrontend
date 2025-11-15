@@ -190,9 +190,9 @@ const saveChanges = async () => {
   try {
     const formData = buildFormData()
 
-    for (const [key, val] of formData.entries()) {
+    /* for (const [key, val] of formData.entries()) {
       console.log(`${key}:`, val)
-    }
+    } */
 
     if (editing.value === false) {
       await api.post('/api/team_member', formData, {

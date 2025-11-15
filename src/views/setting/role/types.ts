@@ -1,4 +1,4 @@
-export interface Data {
+/* export interface Data {
   id: number
   code: string
   title: string
@@ -6,7 +6,7 @@ export interface Data {
   status: string
   updated_at: string
   created_at: string
-}
+} */
 
 export interface PermissionData {
   permissions: Permission[]
@@ -19,4 +19,34 @@ export interface Permission {
   description: string
   updated_at: string
   created_at: string
+}
+
+export interface Data {
+  id: number
+  code: string
+  title: string
+  description: string
+  status: 'active' | 'inactive'
+  permits: Permission[]
+  created_at: string
+  updated_at: string
+}
+
+export interface EditRole {
+  id: number | null
+  title: string
+  code: string
+  description: string
+  status: 'active' | 'inactive'
+  permits: string[]
+}
+
+
+export interface EditData {
+  id?: number | null
+  title?: string
+  code?: string
+  description?: string
+  status?: string
+  permits?: (number | string)[]
 }

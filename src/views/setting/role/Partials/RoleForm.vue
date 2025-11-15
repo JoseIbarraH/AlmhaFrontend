@@ -5,10 +5,10 @@
       <div
         class="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-t-lg dark:from-gray-900/30 dark:to-gray-900/50 border-b border-gray-200 dark:border-gray-700">
         <h1 class="text-xl font-bold text-gray-800 dark:text-white">
-          {{ isEdit ? 'Editar Rol' : 'Crear Rol' }}
+          {{ editing ? 'Editar Rol' : 'Crear Rol' }}
         </h1>
         <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-          {{ isEdit ? 'Modifica la información del rol existente' : 'Completa la información para crear un nuevo rol' }}
+          {{ editing ? 'Modifica la información del rol existente' : 'Completa la información para crear un nuevo rol' }}
         </p>
       </div>
 
@@ -29,14 +29,13 @@
                   <div>
                     <InputLabel for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                       value="Título" />
-                    <TextInput id="title" v-model="form.title" required placeholder="Ej: Administrador"
-                      class="w-full" />
+                    <TextInput id="title" v-model="form.title" required placeholder="Ej: Administrador" />
                   </div>
 
                   <div>
                     <InputLabel for="code" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                      value="Código" />
-                    <TextInput id="code" v-model="form.code" required placeholder="Ej: ADMIN" class="w-full" />
+                      value="Código (Opcional)" />
+                    <TextInput id="code" v-model="form.code" required placeholder="Ej: ADMIN" />
                   </div>
                 </div>
 
@@ -88,6 +87,16 @@
           </div>
         </div>
 
+        <!-- <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+          <h4 class="text-sm font-semibold text-blue-800 dark:text-blue-300 mb-2">
+            🔍 Permisos Seleccionados (Array):
+          </h4>
+          <pre
+            class="text-xs text-blue-700 dark:text-blue-400 font-mono bg-white dark:bg-gray-900 p-3 rounded overflow-x-auto">
+            {{ JSON.stringify(form.permits, null, 2) }}
+          </pre>
+        </div> -->
+
         <!-- Buttons -->
         <div class="flex justify-end gap-3 pt-6 mt-6 border-t dark:border-gray-700">
           <button type="button" @click="handleClose"
@@ -95,7 +104,7 @@
             Cancelar
           </button>
           <PrimaryButton type="submit">
-            {{ isEdit ? 'Actualizar Rol' : 'Crear Rol' }}
+            {{ editing ? 'Actualizar Rol' : 'Crear Rol' }}
           </PrimaryButton>
         </div>
       </form>
@@ -104,34 +113,24 @@
 </template>
 
 <script setup lang="ts">
+import PrimaryButton from '@/components/ui/PrimaryButton.vue'
 import InputLabel from '@/components/ui/InputLabel.vue'
 import TextInput from '@/components/ui/TextInput.vue'
+import type { EditData, Permission } from '../types'
 import TextArea from '@/components/ui/TextArea.vue'
 import Select from '@/components/ui/Select.vue'
+import { reactive, watch } from 'vue'
 import Modal from '@/components/app/Modal.vue'
-import { reactive, computed } from 'vue'
-import PrimaryButton from '@/components/ui/PrimaryButton.vue'
+import { api } from '@/plugins/api'
 
-interface Permission {
-  id: number | string
-  title: string,
-  code: string
-}
-
-interface EditData {
-  title?: string
-  code?: string
-  description?: string
-  status?: string
-  permits?: (number | string)[]
-}
 
 interface Props {
   show: boolean
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'
   closeable?: boolean
   permissions: Permission[]
-  editData?: EditData
+  editData?: EditData | null
+  editing?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -143,9 +142,8 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const isEdit = computed(() => !!props.editData)
-
 const form = reactive({
+  id: props.editData?.id || 0,
   title: props.editData?.title || '',
   code: props.editData?.code || '',
   description: props.editData?.description || '',
@@ -162,9 +160,80 @@ function handleClose() {
   emit('close')
 }
 
-const submit = () => {
-  // Lógica de submit
+const buildFormData = (): FormData => {
+  const formData = new FormData()
+
+  const fields: Record<string, any> = {
+    title: form.title,
+    code: form.code,
+    description: form.description,
+    status: form.status
+  }
+
+  Object.entries(fields).forEach(([key, value]) => {
+    formData.append(key, value ?? '')
+  })
+
+  form.permits
+    .filter(p => p !== null && p !== undefined)
+    .forEach(p => {
+      formData.append('permits[]', String(p))
+    })
+
+  return formData
 }
+
+const submit = async () => {
+  try {
+    const formData = buildFormData()
+
+    for (const [key, val] of formData.entries()) {
+      console.log(`${key}:`, val)
+    }
+
+    console.log("prop ", props.editData)
+
+    if (props.editing === false) {
+      await api.post('/api/setting/role', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+
+      handleClose()
+    }
+
+    if (props.editing === true) {
+      await api.post(`/api/setting/role/${props.editData?.id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+
+      handleClose()
+    }
+  } catch (error) {
+    console.log('todo mal: ', error)
+  }
+}
+
+watch(
+  () => props.editData,
+  (newValue) => {
+    if (newValue) {
+      form.title = newValue.title || ''
+      form.code = newValue.code || ''
+      form.description = newValue.description || ''
+      form.status = newValue.status || 'active'
+      form.permits = newValue.permits || []
+    } else {
+      // Si es crear un nuevo rol
+      form.title = ''
+      form.code = ''
+      form.description = ''
+      form.status = 'active'
+      form.permits = []
+    }
+
+  },
+  { immediate: true }
+)
 </script>
 
 <style scoped>

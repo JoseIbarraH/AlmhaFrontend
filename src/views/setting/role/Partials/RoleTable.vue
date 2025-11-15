@@ -62,7 +62,6 @@
                 <span :class="[
                   'text-sm font-medium',
                   value.status === 'active' ? 'text-green-600' : 'text-red-600',
-                  // Aseguramos que los colores se mantengan para el dark mode, son vibrantes.
                 ]">
                   {{ value.status === 'active' ? 'Activo' : 'Inactivo' }}
                 </span>
@@ -81,7 +80,7 @@
             <td class="px-6 py-4">
               <div class="flex items-center justify-end gap-2">
                 <!-- Botón Editar -->
-                <button @click="handleEdit(value.id)" title="Editar" class="p-2 text-gray-500 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-colors
+                <button @click="handleEdit(value)" title="Editar" class="p-2 text-gray-500 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-colors
                          dark:text-gray-400 dark:hover:text-yellow-400 dark:hover:bg-gray-700">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -124,10 +123,15 @@
 </template>
 
 <script setup lang="ts">
+import { showNotification } from '@/components/composables/useNotification';
 import ToggleButton from '@/components/ui/ToggleButton.vue';
 import Search from '@/components/ui/Search.vue';
 import type { Data } from '../types'
+import { api } from '@/plugins/api'
+import { useI18n } from 'vue-i18n'
 import { ref } from 'vue';
+
+const { t } = useI18n()
 
 const props = defineProps<{
   data: Data[]
@@ -143,20 +147,32 @@ const openModal = (blog: Data) => {
   isOpen.value = true
 }
 
-/* const closeModal = () => {
-  isOpen.value = false
-  roleToDelete.value = null
-} */
+const emit = defineEmits<{
+  (e: 'status-updated'): void
+  (e: 'refresh-requested'): void
+  (e: 'update', payload: Data): void
+}>()
 
 /* const confirmDelete = () => {} */
 
-const handleEdit = (id: number) => {
-  console.log(id)
+const handleEdit = (data: Data) => {
+  emit('update', data)
 }
 
-const handleToggleStatus = (data: Data) => {
-  console.log(data)
-}
+const handleToggleStatus = async (data: Data) => {
+  const newStatus = data.status === 'active' ? 'inactive' : 'active';
+  const original = data.status
+  try {
+    await api.post(`api/setting/role/update_status/${data.id}`, { status: newStatus });
+    // Actualizamos el valor localmente si la API responde bien
+    data.status = newStatus;
+    showNotification('success', t('Dashboard.Team.Validations.Success.Status'), 3000)
+    emit('status-updated')
+  } catch (error: any) {
+    showNotification('error', error?.response?.data?.message || t('Dashboard.Team.Validations.Error.Status'), 4000)
+    data.status = original
+  }
+};
 
 const handleSearch = (results: any[]) => {
   localData.value = results ?? []
@@ -165,6 +181,4 @@ const handleSearch = (results: any[]) => {
 function currentData() {
   return localData.value.length > 0 ? localData.value : props.data
 }
-
-
 </script>

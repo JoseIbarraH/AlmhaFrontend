@@ -22,3 +22,4 @@ export interface TeamMemberImage {
   url: string | File | null
   description: string
 }
+
