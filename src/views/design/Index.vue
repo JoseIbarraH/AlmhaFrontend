@@ -43,6 +43,7 @@ import Skeleton from './partials/Skeleton.vue';
 import { onMounted, reactive, ref } from 'vue';
 import type { DesignResponse } from './types';
 import { api } from '@/plugins/api';
+import { showNotification } from '@/components/composables/useNotification';
 
 const form = reactive<DesignResponse>({
   background1: { path: null, title: '', subtitle: '' },
@@ -66,8 +67,9 @@ onMounted(async () => {
     const data = response.data.data
 
     Object.assign(form, data)
-  } catch (error) {
+  } catch (error: any) {
     console.log('Error al obtener los diseños: ', error)
+    showNotification('error', error?.response?.data?.message, 4000)
   } finally {
     loading.value = false
   }

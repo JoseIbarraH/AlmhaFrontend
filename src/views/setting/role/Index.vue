@@ -24,10 +24,10 @@ import type { Default, PaginatedResponse, ApiResponse } from '@/types/apiRespons
 import { showNotification } from '@/components/composables/useNotification';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import Pagination from '@/components/app/Pagination.vue';
-import RoleTable from './Partials/RoleTable.vue';
+import RoleTable from './partials/RoleTable.vue';
 import { useRoute, useRouter } from 'vue-router';
 import type { Data, Permission, PermissionData, EditRole } from './types';
-import RoleForm from './Partials/RoleForm.vue';
+import RoleForm from './partials/RoleForm.vue';
 import { onMounted, ref } from 'vue';
 import { api } from '@/plugins/api';
 
@@ -111,7 +111,7 @@ const handleModal = () => {
 
 
 onMounted(() => {
-  const page = Number(route.query.page) || 1
+  
   fetchRoles(page)
   fetchPermission()
 })

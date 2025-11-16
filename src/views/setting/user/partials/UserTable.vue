@@ -1,18 +1,13 @@
 <template>
   <div class="bg-white border border-gray-200 rounded-lg overflow-hidden dark:bg-gray-800 dark:border-gray-700">
     <!-- Header -->
-    <div class="flex items-center justify-between px-6 py-4 border-b
-            border-gray-200 bg-white/70 backdrop-blur
-            dark:border-gray-700 dark:bg-gray-800/50">
-
-      <h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-        {{ $t('Dashboard.Setting.RolePermission.List.Title') }}
+    <div class="flex justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+      <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+        {{ $t('Dashboard.Setting.User.List.Title') }}
       </h2>
-
-      <Search endpoint="/api/setting/role" :placeholder="$t('Dashboard.Team.List.Search')"
+      <Search endpoint="/api/setting/user" :placeholder="$t('Dashboard.Setting.User.List.Search')"
         @update:modelValue="handleSearch" @loading="loading = $event" />
     </div>
-
 
     <!-- Tabla responsive -->
     <div class="overflow-x-auto">
@@ -21,37 +16,76 @@
         <thead class="bg-gray-50 dark:bg-gray-900/50">
           <tr>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Setting.RolePermission.List.Role') }}
+              {{ $t('Dashboard.Setting.User.List.User') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Setting.RolePermission.List.Description') }}
+              {{ $t('Dashboard.Setting.User.List.Roles') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Setting.RolePermission.List.Status') }}
+              {{ $t('Dashboard.Setting.User.List.Status') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Setting.RolePermission.List.Created') }}
+              {{ $t('Dashboard.Setting.User.List.Created') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Setting.RolePermission.List.Updated') }}
+              {{ $t('Dashboard.Setting.User.List.Updated') }}
             </th>
             <th class="text-right px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Setting.RolePermission.List.Actions') }}
+              {{ $t('Dashboard.Setting.User.List.Actions') }}
             </th>
           </tr>
         </thead>
 
         <!-- Table Body (Tbody) -->
-        <tbody v-if="data.length > 0" class="divide-y divide-gray-200 dark:divide-gray-700">
-          <tr v-for="(value, index) in currentData()" :key="index"
+        <tbody v-if="data.length > 0" @mousemove="updateMousePos" class="divide-y divide-gray-200 dark:divide-gray-700">
+          <tr v-for="(value, index) in filteredData" :key="index"
             class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-            <!-- Role -->
+
             <td class="px-6 py-4">
-              <p class="font-medium text-gray-900 dark:text-white line-clamp-1">{{ value.title }}</p>
-              <p class="text-sm text-gray-700 dark:text-gray-300">{{ value.code }}</p>
+              <div class="flex items-center gap-3">
+                <!-- Avatar -->
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center
+                            dark:bg-blue-900">
+                  <span class="text-sm font-medium text-blue-600 dark:text-blue-300">
+                    {{ getInitials(value.name) }}
+                  </span>
+                </div>
+                <!-- Name -->
+                <div>
+                  <p class="font-medium text-gray-900 dark:text-white">{{ value.name }}</p>
+                </div>
+              </div>
             </td>
-            <td class="px-6 py-4">
-              <p class="text-sm text-gray-700 dark:text-gray-300">{{ value.description }}</p>
+
+            <td class="px-6 py-4 relative">
+              <div class="flex items-center gap-2 flex-wrap">
+
+                <!-- Primeros 3 roles -->
+                <template v-for="(role, __index) in value.roles.slice(0, 2)" :key="index">
+                  <span class="px-2.5 py-1 text-xs font-medium rounded-md border bg-muted text-muted-foreground">
+                    {{ role }}
+                  </span>
+                </template>
+
+                <div v-if="value.roles.length > 3" class="relative group">
+                  <span
+                    class="px-2.5 py-1 text-xs font-medium rounded-md border bg-muted text-muted-foreground cursor-pointer">
+                    ...
+                  </span>
+                  <div class="fixed p-3 bg-black text-white text-xs rounded-lg shadow-lg opacity-0 pointer-events-none
+                          group-hover:opacity-100 transition duration-150 z-50" :style="{
+                            top: `${mouseY + 12}px`,
+                            left: `${mouseX}px`
+                          }">
+                    <div class="font-semibold mb-1">Roles:</div>
+                    <ul class="space-y-1">
+                      <li v-for="r in value.roles" :key="r">• {{ r }}</li>
+                    </ul>
+                  </div>
+
+                </div>
+
+              </div>
             </td>
 
             <!-- Estado -->
@@ -62,6 +96,7 @@
                 <span :class="[
                   'text-sm font-medium',
                   value.status === 'active' ? 'text-green-600' : 'text-red-600',
+                  // Aseguramos que los colores se mantengan para el dark mode, son vibrantes.
                 ]">
                   {{ value.status === 'active' ? 'Activo' : 'Inactivo' }}
                 </span>
@@ -101,10 +136,11 @@
           </tr>
         </tbody>
 
+        <!-- Empty State -->
         <tbody v-else>
           <tr>
-            <td colspan="6" class="py-10 text-center text-gray-500 dark:text-gray-400">
-              {{ $t('Dashboard.Setting.RolePermission.List.NoMembers') }}
+            <td colspan="5" class="py-10 text-center text-gray-500 dark:text-gray-400">
+              {{ $t('Dashboard.Setting.User.List.NoUsers') }}
             </td>
           </tr>
         </tbody>
@@ -114,7 +150,7 @@
 
   <!-- <ConfirmDeleteModal :show="isOpen" :title="$t('Dashboard.Team.Delete.ConfirmTitle')"
     :subtitle="$t('Dashboard.Team.Delete.ConfirmSubtitle')" :message="$t('Dashboard.Team.Delete.ConfirmDelete')"
-    :itemName="roleToDelete?.title" :consequences-title="$t('Dashboard.Team.Delete.Consequences.Title')" :consequences="[
+    :itemName="memberToDelete?.name" :consequences-title="$t('Dashboard.Team.Delete.Consequences.Title')" :consequences="[
       $t('Dashboard.Team.Delete.Consequences.First'),
       $t('Dashboard.Team.Delete.Consequences.Second'),
       $t('Dashboard.Team.Delete.Consequences.Third')
@@ -126,26 +162,34 @@
 import { showNotification } from '@/components/composables/useNotification';
 import ToggleButton from '@/components/ui/ToggleButton.vue';
 import Search from '@/components/ui/Search.vue';
-import type { Data } from '../types'
-import { api } from '@/plugins/api'
-import { useI18n } from 'vue-i18n'
-import { ref } from 'vue';
+import type { Data } from '../types';
+import { api } from '@/plugins/api';
+import { useI18n } from 'vue-i18n';
+import { ref, computed } from 'vue'
+
+import { useAuthStore } from '@/stores/authStore';
+
+const auth = useAuthStore();
 
 const { t } = useI18n()
 
-const props = defineProps<{
-  data: Data[]
-}>()
+const mouseX = ref(0);
+const mouseY = ref(0);
+
+const filteredData = computed(() =>
+  currentData().filter(u => u.id !== auth.user?.id)
+);
+
+
+const updateMousePos = (e: any) => {
+  mouseX.value = e.clientX;
+  mouseY.value = e.clientY;
+};
 
 const isOpen = ref(false)
-const roleToDelete = ref<Data | null>(null)
+const userToDelete = ref<Data | null>(null)
 const localData = ref<Data[]>([])
 const loading = ref(false)
-
-const openModal = (blog: Data) => {
-  roleToDelete.value = blog
-  isOpen.value = true
-}
 
 const emit = defineEmits<{
   (e: 'status-updated'): void
@@ -153,32 +197,47 @@ const emit = defineEmits<{
   (e: 'update', payload: Data): void
 }>()
 
-/* const confirmDelete = () => {} */
+const props = defineProps<{
+  data: Data[]
+}>()
 
 const handleEdit = (data: Data) => {
   emit('update', data)
+}
+
+const openModal = (blog: Data) => {
+  userToDelete.value = blog
+  isOpen.value = true
 }
 
 const handleToggleStatus = async (data: Data) => {
   const newStatus = data.status === 'active' ? 'inactive' : 'active';
   const original = data.status
   try {
-    await api.post(`api/setting/role/update_status/${data.id}`, { status: newStatus });
+    await api.post(`/api/setting/user/update_status/${data.id}`, { status: newStatus });
     // Actualizamos el valor localmente si la API responde bien
     data.status = newStatus;
     showNotification('success', t('Dashboard.Team.Validations.Success.Status'), 3000)
     emit('status-updated')
-  } catch (error: any) {
-    showNotification('error', error?.response?.data?.message || t('Dashboard.Team.Validations.Error.Status'), 4000)
+  } catch (error) {
+    showNotification('error', t('Dashboard.Team.Validations.Error.Status'), 4000)
     data.status = original
   }
 };
 
-const handleSearch = (results: any[]) => {
+function currentData(): Data[] {
+  return localData.value.length > 0 ? localData.value : props.data
+}
+
+async function handleSearch(results: any[]) {
   localData.value = results ?? []
 }
 
-function currentData(): Data[] {
-  return localData.value.length > 0 ? localData.value : props.data
+function getInitials(text: string): string {
+  const cleanText = text.trim().replace(/\s+/g, " ");
+  const words = cleanText.split(" ");
+  const firstTwo = words.slice(0, 2);
+  const initials = firstTwo.map(word => word.charAt(0).toUpperCase()).join("");
+  return initials;
 }
 </script>

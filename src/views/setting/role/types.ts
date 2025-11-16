@@ -1,13 +1,3 @@
-/* export interface Data {
-  id: number
-  code: string
-  title: string
-  description: string
-  status: string
-  updated_at: string
-  created_at: string
-} */
-
 export interface PermissionData {
   permissions: Permission[]
 }
@@ -34,13 +24,12 @@ export interface Data {
 
 export interface EditRole {
   id: number | null
-  title: string
   code: string
+  title: string
   description: string
   status: 'active' | 'inactive'
   permits: string[]
 }
-
 
 export interface EditData {
   id?: number | null

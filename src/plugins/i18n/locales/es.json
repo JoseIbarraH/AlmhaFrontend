@@ -352,7 +352,7 @@
       },
       "RolePermission": {
         "List": {
-          "Title": "Roles",
+          "Title": "Crear Roles",
           "Role": "Rol",
           "Description": "Descripcion",
           "Status": "Estado",
@@ -360,6 +360,19 @@
           "Updated": "Actualizado",
           "Actions": "Acciones",
           "NoMembers": "No hay roles registrados aún."
+        }
+      },
+      "User": {
+        "List": {
+          "Title": "Crear usuarios",
+          "User": "Usuarios",
+          "Roles": "Roles",
+          "Status": "Estado",
+          "Created": "Creado",
+          "Updated": "Actualizado",
+          "Actions": "Acciones",
+          "NoUsers": "No hay usuarios registrados aún.",
+          "Search": "Buscar por nombre o email"
         }
       },
       "Validations": {
