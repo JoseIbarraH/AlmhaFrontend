@@ -33,7 +33,6 @@ import SecondaryButton from '@/components/ui/SecondaryButton.vue';
 import CarouselNavbar from '../components/CarouselNavbar.vue';
 import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import { reactive, ref, toRaw, watch } from 'vue';
-import type { CarouselItem } from '../types';
 import type { AxiosError } from 'axios';
 import { api } from '@/plugins/api';
 import { useI18n } from 'vue-i18n';

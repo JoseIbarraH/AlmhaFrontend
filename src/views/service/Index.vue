@@ -46,7 +46,7 @@ import Statistics from '@/components/app/Statistics.vue';
 import Pagination from '@/components/app/Pagination.vue';
 import ServiceGrid from './partials/ServiceGrid.vue';
 import { useRoute, useRouter } from 'vue-router';
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import Skeleton from './partials/Skeleton.vue';
 import type { Data } from './types';
 import { api } from '@/plugins/api';
@@ -89,6 +89,12 @@ const handlePageChange = (page: number) => {
   router.push({ query: { ...route.query, page } })
   fetchServices(page)
 }
+
+watch(() => route.params.locale,
+  () => {
+    fetchServices()
+  }
+)
 
 onMounted(() => {
   const page = Number(route.query.page) || 1

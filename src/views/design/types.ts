@@ -1,36 +1,58 @@
-export interface Background {
-  path: string | File | null
-  title: string
-  subtitle: string
+export interface DesignSettingsResponse {
+  backgrounds: Backgrounds;
+  carousel: Carousel;
+  carouselNavbar: CarouselNavbar;
+  carouselTool: CarouselTool;
+  imageVideo: ImageVideo;
 }
 
-export interface CarouselItem {
-  path: string | File | null
-  title: string
-  subtitle: string
+export interface Backgrounds {
+  background1: MediaItem[];
+  background1Setting: Setting;
+
+  background2: MediaItem[];
+  background2Setting: Setting;
+
+  background3: MediaItem[];
+  background3Setting: Setting;
 }
 
-export interface DesignResponse {
-  background1: Background | null
-  background2: Background | null
-  background3: Background | null
-  carouselNavbar: CarouselItem[]
-  carouselTool: CarouselItem[]
-  carouselStatic: CarouselStatic
+export interface Carousel {
+  carousel: MediaItem[];
+  carouselSetting: Setting;
 }
 
-export interface ApiResponse<T> {
-  success: boolean
-  data: T
+export interface CarouselNavbar {
+  carouselNavbar: MediaItem[];
+  carouselNavbarSetting: Setting;
 }
 
-export interface CarouselStatic {
-  carouselSetting: boolean | number | null
-  imageVideoSetting: boolean | number | null
-  carousel: CarouselItem[]
-  imageVideo: Background | null
+export interface CarouselTool {
+  carouselTool: MediaItem[];
+  carouselToolSetting: Setting;
 }
 
-export interface CarouselToolInt {
-  path: string | File | null
+export interface ImageVideo {
+  imageVideo: MediaItem[];
+  imageVideoSetting: Setting;
+}
+
+export interface Setting {
+  id: number;
+  enabled: boolean;
+}
+
+export interface MediaItem {
+  id: number;
+  type: string;
+  path: string;
+  full_path: string;
+  title: string;
+  subtitle: string;
+
+}
+export interface MediaItemForm {
+  path: string | null | File;
+  title: string;
+  subtitle: string;
 }

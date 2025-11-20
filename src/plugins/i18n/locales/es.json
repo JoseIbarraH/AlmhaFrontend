@@ -171,17 +171,14 @@
         "LabelTitlePlaceholder": "Ingrese título",
         "LabelSubtitle": "Subtitulo (Opcional)",
         "LabelSubtitlePlaceholder": "Ingrese título",
-        "VideoError": "Tu navegador no soporta la reproducción de videos.",
-        "NewImage": "Agrega una imagen.",
+        "NewImage": "Agrega un nuevo item",
         "Validations": {
-          "ImageVideo": "El elemento Imagen/Video no tiene archivo seleccionado.",
-          "Carousel": "La imagen #{n} del carrusel no tiene archivo seleccionado.",
-          "ErrorUpss": "Ocurrió un error inesperado"
+
         }
       },
       "Backgrounds": {
         "Title": "Seleccionar Fondos",
-        "LabelTitle": "Titulo (Opcional)",
+        "LabelTitle": "Titulo1 (Opcional)",
         "InputTitlePlaceholder": "Ingrese título",
         "LabelSubtitle": "Subtitulo (Opcional)",
         "InputSubtitlePlaceholder": "Ingrese título",

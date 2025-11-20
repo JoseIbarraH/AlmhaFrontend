@@ -84,8 +84,7 @@ onUnmounted(() => {
     <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95"
       enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75"
       leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-      <div v-if="showDropdown"
-        class="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-md shadow-lg z-10
+      <div v-if="showDropdown" class="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-md shadow-lg z-10
                dark:bg-gray-700 dark:border-gray-600 dark:shadow-xl"> <!-- Clases Dark Mode para el contenedor -->
         <ul class="py-1">
           <li>

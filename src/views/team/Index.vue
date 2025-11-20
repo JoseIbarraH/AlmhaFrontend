@@ -38,7 +38,7 @@ import { showNotification } from '@/components/composables/useNotification';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import Statistics from '@/components/app/Statistics.vue';
 import Pagination from '@/components/app/Pagination.vue';
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import TeamTable from './partials/TeamTable.vue';
 import { useRoute, useRouter } from 'vue-router';
 import Skeleton from './partials/Skeleton.vue';
@@ -79,6 +79,12 @@ function handlePageChange(page: number) {
   router.push({ query: { ...route.query, page } })
   fetchTeamMembers(page)
 }
+
+watch(() => route.params.locale,
+  () => {
+    fetchTeamMembers()
+  }
+)
 
 onMounted(() => {
   const page = Number(route.query.page) || 1

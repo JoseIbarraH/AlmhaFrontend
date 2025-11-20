@@ -78,11 +78,11 @@ import type { Default, PaginatedResponse, ApiResponse, Stats } from '@/types/api
 import { showNotification } from '@/components/composables/useNotification';
 import SecondaryButton from '@/components/ui/SecondaryButton.vue';
 import { LucideFilePlus, LucideFileText } from 'lucide-vue-next';
+import { ref, computed, onMounted, reactive, watch } from 'vue';
 import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import Statistics from '@/components/app/Statistics.vue';
 import Pagination from '@/components/app/Pagination.vue';
-import { ref, computed, onMounted, reactive } from 'vue';
 import InputLabel from '@/components/ui/InputLabel.vue';
 import TextInput from '@/components/ui/TextInput.vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -182,10 +182,10 @@ onMounted(() => {
   }
 })
 
-/* watch(
-  () => route.query.page,
-  (newPage) => {
-    if (newPage) fetchBlogs(Number(newPage))
+watch(
+  () => route.params.locale,
+  () => {
+    fetchBlogs()
   }
-) */
+)
 </script>
