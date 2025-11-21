@@ -7,23 +7,23 @@
         </div>
 
         <div>
-          <InputLabel for="title" class="mb-1" :value="$t('Dashboard.Design.ChooseCarouselImage.LabelTitle')" />
+          <InputLabel for="title" class="mb-1" :value="$t('Dashboard.Design.CreateUpdateModal.LabelTitle')" />
           <TextInput id="title" v-model="form.title"
-            :placeholder="$t('Dashboard.Design.ChooseCarouselImage.LabelTitlePlaceholder')" />
+            :placeholder="$t('Dashboard.Design.CreateUpdateModal.LabelTitlePlaceholder')" />
         </div>
         <div>
-          <InputLabel for="subtitle" class="mb-1" :value="$t('Dashboard.Design.ChooseCarouselImage.LabelSubtitle')" />
+          <InputLabel for="subtitle" class="mb-1" :value="$t('Dashboard.Design.CreateUpdateModal.LabelSubtitle')" />
           <TextInput id="subtitle" v-model="form.subtitle"
-            :placeholder="$t('Dashboard.Design.ChooseCarouselImage.LabelSubtitlePlaceholder')" />
+            :placeholder="$t('Dashboard.Design.CreateUpdateModal.LabelSubtitlePlaceholder')" />
         </div>
 
 
         <div class="flex gap-2 justify-end">
-          <PrimaryButton @click="saveChanges" :disabled="loading">
-            Crear
+          <PrimaryButton type="button" @click="saveChanges" :disabled="loading">
+            {{ editing ? $t('Dashboard.Design.CreateUpdateModal.UpdateTitle') : $t('Dashboard.Design.CreateUpdateModal.CreateTitle') }}
           </PrimaryButton>
-          <SecondaryButton @click="handleClose" :disabled="loading">
-            Cancelar
+          <SecondaryButton type="button" @click="handleClose" :disabled="loading">
+            {{ $t('Dashboard.Design.CreateUpdateModal.Cancel') }}
           </SecondaryButton>
         </div>
       </div>
@@ -80,9 +80,7 @@ const buildFormData = (): FormData => {
 
   formData.append('title', form.title)
   formData.append('subtitle', form.subtitle)
-  if (props.editing === false) {
-    formData.append('designId', String(props.designId))
-  }
+  formData.append('designId', String(props.designId))
 
   return formData
 }

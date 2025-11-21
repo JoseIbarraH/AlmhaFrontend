@@ -47,10 +47,10 @@ function handleConfirm() {
           <!-- Título y subtítulo -->
           <div class="flex-1">
             <h2 class="text-xl font-bold text-gray-900 mb-1 dark:text-white">
-              {{ props.title || $t('Dashboard.Blog.Delete.ConfirmTitle') }}
+              {{ props.title }}
             </h2>
             <p class="text-sm text-gray-600 dark:text-gray-300">
-              {{ props.subtitle || $t('Dashboard.Blog.Delete.ConfirmSubtitle') }}
+              {{ props.subtitle }}
             </p>
           </div>
 
@@ -95,13 +95,17 @@ function handleConfirm() {
 
         <!-- Botones -->
         <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 mt-6">
-          <button @click="handleClose"
+          <button
+            type="button"
+            @click="handleClose"
             class="w-full sm:w-auto px-5 py-2.5 rounded-lg font-medium text-gray-700 bg-white border-2 border-gray-300 hover:bg-gray-50 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-all duration-200
                    dark:text-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:border-gray-500 dark:focus:ring-gray-300 dark:focus:ring-offset-gray-800">
             {{ props.cancelText }}
           </button>
 
-          <button @click="handleConfirm"
+          <button
+            type="button"
+            @click="handleConfirm"
             class="w-full sm:w-auto px-5 py-2.5 rounded-lg font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 shadow-lg shadow-red-500/30 hover:shadow-xl hover:shadow-red-500/40 transition-all duration-200 flex items-center justify-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

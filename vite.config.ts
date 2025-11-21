@@ -15,6 +15,6 @@ export default defineConfig({
     }
   },
   server:{
-    allowedHosts: ["397836986b26.ngrok-free.app"]
+    allowedHosts: ["bl92610r-5173.use.devtunnels.ms"]
   }
 })

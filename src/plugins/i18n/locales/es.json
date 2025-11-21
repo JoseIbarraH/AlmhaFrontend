@@ -167,10 +167,6 @@
       "Title": "Interfaz - Gestion de imagenes",
       "ChooseCarouselImage": {
         "Title": "Seleccionar Galería o Imagen/Video",
-        "LabelTitle": "Titulo (Opcional)",
-        "LabelTitlePlaceholder": "Ingrese título",
-        "LabelSubtitle": "Subtitulo (Opcional)",
-        "LabelSubtitlePlaceholder": "Ingrese título",
         "NewImage": "Agrega un nuevo item",
         "Validations": {
 
@@ -205,6 +201,27 @@
         "Validations": {
           "path": "La imagen #{n} del carrusel de herramientas no tiene archivo seleccionado",
           "ErrorUpss": "Ocurrió un error inesperado"
+        }
+      },
+      "CreateUpdateModal": {
+        "LabelTitle": "Titulo (Opcional)",
+        "LabelTitlePlaceholder": "Ingrese título",
+        "LabelSubtitle": "Subtitulo (Opcional)",
+        "LabelSubtitlePlaceholder": "Ingrese título",
+        "CreateTitle": "Crear",
+        "UpdateTitle": "Actualizar",
+        "Cancel": "Cancelar"
+      },
+      "Delete": {
+        "ConfirmTitle": "Confirmar Eliminación",
+        "ConfirmSubtitle": "Esta acción es permanente y no se puede revertir",
+        "ConfirmDelete": "¿Estás seguro de que deseas eliminar este objeto del carrusel",
+        "Cancel": "Cancelar",
+        "Delete": "Eliminar",
+        "Consequences": {
+          "Title": "Al eliminar este objeto del carrusel:",
+          "First": "Se eliminará todo el contenido permanentemente",
+          "Second": "No podrás recuperar esta información"
         }
       }
     },

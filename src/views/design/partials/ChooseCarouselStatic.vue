@@ -26,12 +26,15 @@
 
     <!-- Componentes de edición -->
     <div class="pt-4">
-      <CarouselImageSelected v-if="chooseCarouselImage.carousel" :carousel-image="carousel ?? []"
-        :carousel-setting="carouselSetting" @create_item="emit('create_item', carouselSetting.id)"
-        @edit_item="emit('edit_item', $event)" @delete_item="emit('delete_item', $event)" />
+      <CarouselImageSelected v-if="chooseCarouselImage.carousel"
+        :carousel-image="carousel ?? []"
+        :carousel-setting="carouselSetting"
+        @create_item="emit('create_item', carouselSetting.id)"
+        @edit_item="emit('edit_item', $event, carouselSetting.id)"
+        @delete_item="emit('delete_item', $event)" />
 
       <ImageVideoSelected v-if="chooseCarouselImage.imageVideo" :image-video="imageVideo"
-        :image-video-setting="imageVideoSetting" @edit_item="emit('edit_item', $event)"
+        :image-video-setting="imageVideoSetting" @edit_item="emit('edit_item', $event, imageVideoSetting.id)"
         @delete_item="emit('delete_item', $event)" />
     </div>
   </div>
@@ -44,6 +47,8 @@ import ImageVideoSelected from '../components/ImageVideoSelected.vue'
 import Gallery from '../components/Carousel.vue'
 import ImageVideo from '../components/ImageVideo.vue'
 import type { MediaItem, Setting } from '../types'
+import { api } from '@/plugins/api'
+import { showNotification } from '@/components/composables/useNotification'
 
 const props = withDefaults(defineProps<{
   imageVideoSetting?: Setting
@@ -59,17 +64,44 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{
   (e: 'create_item', idSetting: number): void;
-  (e: 'edit_item', data: MediaItem): void;
+  (e: 'edit_item', data: MediaItem, idSetting: number): void;
   (e: 'delete_item', id: number | undefined): void;
   (e: 'refresh'): void
 }>();
 
-const chooseCarouselImage = ref({
+type ChooseState = { imageVideo: boolean, carousel: boolean };
+
+const chooseCarouselImage = ref<ChooseState>({
   imageVideo: false,
   carousel: false
 })
 
-function handleToggle(mode: 'imageVideo' | 'carousel'): void {
+const buildFormData = (): FormData => {
+  const formData = new FormData()
+
+  formData.append('carouselId', String(props.carouselSetting.id))
+  formData.append('carouselEnabled', String(chooseCarouselImage.value.carousel ? 1 : 0))
+  formData.append('imageVideoId', String(props.imageVideoSetting.id))
+  formData.append('imageVideoEnabled', String(chooseCarouselImage.value.imageVideo ? 1 : 0))
+
+  return formData
+}
+
+const fetchUpdateState = async (previousState: ChooseState) => {
+  try {
+    const formData = buildFormData()
+
+    await api.post('/api/design/settings/state', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+  } catch (err: any) {
+    showNotification('error', 'Error al seleccionar', 4000)
+    chooseCarouselImage.value = previousState
+  }
+}
+
+const handleToggle = (mode: 'imageVideo' | 'carousel') => {
+  const previousState: ChooseState = { ...chooseCarouselImage.value }
 
   if (mode === 'imageVideo') {
     chooseCarouselImage.value.imageVideo = true
@@ -80,13 +112,13 @@ function handleToggle(mode: 'imageVideo' | 'carousel'): void {
     chooseCarouselImage.value.carousel = true
     chooseCarouselImage.value.imageVideo = false
   }
+
+  fetchUpdateState(previousState)
 }
 
 onMounted(() => {
   chooseCarouselImage.value.carousel = !!props.carouselSetting?.enabled
   chooseCarouselImage.value.imageVideo = !!props.imageVideoSetting?.enabled
-
-  console.log("props: ", props)
 })
 
 </script>
