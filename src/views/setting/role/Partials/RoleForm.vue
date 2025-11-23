@@ -8,7 +8,8 @@
           {{ editing ? 'Editar Rol' : 'Crear Rol' }}
         </h1>
         <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-          {{ editing ? 'Modifica la información del rol existente' : 'Completa la información para crear un nuevo rol' }}
+          {{ editing ? 'Modifica la información del rol existente' : 'Completa la información para crear un nuevo rol'
+          }}
         </p>
       </div>
 
@@ -16,7 +17,6 @@
       <form class="p-6" @submit.prevent="submit">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-          <!-- Columna Izquierda: Información Básica -->
           <div class="lg:col-span-2 space-y-5">
             <div class="bg-gray-50 dark:bg-gray-900/30 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
               <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-4">
@@ -24,7 +24,6 @@
               </h3>
 
               <div class="space-y-4">
-                <!-- Título y Code en grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <InputLabel for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
@@ -39,7 +38,6 @@
                   </div>
                 </div>
 
-                <!-- Descripción -->
                 <div>
                   <InputLabel for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                     value="Descripción" />
@@ -47,7 +45,6 @@
                     placeholder="Describe las responsabilidades de este rol..." />
                 </div>
 
-                <!-- Status -->
                 <div>
                   <InputLabel for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                     value="Estado" />
@@ -58,7 +55,6 @@
             </div>
           </div>
 
-          <!-- Columna Derecha: Permisos -->
           <div class="lg:col-span-1">
             <div
               class="bg-gray-50 dark:bg-gray-900/30 rounded-lg p-5 border border-gray-200 dark:border-gray-700 h-full">
@@ -87,17 +83,6 @@
           </div>
         </div>
 
-        <!-- <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-          <h4 class="text-sm font-semibold text-blue-800 dark:text-blue-300 mb-2">
-            🔍 Permisos Seleccionados (Array):
-          </h4>
-          <pre
-            class="text-xs text-blue-700 dark:text-blue-400 font-mono bg-white dark:bg-gray-900 p-3 rounded overflow-x-auto">
-            {{ JSON.stringify(form.permits, null, 2) }}
-          </pre>
-        </div> -->
-
-        <!-- Buttons -->
         <div class="flex justify-end gap-3 pt-6 mt-6 border-t dark:border-gray-700">
           <button type="button" @click="handleClose"
             class="px-5 py-2.5 rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
@@ -163,6 +148,10 @@ function handleClose() {
 const buildFormData = (): FormData => {
   const formData = new FormData()
 
+  if (props.editing === true) {
+    formData.append('_method', 'PATCH')
+  }
+
   const fields: Record<string, any> = {
     title: form.title,
     code: form.code,
@@ -186,10 +175,6 @@ const buildFormData = (): FormData => {
 const submit = async () => {
   try {
     const formData = buildFormData()
-
-    for (const [key, val] of formData.entries()) {
-      console.log(`${key}:`, val)
-    }
 
     console.log("prop ", props.editData)
 

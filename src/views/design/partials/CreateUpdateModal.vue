@@ -1,31 +1,63 @@
 <template>
-  <Modal :show="props.show" :max-width="props.maxWidth || 'md'" @close="handleClose">
-    <div class="relative bg-white dark:bg-gray-800 rounded-lg">
-      <div class="p-6 space-y-4">
+  <Modal :show="props.show" :max-width="props.maxWidth || 'lg'" @close="handleClose">
+    <div class="relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden">
+
+      <!-- Header -->
+      <div class="flex items-center justify-between px-6 py-5 border-b border-gray-200 dark:border-gray-700">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">
+          {{ editing
+            ? $t('Dashboard.Design.CreateUpdateModal.UpdateTitle')
+            : $t('Dashboard.Design.CreateUpdateModal.CreateTitle')
+          }}
+        </h3>
+
+        <button type="button" @click="handleClose" :disabled="loading" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300
+                 transition-colors p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+          <LucideX class="w-5 h-5" />
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="p-6 space-y-6">
+
+        <!-- Image Preview -->
         <div>
-          <ImagesPreview v-model="form.path" class="aspect-video" />
+          <ImagesPreview v-model="form.path" class="aspect-video rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700
+                   hover:border-blue-400 dark:hover:border-blue-500 transition-colors" />
         </div>
 
-        <div>
-          <InputLabel for="title" class="mb-1" :value="$t('Dashboard.Design.CreateUpdateModal.LabelTitle')" />
+        <!-- Title Input -->
+        <div class="space-y-2">
+          <InputLabel for="title" :value="$t('Dashboard.Design.CreateUpdateModal.LabelTitle')"
+            class="text-sm font-medium text-gray-700 dark:text-gray-300" />
           <TextInput id="title" v-model="form.title"
             :placeholder="$t('Dashboard.Design.CreateUpdateModal.LabelTitlePlaceholder')" />
         </div>
-        <div>
-          <InputLabel for="subtitle" class="mb-1" :value="$t('Dashboard.Design.CreateUpdateModal.LabelSubtitle')" />
+
+        <!-- Subtitle Input -->
+        <div class="space-y-2">
+          <InputLabel for="subtitle" :value="$t('Dashboard.Design.CreateUpdateModal.LabelSubtitle')"
+            class="text-sm font-medium text-gray-700 dark:text-gray-300" />
           <TextInput id="subtitle" v-model="form.subtitle"
             :placeholder="$t('Dashboard.Design.CreateUpdateModal.LabelSubtitlePlaceholder')" />
         </div>
 
+      </div>
 
-        <div class="flex gap-2 justify-end">
-          <PrimaryButton type="button" @click="saveChanges" :disabled="loading">
-            {{ editing ? $t('Dashboard.Design.CreateUpdateModal.UpdateTitle') : $t('Dashboard.Design.CreateUpdateModal.CreateTitle') }}
-          </PrimaryButton>
-          <SecondaryButton type="button" @click="handleClose" :disabled="loading">
-            {{ $t('Dashboard.Design.CreateUpdateModal.Cancel') }}
-          </SecondaryButton>
-        </div>
+      <!-- Footer -->
+      <div class="flex items-center justify-end gap-3 px-6 py-4 bg-gray-50 dark:bg-gray-900/50
+                  border-t border-gray-200 dark:border-gray-700">
+
+        <SecondaryButton type="button" @click="handleClose" :disabled="loading">
+          {{ $t('Dashboard.Design.CreateUpdateModal.Cancel') }}
+        </SecondaryButton>
+
+        <PrimaryButton type="button" @click="saveChanges" :disabled="loading">
+          {{ editing
+            ? $t('Dashboard.Design.CreateUpdateModal.UpdateTitle')
+            : $t('Dashboard.Design.CreateUpdateModal.CreateTitle')
+          }}
+        </PrimaryButton>
       </div>
 
     </div>
@@ -43,6 +75,7 @@ import InputLabel from '@/components/ui/InputLabel.vue';
 import TextInput from '@/components/ui/TextInput.vue';
 import { api } from '@/plugins/api';
 import { showNotification } from '@/components/composables/useNotification';
+import { LucideX } from 'lucide-vue-next';
 
 interface Props {
   show: boolean
@@ -52,6 +85,9 @@ interface Props {
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 }
 
+const props = defineProps<Props>()
+const emit = defineEmits(['close', 'refresh'])
+
 const form = reactive<MediaItemForm>({
   path: null,
   title: '',
@@ -59,9 +95,6 @@ const form = reactive<MediaItemForm>({
 })
 
 const loading = ref(false)
-
-const props = defineProps<Props>()
-const emit = defineEmits(['close', 'refresh'])
 
 const data = () => {
   console.log("EDITING?: ", props.editing)

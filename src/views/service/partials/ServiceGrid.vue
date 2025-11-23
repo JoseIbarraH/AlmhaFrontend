@@ -219,7 +219,6 @@
 import { showNotification } from '@/components/composables/useNotification';
 import Search from '@/components/ui/Search.vue';
 import Modal from '@/components/app/Modal.vue';
-import { FileX } from 'lucide-vue-next';
 import { useRouter } from 'vue-router';
 import type { Data } from '../types';
 import { api } from '@/plugins/api';

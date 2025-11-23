@@ -48,7 +48,7 @@ const routes: RouteRecordRaw[] = [
         return h(RouterView)
       }
     },
-    beforeEnter: (
+    beforeEnter: async (
       to: RouteLocationNormalized,
       __from: RouteLocationNormalized,
       next: NavigationGuardNext
@@ -74,7 +74,21 @@ const routes: RouteRecordRaw[] = [
         setI18nLocale(locale)
       }
 
-      return next()
+      try {
+        await api.get("/api/user");
+
+        if (to.path === `/${locale}` || to.name === 'auth.login') {
+          return next({ name: 'dashboard.home', params: { locale }, replace: true });
+        }
+
+        return next();
+      } catch (err: any) {
+        if (to.name === 'auth.login') {
+          return next();
+        }
+
+        return next({ name: 'auth.login', params: { locale }, replace: true });
+      }
     },
     children: [
       {
@@ -92,16 +106,6 @@ const routes: RouteRecordRaw[] = [
       {
         path: "dashboard",
         component: AuthenticatedLayout,
-        beforeEnter: async (to, __from) => {
-          const locale = to.params.locale as Locale
-
-          try {
-            await api.get("/api/user")
-            return true
-          } catch (err: any) {
-            return { name: 'auth.login', params: { locale } }
-          }
-        },
         children: [
           {
             path: "",

@@ -10,7 +10,7 @@
   </div>
 
   <!-- Lista de artículos (Grid) -->
-  <div v-if="data.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+  <div v-if="data.length === 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
     <article v-for="value in currentData()" :key="value.id"
       class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200
              dark:bg-gray-800 dark:border-gray-700 dark:hover:shadow-lg dark:hover:shadow-black/20">
@@ -40,9 +40,7 @@
         <!-- Menú de opciones (tres puntos) -->
         <button class="text-gray-400 hover:text-gray-600 p-1 rounded
                        dark:text-gray-500 dark:hover:text-gray-300">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-          </svg>
+          <LucideEllipsisVertical class="w-5 h-5" />
         </button>
       </div>
 
@@ -83,10 +81,7 @@
         <button @click="openModal(value)"
           class="px-3 py-2 text-gray-400 hover:text-red-600 border border-gray-200 rounded-md hover:border-red-200 transition-colors duration-200
                  dark:text-gray-500 dark:border-gray-700 dark:hover:text-red-400 dark:hover:border-red-900 dark:hover:bg-gray-700">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-          </svg>
+          <LucideTrash2 class="w-4 h-4" />
         </button>
       </div>
     </article>
@@ -94,15 +89,11 @@
   <!-- Estado vacío (No hay resultados) -->
   <div v-else class="flex flex-col items-center justify-center py-12 text-center bg-white dark:bg-gray-800">
     <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4 dark:bg-gray-700">
-      <!-- Se asume que FileX es un componente SVG o icono -->
-      <!-- Usaremos un SVG de fallback simple para el ejemplo -->
-      <svg class="w-8 h-8 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-      </svg>
+
+      <LucideFilePlus class="w-8 h-8 text-gray-500 dark:text-gray-400" />
     </div>
     <h3 class="text-lg font-semibold text-gray-900 mb-2 dark:text-white">{{ $t('Dashboard.Blog.List.NoResults') }}</h3>
-    <p class="text-gray-500 dark:text-gray-400">Intenta ajustar tu búsqueda.</p>
+    <p class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Blog.List.AdjustingSearch') }}</p>
   </div>
 
   <!-- Modal de confirmación de eliminación -->
@@ -135,6 +126,7 @@ import type { Data } from '../types';
 import { api } from '@/plugins/api';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
+import { LucideEllipsisVertical, LucideFilePlus, LucideTrash2 } from 'lucide-vue-next';
 
 const { t } = useI18n()
 

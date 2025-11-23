@@ -120,7 +120,8 @@
         "Activate": "Activar",
         "Deactivate": "Desactivar",
         "NoResults": "No hay resultados",
-        "Search": "Buscar por título"
+        "Search": "Buscar por título",
+        "AdjustingSearch": "Intenta ajustar tu búsqueda."
       },
       "Edit": {
         "Title": "Actualizar Blog",
@@ -168,9 +169,9 @@
       "ChooseCarouselImage": {
         "Title": "Seleccionar Galería o Imagen/Video",
         "NewImage": "Agrega un nuevo item",
-        "Validations": {
-
-        }
+        "FirstImage": "Agregar primera imagen",
+        "AddImage": "Agregar imagen",
+        "Validations": {}
       },
       "Backgrounds": {
         "Title": "Seleccionar Fondos",
@@ -191,6 +192,9 @@
         "InputTitlePlaceholder": "Ingrese título",
         "LabelSubtitle": "Subtitulo (Opcional)",
         "InputSubtitlePlaceholder": "Ingrese título",
+        "NewImage": "Agrega un nuevo item",
+        "FirstImage": "Agregar primera imagen",
+        "AddImage": "Agregar imagen",
         "Validations": {
           "Carousel": "La imagen #{n} del carrusel navbar no tiene archivo seleccionado.",
           "ErrorUpss": "Ocurrió un error inesperado"
@@ -198,6 +202,8 @@
       },
       "ChooseCarouselTool": {
         "Title": "Seleccionar Fotos de Carrusel de Herramientas",
+        "FirstImage": "Agregar primera imagen",
+        "AddImage": "Agregar imagen",
         "Validations": {
           "path": "La imagen #{n} del carrusel de herramientas no tiene archivo seleccionado",
           "ErrorUpss": "Ocurrió un error inesperado"
@@ -374,6 +380,18 @@
           "Updated": "Actualizado",
           "Actions": "Acciones",
           "NoMembers": "No hay roles registrados aún."
+        },
+        "Delete": {
+          "ConfirmTitle": "Confirmar Eliminación",
+          "ConfirmSubtitle": "Esta acción es permanente y no se puede revertir",
+          "ConfirmDelete": "¿Estás seguro de que deseas eliminar el rol",
+          "Cancel": "Cancelar",
+          "Delete": "Eliminar Rol",
+          "Consequences": {
+            "Title": "Al eliminar este rol:",
+            "First": "Se eliminará permanentemente",
+            "Second": "No podrás recuperar esta información"
+          }
         }
       },
       "User": {
@@ -387,6 +405,47 @@
           "Actions": "Acciones",
           "NoUsers": "No hay usuarios registrados aún.",
           "Search": "Buscar por nombre o email"
+        },
+        "CreateUpdateModal": {
+          "Cancel": "Cancelar",
+          "UpdateTitle": "Actualizar usuario",
+          "CreateTitle": "Crear nuevo usuario",
+          "NamePlaceholder": "Nombre",
+          "Name": "Nombre",
+          "EmailPlaceholder": "Correo",
+          "Email": "Correo",
+          "PasswordPlaceholder": "Contraseña",
+          "Password": "Contraseña",
+          "PasswordConfirmationPlaceholder": "Confirmar contraseña",
+          "PasswordConfirmation": "Confirmar contraseña",
+          "Status": "Estado",
+          "Roles": "Roles",
+          "Active": "Activo",
+          "Inactive": "Inactivo",
+          "Saving": "Guardando...",
+          "Updating": "Actualizando..."
+        },
+        "Delete": {
+          "ConfirmTitle": "Confirmar Eliminación",
+          "ConfirmSubtitle": "Esta acción es permanente y no se puede revertir",
+          "ConfirmDelete": "¿Estás seguro que deseas eliminar al usuario: ",
+          "Cancel": "Cancelar",
+          "Delete": "Eliminar",
+          "Consequences": {
+            "Title": "Al eliminar este usuario:",
+            "First": "Se eliminará el usuario permanentemente",
+            "Second": "No podrás recuperar esta información"
+          }
+        },
+        "Validations": {
+          "Form": {
+            "Name": "El nombre es obligatorio.",
+            "Email": "El correo es obligatorio.",
+            "Password": "La constraseña es obligatoria.",
+            "PasswordConfirmation": "La constraseña de confirmacion es obligatoria.",
+            "PasswordComparation": "La contraseña no coincide.",
+            "Roles": "Seleccione un rol"
+          }
         }
       },
       "Validations": {

@@ -23,9 +23,7 @@
           <button @click="showSidebar = false"
             class="lg:hidden p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:bg-gray-800 transition-all duration-200"
             aria-label="Close Menu">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <LucideX class="w-5 h-5" />
           </button>
         </div>
       </div>
@@ -39,10 +37,7 @@
           <div class="space-y-1">
             <SidebarLink :href="{ name: 'setting.profile' }" :active="current({ name: 'setting.profile' })">
               <template #icon>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
+                <LucideUser class="w-5 h-5"/>
               </template>
               <span class="flex-1">{{ $t('Helper.Setting.Personal.Profile') }}</span>
             </SidebarLink>
@@ -62,20 +57,14 @@
           <div class="space-y-1">
             <SidebarLink :href="{ name: 'setting.user' }" :active="current({ name: 'setting.user' })">
               <template #icon>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
+                <LucideUsers class="w-5 h-5" />
               </template>
               <span class="flex-1">{{ $t('Helper.Setting.Administration.User') }}</span>
             </SidebarLink>
 
             <SidebarLink :href="{ name: 'setting.role' }" :active="current({ name: 'setting.role' })">
               <template #icon>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+                <LucideShieldCheck class="w-5 h-5" />
               </template>
               <span class="flex-1">{{ $t('Helper.Setting.Administration.RolePermission') }}</span>
             </SidebarLink>
@@ -103,9 +92,7 @@
     <button @click="toggleSidebar"
       class="lg:hidden fixed bottom-10 right-4 z-30 p-3 rounded-xl bg-white dark:bg-gray-950 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 shadow-lg border border-gray-200 dark:border-gray-800 transition-all duration-200 active:scale-95"
       aria-label="Open Menu">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
+      <LucideMenu class="w-6 h-6" />
     </button>
 
     <!-- Contenido principal -->
@@ -125,6 +112,7 @@ import { useRouteHelper } from '@/components/composables/useRouteHelper';
 import SidebarLink from '@/components/ui/SidebarLink.vue';
 import { RouterView } from 'vue-router'
 import { ref } from 'vue'
+import { LucideMenu, LucideShieldCheck, LucideUser, LucideUsers, LucideUsers2, LucideX } from 'lucide-vue-next';
 
 const { current } = useRouteHelper();
 

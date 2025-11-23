@@ -14,7 +14,10 @@
     />
 
     <!-- Si no hay imagen/video: mostrar "+" -->
-    <span v-if="!preview" class="text-4xl text-gray-400 font-bold">+</span>
+    <!-- <span v-if="!preview" class="text-4xl text-gray-400 font-bold">+</span> -->
+    <span v-if="!preview" class="text-4xl text-gray-400 font-bold">
+      <LucideImagePlus class="w-10 h-10" />
+    </span>
 
     <!-- Si hay imagen/video: mostrar preview -->
     <div v-else class="w-full h-full relative">
@@ -47,6 +50,7 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import CloseButton from '@/components/ui/CloseButton.vue'
+import { LucideImagePlus } from 'lucide-vue-next';
 
 const props = withDefaults(
   defineProps<{

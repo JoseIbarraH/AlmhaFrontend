@@ -13,10 +13,21 @@ export interface Data {
   name: string
   status: 'active' | 'inactive'
   email: string
-  roles: string[]
+  roles: Roles[]
   password: string
   created_at: string
   updated_at: string
+}
+
+export interface RoleData {
+  roles: Roles[]
+}
+
+export interface Roles {
+  id: number
+  code: string
+  title: string
+  description: string
 }
 
 export interface EditUser {
@@ -27,3 +38,13 @@ export interface EditUser {
   password: string
   roles: string[]
 }
+
+export interface DataForm {
+  name: string
+  status: 'active' | 'inactive'
+  email: string
+  roles: string[]
+  password: string
+  password_confirmation: string
+}
+

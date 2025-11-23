@@ -24,10 +24,7 @@
             @click="backgrounds?.background1?.[0] && emit('edit_item', backgrounds.background1[0], backgrounds.background1Setting.id)"
             title="Editar" class="p-2 bg-white/90 backdrop-blur-sm text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg shadow-md transition-all
                   dark:bg-gray-800/90 dark:text-gray-300 dark:hover:text-yellow-400 dark:hover:bg-gray-700">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-            </svg>
+            <LucideSquarePen class="w-4 h-4"/>
           </button>
         </div>
 
@@ -55,10 +52,7 @@
             @click="backgrounds?.background2?.[0] && emit('edit_item', backgrounds.background2[0], backgrounds.background2Setting.id)"
             title="Editar" class="p-2 bg-white/90 backdrop-blur-sm text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg shadow-md transition-all
                   dark:bg-gray-800/90 dark:text-gray-300 dark:hover:text-yellow-400 dark:hover:bg-gray-700">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-            </svg>
+            <LucideSquarePen class="w-4 h-4"/>
           </button>
         </div>
 
@@ -85,10 +79,7 @@
             @click="backgrounds?.background3?.[0] && emit('edit_item', backgrounds.background3[0], backgrounds.background3Setting.id)"
             title="Editar" class="p-2 bg-white/90 backdrop-blur-sm text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg shadow-md transition-all
                   dark:bg-gray-800/90 dark:text-gray-300 dark:hover:text-yellow-400 dark:hover:bg-gray-700">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-            </svg>
+            <LucideSquarePen class="w-4 h-4"/>
           </button>
         </div>
 
@@ -104,6 +95,7 @@
 </template>
 
 <script setup lang="ts">
+import { LucideSquarePen } from 'lucide-vue-next';
 import type { Backgrounds, MediaItem } from '../types';
 
 withDefaults(defineProps<{

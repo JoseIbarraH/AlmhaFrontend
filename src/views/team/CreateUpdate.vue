@@ -39,16 +39,16 @@
       </div>
 
       <div class="bg-white p-6 rounded-lg shadow-md h-fit order-2 dark:bg-gray-900">
-        <TeamInfo :model-value="form" />
+        <TeamInfo v-model:model-value="form" />
       </div>
 
       <div class="md:col-start-3 md:col-end-5 order-3">
         <div class="bg-white p-6 rounded-lg shadow-md order-3 md:col-span-2 lg:col-span-4 h-72 dark:bg-gray-900">
-          <Biography v-model="form" />
+          <Biography v-model:model-value="form" />
         </div>
 
         <div class="bg-white p-6 rounded-lg shadow-md h-fit order-4 md:col-span-2 lg:col-span-4 mt-4 dark:bg-gray-900">
-          <Results v-bind:model-value="form" />
+          <Results v-model:model-value="form" />
         </div>
       </div>
 
@@ -77,7 +77,7 @@ const router = useRouter()
 
 const props = defineProps<{ id?: string }>()
 
-const form = reactive<TeamMember>({
+let form = reactive<TeamMember>({
   id: 0,
   name: '',
   status: '',

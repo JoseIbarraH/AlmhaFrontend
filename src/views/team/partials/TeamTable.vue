@@ -115,14 +115,22 @@
     </div>
   </div>
 
-  <ConfirmDeleteModal :show="isOpen" :title="$t('Dashboard.Team.Delete.ConfirmTitle')"
-    :subtitle="$t('Dashboard.Team.Delete.ConfirmSubtitle')" :message="$t('Dashboard.Team.Delete.ConfirmDelete')"
-    :itemName="memberToDelete?.name" :consequences-title="$t('Dashboard.Team.Delete.Consequences.Title')" :consequences="[
+  <ConfirmDeleteModal
+    :show="isOpen"
+    :title="$t('Dashboard.Team.Delete.ConfirmTitle')"
+    :subtitle="$t('Dashboard.Team.Delete.ConfirmSubtitle')"
+    :message="$t('Dashboard.Team.Delete.ConfirmDelete')"
+    :itemName="memberToDelete?.name"
+    :consequences-title="$t('Dashboard.Team.Delete.Consequences.Title')"
+    :consequences="[
       $t('Dashboard.Team.Delete.Consequences.First'),
       $t('Dashboard.Team.Delete.Consequences.Second'),
       $t('Dashboard.Team.Delete.Consequences.Third')
-    ]" :cancel-text="$t('Dashboard.Team.Delete.Cancel')" :confirm-text="$t('Dashboard.Team.Delete.Delete')"
-    @close="closeModal" @confirm="confirmDelete" />
+    ]"
+    :cancel-text="$t('Dashboard.Team.Delete.Cancel')"
+    :confirm-text="$t('Dashboard.Team.Delete.Delete')"
+    @close="closeModal"
+    @confirm="confirmDelete" />
 </template>
 
 <script setup lang="ts">
@@ -142,7 +150,6 @@ const router = useRouter()
 
 const isOpen = ref(false)
 const memberToDelete = ref<Data | null>(null)
-
 const loading = ref(false)
 const localData = ref<Data[]>([])
 

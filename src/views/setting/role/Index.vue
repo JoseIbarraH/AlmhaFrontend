@@ -68,7 +68,9 @@ const fetchPermission = async () => {
   try {
     const { data } = await api.get<ApiResponse<PermissionData>>('/api/setting/role/permits');
     permissions.value = data.data.permissions
+    console.log("Permisos: ", permissions.value)
   } catch (error) {
+    console.error(error)
     showNotification('error', 'Ocurrió un error al obtener los permisos', 4000);
   }
 }
@@ -111,7 +113,7 @@ const handleModal = () => {
 
 
 onMounted(() => {
-  
+
   fetchRoles(page)
   fetchPermission()
 })

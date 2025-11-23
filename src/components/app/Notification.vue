@@ -1,7 +1,6 @@
 <template>
   <Transition name="slide-fade">
     <div v-if="visible" :class="[
-      // ❌ ELIMINAMOS: 'fixed top-4 right-4 z-50'
       'z-50 min-w-[300px] max-w-md rounded-lg shadow-lg p-4 flex items-start gap-3',
       notificationClasses
     ]">
