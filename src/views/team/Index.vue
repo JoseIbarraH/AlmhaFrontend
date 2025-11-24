@@ -82,7 +82,8 @@ function handlePageChange(page: number) {
 
 watch(() => route.params.locale,
   () => {
-    fetchTeamMembers()
+    const page = Number(route.query.page) || 1
+    fetchTeamMembers(page)
   }
 )
 

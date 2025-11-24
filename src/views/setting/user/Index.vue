@@ -36,18 +36,14 @@ import { showNotification } from '@/components/composables/useNotification';
 import CreateUpdateModal from './partials/CreateUpdateModal.vue';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import Pagination from '@/components/app/Pagination.vue';
+import type { Data, Roles, RoleData } from './types';
 import UserTable from './partials/UserTable.vue';
 import { useRoute, useRouter } from 'vue-router';
-import type { Data, Roles, RoleData } from './types';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { api } from '@/plugins/api';
 
 const route = useRoute()
 const router = useRouter()
-
-const page = Number(route.query.page) || 1
-
-/* const isOpen = ref(false) */
 
 const initialLoading = ref(true)
 const loading = ref(true)
@@ -68,9 +64,6 @@ const dataUpdate = ref<Data>({
   created_at: '',
   updated_at: ''
 })
-
-/* const edit = ref<EditUser | null>(null)
-const editing = ref(false) */
 
 const handleCreateModal = () => {
   isOpen.value = !isOpen.value
@@ -131,7 +124,17 @@ const fetchRoles = async () => {
   }
 }
 
+watch(
+  () => route.params.locale,
+  () => {
+    const page = Number(route.query.page) || 1
+    fetchUsers(page)
+    fetchRoles()
+  }
+)
+
 onMounted(() => {
+  const page = Number(route.query.page) || 1
   fetchUsers(page)
   fetchRoles()
 })

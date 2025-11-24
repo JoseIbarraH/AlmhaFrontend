@@ -10,7 +10,7 @@
   </div>
 
   <!-- Lista de artículos (Grid) -->
-  <div v-if="data.length === 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+  <div v-if="data.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
     <article v-for="value in currentData()" :key="value.id"
       class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200
              dark:bg-gray-800 dark:border-gray-700 dark:hover:shadow-lg dark:hover:shadow-black/20">

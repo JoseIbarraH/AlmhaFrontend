@@ -22,19 +22,17 @@
 <script setup lang="ts">
 import type { Default, PaginatedResponse, ApiResponse } from '@/types/apiResponse';
 import { showNotification } from '@/components/composables/useNotification';
+import type { Data, Permission, PermissionData, EditRole } from './types';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import Pagination from '@/components/app/Pagination.vue';
 import RoleTable from './partials/RoleTable.vue';
 import { useRoute, useRouter } from 'vue-router';
-import type { Data, Permission, PermissionData, EditRole } from './types';
 import RoleForm from './partials/RoleForm.vue';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { api } from '@/plugins/api';
 
 const route = useRoute()
 const router = useRouter()
-
-const page = Number(route.query.page) || 1
 
 const isOpen = ref(false)
 
@@ -96,6 +94,7 @@ const handlePageChange = (page: number) => {
 }
 
 const handleModal = () => {
+  const page = Number(route.query.page) || 1
   isOpen.value = !isOpen.value
   editing.value = false
   if (isOpen.value) {
@@ -111,9 +110,17 @@ const handleModal = () => {
   fetchRoles(page)
 }
 
+watch(
+  () => route.params.locale,
+  () => {
+    const page = Number(route.query.page) || 1
+    fetchRoles(page)
+    fetchPermission()
+  }
+)
 
 onMounted(() => {
-
+  const page = Number(route.query.page) || 1
   fetchRoles(page)
   fetchPermission()
 })

@@ -34,7 +34,7 @@
 
     <!-- Content -->
     <template v-if="form.id">
-      <BlogInfo :model-value="form" @update:model-value="updateForm" />
+      <BlogInfo :model-value="form" :categories="categories" @update:model-value="updateForm" />
 
       <div>
         <Editor v-model="form.content" :id="form.id" />
@@ -51,7 +51,8 @@ import Editor from './partials/Editor.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { api } from '@/plugins/api';
-import type { Blog } from './types';
+import type { Blog, BlogForm, Category, CategoryData } from './types';
+import type { ApiResponse } from '@/types/apiResponse';
 
 const router = useRouter();
 
@@ -62,18 +63,19 @@ const props = defineProps<{
 
 const loading = ref(false);
 const error = ref('');
+const categories = ref<Category[] | null>(null)
 
-const form = reactive<Blog>({
+const form = reactive<BlogForm>({
   id: 0,
   title: '',
   status: '',
   image: '',
   content: '',
-  category: ''
+  category: 0
 });
 
 // Actualizar formulario (si BlogInfo emite cambios)
-const updateForm = (updates: Partial<Blog>) => {
+const updateForm = (updates: Partial<BlogForm>) => {
   Object.assign(form, updates);
 };
 
@@ -91,21 +93,36 @@ const loadBlog = async () => {
   error.value = '';
 
   try {
-    const { data } = await api.get(`/api/blog/${props.id}`);
+    const { data } = await api.get<ApiResponse<Blog>>(`/api/blog/${props.id}`);
 
     if (data?.data) {
-      Object.assign(form, data.data);
-      console.log("id ", form.id)
-    } else {
+      form.id = data.data.id;
+      form.title = data.data.title;
+      form.status = data.data.status;
+      form.image = data.data.image;
+      form.content = data.data.content;
+      form.category = data.data.category;
+    }
+    else {
       throw new Error('No se encontró el blog');
     }
-  } catch (err: any) {
-    error.value = err.response?.data?.message || err.message || 'Error al cargar el blog';
-    console.error('Error loading blog:', err);
+  } catch (error: any) {
+    error.value = error.response?.data?.message || error.message || 'Error al cargar el blog';
+    console.error('Error loading blog:', error);
   } finally {
     loading.value = false;
   }
 };
+
+const fetchCategories = async () => {
+  try {
+    const { data } = await api.get<ApiResponse<CategoryData>>('/api/blog/categories');
+    categories.value = data.data?.categories
+    console.log("Fetch Categoria: ", categories.value)
+  } catch (error: any) {
+    console.log('error: ', error)
+  }
+}
 
 const buildFormData = (): FormData => {
   const formData = new FormData()
@@ -120,7 +137,7 @@ const buildFormData = (): FormData => {
   }
 
   formData.append('content', form.content)
-  formData.append('category', form.category)
+  formData.append('category', String(form.category))
 
   return formData
 }
@@ -149,5 +166,6 @@ const saveChanges = async () => {
 
 onMounted(() => {
   loadBlog();
+  fetchCategories();
 });
 </script>

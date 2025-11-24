@@ -36,13 +36,13 @@
   </div>
 
   <Modal :show="isOpen" max-width="md" @close="closeModal">
-    <div class="bg-white rounded-lg overflow-hidden">
+    <div class="bg-white rounded-lg dark:bg-gray-800 overflow-hidden">
 
-      <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
-        <h2 class="text-xl font-semibold text-gray-800">
+      <div class="px-6 py-4 border-gray-200 bg-gray-200 dark:bg-gray-800">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white">
           {{ $t('Dashboard.Blog.Create.Title') }}
         </h2>
-        <p class="text-sm text-gray-600 mt-1">
+        <p class="text-sm text-gray-600 mt-1 dark:text-white">
           {{ $t('Dashboard.Blog.Create.Subtitle') }}
         </p>
       </div>
@@ -52,13 +52,12 @@
           <InputLabel for="title" :value="$t('Dashboard.Blog.Create.Title')"
             class="text-sm font-medium text-gray-700" />
           <TextInput id="title" v-model="form.title"
-            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             :placeholder="$t('Dashboard.Blog.Create.Placeholder')" />
-          <p class="text-xs text-gray-500 mt-1">{{ $t('Dashboard.Blog.Create.Optional') }}</p>
+          <p class="text-xs text-gray-500 mt-1 dark:text-white">{{ $t('Dashboard.Blog.Create.Optional') }}</p>
         </div>
       </div>
 
-      <div class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-end gap-3">
+      <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-950 flex justify-end gap-3">
         <SecondaryButton @click="closeModal"
           class="px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition-colors duration-200">
           {{ $t('Dashboard.Blog.Create.Cancel') }}
@@ -98,8 +97,6 @@ const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 
-const page = Number(route.query.page) || 1
-
 const isOpen = ref(false)
 
 const apiResponse = ref<Default<Data> | null>(null)
@@ -126,12 +123,14 @@ const confirmCreate = async () => {
   creating.value = true
   try {
     const formData = buildFormData()
+    const page = Number(route.query.page) || 1
 
     await api.post('/api/blog', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
 
     showNotification('success', t('Dashboard.Blog.Validations.Success.Create'), 3000);
+
     handlePageChange(page)
 
     closeModal()
@@ -177,6 +176,7 @@ let initialized = false;
 
 onMounted(() => {
   if (!initialized) {
+    const page = Number(route.query.page) || 1
     fetchBlogs(page);
     initialized = true;
   }
@@ -185,7 +185,8 @@ onMounted(() => {
 watch(
   () => route.params.locale,
   () => {
-    fetchBlogs()
+    const page = Number(route.query.page) || 1
+    fetchBlogs(page)
   }
 )
 </script>

@@ -12,11 +12,18 @@
 
       <div>
         <InputLabel for="category" class="mb-1" :value="$t('Dashboard.Blog.Edit.Category')" />
-        <Select class=" block w-full md:w-[400px]"
-          v-model="modelValue.category"
-          :options="categories"
+
+        <Select
+          class="block w-full md:w-[400px]"
+          :model-value="Number(modelValue.category)"
+          @update:model-value="modelValue.category = Number($event)"
+          :options="categoryOptions"
           default="Categorias"
-          />
+        />
+
+        <p class="mt-2 text-xs text-gray-500">
+          Categoría seleccionada: {{ modelValue.category }} (tipo: {{ typeof modelValue.category }})
+        </p>
       </div>
     </div>
   </div>
@@ -26,21 +33,22 @@
 import ImagesPreview from '@/components/ui/ImagesPreview.vue';
 import InputLabel from '@/components/ui/InputLabel.vue';
 import TextInput from '@/components/ui/TextInput.vue';
+import type { BlogForm, Category } from '../types';
 import Select from '@/components/ui/Select.vue';
-import type { Blog } from '../types';
-import { useI18n } from 'vue-i18n';
+import { computed } from 'vue';
 
-const { t } = useI18n();
+const props = defineProps<{
+  categories: Category[] | null
+}>()
 
-const modelValue = defineModel<Blog>({
+const modelValue = defineModel<BlogForm>({
   required: true
 })
 
-const categories = [
-  { value: "facial", label: t('Dashboard.Blog.Edit.Categories.Facial') },
-  { value: "bodily", label: t('Dashboard.Blog.Edit.Categories.Bodily') },
-  { value: "non-surgical", label: t('Dashboard.Blog.Edit.Categories.NonSurgical') },
-  { value: "general", label: t('Dashboard.Blog.Edit.Categories.General') }
-]
-
+const categoryOptions = computed(() => {
+  return props.categories?.map(cat => ({
+    value: cat.id,
+    label: cat.title
+  })) ?? []
+})
 </script>

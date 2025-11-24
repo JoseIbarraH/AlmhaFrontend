@@ -92,7 +92,8 @@ const handlePageChange = (page: number) => {
 
 watch(() => route.params.locale,
   () => {
-    fetchServices()
+    const page = Number(route.query.page) || 1
+    fetchServices(page)
   }
 )
 

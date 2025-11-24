@@ -129,13 +129,7 @@
         "SaveChanges": "Guardar Cambios",
         "Saving": "Guardando...",
         "TitlePost": "Titulo del post",
-        "Category": "Categoria",
-        "Categories": {
-          "General": "General",
-          "Facial": "Facial",
-          "NonSurgical": "No Quirúrgico",
-          "Bodily": "Corporal"
-        }
+        "Category": "Categoria"
       },
       "Validations": {
         "Success": {
@@ -490,5 +484,9 @@
         "RolePermission": "Roles y Permisos"
       }
     }
+  },
+  "NotFound": {
+    "NotFound": "Página no encontrada",
+    "Subtitle": "La página que buscas parece haber desaparecido en el espacio digital. No te preocupes, te ayudamos a encontrar el camino de vuelta."
   }
 }
