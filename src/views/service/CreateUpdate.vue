@@ -1,10 +1,10 @@
 <template>
-  <section class="p-6 space-y-6">
+  <section class="p-6 space-y-6 dark:bg-gray-950">
     <header
-      class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4 bg-white p-6 shadow-sm rounded-lg">
+      class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 w-full">
 
       <!-- Título -->
-      <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left">
+      <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left dark:text-gray-100">
         {{ editing
           ? $t('Dashboard.Service.CreateUpdate.UpdateTitle')
           : $t('Dashboard.Service.CreateUpdate.CreateTitle')
@@ -29,24 +29,24 @@
 
     <div class="space-y-6">
       <div class="grid gap-4 grid-cols-1 md:grid-cols-6 lg:grid-cols-10 auto-rows-min">
-        <div class="bg-white p-6 rounded-lg shadow-md md:col-span-3 md:row-span-6 md:row-start-1">
+        <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md md:col-span-3 md:row-span-6 md:row-start-1">
           <MainInfoService :model-value="form" />
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-7 md:row-span-3 md:col-start-4">
+        <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-7 md:row-span-3 md:col-start-4">
           <SurgeryPhases :model-value="form" />
         </div>
 
         <div
-          class="bg-white p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-7 md:row-span-3 md:col-start-4 md:row-start-4">
+          class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-7 md:row-span-3 md:col-start-4 md:row-start-4">
           <SampleImages :model-value="form" />
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-5 md:row-span-3 md:row-start-7">
+        <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-5 md:row-span-3 md:row-start-7">
           <ResultsGallery :model-value="form" />
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-5 md:row-span-3 md:row-start-7">
+        <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-5 md:row-span-3 md:row-start-7">
           <FrequentlyAskedQuestions :model-value="form" />
         </div>
       </div>

@@ -1,10 +1,12 @@
 <template>
-  <h3 class="text-lg font-semibold leading-tight text-gray-800">
+  <h3 class="text-lg font-semibold leading-tight text-gray-800 dark:text-white">
     {{ $t('Dashboard.Service.CreateUpdate.MainInfo.Information') }}
   </h3>
   <div class="mt-4">
     <InputLabel for="procedure-title" :value="$t('Dashboard.Service.CreateUpdate.MainInfo.Title')" />
-    <TextInput id="procedure-title" v-model="modelValue.title" type="text" class="w-full border rounded px-2 py-1"
+    <TextInput id="procedure-title" v-model="modelValue.title" type="text"
+      class="border rounded-md py-2 px-4 shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 bg-white w-full
+      text-gray-900 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
       :placeholder="$t('Dashboard.Service.CreateUpdate.MainInfo.TitlePlaceholder')" />
   </div>
 
