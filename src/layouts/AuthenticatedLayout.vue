@@ -41,18 +41,18 @@ const { isDark } = useDarkMode()
               <NavLink :href="{ name: 'dashboard.home' }" :active="current({ name: 'dashboard.home' })">
                 {{ $t('Dashboard.Navbar.Dashboard') }}
               </NavLink>
-              <NavLink :href="{ name: 'dashboard.design' }" :active="current({ name: 'dashboard.design' })">
+              <NavLink v-if="$can('view_design')" :href="{ name: 'dashboard.design' }" :active="current({ name: 'dashboard.design' })">
                 {{ $t('Dashboard.Navbar.Design') }}
               </NavLink>
-              <NavLink :href="{ name: 'dashboard.team' }"
+              <NavLink v-if="$can('view_teams')" :href="{ name: 'dashboard.team' }"
                 :active="current({ name: 'dashboard.team' }) || current({ name: 'dashboard.team.create' }) || current({ name: 'dashboard.team.edit' })">
                 {{ $t('Dashboard.Navbar.Team') }}
               </NavLink>
-              <NavLink :href="{ name: 'dashboard.blog' }"
+              <NavLink v-if="$can('view_blogs')" :href="{ name: 'dashboard.blog' }"
                 :active="current({ name: 'dashboard.blog' }) || current({ name: 'dashboard.blog.edit' })">
                 {{ $t('Dashboard.Navbar.Blog') }}
               </NavLink>
-              <NavLink :href="{ name: 'dashboard.service' }"
+              <NavLink v-if="$can('view_services')" :href="{ name: 'dashboard.service' }"
                 :active="current({ name: 'dashboard.service' }) || current({ name: 'dashboard.service.create' }) || current({ name: 'dashboard.service.edit' })">
                 {{ $t('Dashboard.Navbar.Service') }}
               </NavLink>
@@ -106,16 +106,16 @@ const { isDark } = useDarkMode()
           <ResponsiveNavLink :href="{ name: 'dashboard.home' }" :active="current({ name: 'dashboard.home' })">
             {{ $t('Dashboard.Navbar.Dashboard') }}
           </ResponsiveNavLink>
-          <ResponsiveNavLink :href="{ name: 'dashboard.design' }" :active="current({ name: 'dashboard.design' })">
+          <ResponsiveNavLink v-if="$can('view_design')" :href="{ name: 'dashboard.design' }" :active="current({ name: 'dashboard.design' })">
             {{ $t('Dashboard.Navbar.Design') }}
           </ResponsiveNavLink>
-          <ResponsiveNavLink :href="{ name: 'dashboard.team' }" :active="current({ name: 'dashboard.team' })">
+          <ResponsiveNavLink v-if="$can('view_teams')" :href="{ name: 'dashboard.team' }" :active="current({ name: 'dashboard.team' })">
             {{ $t('Dashboard.Navbar.Team') }}
           </ResponsiveNavLink>
-          <ResponsiveNavLink :href="{ name: 'dashboard.blog' }" :active="current({ name: 'dashboard.blog' })">
+          <ResponsiveNavLink v-if="$can('view_blogs')" :href="{ name: 'dashboard.blog' }" :active="current({ name: 'dashboard.blog' })">
             {{ $t('Dashboard.Navbar.Blog') }}
           </ResponsiveNavLink>
-          <ResponsiveNavLink :href="{ name: 'dashboard.service' }" :active="current({ name: 'dashboard.service' })">
+          <ResponsiveNavLink v-if="$can('view_services')" :href="{ name: 'dashboard.service' }" :active="current({ name: 'dashboard.service' })">
             {{ $t('Dashboard.Navbar.Service') }}
           </ResponsiveNavLink>
         </div>

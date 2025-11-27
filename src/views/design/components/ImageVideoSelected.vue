@@ -30,6 +30,7 @@
           type="button"
           @click="imageVideo[0] && emit('edit_item', imageVideo[0])"
           title="Editar"
+          :disabled="!$can('update_design')"
           class="p-2 bg-white/95 backdrop-blur-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50
                  rounded-lg shadow-lg transition-all hover:scale-110
                  dark:bg-gray-800/95 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-700"
@@ -42,6 +43,7 @@
           type="button"
           @click="emit('delete_item', imageVideo[0]?.id)"
           title="Eliminar"
+          :disabled="!$can('update_design')"
           class="p-2 bg-white/95 backdrop-blur-sm text-gray-700 hover:text-red-600 hover:bg-red-50
                  rounded-lg shadow-lg transition-all hover:scale-110
                  dark:bg-gray-800/95 dark:text-gray-300 dark:hover:text-red-400 dark:hover:bg-gray-700"

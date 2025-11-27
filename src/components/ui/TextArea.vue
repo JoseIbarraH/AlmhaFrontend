@@ -23,8 +23,7 @@ defineExpose({
     'w-full rounded-lg shadow-sm p-3 transition duration-150 ease-in-out',
 
     // Modo Claro (Light Mode)
-    'border text-gray-900 bg-white',
-    'focus:ring-blue-500 focus:border-blue-500',
+    'text-gray-900 bg-white border border-gray-300',
 
     // Modo Oscuro (Dark Mode)
     'dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100',

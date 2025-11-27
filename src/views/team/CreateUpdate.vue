@@ -23,7 +23,7 @@
 
         <!-- Botón de Guardar/Crear -->
         <CreateButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center"
-          :disabled="loading">
+          :disabled="loading || (!$can('create_teams') && !$can('update_teams'))">
           {{ editing
             ? $t('Dashboard.Team.CreateUpdate.UpdateButton')
             : $t('Dashboard.Team.CreateUpdate.CreateButton')
@@ -70,9 +70,10 @@ import type { TeamMember } from './types';
 import { useRouter } from 'vue-router';
 import { api } from '@/plugins/api';
 import { useI18n } from 'vue-i18n';
+import { useAuthStore } from '@/stores/authStore';
 
+const auth = useAuthStore()
 const { t } = useI18n()
-
 const router = useRouter()
 
 const props = defineProps<{ id?: string }>()
@@ -190,11 +191,8 @@ const saveChanges = async () => {
   try {
     const formData = buildFormData()
 
-    /* for (const [key, val] of formData.entries()) {
-      console.log(`${key}:`, val)
-    } */
-
     if (editing.value === false) {
+      if (!auth.can('create_teams')) return
       await api.post('/api/team_member', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
@@ -203,6 +201,7 @@ const saveChanges = async () => {
     }
 
     if (editing.value === true) {
+      if (!auth.can('create_teams')) return
       await api.post(`/api/team_member/${form.id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
@@ -228,6 +227,7 @@ watch(form, () => {
 
 onMounted(async () => {
   if (props.id) {
+    if (!auth.can('update_teams')) return
     editing.value = true
     const { data } = await api.get(`/api/team_member/${props.id}`)
     TeamMemberResponse.value = data.data

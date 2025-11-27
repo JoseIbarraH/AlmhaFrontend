@@ -49,6 +49,9 @@ import ImageVideo from '../components/ImageVideo.vue'
 import type { MediaItem, Setting } from '../types'
 import { api } from '@/plugins/api'
 import { showNotification } from '@/components/composables/useNotification'
+import { useAuthStore } from '@/stores/authStore'
+
+const auth = useAuthStore()
 
 const props = withDefaults(defineProps<{
   imageVideoSetting?: Setting
@@ -101,6 +104,7 @@ const fetchUpdateState = async (previousState: ChooseState) => {
 }
 
 const handleToggle = (mode: 'imageVideo' | 'carousel') => {
+  if (!auth.can('update_design')) return
   const previousState: ChooseState = { ...chooseCarouselImage.value }
 
   if (mode === 'imageVideo') {

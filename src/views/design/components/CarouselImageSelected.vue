@@ -7,7 +7,7 @@
       <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">
         {{ $t('Dashboard.Design.ChooseCarouselImage.NewImage') }}
       </p>
-      <button type="button" @click="emit('create_item')"
+      <button type="button" @click="emit('create_item')" :disabled="!$can('update_design')"
         class="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm">
         <LucidePlus class="h-5 w-5" />
         {{ $t('Dashboard.Design.ChooseCarouselImage.FirstImage') }}
@@ -45,7 +45,7 @@
                      rounded-lg shadow-lg transition-all hover:scale-110
                      dark:bg-gray-800/95 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-700
                      focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              aria-label="Editar imagen">
+              :disabled="!$can('update_design')" aria-label="Editar imagen">
               <LucideSquarePen class="w-4 h-4" />
             </button>
 
@@ -54,7 +54,7 @@
                      rounded-lg shadow-lg transition-all hover:scale-110
                      dark:bg-gray-800/95 dark:text-gray-300 dark:hover:text-red-400 dark:hover:bg-gray-700
                      focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-              aria-label="Eliminar imagen">
+              :disabled="!$can('update_design')" aria-label="Eliminar imagen">
               <LucideTrash2 class="w-4 h-4" />
             </button>
           </div>
@@ -69,7 +69,7 @@
 
       <!-- Botón agregar más imágenes -->
       <div class="flex justify-center pt-4 border-t border-gray-200 dark:border-gray-700">
-        <button type="button" @click="emit('create_item')" class="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-blue-500 text-blue-600
+        <button type="button" @click="emit('create_item')" :disabled="!$can('update_design')" class="inline-flex items-center gap-2 px-5 py-2.5 border-2 border-blue-500 text-blue-600
                  rounded-lg hover:bg-blue-50 hover:border-blue-600 transition-all
                  dark:text-blue-400 dark:border-blue-500 dark:hover:bg-blue-900/20
                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">

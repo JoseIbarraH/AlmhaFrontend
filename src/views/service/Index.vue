@@ -6,11 +6,11 @@
   <div v-else>
     <section class="p-6 space-y-6 dark:bg-gray-950">
       <header class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 w-full">
-        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100"> <!-- Texto claro en dark mode -->
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">
           {{ $t('Dashboard.Service.Title') }}
         </h2>
 
-        <CreateButton @click="createService" class="flex items-center justify-center w-full sm:w-auto mt-4 sm:mt-0">
+        <CreateButton @click="createService" :disabled="!$can('create_services')" class="flex items-center justify-center w-full sm:w-auto mt-4 sm:mt-0">
           {{ $t('Dashboard.Service.CreateButton') }}
         </CreateButton>
       </header>

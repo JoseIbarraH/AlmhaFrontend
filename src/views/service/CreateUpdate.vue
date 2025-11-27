@@ -18,7 +18,7 @@
         </BackButton>
 
         <CreateButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center"
-          :disabled="loading">
+          :disabled="loading || (!$can('create_services') && !$can('update_services'))">
           {{ editing
             ? $t('Dashboard.Service.CreateUpdate.UpdateButton')
             : $t('Dashboard.Service.CreateUpdate.CreateButton')
@@ -68,8 +68,10 @@ import { useRouter } from 'vue-router';
 import type { Service } from './types';
 import { api } from '@/plugins/api';
 import { useI18n } from 'vue-i18n';
+import { useAuthStore } from '@/stores/authStore';
 
 const { t } = useI18n()
+const auth = useAuthStore()
 
 const props = defineProps<{ id?: string }>()
 
@@ -265,6 +267,7 @@ const saveChanges = async () => {
     }
 
     if (editing.value === false) {
+      if (!auth.can('create_services')) return
       await api.post('/api/service', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
@@ -273,6 +276,7 @@ const saveChanges = async () => {
     }
 
     if (editing.value === true) {
+      if (!auth.can('update_services')) return
       await api.post(`/api/service/${form.id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
@@ -307,6 +311,7 @@ watch(form, (val) => {
 
 onMounted(async () => {
   if (props.id) {
+    if (!auth.can('show_services')) return
     editing.value = true
     const { data } = await api.get(`/api/service/${props.id}`)
     ServiceResponse.value = data.data

@@ -3,32 +3,25 @@ import type { RouteRecordRaw, NavigationGuardNext, RouteLocationNormalized } fro
 import { h } from 'vue'
 import { RouterView } from 'vue-router'
 import i18n, { SUPPORTED_LOCALES, DEFAULT_LOCALE, setI18nLocale, getI18nLocale, type Locale } from '@/plugins/i18n/index'
-
 import AuthenticatedLayout from "@/layouts/AuthenticatedLayout.vue"
 import GuestLayout from '@/layouts/GuestLayout.vue'
 import SettingsLayout from '@/layouts/SettingsLayout.vue'
-
 import NotFound from "@/views/errors/NotFound.vue"
-
 import DashboardBlog from "@/views/blog/Index.vue"
 import DashboardBlogEdit from "@/views/blog/Edit.vue"
-
 import DashboardHome from "@/views/home/Index.vue"
 import DashboardDesign from "@/views/design/Index.vue"
-
 import DashboardService from "@/views/service/Index.vue"
 import DashboardServiceCreateUpdate from "@/views/service/CreateUpdate.vue"
-
 import DashboardTeam from "@/views/team/Index.vue"
 import DashboardTeamCreate from "@/views/team/CreateUpdate.vue"
-
 import SettingProfile from "@/views/setting/profile/Index.vue"
 import SettingUser from "@/views/setting/user/Index.vue"
 import SettingRole from "@/views/setting/role/Index.vue"
-
 import AuthLogin from "@/views/auth/Login.vue"
+import { useAuthStore } from '@/stores/authStore'
+import { pinia } from '@/main'
 
-import { api } from '@/plugins/api'
 
 // ⚙️ Asegúrate que axios tenga withCredentials=true
 
@@ -74,8 +67,9 @@ const routes: RouteRecordRaw[] = [
         setI18nLocale(locale)
       }
 
-      try {
-        await api.get("/api/user");
+      /* try {
+        const auth = useAuthStore(pinia)
+        await auth.fetchUser()
 
         if (to.path === `/${locale}` || to.name === 'auth.login') {
           return next({ name: 'dashboard.home', params: { locale }, replace: true });
@@ -88,7 +82,9 @@ const routes: RouteRecordRaw[] = [
         }
 
         return next({ name: 'auth.login', params: { locale }, replace: true });
-      }
+      } */
+
+      next()
     },
     children: [
       {
@@ -111,39 +107,63 @@ const routes: RouteRecordRaw[] = [
             path: "",
             name: "dashboard.home",
             component: DashboardHome,
-            meta: { title: 'Dashboard' }
+            meta: {
+              title: 'Dashboard',
+              requiresAuth: true,
+              permission: 'view_dashboard'
+            }
           },
           {
             path: "design",
             name: "dashboard.design",
             component: DashboardDesign,
-            meta: { title: 'Design' }
+            meta: {
+              title: 'Design',
+              requiresAuth: true,
+              permission: 'view_design'
+            }
           },
           {
             path: "service",
             name: "dashboard.service",
             component: DashboardService,
-            meta: { title: 'Service' }
+            meta: {
+              title: 'Service',
+              requiresAuth: true,
+              permission: 'view_services'
+            }
           },
           {
             path: "service/create",
             name: "dashboard.service.create",
             component: DashboardServiceCreateUpdate,
             props: true,
-            meta: { title: 'Create Service' }
+            meta: {
+              title: 'Create Service',
+              requiresAuth: true,
+              permission: 'create_services'
+            }
           },
           {
             path: "service/:id/edit",
             name: "dashboard.service.edit",
             component: DashboardServiceCreateUpdate,
             props: true,
-            meta: { title: 'Edit Service' }
+            meta: {
+              title: 'Edit Service',
+              requiresAuth: true,
+              permission: 'update_services'
+            }
           },
           {
             path: "blog",
             name: "dashboard.blog",
             component: DashboardBlog,
-            meta: { title: 'Blog' }
+            meta: {
+              title: 'Blog',
+              requiresAuth: true,
+              permission: 'view_blogs'
+            }
           },
           {
             path: "blog/:id/edit",
@@ -156,7 +176,11 @@ const routes: RouteRecordRaw[] = [
             path: "team",
             name: "dashboard.team",
             component: DashboardTeam,
-            meta: { title: 'Team' }
+            meta: {
+              title: 'Team',
+              requiresAuth: true,
+              permission: 'view_teams'
+            }
           },
           {
             path: "team/create",
@@ -176,25 +200,36 @@ const routes: RouteRecordRaw[] = [
             path: "setting",
             name: "dashboard.setting",
             component: SettingsLayout,
+            redirect: { name: "setting.profile" },
             meta: { title: 'Settings' },
             children: [
               {
                 path: "profile",
                 name: "setting.profile",
                 component: SettingProfile,
-                meta: { title: 'Profile' }
+                meta: {
+                  title: 'Profile'
+                }
               },
               {
                 path: "user",
                 name: "setting.user",
                 component: SettingUser,
-                meta: { title: 'User' }
+                meta: {
+                  title: 'User',
+                  requiresAuth: true,
+                  permission: 'view_users'
+                }
               },
               {
                 path: "role",
                 name: "setting.role",
                 component: SettingRole,
-                meta: { title: 'Role' }
+                meta: {
+                  title: 'Role',
+                  requiresAuth: true,
+                  permission: 'view_roles'
+                }
               }
             ]
           },
@@ -222,21 +257,52 @@ const router = createRouter({
 })
 
 // Guard global: redirigir trailing slashes
-router.beforeEach((to, __from, next) => {
+router.beforeEach(async (to, __from, next) => {
+  const auth = useAuthStore(pinia)
   const path = to.path
 
-  // Redirigir si termina con / y no es la raíz
+  // --- 1. Normalizar URLs evitando / al final ---
   if (path !== '/' && path.endsWith('/')) {
-    next({
+    return next({
       path: path.slice(0, -1),
       query: to.query,
       hash: to.hash,
-      replace: true
+      replace: true,
     })
-  } else {
-    next()
   }
+
+  if (!auth.user) {
+    try {
+      await auth.fetchUser()
+    } catch {
+      if (to.meta.requiresAuth) {
+        return next({ name: 'auth.login', params: { locale: to.params.locale } })
+      }
+    }
+  }
+
+  // --- 3. Validar autenticación ---
+  if (to.meta.requiresAuth && !auth.isAuthenticated) {
+    return next({ name: 'auth.login', params: { locale: to.params.locale } })
+  }
+
+  // --- 4. Validar un solo permiso ---
+  if (to.meta.permission && !auth.can(to.meta.permission)) {
+    return next({ name: 'dashboard.home', params: { locale: to.params.locale } })
+  }
+
+  // --- 5. Validar lista de permisos (OR) ---
+  if (to.meta.permissions) {
+    const allowed = to.meta.permissions.some((p) => auth.can(p))
+    if (!allowed) {
+      return next({ name: 'dashboard.home', params: { locale: to.params.locale } })
+    }
+  }
+
+  // --- 6. Continuar ---
+  next()
 })
+
 
 // Guard global: cambia título dinámicamente
 router.afterEach((to) => {

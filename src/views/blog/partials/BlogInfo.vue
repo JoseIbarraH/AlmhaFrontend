@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col h-full sm:flex-row w-full p-8 rounded-2xl dark:bg-gray-800">
     <div class="relative w-full sm:w-80">
-      <ImagesPreview v-model="modelValue.image" class="max-h-48" />
+      <ImagesPreview v-model="modelValue.image" class="max-h-48" :disabled="$can('update_blogs')"/>
     </div>
 
     <div class="px-2 py-8 md:p-0 md:pl-4 w-full">

@@ -1,7 +1,14 @@
 <template>
-  <h3 class="text-lg font-semibold leading-tight text-gray-800 dark:text-white mb-3">
-    {{ $t('Dashboard.Service.CreateUpdate.Phases.Title') }}
-  </h3>
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
+        <LucideClipboardList class="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+      </div>
+      <h3 class="text-lg font-semibold leading-tight text-gray-800 dark:text-white mb-3">
+        {{ $t('Dashboard.Service.CreateUpdate.Phases.Title') }}
+      </h3>
+    </div>
+  </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3">
     <!-- 🩹 Recuperación -->
@@ -13,7 +20,7 @@
       <!-- Contenedor con scroll -->
       <div class="overflow-y-auto overflow-x-hidden max-h-[300px] pt-2 px-1">
         <div v-for="(item, index) in modelValue.surgery_phases.recovery_time" :key="index"
-          class="grid grid-cols-1 group gap-4 mb-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-white dark:border-gray-900">
+          class="grid grid-cols-1 group gap-4 mb-3 rounded-lg bg-white dark:bg-gray-900 border border-white dark:border-gray-900">
           <div class="flex gap-2 items-center">
             <TextInput :modelValue="item" @update:modelValue="(val) => updateRecoveryTime(index, val)"
               class="border rounded-md py-2 px-4 shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 bg-white w-full
@@ -43,7 +50,7 @@
 
       <div class="overflow-y-auto overflow-x-hidden max-h-[300px] pt-2 px-1">
         <div v-for="(item, index) in modelValue.surgery_phases.preoperative_recommendations" :key="index"
-          class="relative group grid grid-cols-1 gap-4 mb-3 rounded-lg bg-gray-50 border dark:bg-gray-900 border-gray-200 dark:border-gray-900">
+          class="grid grid-cols-1 group gap-4 mb-3 rounded-lg bg-white dark:bg-gray-900 border border-white dark:border-gray-900">
           <div class="flex gap-2 items-center">
             <TextInput :modelValue="item" @update:modelValue="(val) => updatePreoperativeRecommendation(index, val)"
               class="border rounded-md py-2 px-4 shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 bg-white w-full
@@ -73,7 +80,7 @@
 
       <div class="overflow-y-auto overflow-x-hidden max-h-[300px] pt-2 px-1">
         <div v-for="(item, index) in modelValue.surgery_phases.postoperative_recommendations" :key="index"
-          class="relative group grid grid-cols-1 gap-4 mb-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-900">
+          class="grid grid-cols-1 group gap-4 mb-3 rounded-lg bg-white dark:bg-gray-900 border border-white dark:border-gray-900">
           <div class="flex gap-2 items-center">
             <TextInput :modelValue="item" @update:modelValue="(val) => updatePostoperativeRecommendation(index, val)"
               class="border rounded-md py-2 px-4 shadow-sm border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 bg-white w-full
@@ -101,7 +108,7 @@
 <script setup lang="ts">
 import TextInput from '@/components/ui/TextInput.vue'
 import type { Service } from '../types'
-import { LucideX } from 'lucide-vue-next'
+import { LucideClipboardList, LucideX } from 'lucide-vue-next'
 
 const modelValue = defineModel<Service>({ required: true })
 

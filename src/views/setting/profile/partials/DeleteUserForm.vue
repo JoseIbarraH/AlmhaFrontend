@@ -62,7 +62,7 @@ const closeModal = () => {
       </p>
     </header>
 
-    <DangerButton @click="confirmUserDeletion">{{ $t('Dashboard.Setting.Profile.DeleteAccount.Title') }}</DangerButton>
+    <DangerButton @click="confirmUserDeletion" :disabled="!$can('update_profile')">{{ $t('Dashboard.Setting.Profile.DeleteAccount.Title') }}</DangerButton>
 
     <Modal :show="confirmingUserDeletion" @close="closeModal">
       <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700">

@@ -5,9 +5,10 @@ import router from './router'
 import App from './App.vue'
 import i18n from '@/plugins/i18n'
 import './style.css'
+import PermissionsPlugin from '@/plugins/permissions'
 
 const app = createApp(App)
-const pinia = createPinia()
+export const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
 watch(
@@ -20,6 +21,8 @@ watch(
 
 app.use(pinia)
 app.use(router)
+app.use(PermissionsPlugin)
+
 
 app.use(i18n)
 

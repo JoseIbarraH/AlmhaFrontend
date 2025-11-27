@@ -129,14 +129,11 @@ onMounted(() => {
     <form @submit.prevent="SaveChanges" class="mt-6 space-y-4">
       <!-- Contraseña actual -->
       <div>
-        <InputLabel for="current_password" class="mb-1" :value="$t('Dashboard.Setting.Profile.PasswordUpdate.CurrentPassword')" />
-        <TextInput
-          id="current_password"
-          v-model="form.current_password"
-          type="password"
-          autocomplete="current-password"
+        <InputLabel for="current_password" class="mb-1"
+          :value="$t('Dashboard.Setting.Profile.PasswordUpdate.CurrentPassword')" />
+        <TextInput id="current_password" v-model="form.current_password" type="password" autocomplete="current-password"
           :class="{ 'border-red-500 focus:border-red-500': errors.current_password }"
-        />
+          :disabled="!$can('update_profile')" />
         <transition name="fade">
           <p v-if="errors.current_password" class="text-red-500 text-sm mt-1">{{ errors.current_password }}</p>
         </transition>
@@ -145,12 +142,8 @@ onMounted(() => {
       <!-- Nueva contraseña -->
       <div>
         <InputLabel for="password" class="mb-1" :value="$t('Dashboard.Setting.Profile.PasswordUpdate.NewPassword')" />
-        <TextInput
-          id="password"
-          v-model="form.password"
-          type="password"
-          autocomplete="new-password"
-        />
+        <TextInput id="password" v-model="form.password" type="password" autocomplete="new-password"
+          :disabled="!$can('update_profile')" />
         <transition name="fade">
           <p v-if="errors.password" class="text-red-500 text-sm mt-1">{{ errors.password }}</p>
         </transition>
@@ -158,21 +151,19 @@ onMounted(() => {
 
       <!-- Confirmar contraseña -->
       <div>
-        <InputLabel for="password_confirmation" class="mb-1" :value="$t('Dashboard.Setting.Profile.PasswordUpdate.ConfirmPassword')" />
-        <TextInput
-          id="password_confirmation"
-          v-model="form.password_confirmation"
-          type="password"
-          autocomplete="new-password"
-        />
+        <InputLabel for="password_confirmation" class="mb-1"
+          :value="$t('Dashboard.Setting.Profile.PasswordUpdate.ConfirmPassword')" />
+        <TextInput id="password_confirmation" v-model="form.password_confirmation" type="password"
+          autocomplete="new-password" :disabled="!$can('update_profile')" />
         <transition name="fade">
-          <p v-if="errors.password_confirmation" class="text-red-500 text-sm mt-1">{{ errors.password_confirmation }}</p>
+          <p v-if="errors.password_confirmation" class="text-red-500 text-sm mt-1">{{ errors.password_confirmation }}
+          </p>
         </transition>
       </div>
 
       <!-- Botón -->
       <div class="flex items-center gap-4">
-        <PrimaryButton :disabled="loading || !changed">
+        <PrimaryButton :disabled="loading || !changed || !$can('update_profile')">
           {{ $t('Dashboard.Setting.Profile.Save') }}
         </PrimaryButton>
       </div>

@@ -87,7 +87,7 @@
             Agrega preguntas frecuentes para ayudar a tus clientes a encontrar respuestas rápidamente
           </p>
           <button type="button" @click="addFrequentlyAskedQuestion"
-            class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+             class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-105">
             <LucidePlus class="w-4 h-4" />
             Agregar primera pregunta
           </button>
@@ -117,7 +117,7 @@ import InputLabel from '@/components/ui/InputLabel.vue';
 import TextInput from '@/components/ui/TextInput.vue';
 import TextArea from '@/components/ui/TextArea.vue';
 import type { Service } from '../types';
-import { LucideCircleHelp, LucideMessageSquareText, LucidePlus, LucideX } from 'lucide-vue-next';
+import { LucideCircleHelp, LucideInfo, LucideMessageSquareText, LucidePlus, LucideX } from 'lucide-vue-next';
 
 const modelValue = defineModel<Service>({
   required: true

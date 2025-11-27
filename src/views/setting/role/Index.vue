@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import type { Default, PaginatedResponse, ApiResponse } from '@/types/apiResponse';
 import { showNotification } from '@/components/composables/useNotification';
-import type { Data, Permission, PermissionData, EditRole } from './types';
+import type { Data, PermissionGroup, PermissionData, EditRole } from './types';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import Pagination from '@/components/app/Pagination.vue';
 import RoleTable from './partials/RoleTable.vue';
@@ -39,7 +39,7 @@ const isOpen = ref(false)
 const initialLoading = ref(true)
 const loading = ref(true)
 const apiResponse = ref<Default<Data> | null>(null)
-const permissions = ref<Permission[]>([])
+const permissions = ref<PermissionGroup | null>(null)
 const paginate = ref<PaginatedResponse<Data> | null>(null)
 
 const edit = ref<EditRole | null>(null)

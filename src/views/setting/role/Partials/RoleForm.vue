@@ -34,7 +34,7 @@
                   <div>
                     <InputLabel for="code" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                       value="Código (Opcional)" />
-                    <TextInput id="code" v-model="form.code" required placeholder="Ej: ADMIN" />
+                    <TextInput id="code" v-model="form.code" placeholder="Ej: ADMIN" :disabled="editing"/>
                   </div>
                 </div>
 
@@ -54,7 +54,6 @@
               </div>
             </div>
           </div>
-
           <div class="lg:col-span-1">
             <div
               class="bg-gray-50 dark:bg-gray-900/30 rounded-lg p-5 border border-gray-200 dark:border-gray-700 h-full">
@@ -62,25 +61,39 @@
                 <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
                   Permisos
                 </h3>
+
                 <span
                   class="text-xs text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded-full">
                   {{ form.permits.length }} seleccionados
                 </span>
               </div>
 
-              <div class="space-y-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-                <label v-for="permission in permissions" :key="permission.id"
-                  class="flex items-start gap-3 p-3 rounded-md hover:bg-white dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                  <input type="checkbox" :value="permission.code" v-model="form.permits"
-                    class="mt-0.5 rounded border-gray-300 dark:border-gray-600 text-red-600 focus:ring-red-500 focus:ring-offset-0" />
-                  <span
-                    class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
-                    {{ permission.title }}
-                  </span>
-                </label>
+              <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+
+                <!-- RECORRER GRUPOS -->
+                <div v-for="(items, group) in permissions" :key="group"
+                  class="border-b border-gray-200 dark:border-gray-700 pb-3">
+                  <!-- Título del grupo -->
+                  <h4 class="text-xs font-bold uppercase text-gray-600 dark:text-gray-400 mb-2">
+                    {{ group }}
+                  </h4>
+
+                  <!-- Lista de permisos del grupo -->
+                  <label v-for="permission in items" :key="permission.id"
+                    class="flex items-start gap-3 p-2 rounded-md hover:bg-white dark:hover:bg-gray-800 transition-colors cursor-pointer group">
+                    <input type="checkbox" :value="permission.code" v-model="form.permits" class="mt-0.5 rounded border-gray-300 dark:border-gray-600 text-red-600
+                   focus:ring-red-500 focus:ring-offset-0" />
+                    <span
+                      class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white">
+                      {{ permission.title }}
+                    </span>
+                  </label>
+                </div>
+
               </div>
             </div>
           </div>
+
         </div>
 
         <div class="flex justify-end gap-3 pt-6 mt-6 border-t dark:border-gray-700">
@@ -101,19 +114,21 @@
 import PrimaryButton from '@/components/ui/PrimaryButton.vue'
 import InputLabel from '@/components/ui/InputLabel.vue'
 import TextInput from '@/components/ui/TextInput.vue'
-import type { EditData, Permission } from '../types'
+import type { EditData, PermissionGroup } from '../types'
 import TextArea from '@/components/ui/TextArea.vue'
 import Select from '@/components/ui/Select.vue'
 import { reactive, watch } from 'vue'
 import Modal from '@/components/app/Modal.vue'
 import { api } from '@/plugins/api'
+import { useAuthStore } from '@/stores/authStore'
 
+const auth = useAuthStore()
 
 interface Props {
   show: boolean
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'
   closeable?: boolean
-  permissions: Permission[]
+  permissions: PermissionGroup | null
   editData?: EditData | null
   editing?: boolean
 }
@@ -141,6 +156,8 @@ const status = [
   { value: "inactive", label: "Inactivo" },
 ]
 
+
+
 function handleClose() {
   emit('close')
 }
@@ -152,9 +169,12 @@ const buildFormData = (): FormData => {
     formData.append('_method', 'PATCH')
   }
 
+  if (props.editing === false) {
+    formData.append('code', form.code)
+  }
+
   const fields: Record<string, any> = {
     title: form.title,
-    code: form.code,
     description: form.description,
     status: form.status
   }
@@ -195,6 +215,8 @@ const submit = async () => {
     }
   } catch (error) {
     console.log('todo mal: ', error)
+  } finally {
+    auth.fetchUser()
   }
 }
 

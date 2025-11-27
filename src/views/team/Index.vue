@@ -12,7 +12,7 @@
           {{ $t('Dashboard.Team.Title') }}
         </h2>
 
-        <CreateButton @click="createTeamMember" class="flex items-center justify-center w-full sm:w-auto">
+        <CreateButton @click="createTeamMember" class="flex items-center justify-center w-full sm:w-auto" :disabled="!$can('create_teams')">
           {{ $t('Dashboard.Team.CreateButton') }}
         </CreateButton>
       </header>
@@ -44,9 +44,11 @@ import { useRoute, useRouter } from 'vue-router';
 import Skeleton from './partials/Skeleton.vue';
 import type { Data } from './types';
 import { api } from '@/plugins/api';
+import { useAuthStore } from '@/stores/authStore';
 
 const route = useRoute()
 const router = useRouter()
+const auth = useAuthStore()
 
 const apiResponse = ref<Default<Data> | null>(null)
 const initialLoading = ref(true)
@@ -60,6 +62,7 @@ const createTeamMember = () => {
 }
 
 async function fetchTeamMembers(page = 1) {
+  if (!auth.can('view_teams')) return
   try {
     if (initialLoading.value) {
       loading.value = true

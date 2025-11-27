@@ -12,7 +12,7 @@
         </h2>
 
         <CreateButton @click="openModal" class="flex items-center justify-center w-full sm:w-auto mt-4 sm:mt-0"
-          :disabled="creating">
+          :disabled="creating || !$can('create_blogs')">
           {{ $t('Dashboard.Blog.CreateButton') }}
         </CreateButton>
       </header>
@@ -63,7 +63,7 @@
           {{ $t('Dashboard.Blog.Create.Cancel') }}
         </SecondaryButton>
 
-        <PrimaryButton @click="confirmCreate"
+        <PrimaryButton @click="confirmCreate" :disabled="!$can('create_blogs')"
           class="px-5 py-2.5 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors duration-200 shadow-sm hover:shadow-md">
           {{ $t('Dashboard.Blog.Create.CreateButton') }}
         </PrimaryButton>
@@ -91,11 +91,13 @@ import Skeleton from './partials/Skeleton.vue';
 import { api } from '@/plugins/api';
 import type { Data } from './types';
 import { useI18n } from 'vue-i18n';
+import { useAuthStore } from '@/stores/authStore';
 
 const { t } = useI18n()
 
 const router = useRouter()
 const route = useRoute()
+const auth = useAuthStore()
 
 const isOpen = ref(false)
 
@@ -142,6 +144,7 @@ const confirmCreate = async () => {
 }
 
 async function fetchBlogs(page = 1) {
+  if(!auth.can('view_blogs')) return
   try {
     if (initialLoading.value) {
       loading.value = true

@@ -50,7 +50,7 @@
           </div>
         </div>
 
-        <div>
+        <div v-if="$can('view_users')">
           <p class="px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
             {{ $t('Helper.Setting.Administration.Title') }}
           </p>
@@ -112,7 +112,7 @@ import { useRouteHelper } from '@/components/composables/useRouteHelper';
 import SidebarLink from '@/components/ui/SidebarLink.vue';
 import { RouterView } from 'vue-router'
 import { ref } from 'vue'
-import { LucideMenu, LucideShieldCheck, LucideUser, LucideUsers, LucideUsers2, LucideX } from 'lucide-vue-next';
+import { LucideMenu, LucideShieldCheck, LucideUser, LucideUsers, LucideX } from 'lucide-vue-next';
 
 const { current } = useRouteHelper();
 
@@ -127,12 +127,10 @@ const toggleSidebar = () => {
 </script>
 
 <style scoped>
-/* Asegura transiciones suaves en el sidebar */
 aside {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Mejora las transiciones de los enlaces */
 a {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }

@@ -1,5 +1,18 @@
 export interface PermissionData {
+  permissions: PermissionGroup
+}
+
+export interface PermissionGroup {
+  blogs: Permission[]
+  dashboard: Permission[]
+  design: Permission[]
   permissions: Permission[]
+  profile: Permission[]
+  reports: Permission[]
+  roles: Permission[]
+  services: Permission[]
+  teams: Permission[]
+  users: Permission[]
 }
 
 export interface Permission {

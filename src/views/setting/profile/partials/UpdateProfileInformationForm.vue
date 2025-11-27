@@ -78,17 +78,17 @@ onMounted(() => {
       <div>
         <InputLabel for="name" class="mb-1" :value="$t('Dashboard.Setting.Profile.Name')" />
 
-        <TextInput id="name" type="text" v-model="form.name" required autofocus autocomplete="name" />
+        <TextInput id="name" type="text" v-model="form.name" required autofocus autocomplete="name" :disabled="!auth.can('update_profile')"/>
       </div>
 
       <div>
         <InputLabel for="email" class="mb-1" :value="$t('Dashboard.Setting.Profile.Email')" />
 
-        <TextInput id="email" type="email" v-model="form.email" required autocomplete="email" />
+        <TextInput id="email" type="email" v-model="form.email" required autocomplete="email" :disabled="!auth.can('update_profile')" />
       </div>
 
       <div class="flex items-center gap-4">
-        <PrimaryButton :disabled="loading || !changed">
+        <PrimaryButton :disabled="loading || !changed || !$can('update_profile')" >
           {{ $t('Dashboard.Setting.Profile.Save') }}
         </PrimaryButton>
       </div>

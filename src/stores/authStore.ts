@@ -7,11 +7,18 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     /* user: null as any, */
     user: null as User | null,
-    loading: false
+    loading: false,
+    permissions: [] as string[]
   }),
 
   getters: {
-    isAuthenticated: (state) => !!state.user
+    isAuthenticated: (state) => !!state.user,
+
+    can: (state) => {
+      return (permission: string) => {
+        return state.permissions.includes(permission)
+      }
+    }
   },
 
   actions: {
@@ -21,12 +28,15 @@ export const useAuthStore = defineStore('auth', {
       try {
         // Obtener cookie CSRF
         await api.get('/sanctum/csrf-cookie');
-
+        this.permissions = []
         // Intentar login
         const { data } = await api.post('/api/login', { email, password, remember });
 
         // Guardar usuario y respuesta completa
         this.user = data?.data;
+        this.permissions = this.user?.roles ?.flatMap(role => role.permissions.map(p => p.code)) ?? []
+
+        console.log('Permisos: ', this.permissions)
 
         // Retornar resultado exitoso
         return {
@@ -66,8 +76,11 @@ export const useAuthStore = defineStore('auth', {
 
     async fetchUser() {
       try {
-        const response = await api.get('/api/user')
-        this.user = response.data
+        const { data } = await api.get('/api/user')
+        this.permissions = []
+        this.user = data
+        this.permissions = this.user?.roles ?.flatMap(role => role.permissions.map(p => p.code)) ?? []
+        return this.user
       } catch {
         this.user = null
       }

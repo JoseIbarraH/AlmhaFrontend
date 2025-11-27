@@ -11,8 +11,7 @@
 
   <!-- Lista de artículos (Grid) -->
   <div v-if="data.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-    <article v-for="value in currentData()" :key="value.id"
-      class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200
+    <article v-for="value in currentData()" :key="value.id" class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow duration-200
              dark:bg-gray-800 dark:border-gray-700 dark:hover:shadow-lg dark:hover:shadow-black/20">
 
       <!-- Header con título y estado -->
@@ -25,13 +24,13 @@
           <!-- Indicador de estado -->
           <div class="flex items-center gap-2">
             <div :class="[
-                'w-2 h-2 rounded-full',
-                value.status === 'active' ? 'bg-green-500' : 'bg-red-500'
-              ]"></div>
+              'w-2 h-2 rounded-full',
+              value.status === 'active' ? 'bg-green-500' : 'bg-red-500'
+            ]"></div>
             <span :class="[
-                'text-sm font-medium',
-                value.status === 'active' ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'
-              ]">
+              'text-sm font-medium',
+              value.status === 'active' ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'
+            ]">
               {{ value.status === 'active' ? $t('Dashboard.Service.List.Active') : $t('Dashboard.Service.List.Inactive')
               }}
             </span>
@@ -66,20 +65,20 @@
       <!-- Botones de acción -->
       <div class="flex gap-2">
         <!-- Botón Editar -->
-        <button @click="handleEdit(value.id)"
-          class="flex-1 px-4 py-2 text-sm font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md hover:bg-blue-100 transition-colors duration-200
+        <button @click="handleEdit(value.id)" class="flex-1 px-4 py-2 text-sm font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md hover:bg-blue-100 transition-colors duration-200
                  dark:text-blue-300 dark:bg-blue-900/50 dark:border-blue-800 dark:hover:bg-blue-900">
           {{ $t('Dashboard.Service.List.Edit') }}
         </button>
         <!-- Botón Activar/Desactivar -->
         <button :class="[
-            'flex-1 px-4 py-2 text-sm font-medium border rounded-md transition-colors duration-200',
-            value.status === 'active'
-              ? 'text-red-700 bg-red-50 border-red-200 hover:bg-red-100 dark:text-red-300 dark:bg-red-900/50 dark:border-red-800 dark:hover:bg-red-900'
-              : 'text-green-700 bg-green-50 border-green-200 hover:bg-green-100 dark:text-green-300 dark:bg-green-900/50 dark:border-green-800 dark:hover:bg-green-900'
-          ]" @click="handleToggleStatus(value)">
-          {{ value.status === 'active' ? $t('Dashboard.Service.List.Deactivate') : $t('Dashboard.Service.List.Activate')
-          }}
+          'flex-1 px-4 py-2 text-sm font-medium border rounded-md transition-colors duration-200',
+          value.status === 'active'
+            ? 'text-red-700 bg-red-50 border-red-200 hover:bg-red-100 dark:text-red-300 dark:bg-red-900/50 dark:border-red-800 dark:hover:bg-red-900'
+            : 'text-green-700 bg-green-50 border-green-200 hover:bg-green-100 dark:text-green-300 dark:bg-green-900/50 dark:border-green-800 dark:hover:bg-green-900'
+        ]" @click="handleToggleStatus(value)">
+          {{ value.status === 'active'
+            ? $t('Dashboard.Service.List.Deactivate')
+            : $t('Dashboard.Service.List.Activate')}}
         </button>
         <!-- Botón Eliminar (Icono) -->
         <button @click="openModal(value)"
@@ -150,8 +149,7 @@
         <div class="mb-6">
           <p class="text-gray-700 leading-relaxed dark:text-gray-300">
             {{ $t('Dashboard.Service.Delete.Confirm_delete') }}
-            <span
-              class="inline-flex items-center px-2 py-0.5 mx-1 rounded-md bg-gray-100 text-gray-900 font-semibold text-sm border border-gray-200
+            <span class="inline-flex items-center px-2 py-0.5 mx-1 rounded-md bg-gray-100 text-gray-900 font-semibold text-sm border border-gray-200
                      dark:bg-gray-700 dark:text-white dark:border-gray-600">
               "{{ serviceToDelete?.title }}"
             </span>?
@@ -213,7 +211,6 @@
     </div>
   </Modal>
 </template>
-
 
 <script setup lang="ts">
 import { showNotification } from '@/components/composables/useNotification';

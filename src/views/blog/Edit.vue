@@ -13,7 +13,7 @@
         </BackButton>
 
         <PrimaryButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center"
-          :disabled="loading">
+          :disabled="loading || !$can('update_blogs')">
           {{ loading ? $t('Dashboard.Blog.Edit.Saving') : $t('Dashboard.Blog.Edit.SaveChanges') }}
         </PrimaryButton>
       </div>
@@ -53,7 +53,9 @@ import { useRouter } from 'vue-router';
 import { api } from '@/plugins/api';
 import type { Blog, BlogForm, Category, CategoryData } from './types';
 import type { ApiResponse } from '@/types/apiResponse';
+import { useAuthStore } from '@/stores/authStore';
 
+const auth = useAuthStore()
 const router = useRouter();
 
 const props = defineProps<{
@@ -143,7 +145,7 @@ const buildFormData = (): FormData => {
 }
 
 const saveChanges = async () => {
-
+  if (!auth.can('update_blogs'))
   loading.value = true;
   error.value = '';
 
@@ -154,7 +156,6 @@ const saveChanges = async () => {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
 
-    // Opcional: Mostrar mensaje de éxito
     router.push({ name: 'dashboard.blog' });
   } catch (err: any) {
     error.value = err.response?.data?.message || 'Error al guardar los cambios';

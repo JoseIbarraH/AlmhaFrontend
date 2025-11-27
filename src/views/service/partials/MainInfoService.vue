@@ -1,7 +1,14 @@
 <template>
-  <h3 class="text-lg font-semibold leading-tight text-gray-800 dark:text-white">
-    {{ $t('Dashboard.Service.CreateUpdate.MainInfo.Information') }}
-  </h3>
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
+        <LucideClipboardList class="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+      </div>
+      <h3 class="text-lg font-semibold leading-tight text-gray-800 dark:text-white">
+        {{ $t('Dashboard.Service.CreateUpdate.MainInfo.Information') }}
+      </h3>
+    </div>
+  </div>
   <div class="mt-4">
     <InputLabel for="procedure-title" :value="$t('Dashboard.Service.CreateUpdate.MainInfo.Title')" />
     <TextInput id="procedure-title" v-model="modelValue.title" type="text"
@@ -13,7 +20,7 @@
   <div>
     <InputLabel for="procedure-description" :value="$t('Dashboard.Service.CreateUpdate.MainInfo.Description')"
       class="mt-4" />
-    <TextArea id="procedure-description" v-model="modelValue.description" class="w-full border rounded px-2 py-1 h-32"
+    <TextArea id="procedure-description" v-model="modelValue.description" class="w-full rounded px-2 py-1 h-32"
       :placeholder="$t('Dashboard.Service.CreateUpdate.MainInfo.DescriptionPlaceholder')" />
   </div>
 
@@ -31,6 +38,7 @@ import InputLabel from '@/components/ui/InputLabel.vue'
 import TextInput from '@/components/ui/TextInput.vue';
 import TextArea from '@/components/ui/TextArea.vue';
 import type { Service } from '../types';
+import { LucideClipboardList } from 'lucide-vue-next';
 
 const modelValue = defineModel<Service>({
   required: true
