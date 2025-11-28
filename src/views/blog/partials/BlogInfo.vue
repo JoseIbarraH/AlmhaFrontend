@@ -18,12 +18,8 @@
           :model-value="Number(modelValue.category)"
           @update:model-value="modelValue.category = Number($event)"
           :options="categoryOptions"
-          default="Categorias"
+          :default="$t('Dashboard.Blog.Edit.Default')"
         />
-
-        <p class="mt-2 text-xs text-gray-500">
-          Categoría seleccionada: {{ modelValue.category }} (tipo: {{ typeof modelValue.category }})
-        </p>
       </div>
     </div>
   </div>

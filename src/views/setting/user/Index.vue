@@ -4,7 +4,7 @@
       <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
         Usuarios
       </h2>
-      <CreateButton @click.stop="handleCreateModal">
+      <CreateButton @click.stop="handleCreateModal" :disabled="!$can('manage_users')">
         Crear usuario
       </CreateButton>
     </div>

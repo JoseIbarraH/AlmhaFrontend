@@ -4,32 +4,28 @@
   </h3>
 
   <div class="max-h-[500px] overflow-y-auto space-y-4 mt-4">
-    <!-- Iteración de resultados -->
     <div v-for="(value, index) in modelValue.results" :key="index"
       class="relative bg-white rounded-lg shadow-md p-4 flex flex-col sm:flex-row gap-4 items-start dark:bg-gray-800 dark:border-gray-700 dark:shadow-xl">
       <input type="text" v-model="value.id" class="hidden">
-      <!-- Imagen -->
+
       <div class="relative w-full sm:w-32 sm:flex-shrink-0">
         <div class="w-full aspect-square overflow-hidden rounded ">
           <ImagesPreview v-model="value.url" class="w-full h-full object-cover" />
         </div>
       </div>
 
-      <!-- Descripción -->
       <div class="flex-1 w-full">
         <InputLabel :for="`description-${index}`"
           :value="$t('Dashboard.Team.CreateUpdate.PersonalInfo.Result.Description')" />
         <TextInput :id="`description-${index}`" type="text" v-model="value.description"
-          placeholder="Descripción" />
+          :placeholder="$t('Dashboard.Team.CreateUpdate.Results.Description')" />
       </div>
 
-      <!-- Botón eliminar registro -->
       <CloseButton @click.stop="removeResult(index)"
         class="absolute top-1 left-1 md:left-auto md:right-1 bg-white rounded-full shadow-md z-20"
         aria-label="Eliminar registro" />
     </div>
 
-    <!-- Botón agregar -->
     <div class="flex justify-center">
       <button type="button" @click="addResult" class="mt-2 border border-blue-500 text-blue-500 px-3 py-1 rounded"
         aria-label="Agregar antes/después">

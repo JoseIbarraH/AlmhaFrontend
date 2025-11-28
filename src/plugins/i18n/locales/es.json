@@ -55,6 +55,14 @@
             "Active": "Activo",
             "Inactive": "Inactivo"
           }
+        },
+        "Results": {
+          "Description": "Descripcion"
+        },
+        "Cropper": {
+          "Title": "Recortar imagen",
+          "Cancel": "Cancelar",
+          "Confirm": "Confirmar"
         }
       },
       "Validations": {
@@ -76,7 +84,8 @@
           "Status": "Error al actualizar el estado.",
           "Delete": "Error al eliminar al miembro.",
           "Create": "No se pudo crear el miembro del equipo. Por favor, verifica los datos e intenta nuevamente.",
-          "Update": "No se pudo actualizar la información del miembro del equipo. Por favor, verifica los datos e intenta nuevamente."
+          "Update": "No se pudo actualizar la información del miembro del equipo. Por favor, verifica los datos e intenta nuevamente.",
+          "GetData": "Error al obtener los datos"
         }
       },
       "Delete": {
@@ -129,7 +138,8 @@
         "SaveChanges": "Guardar Cambios",
         "Saving": "Guardando...",
         "TitlePost": "Titulo del post",
-        "Category": "Categoria"
+        "Category": "Categoria",
+        "Default": "Categorias"
       },
       "Validations": {
         "Success": {
@@ -139,9 +149,13 @@
         },
         "Error": {
           "GetData": "Error al obtener los datos.",
+          "GetCategories": "Error al obtener los datos.",
           "Status": "Error al actualizar el estado.",
           "Create": "Error al crear el blog en blanco.",
-          "Delete": "Error al eliminar el blog"
+          "Update": "Error al actualizar el blog.",
+          "Delete": "Error al eliminar el blog.",
+          "IdNotFound": "ID del blog no proporcionado.",
+          "BlogNotFound": "ID del blog no proporcionado."
         }
       },
       "Delete": {
@@ -164,35 +178,20 @@
         "Title": "Seleccionar Galería o Imagen/Video",
         "NewImage": "Agrega un nuevo item",
         "FirstImage": "Agregar primera imagen",
-        "AddImage": "Agregar imagen",
-        "Validations": {}
+        "AddImage": "Agregar imagen"
       },
       "Backgrounds": {
         "Title": "Seleccionar Fondos",
-        "LabelTitle": "Titulo1 (Opcional)",
-        "InputTitlePlaceholder": "Ingrese título",
-        "LabelSubtitle": "Subtitulo (Opcional)",
-        "InputSubtitlePlaceholder": "Ingrese título",
-        "Validations": {
-          "Path1": "El fondo 1 no tiene archivo seleccionado.",
-          "Path2": "El fondo 2 no tiene archivo seleccionado.",
-          "Path3": "El fondo 3 no tiene archivo seleccionado.",
-          "ErrorUpss": "Ocurrió un error inesperado"
-        }
+        "NoImage": "Sin imagen",
+        "Background1": "Fondo 1",
+        "Background2": "Fondo 2",
+        "Background3": "Fondo 3"
       },
       "ChooseCarouselNavbar": {
         "Title": "Seleccionar Fotos de Carrusel Navbar",
-        "LabelTitle": "Titulo (Opcional)",
-        "InputTitlePlaceholder": "Ingrese título",
-        "LabelSubtitle": "Subtitulo (Opcional)",
-        "InputSubtitlePlaceholder": "Ingrese título",
         "NewImage": "Agrega un nuevo item",
         "FirstImage": "Agregar primera imagen",
-        "AddImage": "Agregar imagen",
-        "Validations": {
-          "Carousel": "La imagen #{n} del carrusel navbar no tiene archivo seleccionado.",
-          "ErrorUpss": "Ocurrió un error inesperado"
-        }
+        "AddImage": "Agregar imagen"
       },
       "ChooseCarouselTool": {
         "Title": "Seleccionar Fotos de Carrusel de Herramientas",
@@ -222,6 +221,20 @@
           "Title": "Al eliminar este objeto del carrusel:",
           "First": "Se eliminará todo el contenido permanentemente",
           "Second": "No podrás recuperar esta información"
+        }
+      },
+      "Validations": {
+        "Success": {
+          "Create": "Item creado correctamente",
+          "Update": "Item actualizado correctamente",
+          "Delete": "Item eliminado correctamente"
+        },
+        "Error": {
+          "LoadDesign": "Error al cargar diseños",
+          "Select": "Error al seleccionar",
+          "Create": "Error al crear el item",
+          "Update": "Error al actualizar el item",
+          "Delete": "Error al eliminar el item"
         }
       }
     },
@@ -336,7 +349,8 @@
           "Status": "Error al actualizar el estado.",
           "Delete": "Error al eliminar el servicio.",
           "Create": "Error al crear el servicio.",
-          "Update": "Error al actualizar el servicio."
+          "Update": "Error al actualizar el servicio.",
+          "GetData": "Error al obtener los datos"
         }
       }
     },
@@ -369,11 +383,49 @@
           "Title": "Crear Roles",
           "Role": "Rol",
           "Description": "Descripcion",
-          "Status": "Estado",
           "Created": "Creado",
           "Updated": "Actualizado",
           "Actions": "Acciones",
-          "NoMembers": "No hay roles registrados aún."
+          "NoMembers": "No hay roles registrados aún.",
+          "Status": {
+            "Title": "Estado",
+            "Active": "Activo",
+            "Inactive": "Inactivo"
+          }
+        },
+        "CreateUpdate": {
+          "CreateTitle": "Crear Rol",
+          "CreateSubtitle": "Completa la información para crear un nuevo rol",
+          "UpdateTitle": "Editar Rol",
+          "UpdateSubtitle": "Modifica la información del rol existente",
+          "BasicInfoTitle": "Información Básica",
+          "Title": "Título",
+          "TitlePlaceholder": "Ej: Administrador",
+          "Code": "Código (Opcional)",
+          "CodePlaceholder": "Ej: ADMIN",
+          "Description": "Descripción",
+          "DescriptionPlaceholder": "Describe las responsabilidades de este rol...",
+          "Permits": "Permisos",
+          "SelectedPermissions": "{n} seleccionado | {n} seleccionados",
+          "Status": {
+            "Active": "Activo",
+            "Inactive": "Inactivo",
+            "Default": "Seleccione un estado"
+          }
+        },
+        "Validations": {
+          "Success": {
+            "Create": "Rol creado correctamente.",
+            "Update": "Rol actualizado correctamente.",
+            "Delete": "Rol eliminado correctamente.",
+            "Status": "Estado actualizado correctamente."
+          },
+          "Error": {
+            "Create": "Error al crear el rol.",
+            "Update": "Error al actualizar el rol.",
+            "Delete": "Error al eliminar el rol.",
+            "Status": "Error al actualizar el estado."
+          }
         },
         "Delete": {
           "ConfirmTitle": "Confirmar Eliminación",
@@ -412,12 +464,16 @@
           "Password": "Contraseña",
           "PasswordConfirmationPlaceholder": "Confirmar contraseña",
           "PasswordConfirmation": "Confirmar contraseña",
-          "Status": "Estado",
+          "ChangePassword": "¿Cambiar contraseña?",
           "Roles": "Roles",
-          "Active": "Activo",
-          "Inactive": "Inactivo",
           "Saving": "Guardando...",
-          "Updating": "Actualizando..."
+          "Updating": "Actualizando...",
+          "SelectedRole": "{n} seleccionado | {n} seleccionados",
+          "Status": {
+            "Title": "Estado",
+            "Active": "Activo",
+            "Inactive": "Inactivo"
+          }
         },
         "Delete": {
           "ConfirmTitle": "Confirmar Eliminación",
@@ -458,6 +514,10 @@
       }
     }
   },
+  "Login": {
+    "Loading": "Cargando...",
+    "LoginText": "Iniciar sesión"
+  },
   "Helper": {
     "TimeSince": {
       "years": "hace {n} año | hace {n} años",
@@ -487,6 +547,13 @@
   },
   "NotFound": {
     "NotFound": "Página no encontrada",
-    "Subtitle": "La página que buscas parece haber desaparecido en el espacio digital. No te preocupes, te ayudamos a encontrar el camino de vuelta."
+    "Subtitle": "La página que buscas parece haber desaparecido en el espacio digital. No te preocupes, te ayudamos a encontrar el camino de vuelta.",
+    "GoBack": "Volver Atrás",
+    "NeedHelp": "¿Necesitas ayuda?",
+    "CanTry": {
+      "Title": "Puedes intentar:",
+      "First": "Verificar la URL ingresada",
+      "Second": "Regresar a la página anterior"
+    }
   }
 }

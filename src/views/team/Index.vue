@@ -12,7 +12,8 @@
           {{ $t('Dashboard.Team.Title') }}
         </h2>
 
-        <CreateButton @click="createTeamMember" class="flex items-center justify-center w-full sm:w-auto" :disabled="!$can('create_teams')">
+        <CreateButton @click="createTeamMember" class="flex items-center justify-center w-full sm:w-auto"
+          :disabled="!$can('create_teams')">
           {{ $t('Dashboard.Team.CreateButton') }}
         </CreateButton>
       </header>
@@ -39,13 +40,15 @@ import CreateButton from '@/components/ui/CreateButton.vue';
 import Statistics from '@/components/app/Statistics.vue';
 import Pagination from '@/components/app/Pagination.vue';
 import { ref, computed, onMounted, watch } from 'vue';
+import { useAuthStore } from '@/stores/authStore';
 import TeamTable from './partials/TeamTable.vue';
 import { useRoute, useRouter } from 'vue-router';
 import Skeleton from './partials/Skeleton.vue';
 import type { Data } from './types';
 import { api } from '@/plugins/api';
-import { useAuthStore } from '@/stores/authStore';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const auth = useAuthStore()
@@ -71,7 +74,7 @@ async function fetchTeamMembers(page = 1) {
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
   } catch (error) {
-    showNotification('error', 'Ocurrió un error al obtener los datos del equipo', 4000);
+    showNotification('error', t('Dashboard.Team.Validations.Error.GetData'), 4000);
   } finally {
     loading.value = false;
     initialLoading.value = false

@@ -26,32 +26,31 @@
 
     <!-- Componentes de edición -->
     <div class="pt-4">
-      <CarouselImageSelected v-if="chooseCarouselImage.carousel"
-        :carousel-image="carousel ?? []"
-        :carousel-setting="carouselSetting"
-        @create_item="emit('create_item', carouselSetting.id)"
-        @edit_item="emit('edit_item', $event, carouselSetting.id)"
-        @delete_item="emit('delete_item', $event)" />
+      <CarouselImageSelected v-if="chooseCarouselImage.carousel" :carousel-image="carousel ?? []"
+        :carousel-setting="carouselSetting" @create_item="emit('create_item', carouselSetting.id)"
+        @edit_item="emit('edit_item', $event, carouselSetting.id)" @delete_item="emit('delete_item', $event)" />
 
       <ImageVideoSelected v-if="chooseCarouselImage.imageVideo" :image-video="imageVideo"
-        :image-video-setting="imageVideoSetting" @edit_item="emit('edit_item', $event, imageVideoSetting.id)"
-        @delete_item="emit('delete_item', $event)" />
+        :image-video-setting="imageVideoSetting" @create_item="emit('create_item', imageVideoSetting.id)"
+        @edit_item="emit('edit_item', $event, imageVideoSetting.id)" @delete_item="emit('delete_item', $event)" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
 import CarouselImageSelected from '../components/CarouselImageSelected.vue'
+import { showNotification } from '@/components/composables/useNotification'
 import ImageVideoSelected from '../components/ImageVideoSelected.vue'
-import Gallery from '../components/Carousel.vue'
 import ImageVideo from '../components/ImageVideo.vue'
 import type { MediaItem, Setting } from '../types'
-import { api } from '@/plugins/api'
-import { showNotification } from '@/components/composables/useNotification'
 import { useAuthStore } from '@/stores/authStore'
+import Gallery from '../components/Carousel.vue'
+import { onMounted, ref } from 'vue'
+import { api } from '@/plugins/api'
+import { useI18n } from 'vue-i18n'
 
 const auth = useAuthStore()
+const { t } = useI18n()
 
 const props = withDefaults(defineProps<{
   imageVideoSetting?: Setting
@@ -98,7 +97,7 @@ const fetchUpdateState = async (previousState: ChooseState) => {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
   } catch (err: any) {
-    showNotification('error', 'Error al seleccionar', 4000)
+    showNotification('error', t('Dashboard.Design.Validations.Error.Select'), 4000)
     chooseCarouselImage.value = previousState
   }
 }

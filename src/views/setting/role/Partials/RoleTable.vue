@@ -27,7 +27,7 @@
               {{ $t('Dashboard.Setting.RolePermission.List.Description') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Setting.RolePermission.List.Status') }}
+              {{ $t('Dashboard.Setting.RolePermission.List.Status.Title') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
               {{ $t('Dashboard.Setting.RolePermission.List.Created') }}
@@ -63,7 +63,7 @@
                   'text-sm font-medium',
                   value.status === 'active' ? 'text-green-600' : 'text-red-600',
                 ]">
-                  {{ value.status === 'active' ? 'Activo' : 'Inactivo' }}
+                  {{ value.status === 'active' ? $t('Dashboard.Setting.RolePermission.List.Status.Active') : $t('Dashboard.Setting.RolePermission.List.Status.Inactive') }}
                 </span>
               </div>
             </td>
@@ -154,8 +154,6 @@ const emit = defineEmits<{
   (e: 'update', payload: Data): void
 }>()
 
-/* const confirmDelete = () => {} */
-
 const handleEdit = (data: Data) => {
   emit('update', data)
 }
@@ -165,12 +163,11 @@ const handleToggleStatus = async (data: Data) => {
   const original = data.status
   try {
     await api.post(`api/setting/role/update_status/${data.id}`, { status: newStatus });
-    // Actualizamos el valor localmente si la API responde bien
     data.status = newStatus;
-    showNotification('success', t('Dashboard.Team.Validations.Success.Status'), 3000)
+    showNotification('success', t('Dashboard.Setting.RolePermission.Validations.Success.Status'), 3000)
     emit('status-updated')
   } catch (error: any) {
-    showNotification('error', error?.response?.data?.message || t('Dashboard.Team.Validations.Error.Status'), 4000)
+    showNotification('error', error?.response?.data?.message || t('Dashboard.Setting.RolePermission.Validations.Error.Status'), 4000)
     data.status = original
   }
 };
@@ -179,13 +176,13 @@ const confirmDelete = async () => {
   if (!roleToDelete.value) return
 
   try {
-    console.log("Eliminar", roleToDelete.value)
     await api.delete(`/api/setting/role/${roleToDelete.value.id}`)
+    showNotification('success', t('Dashboard.Setting.RolePermission.Validations.Success.Delete'), 3000)
     emit('status-updated')
     closeModal()
   } catch (error: any) {
     closeModal()
-    showNotification('error', error?.response?.data?.message, 4000)
+    showNotification('error', error?.response?.data?.message || t('Dashboard.Setting.RolePermission.Validations.Error.Delete'), 4000)
   }
 }
 

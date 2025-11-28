@@ -5,10 +5,13 @@
       <div
         class="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-t-lg dark:from-gray-900/30 dark:to-gray-900/50 border-b border-gray-200 dark:border-gray-700">
         <h1 class="text-xl font-bold text-gray-800 dark:text-white">
-          {{ editing ? 'Editar Rol' : 'Crear Rol' }}
+          {{ editing
+            ? $t('Dashboard.Setting.RolePermission.CreateUpdate.UpdateTitle')
+            : $t('Dashboard.Setting.RolePermission.CreateUpdate.CreateTitle') }}
         </h1>
         <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-          {{ editing ? 'Modifica la información del rol existente' : 'Completa la información para crear un nuevo rol'
+          {{ editing ? $t('Dashboard.Setting.RolePermission.CreateUpdate.UpdateSubtitle') :
+            $t('Dashboard.Setting.RolePermission.CreateUpdate.CreateSubtitle')
           }}
         </p>
       </div>
@@ -20,35 +23,39 @@
           <div class="lg:col-span-2 space-y-5">
             <div class="bg-gray-50 dark:bg-gray-900/30 rounded-lg p-5 border border-gray-200 dark:border-gray-700">
               <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-4">
-                Información Básica
+                {{ $t('Dashboard.Setting.RolePermission.CreateUpdate.BasicInfoTitle') }}
               </h3>
 
               <div class="space-y-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <InputLabel for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                      value="Título" />
-                    <TextInput id="title" v-model="form.title" required placeholder="Ej: Administrador" />
+                      :value="$t('Dashboard.Setting.RolePermission.CreateUpdate.Title')" />
+                    <TextInput id="title" v-model="form.title" required
+                      :placeholder="$t('Dashboard.Setting.RolePermission.CreateUpdate.TitlePlaceholder')" />
                   </div>
 
                   <div>
                     <InputLabel for="code" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                      value="Código (Opcional)" />
-                    <TextInput id="code" v-model="form.code" placeholder="Ej: ADMIN" :disabled="editing"/>
+                      :value="$t('Dashboard.Setting.RolePermission.CreateUpdate.Code')" />
+                    <TextInput id="code" v-model="form.code"
+                      :placeholder="$t('Dashboard.Setting.RolePermission.CreateUpdate.CodePlaceholder')"
+                      :disabled="editing" />
                   </div>
                 </div>
 
                 <div>
                   <InputLabel for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-                    value="Descripción" />
+                    :value="$t('Dashboard.Setting.RolePermission.CreateUpdate.Description')" />
                   <TextArea id="description" v-model="form.description" class="dark:bg-gray-900 w-full" rows="3"
-                    placeholder="Describe las responsabilidades de este rol..." />
+                    :placeholder="$t('Dashboard.Setting.RolePermission.CreateUpdate.DescriptionPlaceholder')" />
                 </div>
 
                 <div>
                   <InputLabel for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                     value="Estado" />
-                  <Select class="w-full" id="status" :default="'Seleccione un estado'" v-model="form.status"
+                  <Select class="w-full" id="status"
+                    :default="$t('Dashboard.Setting.RolePermission.CreateUpdate.Status.Default')" v-model="form.status"
                     :options="status" />
                 </div>
               </div>
@@ -59,12 +66,12 @@
               class="bg-gray-50 dark:bg-gray-900/30 rounded-lg p-5 border border-gray-200 dark:border-gray-700 h-full">
               <div class="flex items-center justify-between mb-4">
                 <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
-                  Permisos
+                  {{ $t('Dashboard.Setting.RolePermission.CreateUpdate.Permits') }}
                 </h3>
 
                 <span
                   class="text-xs text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded-full">
-                  {{ form.permits.length }} seleccionados
+                  {{ $t('Dashboard.Setting.RolePermission.CreateUpdate.SelectedPermissions', form.permits.length) }}
                 </span>
               </div>
 
@@ -102,7 +109,8 @@
             Cancelar
           </button>
           <PrimaryButton type="submit">
-            {{ editing ? 'Actualizar Rol' : 'Crear Rol' }}
+            {{ editing ? $t('Dashboard.Setting.RolePermission.CreateUpdate.UpdateTitle') :
+              $t('Dashboard.Setting.RolePermission.CreateUpdate.CreateTitle') }}
           </PrimaryButton>
         </div>
       </form>
@@ -111,18 +119,21 @@
 </template>
 
 <script setup lang="ts">
+import { showNotification } from '@/components/composables/useNotification'
 import PrimaryButton from '@/components/ui/PrimaryButton.vue'
+import type { EditData, PermissionGroup } from '../types'
 import InputLabel from '@/components/ui/InputLabel.vue'
 import TextInput from '@/components/ui/TextInput.vue'
-import type { EditData, PermissionGroup } from '../types'
 import TextArea from '@/components/ui/TextArea.vue'
-import Select from '@/components/ui/Select.vue'
-import { reactive, watch } from 'vue'
-import Modal from '@/components/app/Modal.vue'
-import { api } from '@/plugins/api'
 import { useAuthStore } from '@/stores/authStore'
+import Select from '@/components/ui/Select.vue'
+import Modal from '@/components/app/Modal.vue'
+import { reactive, watch } from 'vue'
+import { api } from '@/plugins/api'
+import { useI18n } from 'vue-i18n'
 
 const auth = useAuthStore()
+const { t } = useI18n()
 
 interface Props {
   show: boolean
@@ -152,11 +163,9 @@ const form = reactive({
 })
 
 const status = [
-  { value: "active", label: "Activo" },
-  { value: "inactive", label: "Inactivo" },
+  { value: "active", label: t('Dashboard.Setting.RolePermission.CreateUpdate.Status.Active') },
+  { value: "inactive", label: t('Dashboard.Setting.RolePermission.CreateUpdate.Status.Inactive') },
 ]
-
-
 
 function handleClose() {
   emit('close')
@@ -203,6 +212,7 @@ const submit = async () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
+      showNotification('success', t('Dashboard.Setting.RolePermission.Validations.Success.Create'), 3000)
       handleClose()
     }
 
@@ -211,10 +221,15 @@ const submit = async () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
+      showNotification('success', t('Dashboard.Setting.RolePermission.Validations.Success.Update'), 3000)
       handleClose()
     }
-  } catch (error) {
-    console.log('todo mal: ', error)
+  } catch (error: any) {
+    const defaultMsg = props.editing
+      ? t('Dashboard.Setting.RolePermission.Validations.Error.Update')
+      : t('Dashboard.Setting.RolePermission.Validations.Error.Create')
+
+    showNotification('error', error?.response?.data?.message ?? defaultMsg, 4000)
   } finally {
     auth.fetchUser()
   }

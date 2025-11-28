@@ -13,9 +13,7 @@
 
         <button v-if="closeable" type="button" @click="handleClose" :disabled="loading" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300
                  transition-colors p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <LucideX class="w-5 h-5" />
         </button>
       </div>
 
@@ -61,13 +59,13 @@
           <div v-if="editing && !showPasswordFields" class="pt-2">
             <button type="button" @click="showPasswordFields = true" class="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300
                      font-medium transition-colors">
-              ¿Cambiar contraseña?
+              {{ $t('Dashboard.Setting.User.CreateUpdateModal.ChangePassword') }}
             </button>
           </div>
 
           <!-- Status -->
           <div class="space-y-2 w-full">
-            <InputLabel for="status" :value="$t('Dashboard.Setting.User.CreateUpdateModal.Status')"
+            <InputLabel for="status" :value="$t('Dashboard.Setting.User.CreateUpdateModal.Status.Title')"
               class="text-sm font-medium text-gray-700 dark:text-gray-300" />
 
             <Select class=" block w-full md:w-[400px]" v-model="form.status" :options="status" default="Estados" />
@@ -80,11 +78,11 @@
               class="bg-gray-50 dark:bg-gray-900/30 rounded-lg p-5 border border-gray-200 dark:border-gray-700 h-full">
               <div class="flex items-center justify-between mb-4">
                 <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
-                  Roles
+                  {{ $t('Dashboard.Setting.User.CreateUpdateModal.Roles') }}
                 </h3>
                 <span
                   class="text-xs text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded-full">
-                  {{ form.roles.length }} seleccionados
+                  {{ $t('Dashboard.Setting.User.CreateUpdateModal.SelectedRole', form.roles.length) }}
                 </span>
               </div>
 
@@ -149,6 +147,7 @@ import { reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { showNotification } from '@/components/composables/useNotification'
 import { api } from '@/plugins/api'
+import { LucideX } from 'lucide-vue-next'
 
 const { t } = useI18n()
 
@@ -168,8 +167,8 @@ const loading = ref(false)
 const showPasswordFields = ref(false)
 
 const status = [
-  { value: "active", label: t('Dashboard.Setting.User.CreateUpdateModal.Active') },
-  { value: "inactive", label: t('Dashboard.Setting.User.CreateUpdateModal.Inactive') },
+  { value: "active", label: t('Dashboard.Setting.User.CreateUpdateModal.Status.Active') },
+  { value: "inactive", label: t('Dashboard.Setting.User.CreateUpdateModal.Status.Inactive') },
 ]
 
 const form = reactive<DataForm>({

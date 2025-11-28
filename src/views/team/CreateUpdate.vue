@@ -62,15 +62,15 @@ import { showNotification } from '@/components/composables/useNotification';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import SelectedImage from './partials/SelectedImage.vue';
 import BackButton from '@/components/ui/BackButton.vue';
+import { useAuthStore } from '@/stores/authStore';
 import Biography from './partials/Biography.vue';
-import { onMounted, reactive, ref, watch } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import TeamInfo from './partials/TeamInfo.vue';
 import Results from './partials/Results.vue';
 import type { TeamMember } from './types';
 import { useRouter } from 'vue-router';
 import { api } from '@/plugins/api';
 import { useI18n } from 'vue-i18n';
-import { useAuthStore } from '@/stores/authStore';
 
 const auth = useAuthStore()
 const { t } = useI18n()
@@ -220,10 +220,6 @@ const saveChanges = async () => {
     loading.value = false
   }
 }
-
-watch(form, () => {
-  console.log(form)
-})
 
 onMounted(async () => {
   if (props.id) {

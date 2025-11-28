@@ -33,7 +33,8 @@
           <MainInfoService :model-value="form" />
         </div>
 
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-7 md:row-span-3 md:col-start-4">
+        <div
+          class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-7 md:row-span-3 md:col-start-4">
           <SurgeryPhases :model-value="form" />
         </div>
 
@@ -42,11 +43,13 @@
           <SampleImages :model-value="form" />
         </div>
 
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-5 md:row-span-3 md:row-start-7">
+        <div
+          class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-5 md:row-span-3 md:row-start-7">
           <ResultsGallery :model-value="form" />
         </div>
 
-        <div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-5 md:row-span-3 md:row-start-7">
+        <div
+          class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md md:col-span-3 lg:col-span-5 md:row-span-3 md:row-start-7">
           <FrequentlyAskedQuestions :model-value="form" />
         </div>
       </div>
@@ -63,12 +66,12 @@ import ResultsGallery from './partials/ResultsGallery.vue';
 import SurgeryPhases from './partials/SurgeryPhases.vue';
 import BackButton from '@/components/ui/BackButton.vue';
 import SampleImages from './partials/SampleImages.vue';
-import { onMounted, reactive, ref, watch } from 'vue';
+import { useAuthStore } from '@/stores/authStore';
+import { onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import type { Service } from './types';
 import { api } from '@/plugins/api';
 import { useI18n } from 'vue-i18n';
-import { useAuthStore } from '@/stores/authStore';
 
 const { t } = useI18n()
 const auth = useAuthStore()
@@ -83,7 +86,6 @@ const form = reactive<Service>({
   image: null,
   slug: '',
 
-  // Traducción (nivel principal)
   title: '',
   description: '',
   lang: 'es',
@@ -103,7 +105,6 @@ const form = reactive<Service>({
     postoperative_recommendations: [],
   },
 
-  // Arrays
   frequently_asked_questions: [],
   results_gallery: []
 });
@@ -291,11 +292,6 @@ const saveChanges = async () => {
       ? t('Dashboard.Service.Validations.Error.Update')
       : t('Dashboard.Service.Validations.Error.Create');
     showNotification('error', message, 3000)
-    if (err.response?.status === 422) {
-      console.error("Errores de validación:", err.response.data.errors)
-    } else {
-      console.error("Error inesperado:", err)
-    }
   } finally {
     loading.value = false
   }
@@ -305,17 +301,12 @@ const backToIndex = () => {
   router.push({ name: 'dashboard.service' })
 }
 
-watch(form, (val) => {
-  console.log(val)
-})
-
 onMounted(async () => {
   if (props.id) {
     if (!auth.can('show_services')) return
     editing.value = true
     const { data } = await api.get(`/api/service/${props.id}`)
     ServiceResponse.value = data.data
-    console.log(ServiceResponse.value)
     if (data) {
       editingForm()
     }

@@ -44,12 +44,6 @@ const validateForm = (): boolean => {
     valid = false;
   }
 
-  /* const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/;
-  if (!strongPasswordRegex.test(form.value.password)) {
-    errors.value.password = t('Auth.Validations.Error.WeakPassword');
-    valid = false;
-  } */
-
   if (form.value.password !== form.value.password_confirmation) {
     errors.value.password_confirmation = t('Dashboard.Setting.Validations.Error.ConfirmationPassword');
     valid = false;
@@ -86,9 +80,6 @@ const SaveChanges = async () => {
   }
 };
 
-/**
- * 👀 Validación en tiempo real para confirmar contraseña
- */
 watch(
   () => [form.value.password, form.value.password_confirmation],
   ([newPass, newConfirm]) => {

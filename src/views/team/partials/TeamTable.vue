@@ -183,7 +183,7 @@ const confirmDelete = async () => {
     emit('status-updated')
     closeModal()
   } catch (error) {
-    showNotification('error', 'Error al eliminar el miembro', 4000)
+    showNotification('error', t('Dashboard.Team.Validations.Error.Delete'), 4000)
   }
 }
 

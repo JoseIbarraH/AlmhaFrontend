@@ -130,7 +130,6 @@ function addRecoveryTime() {
 function removeRecoveryTime(i: number) {
   modelValue.value.surgery_phases.recovery_time.splice(i, 1)
 }
-
 function updateRecoveryTime(i: number, value: string) {
   modelValue.value.surgery_phases.recovery_time[i] = value
 }

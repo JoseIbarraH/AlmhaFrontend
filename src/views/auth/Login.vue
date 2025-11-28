@@ -65,8 +65,8 @@ async function login() {
 
       <div class="flex items-center justify-center">
         <PrimaryButton type="submit" class="mt-4" :disabled="auth.loading">
-          <span v-if="auth.loading">Cargando...</span>
-          <span v-else>Iniciar sesión</span>
+          <span v-if="auth.loading">{{ $t('Login.Loading') }}</span>
+          <span v-else>{{ $t('Login.LoginText') }}</span>
         </PrimaryButton>
       </div>
     </form>

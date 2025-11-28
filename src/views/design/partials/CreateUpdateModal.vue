@@ -17,16 +17,13 @@
         </button>
       </div>
 
-      <!-- Content -->
       <div class="p-6 space-y-6">
 
-        <!-- Image Preview -->
         <div>
           <ImagesPreview v-model="form.path" class="aspect-video rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700
                    hover:border-blue-400 dark:hover:border-blue-500 transition-colors" />
         </div>
 
-        <!-- Title Input -->
         <div class="space-y-2">
           <InputLabel for="title" :value="$t('Dashboard.Design.CreateUpdateModal.LabelTitle')"
             class="text-sm font-medium text-gray-700 dark:text-gray-300" />
@@ -34,7 +31,6 @@
             :placeholder="$t('Dashboard.Design.CreateUpdateModal.LabelTitlePlaceholder')" />
         </div>
 
-        <!-- Subtitle Input -->
         <div class="space-y-2">
           <InputLabel for="subtitle" :value="$t('Dashboard.Design.CreateUpdateModal.LabelSubtitle')"
             class="text-sm font-medium text-gray-700 dark:text-gray-300" />
@@ -44,7 +40,6 @@
 
       </div>
 
-      <!-- Footer -->
       <div class="flex items-center justify-end gap-3 px-6 py-4 bg-gray-50 dark:bg-gray-900/50
                   border-t border-gray-200 dark:border-gray-700">
 
@@ -65,17 +60,18 @@
 </template>
 
 <script setup lang="ts">
-import Modal from '@/components/app/Modal.vue'
-import type { MediaItem, MediaItemForm } from '../types';
-import PrimaryButton from '@/components/ui/PrimaryButton.vue';
-import { watch, reactive, ref } from 'vue';
+import { showNotification } from '@/components/composables/useNotification';
 import SecondaryButton from '@/components/ui/SecondaryButton.vue';
+import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import ImagesPreview from '@/components/ui/ImagesPreview.vue';
+import type { MediaItem, MediaItemForm } from '../types';
 import InputLabel from '@/components/ui/InputLabel.vue';
 import TextInput from '@/components/ui/TextInput.vue';
-import { api } from '@/plugins/api';
-import { showNotification } from '@/components/composables/useNotification';
+import Modal from '@/components/app/Modal.vue';
+import { watch, reactive, ref } from 'vue';
 import { LucideX } from 'lucide-vue-next';
+import { api } from '@/plugins/api';
+import { useI18n } from 'vue-i18n';
 
 interface Props {
   show: boolean
@@ -85,6 +81,7 @@ interface Props {
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 }
 
+const { t } = useI18n()
 const props = defineProps<Props>()
 const emit = defineEmits(['close', 'refresh'])
 
@@ -95,12 +92,6 @@ const form = reactive<MediaItemForm>({
 })
 
 const loading = ref(false)
-
-const data = () => {
-  console.log("EDITING?: ", props.editing)
-  console.log("DATA: ", props.data)
-  console.log("DESIGN ID: ", props.designId)
-}
 
 const buildFormData = (): FormData => {
   const formData = new FormData()
@@ -119,7 +110,6 @@ const buildFormData = (): FormData => {
 }
 
 const saveChanges = async () => {
-  data()
   loading.value = true
   try {
     const formData = buildFormData()
@@ -132,6 +122,8 @@ const saveChanges = async () => {
       await api.post(`/api/design/${props.data?.id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
+
+      showNotification('success', t('Dashboard.Design.Validations.Success.Update'), 3000)
     }
 
     if (props.editing === false) {
@@ -139,13 +131,19 @@ const saveChanges = async () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
-      showNotification('success', 'Se creo mi rey', 3000)
+      showNotification('success', t('Dashboard.Design.Validations.Success.Create'), 3000)
     }
 
     emit('refresh')
 
   } catch (err) {
-    console.error(err)
+    if (props.editing === true) {
+      showNotification('error', t('Dashboard.Design.Validations.Error.Update'), 4000)
+    }
+
+    if (props.editing === false) {
+      showNotification('error', t('Dashboard.Design.Validations.Error.Create'), 4000)
+    }
   } finally {
     loading.value = false
     handleClose()
@@ -161,8 +159,6 @@ const handleClose = () => {
 
 watch(() => props.show, (newVal) => {
   if (newVal) {
-    console.log("¡El modal se acaba de abrir!");
-
     if (props.editing && props.data) {
       form.path = props.data.full_path
       form.title = props.data.title

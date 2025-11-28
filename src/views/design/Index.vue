@@ -40,6 +40,7 @@
           <div class="bg-white p-6 rounded-lg shadow-md dark:bg-gray-900">
             <ChooseBackground
               :backgrounds="apiResponse?.backgrounds"
+              @create_item="handleCreateModal"
               @edit_item="handleUpdateModal"
             />
           </div>
@@ -85,22 +86,23 @@
 </template>
 
 <script setup lang="ts">
+import { showNotification } from '@/components/composables/useNotification';
+import ConfirmDeleteModal from '@/components/app/ConfirmDeleteModal.vue';
 import ChooseCarouselStatic from './partials/ChooseCarouselStatic.vue';
 import ChooseCarouselNavbar from './partials/ChooseCarouselNavbar.vue';
 import ChooseCarouselTool from './partials/ChooseCarouselTool.vue';
-import ChooseBackground from './partials/ChooseBackground.vue';
-import Skeleton from './partials/Skeleton.vue';
-import { onMounted, ref, watch } from 'vue';
-import { api } from '@/plugins/api';
-import type { ApiResponse } from '@/types/apiResponse';
 import type { DesignSettingsResponse, MediaItem } from './types';
 import CreateUpdateModal from './partials/CreateUpdateModal.vue';
-import { showNotification } from '@/components/composables/useNotification';
-import ConfirmDeleteModal from '@/components/app/ConfirmDeleteModal.vue';
+import ChooseBackground from './partials/ChooseBackground.vue';
+import type { ApiResponse } from '@/types/apiResponse';
+import Skeleton from './partials/Skeleton.vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { api } from '@/plugins/api';
+import { useI18n } from 'vue-i18n';
 
 const route = useRoute()
-
+const {t} = useI18n()
 const loading = ref(true)
 const isOpen = ref(false)
 const isOpenDelete = ref(false)
@@ -121,9 +123,8 @@ const loadDesigns = async () => {
     }
     const response = await api.get<ApiResponse<DesignSettingsResponse>>('api/design')
     apiResponse.value = response.data.data
-    console.log("Design llego: ", apiResponse.value)
   } catch (error) {
-    console.error('❌ Error al cargar diseños:', error)
+    showNotification('error', t('Dashboard.Design.Validations.Error.LoadDesign'), 4000)
   } finally {
     loading.value = false
     initialLoading.value = false
@@ -160,9 +161,9 @@ const deleteItem = async (id: number | undefined) => {
     await api.delete(`/api/design/${id}`)
     loadDesigns()
     isOpenDelete.value = false
-    showNotification('success', 'Item eliminado correctamente', 3000)
+    showNotification('success', t('Dashboard.Design.Validations.Success.Delete'), 3000)
   } catch (error) {
-    showNotification('error', 'Error al eliminar el item', 4000)
+    showNotification('error', t('Dashboard.Design.Validations.Error.Delete'), 4000)
   }
 }
 

@@ -45,9 +45,9 @@ api.interceptors.response.use(
       router.push({ name: 'auth.login' })
     }
 
-    if (status === 419) {
+    /* if (status === 419) {
       return Promise.reject({ silent: true })
-    }
+    } */
 
     return Promise.reject(error)
   }

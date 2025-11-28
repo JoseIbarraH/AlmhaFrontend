@@ -41,19 +41,21 @@
 <script setup lang="ts">
 import type { Default, PaginatedResponse, ApiResponse, Stats } from '@/types/apiResponse';
 import { showNotification } from '@/components/composables/useNotification';
+import { LucideClipboardList, LucideClipboardPlus } from 'lucide-vue-next';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import Statistics from '@/components/app/Statistics.vue';
 import Pagination from '@/components/app/Pagination.vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import ServiceGrid from './partials/ServiceGrid.vue';
 import { useRoute, useRouter } from 'vue-router';
-import { ref, computed, onMounted, watch } from 'vue';
 import Skeleton from './partials/Skeleton.vue';
 import type { Data } from './types';
 import { api } from '@/plugins/api';
-import { LucideClipboardList, LucideClipboardPlus } from 'lucide-vue-next';
+import { useI18n } from 'vue-i18n';
 
 const route = useRoute()
 const router = useRouter()
+const {t} = useI18n()
 
 const apiResponse = ref<Default<Data> | null>(null)
 const initialLoading = ref(true)
@@ -70,11 +72,8 @@ const fetchServices = async (page = 1) => {
     const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/service?page=${page}`)
     apiResponse.value = data.data
     paginate.value = apiResponse.value?.pagination
-    console.log('Paginacion? ', paginate.value)
-
   } catch (error) {
-    console.log(error)
-    showNotification('error', 'Ocurrió un error al obtener los datos de los servicios', 4000);
+    showNotification('error', t('Dashboard.Service.Validations.Error.GetData'), 4000);
   } finally {
     loading.value = false;
     initialLoading.value = false

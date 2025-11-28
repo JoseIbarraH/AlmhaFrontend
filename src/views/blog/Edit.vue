@@ -54,9 +54,12 @@ import { api } from '@/plugins/api';
 import type { Blog, BlogForm, Category, CategoryData } from './types';
 import type { ApiResponse } from '@/types/apiResponse';
 import { useAuthStore } from '@/stores/authStore';
+import { showNotification } from '@/components/composables/useNotification';
+import { useI18n } from 'vue-i18n';
 
 const auth = useAuthStore()
 const router = useRouter();
+const { t } = useI18n()
 
 const props = defineProps<{
   id: string;
@@ -87,7 +90,7 @@ const backToIndex = () => {
 
 const loadBlog = async () => {
   if (!props.id) {
-    error.value = 'ID del blog no proporcionado';
+    error.value = t('Dashboard.Blog.Validations.Error.IdNotFound');
     return;
   }
 
@@ -105,12 +108,9 @@ const loadBlog = async () => {
       form.content = data.data.content;
       form.category = data.data.category;
     }
-    else {
-      throw new Error('No se encontró el blog');
-    }
+
   } catch (error: any) {
-    error.value = error.response?.data?.message || error.message || 'Error al cargar el blog';
-    console.error('Error loading blog:', error);
+    showNotification('error', error.response?.data?.message || t('Dashboard.Blog.Validations.Error.GetData'), 4000)
   } finally {
     loading.value = false;
   }
@@ -120,9 +120,8 @@ const fetchCategories = async () => {
   try {
     const { data } = await api.get<ApiResponse<CategoryData>>('/api/blog/categories');
     categories.value = data.data?.categories
-    console.log("Fetch Categoria: ", categories.value)
   } catch (error: any) {
-    console.log('error: ', error)
+    showNotification('error', error.response?.data?.message || t('Dashboard.Blog.Validations.Error.GetCategories'), 4000)
   }
 }
 
@@ -146,7 +145,7 @@ const buildFormData = (): FormData => {
 
 const saveChanges = async () => {
   if (!auth.can('update_blogs'))
-  loading.value = true;
+    loading.value = true;
   error.value = '';
 
   try {
@@ -158,7 +157,7 @@ const saveChanges = async () => {
 
     router.push({ name: 'dashboard.blog' });
   } catch (err: any) {
-    error.value = err.response?.data?.message || 'Error al guardar los cambios';
+    error.value = err.response?.data?.message || t('Dashboard.Blog.Validations.Error.Update');
     console.error('Error saving blog:', err);
   } finally {
     loading.value = false;

@@ -34,7 +34,7 @@
       class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
     >
       <div class="bg-white rounded-xl shadow-lg w-full max-w-4xl p-6">
-        <h3 class="text-lg font-semibold mb-4">Recortar imagen</h3>
+        <h3 class="text-lg font-semibold mb-4">{{ $t('Dashboard.Team.CreateUpdate.Cropper.Title') }}</h3>
 
         <!-- Cropper container con altura fija -->
         <div class="w-full h-[500px] rounded bg-gray-900 overflow-hidden">
@@ -56,13 +56,13 @@
             @click="close"
             class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
           >
-            Cancelar
+            {{ $t('Dashboard.Team.CreateUpdate.Cropper.Cancel') }}
           </button>
           <button
             @click="confirmCrop"
             class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
           >
-            Confirmar
+            {{ $t('Dashboard.Team.CreateUpdate.Cropper.Confirm') }}
           </button>
         </div>
       </div>

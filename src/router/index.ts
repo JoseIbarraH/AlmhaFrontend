@@ -170,7 +170,11 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.blog.edit",
             component: DashboardBlogEdit,
             props: true,
-            meta: { title: 'Edit Blog' }
+            meta: {
+              title: 'Edit Blog',
+              requiresAuth: true,
+              permission: 'update_blogs'
+            }
           },
           {
             path: "team",
@@ -187,14 +191,22 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.team.create",
             component: DashboardTeamCreate,
             props: true,
-            meta: { title: 'Create Team' }
+            meta: {
+              title: 'Create Team',
+              requiresAuth: true,
+              permission: 'create_teams'
+            }
           },
           {
             path: "team/:id/edit",
             name: "dashboard.team.edit",
             component: DashboardTeamCreate,
             props: true,
-            meta: { title: 'Edit Team' }
+            meta: {
+              title: 'Edit Team',
+              requiresAuth: true,
+              permission: 'update_teams'
+            }
           },
           {
             path: "setting",
@@ -218,7 +230,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                   title: 'User',
                   requiresAuth: true,
-                  permission: 'view_users'
+                  permission: 'manage_users'
                 }
               },
               {
@@ -228,7 +240,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                   title: 'Role',
                   requiresAuth: true,
-                  permission: 'view_roles'
+                  permission: 'manage_users'
                 }
               }
             ]

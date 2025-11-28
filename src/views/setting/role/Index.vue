@@ -87,7 +87,6 @@ const OpenEdit = (role: Data) => {
   isOpen.value = true
 }
 
-
 const handlePageChange = (page: number) => {
   router.push({ query: { ...route.query, page } })
   fetchRoles(page)

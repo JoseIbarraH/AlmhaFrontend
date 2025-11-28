@@ -50,7 +50,7 @@
           </div>
         </div>
 
-        <div v-if="$can('view_users')">
+        <div v-if="$can('manage_users')">
           <p class="px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
             {{ $t('Helper.Setting.Administration.Title') }}
           </p>

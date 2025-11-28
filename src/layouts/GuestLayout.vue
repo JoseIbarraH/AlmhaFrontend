@@ -2,6 +2,7 @@
 import ApplicationLogo from '@/components/app/ApplicationLogo.vue';
 import { useDarkMode } from '@/components/composables/useDarkMode';
 import ThemeSwitcher from '@/components/app/ThemeSwitcher.vue';
+import LanguageSwitcher from '@/components/app/LanguageSwitcher.vue';
 
 const { isDark } = useDarkMode()
 </script>
@@ -14,8 +15,9 @@ const { isDark } = useDarkMode()
       </router-link>
     </div>
 
-    <div class="absolute top-5 right-5">
+    <div class="flex absolute top-5 right-5 gap-4">
       <ThemeSwitcher />
+      <LanguageSwitcher />
     </div>
 
     <div class="mt-6 w-full overflow-hidden bg-white dark:bg-gray-800 px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg">
