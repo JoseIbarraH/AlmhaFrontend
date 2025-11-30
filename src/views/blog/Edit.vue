@@ -154,11 +154,12 @@ const saveChanges = async () => {
     await api.post(`/api/blog/${props.id}`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
+    showNotification('success', t('Dashboard.Blog.Validations.Success.Update'), 3000)
 
     router.push({ name: 'dashboard.blog' });
   } catch (err: any) {
     error.value = err.response?.data?.message || t('Dashboard.Blog.Validations.Error.Update');
-    console.error('Error saving blog:', err);
+    showNotification('error', error.value, 3000)
   } finally {
     loading.value = false;
   }

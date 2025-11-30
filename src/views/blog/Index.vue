@@ -153,7 +153,6 @@ async function fetchBlogs(page = 1) {
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
 
-    /* router.replace({ query: { page } }); */
   } catch (error) {
     showNotification('error', t('Dashboard.Blog.Validations.Error.GetData'), 4000);
   } finally {

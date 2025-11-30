@@ -67,22 +67,15 @@ const routes: RouteRecordRaw[] = [
         setI18nLocale(locale)
       }
 
-      /* try {
-        const auth = useAuthStore(pinia)
-        await auth.fetchUser()
+      if (path === `/${locale}` || path === `/${locale}/`) {
+        const { isAuthenticated } = useAuthStore() // O tu método para verificar auth
 
-        if (to.path === `/${locale}` || to.name === 'auth.login') {
-          return next({ name: 'dashboard.home', params: { locale }, replace: true });
+        if (isAuthenticated) {
+          return next(`/${locale}/dashboard`)
+        } else {
+          return next(`/${locale}/auth`)
         }
-
-        return next();
-      } catch (err: any) {
-        if (to.name === 'auth.login') {
-          return next();
-        }
-
-        return next({ name: 'auth.login', params: { locale }, replace: true });
-      } */
+      }
 
       next()
     },
@@ -102,6 +95,51 @@ const routes: RouteRecordRaw[] = [
       {
         path: "dashboard",
         component: AuthenticatedLayout,
+        beforeEnter: async (to, __from, next) => {
+          const auth = useAuthStore(pinia)
+          const path = to.path
+
+          // --- 1. Normalizar URLs evitando / al final ---
+          if (path !== '/' && path.endsWith('/')) {
+            return next({
+              path: path.slice(0, -1),
+              query: to.query,
+              hash: to.hash,
+              replace: true,
+            })
+          }
+
+          if (!auth.user) {
+            try {
+              await auth.fetchUser()
+            } catch {
+              if (to.meta.requiresAuth) {
+                return next({ name: 'auth.login', params: { locale: to.params.locale } })
+              }
+            }
+          }
+
+          // --- 3. Validar autenticación ---
+          if (to.meta.requiresAuth && !auth.isAuthenticated) {
+            return next({ name: 'auth.login', params: { locale: to.params.locale } })
+          }
+
+          // --- 4. Validar un solo permiso ---
+          if (to.meta.permission && !auth.can(to.meta.permission)) {
+            return next({ name: 'dashboard.home', params: { locale: to.params.locale } })
+          }
+
+          // --- 5. Validar lista de permisos (OR) ---
+          if (to.meta.permissions) {
+            const allowed = to.meta.permissions.some((p) => auth.can(p))
+            if (!allowed) {
+              return next({ name: 'dashboard.home', params: { locale: to.params.locale } })
+            }
+          }
+
+          // --- 6. Continuar ---
+          next()
+        },
         children: [
           {
             path: "",
@@ -269,7 +307,7 @@ const router = createRouter({
 })
 
 // Guard global: redirigir trailing slashes
-router.beforeEach(async (to, __from, next) => {
+/* router.beforeEach(async (to, __from, next) => {
   const auth = useAuthStore(pinia)
   const path = to.path
 
@@ -314,7 +352,7 @@ router.beforeEach(async (to, __from, next) => {
   // --- 6. Continuar ---
   next()
 })
-
+ */
 
 // Guard global: cambia título dinámicamente
 router.afterEach((to) => {

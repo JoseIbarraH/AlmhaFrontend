@@ -144,7 +144,8 @@
       "Validations": {
         "Success": {
           "Status": "Estado actualizado correctamente.",
-          "Create": "Creado con exito.",
+          "Create": "Blog creado con exito.",
+          "Update": "Blog actualizado con exito.",
           "Delete": "Blog eliminado correctamente"
         },
         "Error": {
