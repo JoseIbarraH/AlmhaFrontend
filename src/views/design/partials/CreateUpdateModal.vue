@@ -114,10 +114,6 @@ const saveChanges = async () => {
   try {
     const formData = buildFormData()
 
-    for (const [key, val] of formData.entries()) {
-      console.log(`${key}:`, val)
-    }
-
     if (props.editing === true) {
       await api.post(`/api/design/${props.data?.id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
@@ -163,13 +159,7 @@ watch(() => props.show, (newVal) => {
       form.path = props.data.full_path
       form.title = props.data.title
       form.subtitle = props.data.subtitle
-      console.log(form)
     }
   }
 });
-
-watch(form, (val) => {
-  console.log(val)
-})
-
 </script>

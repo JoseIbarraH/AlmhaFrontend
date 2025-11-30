@@ -1,13 +1,10 @@
 import type { User } from '@/types/user'
 import { defineStore } from 'pinia'
 import { api } from '@/plugins/api'
-import axios from 'axios'
 import CryptoJS from 'crypto-js'
 
-// Clave de encriptación (generada única por instalación)
-const ENCRYPTION_KEY = import.meta.env.VITE_STORAGE_KEY || 'your-secret-key-here-change-in-production'
+const ENCRYPTION_KEY = import.meta.env.VITE_STORAGE_KEY
 
-// Utilidades de encriptación
 const encrypt = (data: string): string => {
   return CryptoJS.AES.encrypt(data, ENCRYPTION_KEY).toString()
 }
@@ -17,7 +14,6 @@ const decrypt = (encryptedData: string): string => {
   return bytes.toString(CryptoJS.enc.Utf8)
 }
 
-// Plugin personalizado de persistencia con encriptación
 const encryptedStorage = {
   getItem: (key: string): string | null => {
     const encryptedData = localStorage.getItem(key)
@@ -28,7 +24,7 @@ const encryptedStorage = {
       return decryptedData
     } catch (error) {
       console.error('Error decrypting data:', error)
-      localStorage.removeItem(key) // Limpiar dato corrupto
+      localStorage.removeItem(key)
       return null
     }
   },
@@ -69,20 +65,13 @@ export const useAuthStore = defineStore('auth', {
       this.loading = true
 
       try {
-        // Obtener cookie CSRF
         await api.get('/sanctum/csrf-cookie')
         this.permissions = []
 
-        // Intentar login
         const { data } = await api.post('/api/login', { email, password, remember })
 
-        // Guardar usuario y respuesta completa
         this.user = data?.data
         this.permissions = this.user?.roles?.flatMap(role => role.permissions.map(p => p.code)) ?? []
-
-        console.log('Permisos: ', this.permissions)
-
-        // Retornar resultado exitoso
         return {
           success: true,
           message: 'Autenticación exitosa',
@@ -90,16 +79,6 @@ export const useAuthStore = defineStore('auth', {
         }
       } catch (err: unknown) {
         let message = 'Ocurrió un error al iniciar sesión'
-
-        if (axios.isAxiosError(err)) {
-          if (err.response?.status === 401) {
-            message = err.response.data.message || 'Credenciales inválidas'
-          } else if (err.response?.data?.message) {
-            message = err.response.data.message
-          }
-        }
-
-        // Retornar resultado fallido sin lanzar excepción
         return {
           success: false,
           message,
@@ -113,6 +92,8 @@ export const useAuthStore = defineStore('auth', {
     async logout() {
       try {
         await api.post('/api/logout')
+      } catch (error) {
+        console.log('No autorizado')
       } finally {
         this.user = null
         this.permissions = []
@@ -126,7 +107,7 @@ export const useAuthStore = defineStore('auth', {
         this.user = data
         this.permissions = this.user?.roles?.flatMap(role => role.permissions.map(p => p.code)) ?? []
         return this.user
-      } catch {
+      } catch (error) {
         this.user = null
       }
     }

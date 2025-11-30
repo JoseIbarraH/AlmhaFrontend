@@ -7,3 +7,5 @@ declare module '@vue/runtime-core' {
     $t: VueI18n['t'] // <<< usa SOLO el tipo legacy, evita la unión incompatible
   }
 }
+
+declare module '*.js';
