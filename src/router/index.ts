@@ -19,6 +19,7 @@ import SettingProfile from "@/views/setting/profile/Index.vue"
 import SettingUser from "@/views/setting/user/Index.vue"
 import SettingRole from "@/views/setting/role/Index.vue"
 import SettingAudit from "@/views/setting/audit/Index.vue"
+import SettingTrash from "@/views/setting/trash/Index.vue"
 import AuthLogin from "@/views/auth/Login.vue"
 import { useAuthStore } from '@/stores/authStore'
 import { pinia } from '@/main'
@@ -287,7 +288,19 @@ const routes: RouteRecordRaw[] = [
                 name: "setting.audit",
                 component: SettingAudit,
                 meta: {
-                  title: "Audit"
+                  title: "Audit",
+                  requiresAuth: true,
+                  permission: "manage_reports"
+                }
+              },
+              {
+                path: "trash",
+                name: "setting.trash",
+                component: SettingTrash,
+                meta: {
+                  title: "Audit",
+                  requiresAuth: true,
+                  permission: "manage_users"
                 }
               }
             ]

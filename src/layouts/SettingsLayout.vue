@@ -50,7 +50,7 @@
           </div>
         </div>
 
-        <div v-if="$can('manage_users') || $can('view_reports')">
+        <div v-if="$can('manage_users') || $can('view_reports') || $can('view_trash')">
           <p class="px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
             {{ $t('Helper.Setting.Administration.Title') }}
           </p>
@@ -74,6 +74,13 @@
                 <LucideTableConfig class="w-5 h-5" />
               </template>
               <span class="flex-1">{{ $t('Helper.Setting.Administration.Record') }}</span>
+            </SidebarLink>
+
+            <SidebarLink v-if="$can('view_trash')" :href="{ name: 'setting.trash' }" :active="current({ name: 'setting.trash' })">
+              <template #icon>
+                <LucideTrash2 class="w-5 h-5" />
+              </template>
+              <span class="flex-1">{{ $t('Helper.Setting.Administration.Trash') }}</span>
             </SidebarLink>
           </div>
         </div>
@@ -119,7 +126,7 @@ import { useRouteHelper } from '@/components/composables/useRouteHelper';
 import SidebarLink from '@/components/ui/SidebarLink.vue';
 import { RouterView } from 'vue-router'
 import { ref } from 'vue'
-import { LucideMenu, LucideShieldCheck, LucideTableConfig, LucideUser, LucideUsers, LucideX } from 'lucide-vue-next';
+import { LucideMenu, LucideShieldCheck, LucideTableConfig, LucideTrash2, LucideUser, LucideUsers, LucideX } from 'lucide-vue-next';
 
 const { current } = useRouteHelper();
 

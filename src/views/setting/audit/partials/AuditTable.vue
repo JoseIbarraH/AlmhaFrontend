@@ -10,10 +10,7 @@
       </h2>
 
       <!-- ⭐ Input de búsqueda manual -->
-      <Search
-        v-model="localSearch"
-        :placeholder="$t('Dashboard.Setting.Audit.List.Search')"
-        @search="handleSearch" />
+      <Search v-model="localSearch" :placeholder="$t('Dashboard.Setting.Audit.List.Search')" @search="handleSearch" />
     </div>
 
     <div class="overflow-x-auto">
@@ -45,11 +42,11 @@
           <template v-for="(value, index) in data" :key="index">
             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
               <td class="px-6 py-4">
-                <p class="text-sm text-gray-700 dark:text-gray-300">{{ value.user_name }}</p>
+                <p class="text-sm text-gray-700 dark:text-gray-300">{{ value.user_name || 'N/A' }}</p>
               </td>
               <td class="px-6 py-4">
                 <p class="text-sm text-gray-700 dark:text-gray-300">{{
-                  formatAuditableType(value.auditable_type) }}</p>
+                  formatAuditableType(value.auditable_type) || 'N/A'}}</p>
               </td>
               <td class="px-6 py-4">
                 <p class="text-sm text-gray-700 dark:text-gray-300">{{ value.event }}</p>
@@ -86,12 +83,13 @@
                       </div>
                       <div>
                         <span class="text-gray-500 dark:text-gray-400">Nombre:</span>
-                        <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">{{ value.user_name }}</span>
+                        <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">
+                          {{ value.user_name }}</span>
                       </div>
                       <div>
                         <span class="text-gray-500 dark:text-gray-400">Tipo:</span>
-                        <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">{{
-                          formatAuditableType(value.user_type) }}</span>
+                        <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">
+                          {{ formatAuditableType(value.user_type) || 'N/A'}}</span>
                       </div>
                     </div>
                   </div>
@@ -109,8 +107,9 @@
                       </div>
                       <div>
                         <span class="text-gray-500 dark:text-gray-400">Tipo Auditable:</span>
-                        <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">{{
-                          formatAuditableType(value.auditable_type) }}</span>
+                        <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">
+                          {{ formatAuditableType(value.auditable_type) || 'N/A' }}
+                        </span>
                       </div>
                       <div>
                         <span class="text-gray-500 dark:text-gray-400">ID Auditable:</span>
@@ -148,8 +147,8 @@
                       </div>
                       <div>
                         <span class="text-gray-500 dark:text-gray-400">User Agent:</span>
-                        <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium break-all">{{ value.user_agent
-                        }}</span>
+                        <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium break-all">
+                          {{ value.user_agent || 'N/A' }}</span>
                       </div>
                     </div>
                   </div>
@@ -284,8 +283,9 @@ const toggleRow = (i: number) => {
   openRow.value = openRow.value === i ? null : i
 }
 
-const formatAuditableType = (text: string) => {
-  return text.replace("App\\Models\\", "")
+const formatAuditableType = (text: string | null | undefined) => {
+  if (!text) return '';
+  return text.replace('App\\Models\\', '');
 }
 
 const stripHtml = (value: any): any => {
