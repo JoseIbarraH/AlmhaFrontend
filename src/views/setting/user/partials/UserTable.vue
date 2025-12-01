@@ -5,8 +5,10 @@
       <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
         {{ $t('Dashboard.Setting.User.List.Title') }}
       </h2>
-      <Search endpoint="/api/setting/user" :placeholder="$t('Dashboard.Setting.User.List.Search')"
-        @update:modelValue="handleSearch" @loading="loading = $event" />
+      <Search
+        v-model="localSearch"
+        :placeholder="$t('Dashboard.Setting.User.List.Search')"
+        @search="handleSearch" />
     </div>
 
     <!-- Tabla responsive -->
@@ -182,7 +184,6 @@ const filteredData = computed(() =>
   currentData().filter(u => u.id !== auth.user?.id)
 );
 
-
 const updateMousePos = (e: any) => {
   mouseX.value = e.clientX;
   mouseY.value = e.clientY;
@@ -190,13 +191,14 @@ const updateMousePos = (e: any) => {
 
 const isOpen = ref(false)
 const userToDelete = ref<Data | null>(null)
+const localSearch = ref('')
 const localData = ref<Data[]>([])
-const loading = ref(false)
 
 const emit = defineEmits<{
-  (e: 'status-updated'): void
-  (e: 'refresh-requested'): void
-  (e: 'update', payload: Data): void
+  'status-updated': []
+  'refresh-requested': []
+  'update': [payload: Data]
+  'search': [search: string]
 }>()
 
 const props = defineProps<{
@@ -249,8 +251,8 @@ function currentData(): Data[] {
   return localData.value.length > 0 ? localData.value : props.data
 }
 
-async function handleSearch(results: any[]) {
-  localData.value = results ?? []
+const handleSearch = (search: string) => {
+  emit('search', search)
 }
 
 function getInitials(text: string): string {

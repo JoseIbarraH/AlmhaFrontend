@@ -1,15 +1,5 @@
 {
   "Dashboard": {
-    "Navbar": {
-      "Dashboard": "Tablero",
-      "Team": "Equipo",
-      "Blog": "Blog",
-      "Design": "Diseño",
-      "Profile": "Perfil",
-      "Logout": "Cerrar sesión",
-      "Service": "Servicios",
-      "Setting": "Configuraciones"
-    },
     "Dashboard": {
       "Header": "Tablero",
       "Title": "Tablero de Control"
@@ -380,6 +370,7 @@
         }
       },
       "RolePermission": {
+        "CreateButton": "Crear rol",
         "List": {
           "Title": "Crear Roles",
           "Role": "Rol",
@@ -388,6 +379,7 @@
           "Updated": "Actualizado",
           "Actions": "Acciones",
           "NoMembers": "No hay roles registrados aún.",
+          "Search": "Buscar por rol",
           "Status": {
             "Title": "Estado",
             "Active": "Activo",
@@ -442,6 +434,7 @@
         }
       },
       "User": {
+        "CreateButton": "Crear usuario",
         "List": {
           "Title": "Crear usuarios",
           "User": "Usuarios",
@@ -499,6 +492,18 @@
           }
         }
       },
+      "Audit": {
+        "List": {
+          "Title": "Registro",
+          "Search": "Buscar registro",
+          "User": "Usuario",
+          "Model": "Modelo",
+          "Action": "Acción",
+          "Date": "Fecha",
+          "IpAddress": "Direccion Ip",
+          "Details": "Detalles"
+        }
+      },
       "Validations": {
         "Success": {
           "ProfileUpdate": "Perfil actualizado",
@@ -520,6 +525,16 @@
     "LoginText": "Iniciar sesión"
   },
   "Helper": {
+    "Navbar": {
+      "Dashboard": "Tablero",
+      "Team": "Equipo",
+      "Blog": "Blog",
+      "Design": "Diseño",
+      "Profile": "Perfil",
+      "Logout": "Cerrar sesión",
+      "Service": "Servicios",
+      "Setting": "Configuraciones"
+    },
     "TimeSince": {
       "years": "hace {n} año | hace {n} años",
       "months": "hace {n} mes | hace {n} meses",
@@ -542,7 +557,8 @@
       "Administration": {
         "Title": "Administración",
         "User": "Usuarios",
-        "RolePermission": "Roles y Permisos"
+        "RolePermission": "Roles y Permisos",
+        "Record": "Registros"
       }
     }
   },

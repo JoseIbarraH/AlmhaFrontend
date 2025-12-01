@@ -5,8 +5,7 @@
       {{ $t('Dashboard.Blog.List.Blogs') }}
     </h2>
 
-    <Search endpoint="/api/blog" :placeholder="$t('Dashboard.Blog.List.Search')" @update:modelValue="handleSearch"
-      @loading="loading = $event" />
+    <Search :placeholder="$t('Dashboard.Blog.List.Search')" @search="handleSearch" v-model="localSearch" />
   </div>
 
   <div v-if="data.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
@@ -112,8 +111,9 @@ const auth = useAuthStore()
 const { t } = useI18n()
 
 const emit = defineEmits<{
-  (e: 'status-updated'): void
-  (e: 'refresh-requested'): void
+  'status-updated': []
+  'refresh-requested': []
+  'search': [search: string]
 }>()
 
 const router = useRouter()
@@ -122,7 +122,7 @@ const isOpen = ref(false)
 const blogToDelete = ref<Data | null>(null)
 
 const localData = ref<Data[]>([])
-const loading = ref(false)
+const localSearch = ref('')
 
 const props = defineProps<{
   data: Data[]
@@ -161,8 +161,8 @@ function currentData() {
   return localData.value.length > 0 ? localData.value : props.data
 }
 
-async function handleSearch(results: any[]) {
-  localData.value = results ?? []
+const handleSearch = (search: string) => {
+  emit('search', search)
 }
 
 const handleToggleStatus = async (data: Data) => {
@@ -172,7 +172,6 @@ const handleToggleStatus = async (data: Data) => {
   const original = data.status
   try {
     await api.post(`/api/blog/update_status/${data.id}`, { status: newStatus });
-    // Actualizamos el valor localmente si la API responde bien
     data.status = newStatus;
     showNotification('success', t('Dashboard.Blog.Validations.Success.Status'), 3000)
     emit('status-updated')

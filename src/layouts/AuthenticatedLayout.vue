@@ -39,22 +39,22 @@ const { isDark } = useDarkMode()
 
             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
               <NavLink :href="{ name: 'dashboard.home' }" :active="current({ name: 'dashboard.home' })">
-                {{ $t('Dashboard.Navbar.Dashboard') }}
+                {{ $t('Helper.Navbar.Dashboard') }}
               </NavLink>
               <NavLink v-if="$can('view_design')" :href="{ name: 'dashboard.design' }" :active="current({ name: 'dashboard.design' })">
-                {{ $t('Dashboard.Navbar.Design') }}
+                {{ $t('Helper.Navbar.Design') }}
               </NavLink>
               <NavLink v-if="$can('view_teams')" :href="{ name: 'dashboard.team' }"
                 :active="current({ name: 'dashboard.team' }) || current({ name: 'dashboard.team.create' }) || current({ name: 'dashboard.team.edit' })">
-                {{ $t('Dashboard.Navbar.Team') }}
+                {{ $t('Helper.Navbar.Team') }}
               </NavLink>
               <NavLink v-if="$can('view_blogs')" :href="{ name: 'dashboard.blog' }"
                 :active="current({ name: 'dashboard.blog' }) || current({ name: 'dashboard.blog.edit' })">
-                {{ $t('Dashboard.Navbar.Blog') }}
+                {{ $t('Helper.Navbar.Blog') }}
               </NavLink>
               <NavLink v-if="$can('view_services')" :href="{ name: 'dashboard.service' }"
                 :active="current({ name: 'dashboard.service' }) || current({ name: 'dashboard.service.create' }) || current({ name: 'dashboard.service.edit' })">
-                {{ $t('Dashboard.Navbar.Service') }}
+                {{ $t('Helper.Navbar.Service') }}
               </NavLink>
             </div>
           </div>
@@ -78,7 +78,7 @@ const { isDark } = useDarkMode()
 
                 <template #content>
                   <DropdownLink :href="{ name: 'setting.profile' }">
-                    {{ $t('Dashboard.Navbar.Setting') }}
+                    {{ $t('Helper.Navbar.Setting') }}
                   </DropdownLink>
                   <LogOutButton />
                 </template>
@@ -104,19 +104,19 @@ const { isDark } = useDarkMode()
       }" class="sm:hidden border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div class="space-y-1 pb-3 pt-2">
           <ResponsiveNavLink :href="{ name: 'dashboard.home' }" :active="current({ name: 'dashboard.home' })">
-            {{ $t('Dashboard.Navbar.Dashboard') }}
+            {{ $t('Helper.Navbar.Dashboard') }}
           </ResponsiveNavLink>
           <ResponsiveNavLink v-if="$can('view_design')" :href="{ name: 'dashboard.design' }" :active="current({ name: 'dashboard.design' })">
-            {{ $t('Dashboard.Navbar.Design') }}
+            {{ $t('Helper.Navbar.Design') }}
           </ResponsiveNavLink>
           <ResponsiveNavLink v-if="$can('view_teams')" :href="{ name: 'dashboard.team' }" :active="current({ name: 'dashboard.team' })">
-            {{ $t('Dashboard.Navbar.Team') }}
+            {{ $t('Helper.Navbar.Team') }}
           </ResponsiveNavLink>
           <ResponsiveNavLink v-if="$can('view_blogs')" :href="{ name: 'dashboard.blog' }" :active="current({ name: 'dashboard.blog' })">
-            {{ $t('Dashboard.Navbar.Blog') }}
+            {{ $t('Helper.Navbar.Blog') }}
           </ResponsiveNavLink>
           <ResponsiveNavLink v-if="$can('view_services')" :href="{ name: 'dashboard.service' }" :active="current({ name: 'dashboard.service' })">
-            {{ $t('Dashboard.Navbar.Service') }}
+            {{ $t('Helper.Navbar.Service') }}
           </ResponsiveNavLink>
         </div>
 
@@ -132,7 +132,7 @@ const { isDark } = useDarkMode()
 
           <div class="mt-3 space-y-1">
             <ResponsiveNavLink :href="{ name: 'setting.profile' }" :active="current({ name: 'setting.profile' })">
-              {{ $t('Dashboard.Navbar.Setting') }}
+              {{ $t('Helper.Navbar.Setting') }}
             </ResponsiveNavLink>
             <LogOutButtonResponsive />
           </div>

@@ -26,7 +26,7 @@
 
       <TeamTable :data="paginate?.data ?? []"
         @status-updated="fetchTeamMembers(route.query.page ? Number(route.query.page) : 1)"
-        @refresh-requested="fetchTeamMembers(route.query.page ? Number(route.query.page) : 1)" />
+        @search="handleSearch" />
 
       <Pagination v-if="paginate" :pagination="paginate" @page-change="handlePageChange" />
     </section>
@@ -57,20 +57,27 @@ const apiResponse = ref<Default<Data> | null>(null)
 const initialLoading = ref(true)
 const loading = ref(true)
 const paginate = ref<PaginatedResponse<Data> | null>(null)
-
+const searchQuery = ref('')
 const stats = computed<Stats | null>(() => apiResponse.value?.stats ?? null)
 
 const createTeamMember = () => {
   router.push({ name: 'dashboard.team.create' })
 }
 
-async function fetchTeamMembers(page = 1) {
+async function fetchTeamMembers(page = 1, search = '') {
   if (!auth.can('view_teams')) return
   try {
     if (initialLoading.value) {
       loading.value = true
     }
-    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/team_member?page=${page}`);
+
+    const params = new URLSearchParams()
+    params.append('page', page.toString())
+    if (search) {
+      params.append('search', search)
+    }
+
+    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/team_member?${params.toString()}`);
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
   } catch (error) {
@@ -84,6 +91,11 @@ async function fetchTeamMembers(page = 1) {
 function handlePageChange(page: number) {
   router.push({ query: { ...route.query, page } })
   fetchTeamMembers(page)
+}
+
+const handleSearch = (search: string) => {
+  searchQuery.value = search
+  fetchTeamMembers(1, search)
 }
 
 watch(() => route.params.locale,

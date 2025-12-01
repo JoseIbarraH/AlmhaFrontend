@@ -286,7 +286,7 @@ const saveChanges = async () => {
     }
 
     loading.value = false
-    /* router.push({ name: 'dashboard.service' }) */
+    router.push({ name: 'dashboard.service' })
   } catch (err: any) {
     const message = editing.value
       ? t('Dashboard.Service.Validations.Error.Update')

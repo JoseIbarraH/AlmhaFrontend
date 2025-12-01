@@ -1,5 +1,5 @@
 <template>
-  <div v-if="pagination && pagination.last_page > 1"
+  <div v-if="pagination"
     class="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-6 gap-4">
 
     <!-- Texto de rango (izquierda) -->

@@ -6,8 +6,10 @@
         {{ $t('Dashboard.Team.List.TeamMembers') }}
       </h2>
 
-      <Search endpoint="/api/team_member" :placeholder="$t('Dashboard.Team.List.Search')"
-        @update:modelValue="handleSearch" @loading="loading = $event" />
+      <Search
+        :placeholder="$t('Dashboard.Team.List.Search')"
+        @search="handleSearch"
+        v-model="localSearch"/>
     </div>
 
     <!-- Tabla responsive -->
@@ -147,12 +149,14 @@ const router = useRouter()
 
 const isOpen = ref(false)
 const memberToDelete = ref<Data | null>(null)
-const loading = ref(false)
+const localSearch = ref('')
 const localData = ref<Data[]>([])
 
+
 const emit = defineEmits<{
-  (e: 'status-updated'): void
-  (e: 'refresh-requested'): void
+  'status-updated': []
+  'refresh-requested': []
+  'search': [search: string]
 }>()
 
 const props = defineProps<{
@@ -207,8 +211,8 @@ function currentData() {
   return localData.value.length > 0 ? localData.value : props.data
 }
 
-async function handleSearch(results: any[]) {
-  localData.value = results ?? []
+const handleSearch = (search: string) => {
+  emit('search', search)
 }
 
 function getInitials(text: string): string {

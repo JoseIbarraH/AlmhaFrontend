@@ -29,7 +29,9 @@
       <div class="bg-white rounded-lg shadow-md dark:bg-gray-900">
         <BlogGrid :data="paginate?.data ?? []"
           @status-updated="fetchBlogs(route.query.page ? Number(route.query.page) : 1)"
-          @refresh-requested="fetchBlogs(route.query.page ? Number(route.query.page) : 1)" />
+          @refresh-requested="handleRefresh"
+          @search="handleSearch"
+          />
       </div>
       <Pagination v-if="paginate" :pagination="paginate" @page-change="handlePageChange" />
     </section>
@@ -106,6 +108,7 @@ const loading = ref(true)
 const paginate = ref<PaginatedResponse<Data> | null>(null)
 const creating = ref(false)
 const initialLoading = ref(true)
+const searchQuery = ref('')
 
 const stats = computed<Stats | null>(() => apiResponse.value?.stats ?? null)
 
@@ -143,13 +146,20 @@ const confirmCreate = async () => {
   }
 }
 
-async function fetchBlogs(page = 1) {
+async function fetchBlogs(page = 1, search = '') {
   if(!auth.can('view_blogs')) return
   try {
     if (initialLoading.value) {
       loading.value = true
     }
-    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/blog?page=${page}`);
+
+    const params = new URLSearchParams()
+    params.append('page', page.toString())
+    if (search) {
+      params.append('search', search)
+    }
+
+    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/blog?${params.toString()}`);
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
 
@@ -159,6 +169,16 @@ async function fetchBlogs(page = 1) {
     loading.value = false;
     initialLoading.value = false
   }
+}
+
+const handleRefresh = () => {
+  const page = Number(route.query.page) || 1
+  fetchBlogs(page, searchQuery.value)
+}
+
+const handleSearch = (search: string) => {
+  searchQuery.value = search
+  fetchBlogs(1, search)
 }
 
 function handlePageChange(page: number) {

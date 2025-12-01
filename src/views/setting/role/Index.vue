@@ -1,16 +1,15 @@
 <template>
   <div class="max-w-7xl space-y-6 sm:px-2 lg:px-2 py-5">
-    <div class="flex justify-between">
-      <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
-        Roles
-      </h2>
+    <div class="flex justify-end">
       <CreateButton @click.stop="handleModal">
-        Crear rol
+        {{ $t('Dashboard.Setting.RolePermission.CreateButton') }}
       </CreateButton>
     </div>
     <RoleTable :data="paginate?.data ?? []"
       @status-updated="fetchRoles(route.query.page ? Number(route.query.page) : 1)"
-      @refresh-requested="fetchRoles(route.query.page ? Number(route.query.page) : 1)" @update="OpenEdit" />
+      @refresh-requested="handleRefresh"
+      @search="handleSearch"
+      @update="OpenEdit" />
 
     <Pagination v-if="paginate" :pagination="paginate" @page-change="handlePageChange" />
   </div>
@@ -34,28 +33,40 @@ import { api } from '@/plugins/api';
 const route = useRoute()
 const router = useRouter()
 
-const isOpen = ref(false)
-
 const initialLoading = ref(true)
 const loading = ref(true)
 const apiResponse = ref<Default<Data> | null>(null)
 const permissions = ref<PermissionGroup | null>(null)
 const paginate = ref<PaginatedResponse<Data> | null>(null)
+const searchQuery = ref('')
 
+const isOpen = ref(false)
 const edit = ref<EditRole | null>(null)
 const editing = ref(false)
 
-const fetchRoles = async (page = 1) => {
+const fetchRoles = async (page = 1, search = '') => {
   try {
     if (initialLoading.value) {
       loading.value = true
     }
-    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/setting/role?page=${page}`);
+
+    const params = new URLSearchParams()
+    params.append('page', page.toString())
+    if (search) {
+      params.append('search', search)
+    }
+
+    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/setting/role?${params.toString()}`);
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
-    console.log(apiResponse.value)
+    router.replace({
+      query: {
+        page,
+        ...(search && { search })
+      }
+    })
   } catch (error: any) {
-    showNotification('error', 'Ocurrió un error al obtener los datos del equipo', 4000);
+    showNotification('error', 'Ocurrió un error al obtener los datos de los roles', 4000);
   } finally {
     loading.value = false;
     initialLoading.value = false
@@ -90,6 +101,16 @@ const OpenEdit = (role: Data) => {
 const handlePageChange = (page: number) => {
   router.push({ query: { ...route.query, page } })
   fetchRoles(page)
+}
+
+const handleRefresh = () => {
+  const page = Number(route.query.page) || 1
+  fetchRoles(page, searchQuery.value)
+}
+
+const handleSearch = (search: string) => {
+  searchQuery.value = search
+  fetchRoles(1, search)
 }
 
 const handleModal = () => {

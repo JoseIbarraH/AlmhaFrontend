@@ -9,10 +9,9 @@
         {{ $t('Dashboard.Setting.RolePermission.List.Title') }}
       </h2>
 
-      <Search endpoint="/api/setting/role" :placeholder="$t('Dashboard.Team.List.Search')"
-        @update:modelValue="handleSearch" @loading="loading = $event" />
+      <Search :placeholder="$t('Dashboard.Setting.RolePermission.List.Search')"
+        v-model="localSearch" @search="handleSearch"/>
     </div>
-
 
     <!-- Tabla responsive -->
     <div class="overflow-x-auto">
@@ -133,10 +132,10 @@ const props = defineProps<{
   data: Data[]
 }>()
 
+const localSearch = ref('')
 const isOpen = ref(false)
 const roleToDelete = ref<Data | null>(null)
 const localData = ref<Data[]>([])
-const loading = ref(false)
 
 const openModal = (blog: Data) => {
   roleToDelete.value = blog
@@ -149,9 +148,10 @@ const closeModal = () => {
 }
 
 const emit = defineEmits<{
-  (e: 'status-updated'): void
-  (e: 'refresh-requested'): void
-  (e: 'update', payload: Data): void
+  'status-updated': []
+  'update': [payload: Data]
+  'refresh-requested': []
+  'search': [search: string]
 }>()
 
 const handleEdit = (data: Data) => {
@@ -186,8 +186,8 @@ const confirmDelete = async () => {
   }
 }
 
-const handleSearch = (results: any[]) => {
-  localData.value = results ?? []
+const handleSearch = (search: string) => {
+  emit('search', search)
 }
 
 function currentData(): Data[] {

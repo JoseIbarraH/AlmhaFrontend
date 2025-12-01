@@ -50,23 +50,30 @@
           </div>
         </div>
 
-        <div v-if="$can('manage_users')">
+        <div v-if="$can('manage_users') || $can('view_reports')">
           <p class="px-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
             {{ $t('Helper.Setting.Administration.Title') }}
           </p>
           <div class="space-y-1">
-            <SidebarLink :href="{ name: 'setting.user' }" :active="current({ name: 'setting.user' })">
+            <SidebarLink v-if="$can('manage_users')" :href="{ name: 'setting.user' }" :active="current({ name: 'setting.user' })">
               <template #icon>
                 <LucideUsers class="w-5 h-5" />
               </template>
               <span class="flex-1">{{ $t('Helper.Setting.Administration.User') }}</span>
             </SidebarLink>
 
-            <SidebarLink :href="{ name: 'setting.role' }" :active="current({ name: 'setting.role' })">
+            <SidebarLink v-if="$can('manage_users')" :href="{ name: 'setting.role' }" :active="current({ name: 'setting.role' })">
               <template #icon>
                 <LucideShieldCheck class="w-5 h-5" />
               </template>
               <span class="flex-1">{{ $t('Helper.Setting.Administration.RolePermission') }}</span>
+            </SidebarLink>
+
+            <SidebarLink v-if="$can('view_reports')" :href="{ name: 'setting.audit' }" :active="current({ name: 'setting.audit' })">
+              <template #icon>
+                <LucideTableConfig class="w-5 h-5" />
+              </template>
+              <span class="flex-1">{{ $t('Helper.Setting.Administration.Record') }}</span>
             </SidebarLink>
           </div>
         </div>
@@ -112,7 +119,7 @@ import { useRouteHelper } from '@/components/composables/useRouteHelper';
 import SidebarLink from '@/components/ui/SidebarLink.vue';
 import { RouterView } from 'vue-router'
 import { ref } from 'vue'
-import { LucideMenu, LucideShieldCheck, LucideUser, LucideUsers, LucideX } from 'lucide-vue-next';
+import { LucideMenu, LucideShieldCheck, LucideTableConfig, LucideUser, LucideUsers, LucideX } from 'lucide-vue-next';
 
 const { current } = useRouteHelper();
 

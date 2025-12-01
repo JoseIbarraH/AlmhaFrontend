@@ -5,8 +5,10 @@
       {{ $t('Dashboard.Service.List.Services') }}
     </h2>
 
-    <Search endpoint="/api/service" :placeholder="$t('Dashboard.Service.List.Search')" @update:modelValue="handleSearch"
-      @loading="loading = $event" />
+    <Search
+      :placeholder="$t('Dashboard.Service.List.Search')"
+      @search="handleSearch"
+      v-model="localSearch" />
   </div>
 
   <!-- Lista de artículos (Grid) -->
@@ -225,8 +227,9 @@ import { ref } from 'vue';
 const { t } = useI18n()
 
 const emit = defineEmits<{
-  (e: 'status-updated'): void
-  (e: 'refresh-requested'): void
+  'status-updated': []
+  'refresh-requested': []
+  'search': [search: string]
 }>()
 
 const router = useRouter()
@@ -235,7 +238,7 @@ const isOpen = ref(false)
 const serviceToDelete = ref<Data | null>(null)
 
 const localData = ref<Data[]>([])
-const loading = ref(false)
+const localSearch = ref('')
 
 const props = defineProps<{
   data: Data[]
@@ -273,8 +276,8 @@ function currentData() {
   return localData.value.length > 0 ? localData.value : props.data
 }
 
-async function handleSearch(results: any[]) {
-  localData.value = results ?? []
+const handleSearch = (search: string) => {
+  emit('search', search)
 }
 
 const handleToggleStatus = async (data: Data) => {

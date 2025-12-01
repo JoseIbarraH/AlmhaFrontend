@@ -1,17 +1,15 @@
 <template>
   <div class="max-w-7xl space-y-6 sm:px-2 lg:px-2 py-5">
-    <div class="flex justify-between">
-      <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
-        Usuarios
-      </h2>
+    <div class="flex justify-end">
       <CreateButton @click.stop="handleCreateModal" :disabled="!$can('manage_users')">
-        Crear usuario
+        {{ $t('Dashboard.Setting.User.CreateButton') }}
       </CreateButton>
     </div>
     <UserTable
       :data="paginate?.data ?? []"
       @status-updated="fetchUsers(route.query.page ? Number(route.query.page) : 1)"
-      @refresh-requested="fetchUsers(route.query.page ? Number(route.query.page) : 1)"
+      @refresh-requested="handleRefresh"
+      @search="handleSearch"
       @update="handleEditModal"
     />
 
@@ -49,6 +47,7 @@ const initialLoading = ref(true)
 const loading = ref(true)
 const apiResponse = ref<Default<Data> | null>(null)
 const paginate = ref<PaginatedResponse<Data> | null>(null)
+const searchQuery = ref('')
 
 const isOpen = ref(false)
 const editing = ref(false)
@@ -81,6 +80,16 @@ const handlePageChange = (page: number) => {
   fetchUsers(page)
 }
 
+const handleRefresh = () => {
+  const page = Number(route.query.page) || 1
+  fetchUsers(page, searchQuery.value)
+}
+
+const handleSearch = (search: string) => {
+  searchQuery.value = search
+  fetchUsers(1, search)
+}
+
 const handleClose = () => {
   isOpen.value = !isOpen.value
   editing.value = false
@@ -96,12 +105,19 @@ const handleClose = () => {
   }
 }
 
-const fetchUsers = async (page = 1) => {
+const fetchUsers = async (page = 1, search = '') => {
   try {
     if (initialLoading.value) {
       loading.value = true
     }
-    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/setting/user?page=${page}`);
+
+    const params = new URLSearchParams()
+    params.append('page', page.toString())
+    if (search) {
+      params.append('search', search)
+    }
+
+    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/setting/user?${params.toString()}`);
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
     console.log(apiResponse.value)

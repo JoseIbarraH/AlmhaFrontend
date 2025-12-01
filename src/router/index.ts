@@ -18,6 +18,7 @@ import DashboardTeamCreate from "@/views/team/CreateUpdate.vue"
 import SettingProfile from "@/views/setting/profile/Index.vue"
 import SettingUser from "@/views/setting/user/Index.vue"
 import SettingRole from "@/views/setting/role/Index.vue"
+import SettingAudit from "@/views/setting/audit/Index.vue"
 import AuthLogin from "@/views/auth/Login.vue"
 import { useAuthStore } from '@/stores/authStore'
 import { pinia } from '@/main'
@@ -88,7 +89,7 @@ const routes: RouteRecordRaw[] = [
             path: "",
             name: "auth.login",
             component: AuthLogin,
-            meta: { title: 'Login' }
+            meta: { title: "Login" }
           }
         ]
       },
@@ -146,9 +147,9 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.home",
             component: DashboardHome,
             meta: {
-              title: 'Dashboard',
+              title: "Dashboard",
               requiresAuth: true,
-              permission: 'view_dashboard'
+              permission: "view_dashboard"
             }
           },
           {
@@ -156,9 +157,9 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.design",
             component: DashboardDesign,
             meta: {
-              title: 'Design',
+              title: "Design",
               requiresAuth: true,
-              permission: 'view_design'
+              permission: "view_design"
             }
           },
           {
@@ -166,9 +167,9 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.service",
             component: DashboardService,
             meta: {
-              title: 'Service',
+              title: "Service",
               requiresAuth: true,
-              permission: 'view_services'
+              permission: "view_services"
             }
           },
           {
@@ -177,9 +178,9 @@ const routes: RouteRecordRaw[] = [
             component: DashboardServiceCreateUpdate,
             props: true,
             meta: {
-              title: 'Create Service',
+              title: "Create Service",
               requiresAuth: true,
-              permission: 'create_services'
+              permission: "create_services"
             }
           },
           {
@@ -188,9 +189,9 @@ const routes: RouteRecordRaw[] = [
             component: DashboardServiceCreateUpdate,
             props: true,
             meta: {
-              title: 'Edit Service',
+              title: "Edit Service",
               requiresAuth: true,
-              permission: 'update_services'
+              permission: "update_services"
             }
           },
           {
@@ -198,9 +199,9 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.blog",
             component: DashboardBlog,
             meta: {
-              title: 'Blog',
+              title: "Blog",
               requiresAuth: true,
-              permission: 'view_blogs'
+              permission: "view_blogs"
             }
           },
           {
@@ -209,9 +210,9 @@ const routes: RouteRecordRaw[] = [
             component: DashboardBlogEdit,
             props: true,
             meta: {
-              title: 'Edit Blog',
+              title: "Edit Blog",
               requiresAuth: true,
-              permission: 'update_blogs'
+              permission: "update_blogs"
             }
           },
           {
@@ -219,9 +220,9 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.team",
             component: DashboardTeam,
             meta: {
-              title: 'Team',
+              title: "Team",
               requiresAuth: true,
-              permission: 'view_teams'
+              permission: "view_teams"
             }
           },
           {
@@ -230,9 +231,9 @@ const routes: RouteRecordRaw[] = [
             component: DashboardTeamCreate,
             props: true,
             meta: {
-              title: 'Create Team',
+              title: "Create Team",
               requiresAuth: true,
-              permission: 'create_teams'
+              permission: "create_teams"
             }
           },
           {
@@ -241,9 +242,9 @@ const routes: RouteRecordRaw[] = [
             component: DashboardTeamCreate,
             props: true,
             meta: {
-              title: 'Edit Team',
+              title: "Edit Team",
               requiresAuth: true,
-              permission: 'update_teams'
+              permission: "update_teams"
             }
           },
           {
@@ -251,7 +252,7 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.setting",
             component: SettingsLayout,
             redirect: { name: "setting.profile" },
-            meta: { title: 'Settings' },
+            meta: { title: "Settings" },
             children: [
               {
                 path: "profile",
@@ -266,9 +267,9 @@ const routes: RouteRecordRaw[] = [
                 name: "setting.user",
                 component: SettingUser,
                 meta: {
-                  title: 'User',
+                  title: "User",
                   requiresAuth: true,
-                  permission: 'manage_users'
+                  permission: "manage_users"
                 }
               },
               {
@@ -276,9 +277,17 @@ const routes: RouteRecordRaw[] = [
                 name: "setting.role",
                 component: SettingRole,
                 meta: {
-                  title: 'Role',
+                  title: "Role",
                   requiresAuth: true,
-                  permission: 'manage_users'
+                  permission: "manage_users"
+                }
+              },
+              {
+                path: "audit",
+                name: "setting.audit",
+                component: SettingAudit,
+                meta: {
+                  title: "Audit"
                 }
               }
             ]
@@ -305,54 +314,6 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes,
 })
-
-// Guard global: redirigir trailing slashes
-/* router.beforeEach(async (to, __from, next) => {
-  const auth = useAuthStore(pinia)
-  const path = to.path
-
-  // --- 1. Normalizar URLs evitando / al final ---
-  if (path !== '/' && path.endsWith('/')) {
-    return next({
-      path: path.slice(0, -1),
-      query: to.query,
-      hash: to.hash,
-      replace: true,
-    })
-  }
-
-  if (!auth.user) {
-    try {
-      await auth.fetchUser()
-    } catch {
-      if (to.meta.requiresAuth) {
-        return next({ name: 'auth.login', params: { locale: to.params.locale } })
-      }
-    }
-  }
-
-  // --- 3. Validar autenticación ---
-  if (to.meta.requiresAuth && !auth.isAuthenticated) {
-    return next({ name: 'auth.login', params: { locale: to.params.locale } })
-  }
-
-  // --- 4. Validar un solo permiso ---
-  if (to.meta.permission && !auth.can(to.meta.permission)) {
-    return next({ name: 'dashboard.home', params: { locale: to.params.locale } })
-  }
-
-  // --- 5. Validar lista de permisos (OR) ---
-  if (to.meta.permissions) {
-    const allowed = to.meta.permissions.some((p) => auth.can(p))
-    if (!allowed) {
-      return next({ name: 'dashboard.home', params: { locale: to.params.locale } })
-    }
-  }
-
-  // --- 6. Continuar ---
-  next()
-})
- */
 
 // Guard global: cambia título dinámicamente
 router.afterEach((to) => {
