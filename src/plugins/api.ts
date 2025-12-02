@@ -1,7 +1,5 @@
 import axios from 'axios'
 import router from '@/router'
-import { useAuthStore } from '@/stores/authStore'
-
 
 //Configuración base para Laravel Sanctum
 export const api = axios.create({
@@ -43,6 +41,7 @@ api.interceptors.response.use(
       return Promise.reject({ silent: true })
     }
     if (status === 419) {
+      router.push({ name: 'auth.login' })
       return Promise.reject({ silent: true })
     }
 

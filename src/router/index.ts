@@ -148,9 +148,7 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.home",
             component: DashboardHome,
             meta: {
-              title: "Dashboard",
-              requiresAuth: true,
-              permission: "view_dashboard"
+              title: "Dashboard"
             }
           },
           {
@@ -290,7 +288,7 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                   title: "Audit",
                   requiresAuth: true,
-                  permission: "manage_reports"
+                  permission: "view_reports"
                 }
               },
               {
@@ -298,9 +296,9 @@ const routes: RouteRecordRaw[] = [
                 name: "setting.trash",
                 component: SettingTrash,
                 meta: {
-                  title: "Audit",
+                  title: "Trash",
                   requiresAuth: true,
-                  permission: "manage_users"
+                  permission: "view_trash"
                 }
               }
             ]

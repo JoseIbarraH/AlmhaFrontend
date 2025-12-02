@@ -69,7 +69,7 @@ export const useAuthStore = defineStore('auth', {
         this.permissions = []
 
         const { data } = await api.post('/api/login', { email, password, remember })
-
+        console.log("data? ", data)
         this.user = data?.data
         this.permissions = this.user?.roles?.flatMap(role => role.permissions.map(p => p.code)) ?? []
         return {
@@ -78,6 +78,7 @@ export const useAuthStore = defineStore('auth', {
           data: data
         }
       } catch (err: unknown) {
+        console.log(err)
         let message = 'Ocurrió un error al iniciar sesión'
         return {
           success: false,

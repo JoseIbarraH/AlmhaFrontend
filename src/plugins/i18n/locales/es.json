@@ -83,13 +83,7 @@
         "ConfirmSubtitle": "Esta acción es permanente y no se puede revertir",
         "ConfirmDelete": "¿Estás seguro de que deseas eliminar el miembro",
         "Cancel": "Cancelar",
-        "Delete": "Eliminar",
-        "Consequences": {
-          "Title": "Al eliminar este Miembro:",
-          "First": "Se eliminará todo el contenido permanentemente",
-          "Second": "Las imágenes asociadas se eliminarán del servidor",
-          "Third": "No podrás recuperar esta información"
-        }
+        "Delete": "Eliminar"
       }
     },
     "Blog": {
@@ -151,16 +145,10 @@
       },
       "Delete": {
         "ConfirmTitle": "Confirmar Eliminación",
-        "ConfirmSubtitle": "Esta acción es permanente y no se puede revertir",
+        "ConfirmSubtitle": "Esta acción se puede revertir",
         "ConfirmDelete": "¿Estás seguro de que deseas eliminar el blog",
         "Cancel": "Cancelar",
-        "Delete": "Eliminar Blog",
-        "Consequences": {
-          "Title": "Al eliminar este blog:",
-          "First": "Se eliminará todo el contenido permanentemente",
-          "Second": "Las imágenes asociadas se eliminarán del servidor",
-          "Third": "No podrás recuperar esta información"
-        }
+        "Delete": "Eliminar Blog"
       }
     },
     "Design": {
@@ -288,16 +276,10 @@
       },
       "Delete": {
         "ConfirmTitle": "Confirmar Eliminación",
-        "ConfirmSubtitle": "Esta acción es permanente y no se puede revertir",
-        "Confirm_delete": "¿Estás seguro de que deseas eliminar el servicio",
+        "ConfirmSubtitle": "Esta acción se puede revertir",
+        "ConfirmDelete": "¿Estás seguro de que deseas eliminar el servicio",
         "Cancel": "Cancelar",
-        "Delete": "Eliminar Servicio",
-        "Consequences": {
-          "Title": "Al eliminar este servicio:",
-          "First": "Se eliminará todo el contenido permanentemente",
-          "Second": "Las imágenes asociadas se eliminarán del servidor",
-          "Third": "No podrás recuperar esta información"
-        }
+        "Delete": "Eliminar Servicio"
       },
       "Validations": {
         "Form": {
@@ -504,6 +486,37 @@
           "Details": "Detalles"
         }
       },
+      "Trash": {
+        "List": {
+          "ModelType": "Tipo de modelo",
+          "ModelId": "Id del modelo",
+          "Name": "Nombre",
+          "DeletedAt": "Fecha de eliminacion",
+          "Actions": "Acciones",
+          "Search": "Buscar por modelo y nombre."
+        },
+        "Delete": {
+          "ConfirmTitle": "Confirmar Eliminación",
+          "ConfirmSubtitle": "Esta acción se puede revertir",
+          "ConfirmDelete": "¿Estás seguro que deseas eliminar: ",
+          "Cancel": "Cancelar",
+          "Delete": "Eliminar",
+          "Consequences": {
+            "Title": "Al eliminar este registro:",
+            "First": "Se eliminará el registro permanentemente",
+            "Second": "No podrás recuperar esta información"
+          }
+        },
+        "Restore": {
+          "ConfirmTitle": "Restaurar elemento",
+          "ConfirmSubtitle": "Esta acción recuperará los datos anteriores",
+          "ConfirmRestore": "¿Estás seguro de que deseas restaurar el modelo {model} con nombre: ",
+          "Details": {
+            "Title": "Se restaurará:",
+            "First": "Los datos originales del elemento"
+          }
+        }
+      },
       "Validations": {
         "Success": {
           "ProfileUpdate": "Perfil actualizado",
@@ -515,7 +528,8 @@
           "ShortPassword": "La nueva contraseña debe tener al menos 8 caracteres.",
           "WeakPassword": "La contraseña debe incluir mayúsculas, minúsculas, números y símbolos.",
           "ConfirmationPassword": "Las contraseñas no coinciden.",
-          "UpdatePassword": "No se pudo actualizar la contraseña."
+          "UpdatePassword": "No se pudo actualizar la contraseña.",
+          "ProfileUpdate": "Error al actualiza el perfil"
         }
       }
     }

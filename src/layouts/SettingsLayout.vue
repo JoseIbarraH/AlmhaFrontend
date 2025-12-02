@@ -104,7 +104,7 @@
 
     <!-- Botón menú móvil -->
     <button @click="toggleSidebar"
-      class="lg:hidden fixed bottom-10 right-4 z-30 p-3 rounded-xl bg-white dark:bg-gray-950 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 shadow-lg border border-gray-200 dark:border-gray-800 transition-all duration-200 active:scale-95"
+      class="lg:hidden fixed bottom-10 right-10 z-30 p-3 rounded-xl bg-white dark:bg-gray-950 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 shadow-lg border border-gray-200 dark:border-gray-800 transition-all duration-200 active:scale-95"
       aria-label="Open Menu">
       <LucideMenu class="w-6 h-6" />
     </button>

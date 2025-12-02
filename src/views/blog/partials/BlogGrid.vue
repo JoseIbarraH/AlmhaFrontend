@@ -85,14 +85,17 @@
     <p class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Blog.List.AdjustingSearch') }}</p>
   </div>
 
-  <ConfirmDeleteModal :show="isOpen" :title="$t('Dashboard.Blog.Delete.ConfirmTitle')"
-    :subtitle="$t('Dashboard.Blog.Delete.ConfirmSubtitle')" :message="$t('Dashboard.Blog.Delete.ConfirmDelete')"
-    :itemName="blogToDelete?.title" :consequences-title="$t('Dashboard.Blog.Delete.Consequences.Title')" :consequences="[
-      $t('Dashboard.Blog.Delete.Consequences.First'),
-      $t('Dashboard.Blog.Delete.Consequences.Second'),
-      $t('Dashboard.Blog.Delete.Consequences.Third')
-    ]" :cancel-text="$t('Dashboard.Blog.Delete.Cancel')" :confirm-text="$t('Dashboard.Blog.Delete.Delete')"
-    @close="closeModal" @confirm="confirmDelete" />
+  <ConfirmDeleteModal
+    :show="isOpen"
+    :title="$t('Dashboard.Blog.Delete.ConfirmTitle')"
+    :subtitle="$t('Dashboard.Blog.Delete.ConfirmSubtitle')"
+    :message="$t('Dashboard.Blog.Delete.ConfirmDelete')"
+    :itemName="blogToDelete?.title"
+    :cancel-text="$t('Dashboard.Blog.Delete.Cancel')"
+    :confirm-text="$t('Dashboard.Blog.Delete.Delete')"
+    @close="closeModal"
+    @confirm="confirmDelete"
+  />
 </template>
 
 <script setup lang="ts">

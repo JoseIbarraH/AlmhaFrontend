@@ -45,6 +45,7 @@ const SaveChanges = async () => {
     changed.value = false
 
   } catch (error) {
+    console.error(error)
     showNotification('error', t('Dashboard.Setting.Validations.Error.ProfileUpdate'), 4000)
   } finally {
     loading.value = false
