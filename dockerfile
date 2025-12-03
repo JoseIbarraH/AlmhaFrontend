@@ -4,7 +4,7 @@
 FROM node:22-alpine AS build-stage
 
 # Set working directory
-WORKDIR /app
+WORKDIR /src
 
 # Define build arguments for Vite environment variables
 ARG VITE_BASE_URL=/
@@ -37,14 +37,10 @@ FROM nginx:alpine AS production-stage
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy built files from build stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+COPY --from=build-stage /src/dist /usr/share/nginx/html
 
 # Expose port 80
-EXPOSE 3000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost/health || exit 1
+EXPOSE 80
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
