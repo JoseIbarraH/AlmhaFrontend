@@ -110,7 +110,7 @@ const loadBlog = async () => {
     }
 
   } catch (error: any) {
-    showNotification('error', error.response?.data?.message || t('Dashboard.Blog.Validations.Error.GetData'), 4000)
+    showNotification('error', t('Dashboard.Blog.Validations.Error.GetData'), 4000)
   } finally {
     loading.value = false;
   }
@@ -121,7 +121,7 @@ const fetchCategories = async () => {
     const { data } = await api.get<ApiResponse<CategoryData>>('/api/blog/categories');
     categories.value = data.data?.categories
   } catch (error: any) {
-    showNotification('error', error.response?.data?.message || t('Dashboard.Blog.Validations.Error.GetCategories'), 4000)
+    showNotification('error', t('Dashboard.Blog.Validations.Error.GetCategories'), 4000)
   }
 }
 
@@ -158,8 +158,7 @@ const saveChanges = async () => {
 
     router.push({ name: 'dashboard.blog' });
   } catch (err: any) {
-    error.value = err.response?.data?.message || t('Dashboard.Blog.Validations.Error.Update');
-    showNotification('error', error.value, 3000)
+    showNotification('error', t('Dashboard.Blog.Validations.Error.Update'), 3000)
   } finally {
     loading.value = false;
   }

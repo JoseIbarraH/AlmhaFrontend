@@ -1,53 +1,32 @@
 {
-  "Content": "text between images",
   "Dashboard": {
-    "Navbar": {
-      "Dashboard": "Dashboard",
-      "Team": "Team",
-      "Blog": "Blog",
-      "Design": "Design",
-      "Profile": "Profile",
-      "Logout": "Logout",
-      "Service": "Services"
-    },
     "Dashboard": {
       "Header": "Dashboard",
       "Title": "Control Panel"
     },
     "Team": {
-      "Header": "Team",
-      "Title": "Team - Member Management",
-      "TotalTeams": "Total team members",
-      "TeamsActives": "Active team members",
-      "TeamsInactives": "Inactive team members",
-      "LastTeams": "New Members (15d)",
-      "Form": {
-        "Create": "Add Member",
-        "Edit": "Edit Member",
-        "Delete": "Delete Team",
-        "Members": "Team Members",
-        "AddMember": "Add team member",
-        "Name": "Name",
-        "Specialization": "Specialization",
-        "Status": "Status",
-        "Active": "Active",
-        "Inactive": "Inactive",
-        "Image": "Team member image",
-        "Cancel": "Cancel",
-        "Save": "Save",
-        "Update": "Update",
-        "UploadImage": "Drag or upload an image"
+      "Title": "Team - Team Member Management",
+      "CreateButton": "Add Member",
+      "Statistics": {
+        "Total": "Total team members",
+        "TeamsActives": "Active team members",
+        "TeamsInactives": "Inactive team members",
+        "Last": "New Members (15d)"
       },
       "List": {
         "TeamMembers": "Medical Team",
         "Doctor": "Doctor",
-        "Status": "Status",
         "Contact": "Contact",
         "Actions": "Actions",
         "Created": "Created",
         "Updated": "Updated",
         "NoMembers": "No members registered yet.",
-        "Search": "Search by name"
+        "Search": "Search by name",
+        "Status": {
+          "Title": "Status",
+          "Active": "Active",
+          "Inactive": "Inactive"
+        }
       },
       "CreateUpdate": {
         "CreateTitle": "Create new team member",
@@ -57,7 +36,7 @@
         "UpdateButton": "Update",
         "PersonalInfo": {
           "Specialization": "Specialization",
-          "Title": "Personal Information",
+          "Title": "Personal information",
           "Biography": "Biography",
           "Image": "Image",
           "Name": "Name",
@@ -70,198 +49,592 @@
             "Active": "Active",
             "Inactive": "Inactive"
           }
+        },
+        "Results": {
+          "Description": "Description"
+        },
+        "Cropper": {
+          "Title": "Crop image",
+          "Cancel": "Cancel",
+          "Confirm": "Confirm"
         }
+      },
+      "Validations": {
+        "Form": {
+          "Name": "Name is required.",
+          "Image": "Image is required.",
+          "Status": "Status is required.",
+          "Specialization": "Specialization is required.",
+          "Biography": "Biography is required",
+          "Results": "Results image #{n} has no file selected."
+        },
+        "Success": {
+          "Status": "Status updated successfully.",
+          "Delete": "Member deleted successfully.",
+          "Create": "Member created successfully.",
+          "Update": "Member updated successfully."
+        },
+        "Error": {
+          "Status": "Error updating status.",
+          "Delete": "Error deleting member.",
+          "Create": "Could not create team member. Please verify the data and try again.",
+          "Update": "Could not update team member information. Please verify the data and try again.",
+          "GetData": "Error retrieving team data,"
+        }
+      },
+      "Delete": {
+        "ConfirmTitle": "Confirm Deletion",
+        "ConfirmSubtitle": "This action is permanent and cannot be undone",
+        "ConfirmDelete": "Are you sure you want to delete the member",
+        "Cancel": "Cancel",
+        "Delete": "Delete"
       }
     },
     "Blog": {
-      "Header": "Blog",
-      "Title": "Blog - Content Management",
-      "CreatePost": "Create Post",
-      "Save": "Save",
-      "TotalBlogs": "Total blogs",
-      "BlogsActives": "Active blogs",
-      "BlogsInactives": "Inactive blogs",
-      "LastBlogs": "New Blogs (15d)",
-      "Editor": {
-        "SaveDraft": "Save Draft",
-        "PublishIt": "Publish",
-        "ImagePost": "Post Image",
-        "TitlePost": "Post Title",
-        "RemoveImage": "Remove Image",
-        "Category": "Category"
+      "Title": "Blog - Blog Content Management",
+      "CreateButton": "Create Post",
+      "Create": {
+        "Title": "Blog title",
+        "Subtitle": "Create your blog.",
+        "Optional": "Optional: You can add the title now or later",
+        "Placeholder": "Enter your blog title...",
+        "Cancel": "Cancel",
+        "CreateButton": "Create Blog"
       },
-      "Update": {
-        "TitleCreate": "Blog - Post Management - Create",
-        "TitleUpdate": "Blog - Post Management - Edit",
-        "Save": "Save",
-        "Back": "Back",
-        "Categories": {
-          "Facial": "Facial",
-          "Bodily": "Body",
-          "NonSurgical": "Non-Surgical",
-          "General": "General"
-        },
-        "ConfirmDelete": "Confirm Deletion",
-        "ConfirmDeleteMessage": "Are you sure you want to delete this post?",
-        "ConfirmDeleteButton": "Yes, delete",
-        "CancelDeleteButton": "Cancel"
+      "Statistics": {
+        "Total": "Total blogs",
+        "TeamsActives": "Active blogs",
+        "TeamsInactives": "Inactive blogs",
+        "Last": "New Blogs (15d)"
       },
       "List": {
-        "Edit": "Edit",
-        "Deactivate": "Deactivate",
-        "Activate": "Activate",
-        "Search": "Search by title",
+        "Blogs": "Blogs",
         "Active": "Active",
         "Inactive": "Inactive",
-        "NoResults": "No blogs found",
-        "NoResultsFor": "No items to display.",
         "LastUpdate": "Last update:",
-        "CreationDate": "Creation date:"
+        "CreationDate": "Creation date:",
+        "Edit": "Edit",
+        "Activate": "Activate",
+        "Deactivate": "Deactivate",
+        "NoResults": "No results",
+        "Search": "Search by title",
+        "AdjustingSearch": "Try adjusting your search."
+      },
+      "Edit": {
+        "Title": "Update Blog",
+        "BackButton": "Back",
+        "SaveChanges": "Save Changes",
+        "Saving": "Saving...",
+        "TitlePost": "Post title",
+        "Category": "Category",
+        "Default": "Categories"
+      },
+      "Validations": {
+        "Success": {
+          "Status": "Status updated successfully.",
+          "Create": "Blog created successfully.",
+          "Update": "Blog updated successfully.",
+          "Delete": "Blog deleted successfully"
+        },
+        "Error": {
+          "GetData": "Error retrieving data.",
+          "GetCategories": "Error retrieving data.",
+          "Status": "Error updating status.",
+          "Create": "Error creating blank blog.",
+          "Update": "Error updating blog.",
+          "Delete": "Error deleting blog.",
+          "IdNotFound": "Blog ID not provided.",
+          "BlogNotFound": "Blog ID not provided."
+        }
+      },
+      "Delete": {
+        "ConfirmTitle": "Confirm Deletion",
+        "ConfirmSubtitle": "This action can be reversed",
+        "ConfirmDelete": "Are you sure you want to delete the blog",
+        "Cancel": "Cancel",
+        "Delete": "Delete Blog"
       }
     },
     "Design": {
-      "Header": "Interface",
       "Title": "Interface - Image Management",
       "ChooseCarouselImage": {
         "Title": "Select Gallery or Image/Video",
-        "LabelTitle": "Title",
-        "LabelTitlePlaceholder": "Enter title",
-        "LabelSlogan": "Slogan",
-        "LabelSloganPlaceholder": "Enter slogan",
-        "VideoError": "Your browser does not support video playback.",
-        "NewImage": "Add a new image.",
-        "Validations": {
-          "ImageVideo": "The Image/Video element has no file selected.",
-          "Carousel": "Carousel image # {n} has no file selected."
-        }
+        "NewImage": "Add a new item",
+        "FirstImage": "Add first image",
+        "AddImage": "Add image"
       },
       "Backgrounds": {
-        "Title": "Select Backgrounds"
+        "Title": "Select Backgrounds",
+        "NoImage": "No image",
+        "Background1": "Background 1",
+        "Background2": "Background 2",
+        "Background3": "Background 3"
       },
       "ChooseCarouselNavbar": {
-        "Title": "Select Navbar Carousel Photos"
+        "Title": "Select Navbar Carousel Photos",
+        "NewImage": "Add a new item",
+        "FirstImage": "Add first image",
+        "AddImage": "Add image"
+      },
+      "ChooseCarouselTool": {
+        "Title": "Select Tool Carousel Photos",
+        "FirstImage": "Add first image",
+        "AddImage": "Add image",
+        "Validations": {
+          "path": "Tool carousel image #{n} has no file selected",
+          "ErrorUpss": "An unexpected error occurred"
+        }
+      },
+      "CreateUpdateModal": {
+        "LabelTitle": "Title (Optional)",
+        "LabelTitlePlaceholder": "Enter title",
+        "LabelSubtitle": "Subtitle (Optional)",
+        "LabelSubtitlePlaceholder": "Enter subtitle",
+        "CreateTitle": "Create",
+        "UpdateTitle": "Update",
+        "Cancel": "Cancel"
+      },
+      "Delete": {
+        "ConfirmTitle": "Confirm Deletion",
+        "ConfirmSubtitle": "This action is permanent and cannot be undone",
+        "ConfirmDelete": "Are you sure you want to delete this carousel item",
+        "Cancel": "Cancel",
+        "Delete": "Delete",
+        "Consequences": {
+          "Title": "By deleting this carousel item:",
+          "First": "All content will be permanently deleted",
+          "Second": "You will not be able to recover this information"
+        }
+      },
+      "Validations": {
+        "Success": {
+          "Create": "Item created successfully",
+          "Update": "Item updated successfully",
+          "Delete": "Item deleted successfully"
+        },
+        "Error": {
+          "GetDesign": "Error loading designs",
+          "Select": "Error selecting",
+          "Create": "Error creating item",
+          "Update": "Error updating item",
+          "Delete": "Error deleting item"
+        }
       }
     },
     "Service": {
       "Header": "Services",
-      "Title": "Services",
-      "CreateService": "Create Service",
-      "TotalServices": "Total services",
-      "ServicesActives": "Active services",
-      "ServicesInactives": "Inactive services",
-      "LastServices": "New Services (15d)",
-      "Create": {
-        "Title": "Add a New Procedure",
-        "Save": "Save Procedure",
-        "Back": "Back"
+      "Title": "Services - Service Management",
+      "CreateButton": "Create Service",
+      "Statistics": {
+        "Total": "Total services",
+        "TeamsActives": "Active services",
+        "TeamsInactives": "Inactive services",
+        "Last": "New services (15d)"
       },
-      "Edit": {
-        "Title": "Edit Procedure",
-        "Back": "Back"
+      "CreateUpdate": {
+        "UpdateTitle": "Update service",
+        "CreateTitle": "Create new service",
+        "BackButton": "Back",
+        "CreateButton": "Create Service",
+        "UpdateButton": "Update",
+        "MainInfo": {
+          "Information": "Procedure Information",
+          "Title": "Procedure Name",
+          "TitlePlaceholder": "Enter procedure name",
+          "Description": "Procedure Description",
+          "DescriptionPlaceholder": "Enter procedure description",
+          "Image": "Procedure Image"
+        },
+        "Phases": {
+          "Title": "Procedure Phases",
+          "RecoveryTime": "Recovery time",
+          "PreOperative": "Preoperative Suggestions",
+          "PostOperative": "Postoperative Suggestions"
+        },
+        "SampleImages": {
+          "Title": "Sample images",
+          "Technique": "Technique",
+          "Recovery": "Recovery",
+          "PostOperativeCare": "Postoperative Care"
+        },
+        "ResultsGallery": {
+          "Title": "Results Gallery",
+          "TextCount": "{count} image | {count} images",
+          "AddImage": "Add image",
+          "NoImage": "No images in gallery",
+          "AddImageText": "Add result images to provide reliability to your clients",
+          "ButtonFirst": "Add first image",
+          "Advices": {
+            "Title": "Tips for a better gallery:",
+            "First": "• Click on any image to change or edit it",
+            "Second": "• Use high quality images with good lighting",
+            "Third": "• Maintain a consistent format for better visualization"
+          }
+        },
+        "FrequentlyAskedQuestions": {
+          "Title": "Frequently Asked Questions",
+          "Question": "Question",
+          "Answer": "Answer",
+          "TextCount": "{count} question | {count} questions",
+          "AddQuestion": "Add question",
+          "NoQuestion": "No frequently asked questions",
+          "AddQuestionText": "Add frequently asked questions to help your clients find answers quickly",
+          "ButtonFirst": "Add first question",
+          "Advices": {
+            "Title": "Tips for good FAQs:",
+            "First": "• Use clear and direct questions",
+            "Second": "• Provide concise but complete answers",
+            "Third": "• Order questions from most to least frequent"
+          }
+        }
       },
       "List": {
-        "NoResults": "No items found",
-        "NoResultsFor": "No items to display.",
+        "Services": "Services",
+        "Search": "Search by title",
+        "Active": "Active",
+        "Inactive": "Inactive",
         "LastUpdate": "Last update:",
         "CreationDate": "Creation date:",
-        "Search": "Search by title"
+        "Edit": "Edit",
+        "Deactivate": "Deactivate",
+        "Activate": "Activate",
+        "NoResults": "No results",
+        "Try": "Try adjusting your search."
+      },
+      "Delete": {
+        "ConfirmTitle": "Confirm Deletion",
+        "ConfirmSubtitle": "This action can be reversed",
+        "ConfirmDelete": "Are you sure you want to delete the service",
+        "Cancel": "Cancel",
+        "Delete": "Delete Service"
+      },
+      "Validations": {
+        "Form": {
+          "Title": "Title is required.",
+          "Description": "Description is required.",
+          "Status": "Status is required.",
+          "Image": "Image is required.",
+          "RecoveryTime": {
+            "Empty": "Recovery time cannot be empty.",
+            "Item": "Recovery time #{n} cannot be empty."
+          },
+          "PreoperativeRecommendations": {
+            "Empty": "Preoperative recommendations cannot be empty.",
+            "Item": "Preoperative recommendation #{n} cannot be empty."
+          },
+          "PostoperativeRecommendations": {
+            "Empty": "Postoperative recommendations cannot be empty.",
+            "Item": "Postoperative recommendation #{n} cannot be empty."
+          },
+          "SampleImages": {
+            "Recovery": "Recovery process sample image cannot be empty.",
+            "PostoperativeCare": "Postoperative care sample image cannot be empty.",
+            "Technique": "Surgical technique sample image cannot be empty."
+          },
+          "ResultsGallery": {
+            "Item": "Result #{n} cannot be empty."
+          },
+          "FAQ": {
+            "Question": "Question #{n} cannot be empty.",
+            "Answer": "Answer #{n} cannot be empty."
+          }
+        },
+        "Success": {
+          "Status": "Status updated successfully.",
+          "Delete": "Service deleted successfully.",
+          "Create": "Service created successfully.",
+          "Update": "Service updated successfully."
+        },
+        "Error": {
+          "Status": "Error updating status.",
+          "Delete": "Error deleting service.",
+          "Create": "Error creating service.",
+          "Update": "Error updating service.",
+          "GetData": "Error retrieving data"
+        }
       }
     },
-    "Profile": {
-      "EditProfile": "Edit Profile",
-      "UpdateProfile": "Update Profile",
-      "DeleteProfile": "Delete Profile"
+    "Setting": {
+      "Profile": {
+        "Title": "Profile information",
+        "Subtitle": "Update your profile name and email",
+        "Name": "Name",
+        "Email": "Email",
+        "Save": "Save",
+        "PasswordUpdate": {
+          "Title": "Update password",
+          "Subtitle": "Ensure your account is using a long, random password to stay secure.",
+          "CurrentPassword": "Current Password",
+          "NewPassword": "New Password",
+          "ConfirmPassword": "Confirm Password"
+        },
+        "DeleteAccount": {
+          "Title": "Delete account",
+          "DeleteButton": "Delete account",
+          "CancelButton": "Cancel",
+          "PasswordPlaceholder": "Password",
+          "Text": "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information you wish to retain.",
+          "ModalTitle": "Are you sure you want to delete your account?",
+          "ModalText": "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account."
+        }
+      },
+      "RolePermission": {
+        "CreateButton": "Create role",
+        "List": {
+          "Title": "Create Roles",
+          "Role": "Role",
+          "Description": "Description",
+          "Created": "Created",
+          "Updated": "Updated",
+          "Actions": "Actions",
+          "NoMembers": "No roles registered yet.",
+          "Search": "Search by role",
+          "Status": {
+            "Title": "Status",
+            "Active": "Active",
+            "Inactive": "Inactive"
+          }
+        },
+        "CreateUpdate": {
+          "CreateTitle": "Create Role",
+          "CreateSubtitle": "Complete the information to create a new role",
+          "UpdateTitle": "Edit Role",
+          "UpdateSubtitle": "Modify existing role information",
+          "BasicInfoTitle": "Basic Information",
+          "Title": "Title",
+          "TitlePlaceholder": "E.g.: Administrator",
+          "Code": "Code (Optional)",
+          "CodePlaceholder": "E.g.: ADMIN",
+          "Description": "Description",
+          "DescriptionPlaceholder": "Describe the responsibilities of this role...",
+          "Permits": "Permissions",
+          "SelectedPermissions": "{n} selected | {n} selected",
+          "Status": {
+            "Active": "Active",
+            "Inactive": "Inactive",
+            "Default": "Select a status"
+          }
+        },
+        "Validations": {
+          "Success": {
+            "Create": "Role created successfully.",
+            "Update": "Role updated successfully.",
+            "Delete": "Role deleted successfully.",
+            "Status": "Status updated successfully."
+          },
+          "Error": {
+            "Create": "Error creating role.",
+            "Update": "Error updating role.",
+            "Delete": "Error deleting role.",
+            "Status": "Error updating status.",
+            "GetRoles": "An error occurred while retrieving role data.",
+            "GetPermissions": "An error occurred while retrieving permissions"
+          }
+        },
+        "Delete": {
+          "ConfirmTitle": "Confirm Deletion",
+          "ConfirmSubtitle": "This action is permanent and cannot be undone",
+          "ConfirmDelete": "Are you sure you want to delete the role",
+          "Cancel": "Cancel",
+          "Delete": "Delete Role",
+          "Consequences": {
+            "Title": "By deleting this role:",
+            "First": "It will be permanently deleted",
+            "Second": "You will not be able to recover this information"
+          }
+        }
+      },
+      "User": {
+        "CreateButton": "Create user",
+        "List": {
+          "Title": "Create users",
+          "User": "Users",
+          "Roles": "Roles",
+          "Created": "Created",
+          "Updated": "Updated",
+          "Actions": "Actions",
+          "NoUsers": "No users registered yet.",
+          "Search": "Search by name or email",
+          "Status": {
+            "Title": "Status",
+            "Active": "Active",
+            "Inactive": "Inactive"
+          }
+        },
+        "CreateUpdateModal": {
+          "Cancel": "Cancel",
+          "UpdateTitle": "Update user",
+          "CreateTitle": "Create new user",
+          "NamePlaceholder": "Name",
+          "Name": "Name",
+          "EmailPlaceholder": "Email",
+          "Email": "Email",
+          "PasswordPlaceholder": "Password",
+          "Password": "Password",
+          "PasswordConfirmationPlaceholder": "Confirm password",
+          "PasswordConfirmation": "Confirm password",
+          "ChangePassword": "Change password?",
+          "Roles": "Roles",
+          "Saving": "Saving...",
+          "Updating": "Updating...",
+          "SelectedRole": "{n} selected | {n} selected",
+          "Status": {
+            "Title": "Status",
+            "Active": "Active",
+            "Inactive": "Inactive"
+          }
+        },
+        "Delete": {
+          "ConfirmTitle": "Confirm Deletion",
+          "ConfirmSubtitle": "This action is permanent and cannot be undone",
+          "ConfirmDelete": "Are you sure you want to delete the user: ",
+          "Cancel": "Cancel",
+          "Delete": "Delete",
+          "Consequences": {
+            "Title": "By deleting this user:",
+            "First": "The user will be permanently deleted",
+            "Second": "You will not be able to recover this information"
+          }
+        },
+        "Validations": {
+          "Form": {
+            "Name": "Name is required.",
+            "Email": "Email is required.",
+            "Password": "Password is required.",
+            "PasswordConfirmation": "Password confirmation is required.",
+            "PasswordComparation": "Password does not match.",
+            "Roles": "Select a role"
+          },
+          "Success": {
+            "ConfirmDelete": "User deleted successfully: {name}",
+            "Create": "User created successfully",
+            "Update": "User updated successfully"
+          },
+          "Error": {
+            "GetData": "Error retrieving user data",
+            "GetRoles": "An error occurred while retrieving roles",
+            "ConfirmDelete": "Error deleting user: {name}",
+            "SaveChanges": "Error saving changes"
+          }
+        }
+      },
+      "Audit": {
+        "List": {
+          "Title": "Log",
+          "Search": "Search log",
+          "User": "User",
+          "Model": "Model",
+          "Action": "Action",
+          "Date": "Date",
+          "IpAddress": "IP Address",
+          "Details": "Details",
+          "Expand": {
+            "PreviousValues": "Previous values",
+            "NewValues": "New Values",
+            "UserInfo": {
+              "Title": "User Information",
+              "Id": "ID",
+              "Name": "Name:",
+              "Type": "Type:"
+            },
+            "EventDetails": {
+              "Title": "Event Details",
+              "Event": "Event:",
+              "AuditableType": "Auditable Type:",
+              "AuditableId": "Auditable ID:",
+              "Tags": "Tags:",
+              "CreatedAt": "Created:",
+              "UpdatedAt": "Updated:"
+            },
+            "ConectionInfo": {
+              "Title": "Connection Information",
+              "Ip": "IP:",
+              "Url": "URL:",
+              "UserAgent": "User Agent"
+            }
+          }
+        },
+        "Validations": {
+          "GetData": "An error occurred while retrieving logs"
+        }
+      },
+      "Trash": {
+        "List": {
+          "ModelType": "Model type",
+          "ModelId": "Model ID",
+          "Name": "Name",
+          "DeletedAt": "Deletion date",
+          "Actions": "Actions",
+          "Search": "Search by model and name."
+        },
+        "Delete": {
+          "ConfirmTitle": "Confirm Deletion",
+          "ConfirmSubtitle": "This action can be reversed",
+          "ConfirmDelete": "Are you sure you want to delete: ",
+          "Cancel": "Cancel",
+          "Delete": "Delete",
+          "Consequences": {
+            "Title": "By deleting this record:",
+            "First": "The record will be permanently deleted",
+            "Second": "You will not be able to recover this information"
+          }
+        },
+        "Restore": {
+          "ConfirmTitle": "Restore item",
+          "ConfirmSubtitle": "This action will recover the previous data",
+          "ConfirmRestore": "Are you sure you want to restore model {model} with name: ",
+          "Details": {
+            "Title": "Will be restored:",
+            "First": "The original item data"
+          }
+        },
+        "Validations": {
+          "Success": {
+            "RestoreData": "Data restored.",
+            "ForceDelete": "Data permanently deleted."
+          },
+          "Error": {
+            "GetData": "Error retrieving deleted records",
+            "RestoreData": "Error restoring data.",
+            "ForceDelete": "Error deleting data."
+          }
+        }
+      },
+      "Validations": {
+        "Success": {
+          "ProfileUpdate": "Profile updated",
+          "UpdatePassword": "Password updated successfully.",
+          "DeleteAccount": "Account deleted successfully"
+        },
+        "Error": {
+          "RequiredCurrentPassword": "You must enter your current password.",
+          "ShortPassword": "New password must be at least 8 characters long.",
+          "WeakPassword": "Password must include uppercase, lowercase, numbers and symbols.",
+          "ConfirmationPassword": "Passwords do not match.",
+          "UpdatePassword": "Could not update password.",
+          "ProfileUpdate": "Error updating profile"
+        }
+      }
     }
   },
-  "Client": {
-    "Meta": {
-      "Home": "Home",
-      "Services": "Services",
-      "Team": "Team",
-      "Blog": "Blog",
-      "AboutUs": "About Us"
-    },
-    "Home": {
-      "Team": {
-        "MeetOur": "Meet our",
-        "Title": "Team",
-        "Description": "At our clinic, a highly qualified and dedicated team supports each patient with personalized care, from the first consultation to post-operative follow-up, combining experience, empathy, and medical excellence.",
-        "NoTeamMember": "No team members available",
-        "AddMember": "Add members to display the team",
-        "TeamButton": "Meet our entire team"
-      }
-    },
-    "Blog": {
-      "Index": {
-        "Presentation": {
-          "Text1": "Specialized Information",
-          "Text2": "Procedures",
-          "Text3": "Aesthetic",
-          "Text4": "Discover everything about the most advanced treatments in aesthetic and plastic surgery"
-        },
-        "SearchEngine": {
-          "Placeholder": "Search procedures, treatments...",
-          "NotFound": "No results found"
-        },
-        "FilterHeader": {
-          "Title": "All Procedures"
-        },
-        "Card": {
-          "Specialist": "Dr. Specialist",
-          "ReadMore": "Read more"
-        }
-      },
-      "View": {
-        "Breadcrumb": {
-          "Home": "Home",
-          "Blog": "Blog"
-        },
-        "Navigation": {
-          "NextArticle": "Next Article",
-          "PreviousArticle": "Previous Article",
-          "AllArticle": "View all articles"
-        },
-        "Consultation": {
-          "Title": "Interested in a Consultation?",
-          "Text": "Book a personalized appointment with our specialists",
-          "Button": "Book Consultation"
-        },
-        "SideBar": {
-          "InterestingArticles": "Interesting Articles"
-        },
-        "Specialist": "Specialist",
-        "ReadingTime": "8 min read"
-      },
-      "Categories": {
-        "Facial": "Facial",
-        "Bodily": "Body",
-        "NonSurgical": "Non-Surgical",
-        "General": "General"
-      }
-    },
-    "Team": {
-      "Index": {
-        "Badge": "Medical Excellence",
-        "Title": "Our {span}Medical Team",
-        "Subtitle": "Highly qualified professionals dedicated to your {span} and {span2}",
-        "Words": {
-          "WellBeing": "well-being",
-          "Health": "holistic health"
-        },
-        "List": {
-          "Search": "Search by name"
-        }
-      }
-    },
-    "Global": {
-      "Consultation": {
-        "Text1": "Start your transformation",
-        "Text2": "Schedule a personalized consultation with our specialists",
-        "Button": "Request Consultation"
-      }
-    }
+  "Login": {
+    "Email": "Email",
+    "Password": "Password",
+    "RememberMe": "Remember me",
+    "Loading": "Loading...",
+    "LoginText": "Sign in"
   },
   "Helper": {
+    "Navbar": {
+      "Dashboard": "Dashboard",
+      "Team": "Team",
+      "Blog": "Blog",
+      "Design": "Design",
+      "Profile": "Profile",
+      "Logout": "Log out",
+      "Service": "Services",
+      "Setting": "Settings"
+    },
     "TimeSince": {
       "years": "{n} year ago | {n} years ago",
       "months": "{n} month ago | {n} months ago",
@@ -270,6 +643,35 @@
       "hours": "{n} hour ago | {n} hours ago",
       "minutes": "{n} minute ago | {n} minutes ago",
       "seconds": "a few seconds ago"
+    },
+    "Pagination": {
+      "Showing": "Showing {from} – {to} of {total} records"
+    },
+    "Setting": {
+      "Title": "Settings",
+      "Subtitle": "Manage your preferences and settings",
+      "Personal": {
+        "Title": "Personal",
+        "Profile": "Profile"
+      },
+      "Administration": {
+        "Title": "Administration",
+        "User": "Users",
+        "RolePermission": "Roles and Permissions",
+        "Record": "Logs",
+        "Trash": "Trash"
+      }
+    }
+  },
+  "NotFound": {
+    "NotFound": "Page not found",
+    "Subtitle": "The page you're looking for seems to have disappeared in the digital space. Don't worry, we'll help you find your way back.",
+    "GoBack": "Go Back",
+    "NeedHelp": "Need help?",
+    "CanTry": {
+      "Title": "You can try:",
+      "First": "Check the entered URL",
+      "Second": "Return to the previous page"
     }
   }
 }

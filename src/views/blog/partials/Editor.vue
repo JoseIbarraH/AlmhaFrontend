@@ -102,6 +102,7 @@ import {
 import translations from 'ckeditor5/translations/es.js';
 import 'ckeditor5/ckeditor5.css';
 import { api } from '@/plugins/api';
+import { showNotification } from '@/components/composables/useNotification';
 
 // Adapter personalizado para upload de imágenes
 class MyUploadAdapter {
@@ -198,7 +199,6 @@ watch(content, (newValue, oldValue) => {
   );
 
   if (imagesToDelete.length > 0) {
-    console.log('🗑️ Imágenes detectadas para eliminar:', imagesToDelete);
     deleteImagesFromServer(imagesToDelete);
   }
 });
@@ -223,20 +223,16 @@ const deleteImagesFromServer = async (imageUrls: string[]) => {
       uploadedImages.value = uploadedImages.value.filter(img => img !== url);
       initialImages.value = initialImages.value.filter(img => img !== url);
 
-      console.log('✅ Imagen eliminada del servidor:', url);
     } catch (error: any) {
       // Si es 422, la imagen probablemente no existe en el servidor
       if (error.response?.status === 422) {
-        console.warn('⚠️ La imagen no existe en el servidor:', url);
-        // Aún así la removemos de los arrays locales
         uploadedImages.value = uploadedImages.value.filter(img => img !== url);
         initialImages.value = initialImages.value.filter(img => img !== url);
       } else if (error.response?.status === 404) {
-        console.warn('⚠️ Imagen no encontrada:', url);
         uploadedImages.value = uploadedImages.value.filter(img => img !== url);
         initialImages.value = initialImages.value.filter(img => img !== url);
       } else {
-        console.error('❌ Error al eliminar imagen:', error.response?.data || error.message);
+        showNotification('error', error.response?.data || error.message, 4000 )
       }
     }
   }

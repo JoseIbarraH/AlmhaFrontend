@@ -41,7 +41,7 @@ async function login() {
     <form @submit.prevent="login" class="space-y-4">
       <div>
         <!-- El InputLabel debería manejar su propio dark mode, pero por si acaso, añadimos la clase -->
-        <InputLabel for="email" class="mb-1 dark:text-gray-300" value="Correo" />
+        <InputLabel for="email" class="mb-1 dark:text-gray-300" :value="$t('Login.Email')" />
         <TextInput id="email" type="email" v-model="form.email" required
           autocomplete="username" />
         <InputError class="mt-2" />
@@ -49,7 +49,7 @@ async function login() {
 
       <div>
         <!-- El InputLabel debería manejar su propio dark mode, pero por si acaso, añadimos la clase -->
-        <InputLabel for="password" class="mb-1 dark:text-gray-300" value="Contraseña" />
+        <InputLabel for="password" class="mb-1 dark:text-gray-300" :value="$t('Login.Password')" />
         <TextInput id="password" type="password" v-model="form.password" required
           autocomplete="current-password" />
         <InputError class="mt-2" />
@@ -59,7 +59,7 @@ async function login() {
         <label class="flex items-center">
           <Checkbox name="remember" v-model:checked="form.remember" />
           <!-- Clase crucial: Cambia el color del texto a gris claro en Dark Mode -->
-          <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Recuérdame</span>
+          <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ $t('Login.RememberMe') }}</span>
         </label>
       </div>
 

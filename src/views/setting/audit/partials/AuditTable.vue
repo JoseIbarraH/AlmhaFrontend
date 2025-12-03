@@ -136,19 +136,19 @@
                   <div class="bg-white dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
                     <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
                       <LucideGlobe class="h-4 w-4" />
-                      Información de Conexión
+                      {{ $t('Dashboard.Setting.Audit.List.Expand.ConectionInfo.Title') }}
                     </h3>
                     <div class="space-y-2 text-sm">
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">IP:</span>
+                        <span class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.ConectionInfo.Ip') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">{{ value.ip_address }}</span>
                       </div>
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">URL:</span>
+                        <span class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.ConectionInfo.Url') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium break-all">{{ value.url }}</span>
                       </div>
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">User Agent:</span>
+                        <span class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.ConectionInfo.UserAgent') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium break-all">
                           {{ value.user_agent || 'N/A' }}</span>
                       </div>
@@ -163,9 +163,8 @@
                       class="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-600/50 transition-colors">
                       <h3 class="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
                         <LucideFileText class="h-4 w-4" />
-                        Valores Anteriores
-                        <span v-if="!value.old_values" class="text-xs font-normal text-gray-500 dark:text-gray-400">(Sin
-                          datos)</span>
+                        {{ $t('Dashboard.Setting.Audit.List.Expand.PreviousValues') }}
+                        <span v-if="!value.old_values" class="text-xs font-normal text-gray-500 dark:text-gray-400">(Sin datos)</span>
                       </h3>
 
                       <LucideChevronDown v-if="!expandedSections[`${index}-old`]"
@@ -197,9 +196,8 @@
                       class="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-600/50 transition-colors">
                       <h3 class="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
                         <LucideFileText class="h-4 w-4" />
-                        Valores Nuevos
-                        <span v-if="!value.new_values" class="text-xs font-normal text-gray-500 dark:text-gray-400">(Sin
-                          datos)</span>
+                        {{ $t('Dashboard.Setting.Audit.List.Expand.NewValues') }}
+                        <span v-if="!value.new_values" class="text-xs font-normal text-gray-500 dark:text-gray-400">(Sin datos)</span>
                       </h3>
 
                       <LucideChevronDown v-if="!expandedSections[`${index}-new`]"
@@ -229,7 +227,6 @@
           </template>
         </tbody>
 
-        <!-- ⭐ Estado vacío -->
         <tbody v-else>
           <tr>
             <td colspan="6" class="px-6 py-12 text-center">

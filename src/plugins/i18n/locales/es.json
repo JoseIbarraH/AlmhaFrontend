@@ -529,6 +529,8 @@
           "IpAddress": "Direccion Ip",
           "Details": "Detalles",
           "Expand": {
+            "BeforeValues": "Valores Anteriores",
+            "NewValues": "Valores Nuevos",
             "UserInfo": {
               "Title": "Información del Usuario",
               "Id": "ID",
@@ -543,6 +545,12 @@
               "Tags": "Tags:",
               "CreatedAt": "Creado:",
               "UpdatedAt": "Actualizado:"
+            },
+            "ConectionInfo": {
+              "Title": "Información de Conexión",
+              "Ip": "IP:",
+              "URL": "URL:",
+              "UserAgent": "Agente de usuario"
             }
           }
         },
@@ -610,6 +618,9 @@
     }
   },
   "Login": {
+    "Email": "Correo",
+    "Password": "Contraseña",
+    "RememberMe": "Recuérdame",
     "Loading": "Cargando...",
     "LoginText": "Iniciar sesión"
   },
