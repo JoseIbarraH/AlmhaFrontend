@@ -118,13 +118,13 @@
 <script setup lang="ts">
 import { showNotification } from '@/components/composables/useNotification';
 import ConfirmDeleteModal from '@/components/app/ConfirmDeleteModal.vue';
+import { LucideTrash2, LucideSquarePen } from 'lucide-vue-next';
 import ToggleButton from '@/components/ui/ToggleButton.vue';
 import Search from '@/components/ui/Search.vue';
-import type { Data } from '../types'
-import { api } from '@/plugins/api'
-import { useI18n } from 'vue-i18n'
+import type { Data } from '../types';
+import { api } from '@/plugins/api';
+import { useI18n } from 'vue-i18n';
 import { ref } from 'vue';
-import { LucideTrash2, LucideSquarePen } from 'lucide-vue-next';
 
 const { t } = useI18n()
 

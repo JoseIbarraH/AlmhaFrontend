@@ -1,10 +1,7 @@
 <template>
   <section class="p-6 space-y-6 dark:bg-gray-950">
-    <!-- Header -->
     <header
       class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 w-full">
-      <!-- Título -->
-      <!-- En móvil, el título se centra y ocupa el espacio superior -->
       <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left dark:text-gray-100">
         {{ editing
           ? $t('Dashboard.Team.CreateUpdate.UpdateTitle')
@@ -12,16 +9,11 @@
         }}
       </h2>
 
-      <!-- Contenedor de Botones -->
-      <!-- En móvil (por defecto), ocupa todo el ancho (w-full) y se apila debajo del título. -->
-      <!-- En sm: (escritorio), ocupa solo el ancho necesario (sm:w-auto) y se pone a la derecha. -->
       <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
-        <!-- Botón de Retroceso -->
         <BackButton @click="backToIndex" class="w-full sm:w-auto justify-center" :disabled="loading">
           {{ $t('Dashboard.Team.CreateUpdate.BackButton') }}
         </BackButton>
 
-        <!-- Botón de Guardar/Crear -->
         <CreateButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center"
           :disabled="loading || (!$can('create_teams') && !$can('update_teams'))">
           {{ editing

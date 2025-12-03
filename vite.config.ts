@@ -13,8 +13,8 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     }
-  },
+  }/* ,
   server:{
     allowedHosts: ["bl92610r-5173.use.devtunnels.ms"]
-  }
+  } */
 })

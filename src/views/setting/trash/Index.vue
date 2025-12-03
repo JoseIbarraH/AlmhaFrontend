@@ -1,23 +1,24 @@
 <template>
   <div class="max-w-7xl space-y-6 sm:px-2 lg:px-2 py-5">
-    <TrashTable :data="paginate?.data ?? []"
-    @refresh-requested="handleRefresh"
-    @search="handleSearch" />
+    <TrashTable :data="paginate?.data ?? []" @refresh-requested="handleRefresh" @search="handleSearch" />
 
-    <Pagination v-if="paginate" :pagination="paginate" @page-change="handlePageChange"/>
+    <Pagination v-if="paginate" :pagination="paginate" @page-change="handlePageChange" />
   </div>
 </template>
 
 <script setup lang="ts">
 import type { ApiResponse, Default, PaginatedResponse } from '@/types/apiResponse';
+import Pagination from '@/components/app/Pagination.vue';
 import TrashTable from './partials/TrashTable.vue';
-import type { Data } from './types';
-import { api } from '@/plugins/api';
+import { useAuthStore } from '@/stores/authStore';
 import { useRoute, useRouter } from 'vue-router';
 import { ref, watch, onMounted } from 'vue';
-import Pagination from '@/components/app/Pagination.vue';
-import { useAuthStore } from '@/stores/authStore';
+import type { Data } from './types';
+import { api } from '@/plugins/api';
+import { showNotification } from '@/components/composables/useNotification';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const auth = useAuthStore()
@@ -29,7 +30,7 @@ const apiResponse = ref<Default<Data> | null>(null)
 const searchQuery = ref('')
 
 const fetchTrash = async (page = 1, search = '') => {
-  if(!auth.can('view_trash')) return
+  if (!auth.can('view_trash')) return
   try {
     if (initialLoading.value) {
       loading.value = true
@@ -44,8 +45,7 @@ const fetchTrash = async (page = 1, search = '') => {
     const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/setting/trash?${params.toString()}`)
     apiResponse.value = data.data
     paginate.value = apiResponse.value?.pagination
-    console.log('data: ', paginate.value)
-    // ⭐ Actualizar URL
+
     router.replace({
       query: {
         page,
@@ -53,7 +53,7 @@ const fetchTrash = async (page = 1, search = '') => {
       }
     })
   } catch (error) {
-    console.error(error)
+    showNotification('error', t('Dashboard.Setting.Trash.Validations.Error.GetData'), 4000)
   }
 }
 

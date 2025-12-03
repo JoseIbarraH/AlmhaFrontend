@@ -28,7 +28,7 @@
 
     <div class="flex justify-center">
       <button type="button" @click="addResult" class="mt-2 border border-blue-500 text-blue-500 px-3 py-1 rounded"
-        aria-label="Agregar antes/después">
+        aria-label="Agregar">
         +
       </button>
     </div>

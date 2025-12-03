@@ -68,7 +68,8 @@
             <InputLabel for="status" :value="$t('Dashboard.Setting.User.CreateUpdateModal.Status.Title')"
               class="text-sm font-medium text-gray-700 dark:text-gray-300" />
 
-            <Select class=" block w-full md:w-[400px]" v-model="form.status" :options="status" default="Estados" />
+            <Select class=" block w-full md:w-[400px]" v-model="form.status" :options="status"
+              :default="$t('Dashboard.Setting.User.CreateUpdateModal.Status.Title')" />
           </div>
         </div>
 
@@ -291,7 +292,7 @@ async function saveChanges() {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
-      showNotification('success', 'Usuario creado correctamente', 3000)
+      showNotification('success', t('Dashboard.Setting.User.Validations.Success.Create'), 3000)
     }
 
     if (props.editing === true) {
@@ -299,14 +300,13 @@ async function saveChanges() {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
-      showNotification('success', 'Usuario actualizado correctamete', 3000)
+      showNotification('success', t('Dashboard.Setting.User.Validations.Success.Update'), 3000)
     }
 
     emit('refresh')
     handleClose()
   } catch (error: any) {
-    console.error('Error al guardar usuario:', error)
-    showNotification('error', error?.response?.data?.data?.exception, 4000)
+    showNotification('error', error?.response?.data?.data?.exception || t('Dashboard.Setting.User.Validations.Error.SaveChanges'), 4000)
   } finally {
     loading.value = false
   }

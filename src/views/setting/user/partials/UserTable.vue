@@ -24,7 +24,7 @@
               {{ $t('Dashboard.Setting.User.List.Roles') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Setting.User.List.Status') }}
+              {{ $t('Dashboard.Setting.User.List.Status.Title') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
               {{ $t('Dashboard.Setting.User.List.Created') }}
@@ -90,7 +90,6 @@
               </div>
             </td>
 
-            <!-- Estado -->
             <td class="px-6 py-4">
               <div class="flex items-center gap-2">
                 <ToggleButton :model-value="value.status === 'active'" @update:model-value="handleToggleStatus(value)"
@@ -98,9 +97,10 @@
                 <span :class="[
                   'text-sm font-medium',
                   value.status === 'active' ? 'text-green-600' : 'text-red-600',
-                  // Aseguramos que los colores se mantengan para el dark mode, son vibrantes.
                 ]">
-                  {{ value.status === 'active' ? 'Activo' : 'Inactivo' }}
+                  {{ value.status === 'active'
+                      ? $t('Dashboard.Setting.User.List.Status.Active')
+                      : $t('Dashboard.Setting.User.List.Status.Inactive') }}
                 </span>
               </div>
             </td>
@@ -113,16 +113,13 @@
               <p class="text-sm text-gray-700 dark:text-gray-300">{{ value.updated_at }}</p>
             </td>
 
-            <!-- Acciones -->
             <td class="px-6 py-4">
               <div class="flex items-center justify-end gap-2">
-                <!-- Botón Editar -->
                 <button @click="handleEdit(value)" title="Editar" class="p-2 text-gray-500 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-colors
                          dark:text-gray-400 dark:hover:text-yellow-400 dark:hover:bg-gray-700">
                   <LucideSquarePen class="w-4 h-4" />
                 </button>
 
-                <!-- Botón Eliminar -->
                 <button @click="openModal(value)" title="Eliminar" class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-100 rounded-lg transition-colors
                          dark:text-gray-400 dark:hover:text-red-400 dark:hover:bg-gray-700">
                   <LucideTrash2 class="w-4 h-4" />
@@ -163,8 +160,8 @@
 
 <script setup lang="ts">
 import { showNotification } from '@/components/composables/useNotification';
-import { LucideSquarePen, LucideTrash2 } from 'lucide-vue-next';
 import ConfirmDeleteModal from '@/components/app/ConfirmDeleteModal.vue';
+import { LucideSquarePen, LucideTrash2 } from 'lucide-vue-next';
 import ToggleButton from '@/components/ui/ToggleButton.vue';
 import { useAuthStore } from '@/stores/authStore';
 import Search from '@/components/ui/Search.vue';
@@ -238,12 +235,20 @@ const confirmDelete = async () => {
 
   try {
     await api.delete(`/api/setting/user/${userToDelete.value.id}`)
-    showNotification('success', 'Usuario eliminado correctamente: ' + userToDelete.value.name, 3000)
+    showNotification(
+      'success',
+      t('Dashboard.Setting.User.Validations.Success.ConfirmDelete', {name: userToDelete.value.name}),
+      3000
+    )
     emit('status-updated')
     closeModal()
   } catch (error: any) {
     closeModal()
-    showNotification('error', error?.response?.data?.message, 4000)
+    showNotification(
+      'error',
+      t('Dashboard.Setting.User.Validations.Success.ConfirmDelete', {name: userToDelete.value.name}),
+      4000
+    )
   }
 }
 

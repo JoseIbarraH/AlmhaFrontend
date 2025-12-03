@@ -96,8 +96,7 @@
       $t('Dashboard.Setting.Trash.Delete.Consequences.First'),
       $t('Dashboard.Setting.Trash.Delete.Consequences.Second')
     ]" :cancel-text="$t('Dashboard.Setting.Trash.Delete.Cancel')"
-    :confirm-text="$t('Dashboard.Setting.Trash.Delete.Delete')" @close="closeModal"
-    @confirm="() => {
+    :confirm-text="$t('Dashboard.Setting.Trash.Delete.Delete')" @close="closeModal" @confirm="() => {
       if (itemToDelete) {
         forceDelete(itemToDelete.model_type, itemToDelete.model_id)
       }
@@ -108,8 +107,7 @@
     :message="$t('Dashboard.Setting.Trash.Restore.ConfirmRestore', { model: itemToRestore?.model_type })"
     :item-name="itemToRestore?.name" :details-title="$t('Dashboard.Setting.Trash.Restore.Details.Title')" :details="[
       $t('Dashboard.Setting.Trash.Restore.Details.First')
-    ]" confirm-text="Restaurar" cancel-text="Cancelar" @close="closeRestoreModal"
-    @confirm="() => {
+    ]" confirm-text="Restaurar" cancel-text="Cancelar" @close="closeRestoreModal" @confirm="() => {
       if (itemToRestore) {
         restoreData(itemToRestore?.model_type, itemToRestore?.model_id)
       }
@@ -118,15 +116,17 @@
 
 <script setup lang="ts">
 import { LucideArchiveRestore, LucideChevronDown, LucideChevronUp, LucideTrash2 } from 'lucide-vue-next';
-import Search from '@/components/ui/Search.vue';
-import type { Data } from '../types';
-import { ref } from 'vue';
-import { api } from '@/plugins/api';
 import { showNotification } from '@/components/composables/useNotification';
 import ConfirmDeleteModal from '@/components/app/ConfirmDeleteModal.vue';
-import ConfirmRestore from './ConfirmRestore.vue';
 import { useAuthStore } from '@/stores/authStore';
+import ConfirmRestore from './ConfirmRestore.vue';
+import Search from '@/components/ui/Search.vue';
+import type { Data } from '../types';
+import { api } from '@/plugins/api';
+import { useI18n } from 'vue-i18n';
+import { ref } from 'vue';
 
+const { t } = useI18n()
 const auth = useAuthStore()
 
 const isOpen = ref(false)
@@ -173,27 +173,27 @@ const stripHtml = (value: any): any => {
 }
 
 const restoreData = async (modelType: string, modelId: number) => {
-  if(!auth.can('restore_trash')) return
+  if (!auth.can('restore_trash')) return
   try {
     await api.post(`/api/setting/trash/${modelType}/${modelId}/restore`)
     emit('refresh-requested')
-    showNotification('success', 'Dato restaurado.', 3000)
+    showNotification('success', t('Dashboard.Setting.Trash.Validations.Success.RestoreData'), 3000)
   } catch (error) {
-    showNotification('success', 'Error al restaurar dato.', 3000)
+    showNotification('success', t('Dashboard.Setting.Trash.Validations.Error.RestoreData'), 4000)
   } finally {
     closeRestoreModal()
   }
 }
 
 const forceDelete = async (modelType: string, modelId: number) => {
-  if(!auth.can('delete_trash')) return
+  if (!auth.can('delete_trash')) return
   try {
     await api.delete(`/api/setting/trash/${modelType}/${modelId}/force`)
     closeModal()
     emit('refresh-requested')
-    showNotification('success', 'Dato eliminado permanentemente.', 3000)
+    showNotification('success', t('Dashboard.Setting.Trash.Validations.Success.ForceDelete'), 3000)
   } catch (error) {
-    showNotification('success', 'Error al eliminar el dato.', 3000)
+    showNotification('error', t('Dashboard.Setting.Trash.Validations.Error.RestoreDelete'), 4000)
   } finally {
     closeModal()
   }

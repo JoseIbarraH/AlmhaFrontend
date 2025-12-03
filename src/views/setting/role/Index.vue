@@ -20,8 +20,8 @@
 
 <script setup lang="ts">
 import type { Default, PaginatedResponse, ApiResponse } from '@/types/apiResponse';
-import { showNotification } from '@/components/composables/useNotification';
 import type { Data, PermissionGroup, PermissionData, EditRole } from './types';
+import { showNotification } from '@/components/composables/useNotification';
 import CreateButton from '@/components/ui/CreateButton.vue';
 import Pagination from '@/components/app/Pagination.vue';
 import RoleTable from './partials/RoleTable.vue';
@@ -29,7 +29,9 @@ import { useRoute, useRouter } from 'vue-router';
 import RoleForm from './partials/RoleForm.vue';
 import { onMounted, ref, watch } from 'vue';
 import { api } from '@/plugins/api';
+import { useI18n } from 'vue-i18n';
 
+const {t} = useI18n()
 const route = useRoute()
 const router = useRouter()
 
@@ -66,7 +68,7 @@ const fetchRoles = async (page = 1, search = '') => {
       }
     })
   } catch (error: any) {
-    showNotification('error', 'Ocurrió un error al obtener los datos de los roles', 4000);
+    showNotification('error', t('Deshboard.Setting.RolePermission.Validations.Error.GetRoles'), 4000);
   } finally {
     loading.value = false;
     initialLoading.value = false
@@ -77,10 +79,9 @@ const fetchPermission = async () => {
   try {
     const { data } = await api.get<ApiResponse<PermissionData>>('/api/setting/role/permits');
     permissions.value = data.data.permissions
-    console.log("Permisos: ", permissions.value)
   } catch (error) {
     console.error(error)
-    showNotification('error', 'Ocurrió un error al obtener los permisos', 4000);
+    showNotification('error', t('Deshboard.Setting.RolePermission.Validations.Error.GetPermissions'), 4000);
   }
 }
 

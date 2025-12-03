@@ -36,18 +36,4 @@ router.afterEach((to) => {
 
 app.config.globalProperties.$t = i18n.global.t;
 
-
-/* // Desactivar warnings y errores de Vue
-app.config.warnHandler = () => {}
-app.config.errorHandler = () => {}
-
-// Sobrescribir console en desarrollo
-console.log = () => {}
-console.error = () => {}
-console.warn = () => {}
-console.info = () => {}
-console.debug = () => {} */
-
-
-
 app.mount('#app')

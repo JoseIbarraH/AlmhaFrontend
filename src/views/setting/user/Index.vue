@@ -39,6 +39,9 @@ import UserTable from './partials/UserTable.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { onMounted, ref, watch } from 'vue';
 import { api } from '@/plugins/api';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
 
 const route = useRoute()
 const router = useRouter()
@@ -122,7 +125,7 @@ const fetchUsers = async (page = 1, search = '') => {
     paginate.value = apiResponse.value?.pagination;
     console.log(apiResponse.value)
   } catch (error: any) {
-    showNotification('error', 'Ocurrió un error al obtener los datos del equipo', 4000);
+    showNotification('error', t('Dashboard.Setting.User.Validations.Error.GetData'), 4000);
   } finally {
     loading.value = false;
     initialLoading.value = false
@@ -136,7 +139,7 @@ const fetchRoles = async () => {
     console.log("roles: ", data)
   } catch (error) {
     console.error(error)
-    showNotification('error', 'Ocurrió un error al obtener los roles', 4000);
+    showNotification('error', t('Dashboard.Setting.User.Validations.Error.GetRoles'), 4000);
   }
 }
 

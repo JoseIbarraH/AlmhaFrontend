@@ -16,13 +16,17 @@
       "List": {
         "TeamMembers": "Equipo Médico",
         "Doctor": "Medico",
-        "Status": "Estado",
         "Contact": "Contacto",
         "Actions": "Acciones",
         "Created": "Creado",
         "Updated": "Actualizado",
         "NoMembers": "No hay miembros registrados aún.",
-        "Search": "Buscar por nombre"
+        "Search": "Buscar por nombre",
+        "Status": {
+          "Title": "Estado",
+          "Active": "Activo",
+          "Inactive": "Inactivo"
+        }
       },
       "CreateUpdate": {
         "CreateTitle": "Crear nuevo miembro del equipo",
@@ -75,7 +79,7 @@
           "Delete": "Error al eliminar al miembro.",
           "Create": "No se pudo crear el miembro del equipo. Por favor, verifica los datos e intenta nuevamente.",
           "Update": "No se pudo actualizar la información del miembro del equipo. Por favor, verifica los datos e intenta nuevamente.",
-          "GetData": "Error al obtener los datos"
+          "GetData": "Error al obtener los datos del equipo,"
         }
       },
       "Delete": {
@@ -209,7 +213,7 @@
           "Delete": "Item eliminado correctamente"
         },
         "Error": {
-          "LoadDesign": "Error al cargar diseños",
+          "GetDesign": "Error al cargar diseños",
           "Select": "Error al seleccionar",
           "Create": "Error al crear el item",
           "Update": "Error al actualizar el item",
@@ -254,12 +258,34 @@
           "PostOperativeCare": "Cuidado Postoperatorio"
         },
         "ResultsGallery": {
-          "Title": "Galería de Resultados"
+          "Title": "Galería de Resultados",
+          "TextCount": "{count} imagen | {count} imagenes",
+          "AddImage": "Agregar imagen",
+          "NoImage": "No hay imágenes en la galería",
+          "AddImageText": "Agrega imagenes de resultados para aportar fiabilidad a tus clientes",
+          "ButtonFirst": "Agregar primera imagen",
+          "Advices": {
+            "Title": "Consejos para una mejor galería:",
+            "First": "• Haz clic en cualquier imagen para cambiarla o editarla",
+            "Second": "• Usa imágenes de alta calidad y buena iluminación",
+            "Third": "• Mantén un formato consistente para mejor visualización"
+          }
         },
         "FrequentlyAskedQuestions": {
           "Title": "Preguntas Frecuentes",
           "Question": "Pregunta",
-          "Answer": "Respuesta"
+          "Answer": "Respuesta",
+          "TextCount": "{count} pregunta | {count} preguntas",
+          "AddQuestion": "Agregar pregunta",
+          "NoQuestion": "No hay preguntas frecuentes",
+          "AddQuestionText": "Agrega preguntas frecuentes para ayudar a tus clientes a encontrar respuestas rápidamente",
+          "ButtonFirst": "Agregar primera pregunta",
+          "Advices": {
+            "Title": "Consejos para buenas preguntas frecuentes:",
+            "First": "• Usa preguntas claras y directas",
+            "Second": "• Proporciona respuestas concisas pero completas",
+            "Third": "• Ordena las preguntas de más a menos frecuentes"
+          }
         }
       },
       "List": {
@@ -272,7 +298,8 @@
         "Edit": "Editar",
         "Deactivate": "Desactivar",
         "Activate": "Activar",
-        "NoResults": "No hay resultados"
+        "NoResults": "No hay resultados",
+        "Try": "Intenta ajustar tu búsqueda."
       },
       "Delete": {
         "ConfirmTitle": "Confirmar Eliminación",
@@ -399,7 +426,9 @@
             "Create": "Error al crear el rol.",
             "Update": "Error al actualizar el rol.",
             "Delete": "Error al eliminar el rol.",
-            "Status": "Error al actualizar el estado."
+            "Status": "Error al actualizar el estado.",
+            "GetRoles": "Ocurrió un error al obtener los datos de los roles.",
+            "GetPermissions": "Ocurrió un error al obtener los permisos"
           }
         },
         "Delete": {
@@ -421,12 +450,16 @@
           "Title": "Crear usuarios",
           "User": "Usuarios",
           "Roles": "Roles",
-          "Status": "Estado",
           "Created": "Creado",
           "Updated": "Actualizado",
           "Actions": "Acciones",
           "NoUsers": "No hay usuarios registrados aún.",
-          "Search": "Buscar por nombre o email"
+          "Search": "Buscar por nombre o email",
+          "Status": {
+            "Title": "Estado",
+            "Active": "Activo",
+            "Inactive": "Inactivo"
+          }
         },
         "CreateUpdateModal": {
           "Cancel": "Cancelar",
@@ -471,6 +504,17 @@
             "PasswordConfirmation": "La constraseña de confirmacion es obligatoria.",
             "PasswordComparation": "La contraseña no coincide.",
             "Roles": "Seleccione un rol"
+          },
+          "Success": {
+            "ConfirmDelete": "Usuario eliminado correctamente: {name}",
+            "Create": "Usuario creado correctamente",
+            "Update": "Usuario actualizado correctamete"
+          },
+          "Error": {
+            "GetData": "Error al obtener los datos de los usuarios",
+            "GetRoles": "Ocurrió un error al obtener los roles",
+            "ConfirmDelete": "Error al eliminar el usuario: {name}",
+            "SaveChanges": "Error al guardar los cambios"
           }
         }
       },
@@ -483,7 +527,27 @@
           "Action": "Acción",
           "Date": "Fecha",
           "IpAddress": "Direccion Ip",
-          "Details": "Detalles"
+          "Details": "Detalles",
+          "Expand": {
+            "UserInfo": {
+              "Title": "Información del Usuario",
+              "Id": "ID",
+              "Name": "Nombre:",
+              "Type": "Tipo:"
+            },
+            "EventDetails": {
+              "Title": "Detalles del Evento",
+              "Event": "Evento:",
+              "AuditableType": "Tipo Auditable:",
+              "AuditableId": "ID Auditable:",
+              "Tags": "Tags:",
+              "CreatedAt": "Creado:",
+              "UpdatedAt": "Actualizado:"
+            }
+          }
+        },
+        "Validations": {
+          "GetData": "Ocurrió un error al obtener los registros"
         }
       },
       "Trash": {
@@ -514,6 +578,17 @@
           "Details": {
             "Title": "Se restaurará:",
             "First": "Los datos originales del elemento"
+          }
+        },
+        "Validations": {
+          "Success": {
+            "RestoreData": "Dato restaurado.",
+            "ForceDelete": "Dato eliminado permanentemente."
+          },
+          "Error": {
+            "GetData": "Error al obtener los registros eliminados",
+            "RestoreData": "Error al restaurar dato.",
+            "ForceDelete": "Error al eliminar el dato."
           }
         }
       },

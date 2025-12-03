@@ -164,6 +164,7 @@ async function fetchBlogs(page = 1, search = '') {
     paginate.value = apiResponse.value?.pagination;
 
   } catch (error) {
+    console.log(error)
     showNotification('error', t('Dashboard.Blog.Validations.Error.GetData'), 4000);
   } finally {
     loading.value = false;

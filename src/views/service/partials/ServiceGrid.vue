@@ -33,8 +33,7 @@
               'text-sm font-medium',
               value.status === 'active' ? 'text-green-700 dark:text-green-400' : 'text-red-700 dark:text-red-400'
             ]">
-              {{ value.status === 'active' ? $t('Dashboard.Service.List.Active') : $t('Dashboard.Service.List.Inactive')
-              }}
+              {{ value.status === 'active' ? $t('Dashboard.Service.List.Active') : $t('Dashboard.Service.List.Inactive')}}
             </span>
           </div>
         </div>
@@ -105,7 +104,7 @@
     </div>
     <h3 class="text-lg font-semibold text-gray-900 mb-2 dark:text-white">{{ $t('Dashboard.Service.List.NoResults') }}
     </h3>
-    <p class="text-gray-500 dark:text-gray-400">Intenta ajustar tu búsqueda.</p>
+    <p class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Service.List.Try') }}</p>
   </div>
 
   <!-- Modal de confirmación de eliminación -->

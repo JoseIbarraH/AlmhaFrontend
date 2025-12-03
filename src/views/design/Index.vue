@@ -124,7 +124,7 @@ const loadDesigns = async () => {
     const response = await api.get<ApiResponse<DesignSettingsResponse>>('api/design')
     apiResponse.value = response.data.data
   } catch (error) {
-    showNotification('error', t('Dashboard.Design.Validations.Error.LoadDesign'), 4000)
+    showNotification('error', t('Dashboard.Design.Validations.Error.GetDesign'), 4000)
   } finally {
     loading.value = false
     initialLoading.value = false

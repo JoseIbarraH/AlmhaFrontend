@@ -46,7 +46,7 @@
               </td>
               <td class="px-6 py-4">
                 <p class="text-sm text-gray-700 dark:text-gray-300">{{
-                  formatAuditableType(value.auditable_type) || 'N/A'}}</p>
+                  formatAuditableType(value.auditable_type) || 'N/A' }}</p>
               </td>
               <td class="px-6 py-4">
                 <p class="text-sm text-gray-700 dark:text-gray-300">{{ value.event }}</p>
@@ -74,22 +74,24 @@
                   <div class="bg-white dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
                     <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
                       <LucideUser class="h-4 w-4" />
-                      Información del Usuario
+                      {{ $t('Dashboard.Setting.Audit.List.Expand.UserInfo.Title') }}
                     </h3>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">ID:</span>
+                        <span
+                          class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.UserInfo.Id') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">{{ value.user_id }}</span>
                       </div>
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">Nombre:</span>
+                        <span
+                          class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.UserInfo.Name') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">
                           {{ value.user_name }}</span>
                       </div>
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">Tipo:</span>
+                        <span class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.UserInfo.Type') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">
-                          {{ formatAuditableType(value.user_type) || 'N/A'}}</span>
+                          {{ formatAuditableType(value.user_type) || 'N/A' }}</span>
                       </div>
                     </div>
                   </div>
@@ -98,33 +100,33 @@
                   <div class="bg-white dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
                     <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
                       <LucideActivity class="h-4 w-4" />
-                      Detalles del Evento
+                      {{ $t('Dashboard.Setting.Audit.List.Expand.EventDetails.Title') }}
                     </h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">Evento:</span>
+                        <span class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.EventDetails.Event') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">{{ value.event }}</span>
                       </div>
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">Tipo Auditable:</span>
+                        <span class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.EventDetails.AuditableType') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">
                           {{ formatAuditableType(value.auditable_type) || 'N/A' }}
                         </span>
                       </div>
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">ID Auditable:</span>
+                        <span class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.EventDetails.AuditableId') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">{{ value.auditable_id }}</span>
                       </div>
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">Tags:</span>
+                        <span class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.EventDetails.Tags') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">{{ value.tags || 'N/A' }}</span>
                       </div>
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">Creado:</span>
+                        <span class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.EventDetails.CreatedAt') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">{{ value.created_at }}</span>
                       </div>
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">Actualizado:</span>
+                        <span class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.EventDetails.UpdatedAt') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">{{ value.updated_at }}</span>
                       </div>
                     </div>

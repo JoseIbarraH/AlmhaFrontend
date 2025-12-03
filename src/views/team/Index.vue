@@ -81,6 +81,7 @@ async function fetchTeamMembers(page = 1, search = '') {
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
   } catch (error) {
+    console.error("Error en team: ", error)
     showNotification('error', t('Dashboard.Team.Validations.Error.GetData'), 4000);
   } finally {
     loading.value = false;

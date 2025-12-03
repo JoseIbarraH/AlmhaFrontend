@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Modal from '@/components/app/Modal.vue'
 import { LucideCheckCircle2, LucideRotateCcw, LucideX } from 'lucide-vue-next'
+import Modal from '@/components/app/Modal.vue'
 
 interface Props {
   show: boolean
@@ -84,7 +84,7 @@ function handleConfirm() {
             {{ props.cancelText }}
           </button>
 
-          <button type="button" @click="handleConfirm"
+          <button type="button" @click="handleConfirm" :disabled="!$can('force_delete')"
             class="w-full sm:w-auto px-5 py-2.5 rounded-lg font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-200 flex items-center justify-center gap-2">
             <LucideRotateCcw class="w-5 h-5" />
             {{ props.confirmText }}

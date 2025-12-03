@@ -11,8 +11,7 @@
             {{ $t('Dashboard.Service.CreateUpdate.ResultsGallery.Title') }}
           </h3>
           <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-            {{ modelValue.results_gallery?.length || 0 }}
-            {{ modelValue.results_gallery?.length === 1 ? 'imagen' : 'imagenes' }}
+            {{ $t('Dashboard.Service.CreateUpdate.ResultsGallery.TextCount', {count: modelValue.results_gallery?.length}) }}
           </p>
         </div>
       </div>
@@ -20,7 +19,7 @@
       <button type="button" @click="addBeforeAfterGallery"
         class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-105">
         <LucidePlus class="w-4 h-4" />
-        <span class="hidden sm:inline">Agregar imagen</span>
+        <span class="hidden sm:inline">{{ $t('Dashboard.Service.CreateUpdate.ResultsGallery.AddImage') }}</span>
       </button>
     </div>
 
@@ -33,15 +32,15 @@
             <LucideImage class="h-12 w-12 text-gray-400 dark:text-gray-500" />
           </div>
           <h4 class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
-            No hay imágenes en la galería
+            {{ $t('Dashboard.Service.CreateUpdate.ResultsGallery.NoImage') }}
           </h4>
           <p class="text-sm text-gray-500 dark:text-gray-400 mb-6 max-w-sm mx-auto">
-            Agrega imagenes de resultados para aportar fiabilidad a tus clientes
+            {{ $t('Dashboard.Service.CreateUpdate.ResultsGallery.AddImageText') }}
           </p>
           <button type="button" @click="addBeforeAfterGallery"
             class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-105">
             <LucidePlus class="w-4 h-4" />
-            <span class="hidden sm:inline">Agregar primera imagen</span>
+            <span class="hidden sm:inline">{{ $t('Dashboard.Service.CreateUpdate.ResultsGallery.ButtonFirst') }}</span>
           </button>
         </div>
 
@@ -66,11 +65,11 @@
       class="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg mt-4">
       <LucideInfo class="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
       <div class="text-sm text-blue-800 dark:text-blue-300">
-        <p class="font-medium mb-1">Consejos para una mejor galería:</p>
+        <p class="font-medium mb-1">{{ $t('Dashboard.Service.CreateUpdate.ResultsGallery.Advices.Title') }}</p>
         <ul class="space-y-1 text-blue-700 dark:text-blue-400">
-          <li>• Haz clic en cualquier imagen para cambiarla o editarla</li>
-          <li>• Usa imágenes de alta calidad y buena iluminación</li>
-          <li>• Mantén un formato consistente para mejor visualización</li>
+          <li>{{ $t('Dashboard.Service.CreateUpdate.ResultsGallery.Advices.First') }}</li>
+          <li>{{ $t('Dashboard.Service.CreateUpdate.ResultsGallery.Advices.Second') }}</li>
+          <li>{{ $t('Dashboard.Service.CreateUpdate.ResultsGallery.Advices.Third') }}</li>
         </ul>
       </div>
     </div>

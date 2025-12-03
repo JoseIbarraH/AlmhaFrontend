@@ -10,14 +10,17 @@
 </template>
 
 <script setup lang="ts">
-import { api } from '@/plugins/api';
-import AuditTable from './partials/AuditTable.vue';
-import { onMounted, ref, watch } from 'vue';
 import type { ApiResponse, Default, PaginatedResponse } from '@/types/apiResponse';
-import type { Data } from './types';
 import { showNotification } from '@/components/composables/useNotification';
-import { useRoute, useRouter } from 'vue-router';
 import Pagination from '@/components/app/Pagination.vue';
+import AuditTable from './partials/AuditTable.vue';
+import { useRoute, useRouter } from 'vue-router';
+import { onMounted, ref, watch } from 'vue';
+import type { Data } from './types';
+import { api } from '@/plugins/api';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
 
 const route = useRoute()
 const router = useRouter()
@@ -53,7 +56,7 @@ const fetchAudit = async (page = 1, search = '') => {
     })
 
   } catch (error: any) {
-    showNotification('error', 'Ocurrió un error al obtener los registros', 4000)
+    showNotification('error', t('Dashboard.Setting.Audit.Validations.GetData'), 4000)
   } finally {
     loading.value = false
     initialLoading.value = false

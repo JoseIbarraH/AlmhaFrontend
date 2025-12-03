@@ -22,7 +22,7 @@
               {{ $t('Dashboard.Team.List.Doctor') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
-              {{ $t('Dashboard.Team.List.Status') }}
+              {{ $t('Dashboard.Team.List.Status.Title') }}
             </th>
             <th class="text-left px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-400">
               {{ $t('Dashboard.Team.List.Created') }}
@@ -67,7 +67,9 @@
                   value.status === 'active' ? 'text-green-600' : 'text-red-600',
                   // Aseguramos que los colores se mantengan para el dark mode, son vibrantes.
                 ]">
-                  {{ value.status === 'active' ? 'Activo' : 'Inactivo' }}
+                  {{ value.status === 'active'
+                    ? $t('Dashboard.Team.List.Status.Active')
+                    : $t('Dashboard.Team.List.Status.Inactive')}}
                 </span>
               </div>
             </td>
