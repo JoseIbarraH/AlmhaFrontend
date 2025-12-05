@@ -65,7 +65,7 @@
           : 'text-gray-700 hover:bg-gray-100 border-gray-300 dark:text-gray-200 dark:hover:bg-gray-700 dark:border-gray-600'
       ]" :disabled="!pagination.next_page_url" :aria-disabled="!pagination.next_page_url"
         @click="changePage(pagination.current_page + 1)">
-        {{ $t('Dashboard.Pagination.Next') }}
+        {{ $t('Helper.Pagination.Next') }}
       </button>
     </nav>
   </div>
