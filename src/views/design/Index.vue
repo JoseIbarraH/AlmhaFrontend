@@ -157,7 +157,6 @@ const handleDeleteModal = (id: number | undefined) => {
 
 const deleteItem = async (id: number | undefined) => {
   try {
-    console.log("toy eleminando owo", id)
     await api.delete(`/api/design/${id}`)
     loadDesigns()
     isOpenDelete.value = false

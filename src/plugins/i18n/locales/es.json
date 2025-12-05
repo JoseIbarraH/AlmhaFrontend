@@ -645,7 +645,9 @@
       "seconds": "hace unos segundos"
     },
     "Pagination": {
-      "Showing": "Mostrando {from} – {to} de {total} registros"
+      "Showing": "Mostrando {from} – {to} de {total} registros",
+      "Previous": "Anterior",
+      "Next": "Siguiente"
     },
     "Setting": {
       "Title": "Configuración",

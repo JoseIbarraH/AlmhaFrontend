@@ -263,10 +263,6 @@ const saveChanges = async () => {
   try {
     const formData = buildFormData()
 
-    for (const [key, val] of formData.entries()) {
-      console.log(`${key}:`, val)
-    }
-
     if (editing.value === false) {
       if (!auth.can('create_services')) return
       await api.post('/api/service', formData, {

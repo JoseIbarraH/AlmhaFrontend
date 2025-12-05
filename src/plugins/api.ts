@@ -12,7 +12,6 @@ export const api = axios.create({
   },
 });
 
-
 api.interceptors.request.use((config) => {
   const lang = localStorage.getItem('lang') || document.documentElement.lang || 'es'
   config.headers['Accept-Language'] = lang

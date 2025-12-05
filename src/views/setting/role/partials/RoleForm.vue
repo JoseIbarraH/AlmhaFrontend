@@ -205,8 +205,6 @@ const submit = async () => {
   try {
     const formData = buildFormData()
 
-    console.log("prop ", props.editData)
-
     if (props.editing === false) {
       await api.post('/api/setting/role', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }

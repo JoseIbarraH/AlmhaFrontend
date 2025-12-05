@@ -72,7 +72,6 @@ const handleCreateModal = () => {
 }
 
 const handleEditModal = (user: Data) => {
-  console.log(user)
   isOpen.value = !isOpen.value
   editing.value = true
   dataUpdate.value = user
@@ -123,7 +122,6 @@ const fetchUsers = async (page = 1, search = '') => {
     const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/setting/user?${params.toString()}`);
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
-    console.log(apiResponse.value)
   } catch (error: any) {
     showNotification('error', t('Dashboard.Setting.User.Validations.Error.GetData'), 4000);
   } finally {
@@ -136,7 +134,6 @@ const fetchRoles = async () => {
   try {
     const { data } = await api.get<ApiResponse<RoleData>>('/api/setting/user/roles');
     roles.value = data.data?.roles
-    console.log("roles: ", data)
   } catch (error) {
     console.error(error)
     showNotification('error', t('Dashboard.Setting.User.Validations.Error.GetRoles'), 4000);
