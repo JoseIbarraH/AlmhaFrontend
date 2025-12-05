@@ -55,14 +55,18 @@
                   <LucideChevronDown v-if="openRow !== index" class="h-5 w-5" />
                   <LucideChevronUp v-else class="h-5 w-5" />
                 </button>
-                <button @click="openRestoreModal(value)" title="Restaurar" class="p-2 text-gray-500 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-colors
-                         dark:text-gray-400 dark:hover:text-yellow-400 dark:hover:bg-gray-700">
+                <button 
+                  @click="openRestoreModal(value)" 
+                  title="Restaurar" 
+                  class="p-2 text-gray-500 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-colors
+                         dark:text-gray-400 dark:hover:text-yellow-400 dark:hover:bg-gray-700"
+                  :disabled="!$can('restore_trash')">
                   <LucideArchiveRestore class="w-4 h-4" />
                 </button>
 
                 <button @click="openModal(value)" title="Eliminar" class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-100 rounded-lg transition-colors
                          dark:text-gray-400 dark:hover:text-red-400 dark:hover:bg-gray-700"
-                  :disabled="!$can('delete_teams')">
+                  :disabled="!$can('delete_trash')">
                   <LucideTrash2 class="w-4 h-4" />
                 </button>
               </td>

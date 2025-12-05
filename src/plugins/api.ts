@@ -34,7 +34,6 @@ api.interceptors.response.use(
     const status = error.response?.status
     const isLoginRoute = router.currentRoute.value.name === 'auth.login'
     const isLoginRequest = error.config.url?.endsWith('/api/login')
-    console.error("error en api:", error)
     if (status === 401 && !isLoginRoute && !isLoginRequest) {
       router.push({ name: 'auth.login' })
       /* return Promise.reject({ silent: true }) */
