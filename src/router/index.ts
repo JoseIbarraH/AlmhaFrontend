@@ -53,7 +53,7 @@ const routes: RouteRecordRaw[] = [
       if (!SUPPORTED_LOCALES.includes(locale)) {
         return next(`/${DEFAULT_LOCALE}`)
       }
-
+ 
       const path = to.path
       if (path.endsWith('/') && path !== `/${locale}`) {
         return next({
@@ -148,7 +148,8 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.home",
             component: DashboardHome,
             meta: {
-              title: "Dashboard"
+              title: "Dashboard",
+              requiresAuth: true,
             }
           },
           {
@@ -251,14 +252,18 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.setting",
             component: SettingsLayout,
             redirect: { name: "setting.profile" },
-            meta: { title: "Settings" },
+            meta: {  
+              title: "Settings",
+              requiresAuth: true,
+            },
             children: [
               {
                 path: "profile",
                 name: "setting.profile",
                 component: SettingProfile,
                 meta: {
-                  title: 'Profile'
+                  title: 'Profile',
+                  requiresAuth: true,
                 }
               },
               {
