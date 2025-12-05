@@ -68,7 +68,8 @@ const fetchRoles = async (page = 1, search = '') => {
       }
     })
   } catch (error: any) {
-    showNotification('error', t('Deshboard.Setting.RolePermission.Validations.Error.GetRoles'), 4000);
+    console.error(error)
+    showNotification('error', t('Dashboard.Setting.RolePermission.Validations.Error.GetRoles'), 4000);
   } finally {
     loading.value = false;
     initialLoading.value = false
@@ -81,7 +82,7 @@ const fetchPermission = async () => {
     permissions.value = data.data.permissions
   } catch (error) {
     console.error(error)
-    showNotification('error', t('Deshboard.Setting.RolePermission.Validations.Error.GetPermissions'), 4000);
+    showNotification('error', t('Dashboard.Setting.RolePermission.Validations.Error.GetPermissions'), 4000);
   }
 }
 
