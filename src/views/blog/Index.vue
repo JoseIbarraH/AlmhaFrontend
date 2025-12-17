@@ -22,16 +22,12 @@
         :total-activated="stats?.totalActivated"
         :total-deactivated-title="$t('Dashboard.Blog.Statistics.TeamsInactives')"
         :total-deactivated="stats?.totalDeactivated" :last-object-title="$t('Dashboard.Blog.Statistics.Last')"
-        :last-object="stats?.lastCreated"
-        :last-object-icon="LucideFilePlus"
-        />
+        :last-object="stats?.lastCreated" :last-object-icon="LucideFilePlus" />
 
       <div class="bg-white rounded-lg shadow-md dark:bg-gray-900">
         <BlogGrid :data="paginate?.data ?? []"
           @status-updated="fetchBlogs(route.query.page ? Number(route.query.page) : 1)"
-          @refresh-requested="handleRefresh"
-          @search="handleSearch"
-          />
+          @refresh-requested="handleRefresh" @search="handleSearch" />
       </div>
       <Pagination v-if="paginate" :pagination="paginate" @page-change="handlePageChange" />
     </section>
@@ -53,13 +49,13 @@
         <div class="space-y-2">
           <InputLabel for="title" :value="$t('Dashboard.Blog.Create.Title')"
             class="text-sm font-medium text-gray-700" />
-          <TextInput id="title" v-model="form.title"
-            :placeholder="$t('Dashboard.Blog.Create.Placeholder')" />
+          <TextInput id="title" v-model="form.title" :placeholder="$t('Dashboard.Blog.Create.Placeholder')" />
           <p class="text-xs text-gray-500 mt-1 dark:text-white">{{ $t('Dashboard.Blog.Create.Optional') }}</p>
         </div>
       </div>
 
-      <div class="px-6 py-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-950 flex justify-end gap-3">
+      <div
+        class="px-6 py-4 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-950 flex justify-end gap-3">
         <SecondaryButton @click="closeModal"
           class="px-5 py-2.5 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-100 transition-colors duration-200">
           {{ $t('Dashboard.Blog.Create.Cancel') }}
@@ -86,6 +82,7 @@ import Statistics from '@/components/app/Statistics.vue';
 import Pagination from '@/components/app/Pagination.vue';
 import InputLabel from '@/components/ui/InputLabel.vue';
 import TextInput from '@/components/ui/TextInput.vue';
+import { useAuthStore } from '@/stores/authStore';
 import { useRoute, useRouter } from 'vue-router';
 import Modal from '@/components/app/Modal.vue';
 import BlogGrid from './partials/BlogGrid.vue';
@@ -93,7 +90,6 @@ import Skeleton from './partials/Skeleton.vue';
 import { api } from '@/plugins/api';
 import type { Data } from './types';
 import { useI18n } from 'vue-i18n';
-import { useAuthStore } from '@/stores/authStore';
 
 const { t } = useI18n()
 
@@ -147,7 +143,7 @@ const confirmCreate = async () => {
 }
 
 async function fetchBlogs(page = 1, search = '') {
-  if(!auth.can('view_blogs')) return
+  if (!auth.can('view_blogs')) return
   try {
     if (initialLoading.value) {
       loading.value = true
@@ -156,13 +152,13 @@ async function fetchBlogs(page = 1, search = '') {
     const params = new URLSearchParams()
     params.append('page', page.toString())
     if (search) {
-      params.append('search', search)
+      params.append('filter[title]', search)
     }
 
     const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/blog?${params.toString()}`);
+
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
-
   } catch (error) {
     showNotification('error', t('Dashboard.Blog.Validations.Error.GetData'), 4000);
   } finally {
