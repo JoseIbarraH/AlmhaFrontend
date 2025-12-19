@@ -156,7 +156,7 @@ const handleClose = () => {
 watch(() => props.show, (newVal) => {
   if (newVal) {
     if (props.editing && props.data) {
-      form.path = props.data.full_path
+      form.path = props.data.path
       form.title = props.data.title
       form.subtitle = props.data.subtitle
     }
