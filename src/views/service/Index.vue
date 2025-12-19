@@ -72,7 +72,7 @@ const fetchServices = async (page = 1, search = '') => {
     const params = new URLSearchParams()
     params.append('page', page.toString())
     if (search) {
-      params.append('search', search)
+      params.append('filter[title]', search)
     }
 
     const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/service?${params.toString()}`)
