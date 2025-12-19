@@ -24,7 +24,7 @@
                  dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
           <!-- Imagen -->
           <div class="aspect-square relative overflow-hidden bg-gray-100 dark:bg-gray-900">
-            <img :src="item.full_path" :alt="item.title || `Imagen ${index + 1}`"
+            <img :src="item.path" :alt="item.title || `Imagen ${index + 1}`"
               class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
 
             <!-- Overlay oscuro en hover -->

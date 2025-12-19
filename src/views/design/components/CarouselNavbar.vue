@@ -25,7 +25,7 @@
                  dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
           <!-- Imagen -->
           <div class="aspect-square relative overflow-hidden bg-gray-100 dark:bg-gray-900">
-            <img :src="item.full_path" :alt="item.title || `Imagen ${index + 1}`"
+            <img :src="item.path" :alt="item.title || `Imagen ${index + 1}`"
               class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
 
             <!-- Overlay oscuro en hover -->
@@ -42,7 +42,7 @@
           <!-- Botones de acción -->
           <div class="absolute top-2 right-2 flex gap-2">
             <!-- Botón editar -->
-            <button type="button" @click="emit('edit_item', item)" title="Editar imagen"
+            <button type="button" @click="emit('edit_item', item)" title="Edit image"
               class="p-2 bg-white/95 backdrop-blur-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50
                 rounded-lg shadow-lg transition-all hover:scale-110
                 dark:bg-gray-800/95 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-700
@@ -53,7 +53,7 @@
             </button>
 
             <!-- Botón eliminar -->
-            <button type="button" @click="emit('delete_item', item.id)" title="Eliminar imagen"
+            <button type="button" @click="emit('delete_item', item.id)" title="Delete image"
               class="p-2 bg-white/95 backdrop-blur-sm text-gray-700 hover:text-red-600 hover:bg-red-50
                 rounded-lg shadow-lg transition-all hover:scale-110
                 dark:bg-gray-800/95 dark:text-gray-300 dark:hover:text-red-400 dark:hover:bg-gray-700

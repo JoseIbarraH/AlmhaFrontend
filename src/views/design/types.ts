@@ -46,7 +46,6 @@ export interface MediaItem {
   id: number;
   type: string;
   path: string;
-  full_path: string;
   title: string;
   subtitle: string;
 

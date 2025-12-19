@@ -4,7 +4,7 @@
                 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
 
       <div class="aspect-video relative overflow-hidden bg-gray-100 dark:bg-gray-900">
-        <img v-if="imageVideo[0]?.full_path" :src="imageVideo[0]?.full_path"
+        <img v-if="imageVideo[0]?.path" :src="imageVideo[0]?.path"
           :alt="imageVideo[0]?.title || 'Image or Video'"
           class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
         <div v-else class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700">

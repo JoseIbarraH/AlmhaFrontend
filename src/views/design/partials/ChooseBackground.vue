@@ -4,99 +4,42 @@
       {{ $t('Dashboard.Design.Backgrounds.Title') }}
     </h3>
 
-    <!-- Grid de 3 columnas -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-
-      <!-- Card 1 - Background 1 -->
-      <div
+      <div v-for="num in ([1, 2, 3] as const)" :key="num"
         class="relative bg-gray-100 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow dark:bg-gray-800">
-        <div class="aspect-video relative">
-          <img v-if="backgrounds?.background1?.[0]?.full_path" :src="backgrounds.background1[0].full_path"
-            :alt="backgrounds.background1[0].title || 'Background 1'" class="w-full h-full object-cover">
-          <div v-else class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700">
-            <span class="text-gray-400 text-sm">{{ $t('Dashboard.Design.Backgrounds.NoImage') }}</span>
-          </div>
-        </div>
-
-
-        <div class="absolute bottom-2 right-2">
-          <button type="button" :disabled="!$can('update_design')"
-            @click="backgrounds?.background1?.[0]
-              ? emit('edit_item', backgrounds.background1[0], backgrounds.background1Setting.id)
-              : emit('create_item', backgrounds.background1Setting.id)"
-            title="Editar"
-            class="p-2 bg-white/90 backdrop-blur-sm text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg shadow-md transition-all
-                  dark:bg-gray-800/90 dark:text-gray-300 dark:hover:text-yellow-400 dark:hover:bg-gray-700">
-            <LucideSquarePen class="w-4 h-4" />
-          </button>
-        </div>
-
-        <!-- Label opcional -->
-        <div class="absolute top-2 left-2">
-          <span class="px-2 py-1 bg-black/50 backdrop-blur-sm text-white text-xs rounded">
-            {{ $t('Dashboard.Design.Backgrounds.Background1') }}
-          </span>
-        </div>
-      </div>
-
-      <!-- Card 2 - Background 2 -->
-      <div
-        class="relative bg-gray-100 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow dark:bg-gray-800">
-        <div class="aspect-video relative">
-          <img v-if="backgrounds?.background2?.[0]?.full_path" :src="backgrounds.background2[0].full_path"
-            :alt="backgrounds.background2[0].title || 'Background 2'" class="w-full h-full object-cover">
-          <div v-else class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700">
+        
+        <div class="aspect-video relative bg-gray-200 dark:bg-gray-700">
+          <img 
+            v-if="(backgrounds as any)[`background${num}`]?.[0]?.path" 
+            :src="(backgrounds as any)[`background${num}`][0].path"
+            :alt="(backgrounds as any)[`background${num}`][0].title || `Background ${num}`" 
+            class="w-full h-full object-cover" 
+            loading="eager"
+            decoding="sync" 
+            fetchpriority="high"
+          >
+          <div v-else class="w-full h-full flex items-center justify-center">
             <span class="text-gray-400 text-sm">{{ $t('Dashboard.Design.Backgrounds.NoImage') }}</span>
           </div>
         </div>
 
         <div class="absolute bottom-2 right-2">
-          <button type="button" :disabled="!$can('update_design')"
-            @click="backgrounds?.background2?.[0]
-              ? emit('edit_item', backgrounds.background2[0], backgrounds.background2Setting.id)
-              : emit('create_item', backgrounds.background2Setting.id)"
-            title="Editar" class="p-2 bg-white/90 backdrop-blur-sm text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg shadow-md transition-all
-                  dark:bg-gray-800/90 dark:text-gray-300 dark:hover:text-yellow-400 dark:hover:bg-gray-700">
+          <button type="button" 
+            :disabled="!$can('update_design')" 
+            @click="(backgrounds as any)[`background${num}`]?.[0]
+              ? emit('edit_item', (backgrounds as any)[`background${num}`][0], (backgrounds as any)[`background${num}Setting`].id)
+              : emit('create_item', (backgrounds as any)[`background${num}Setting`].id)" 
+            class="p-2 bg-white/90 backdrop-blur-sm text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg shadow-md transition-all dark:bg-gray-800/90 dark:text-gray-300 dark:hover:text-yellow-400 dark:hover:bg-gray-700">
             <LucideSquarePen class="w-4 h-4" />
           </button>
         </div>
 
         <div class="absolute top-2 left-2">
           <span class="px-2 py-1 bg-black/50 backdrop-blur-sm text-white text-xs rounded">
-            {{ $t('Dashboard.Design.Backgrounds.Background2') }}
+            {{ $t(`Dashboard.Design.Backgrounds.Background${num}`) }}
           </span>
         </div>
       </div>
-
-      <!-- Card 3 - Background 3 -->
-      <div
-        class="relative bg-gray-100 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow dark:bg-gray-800">
-        <div class="aspect-video relative">
-          <img v-if="backgrounds?.background3?.[0]?.full_path" :src="backgrounds.background3[0].full_path"
-            :alt="backgrounds.background3[0].title || 'Background 3'" class="w-full h-full object-cover">
-          <div v-else class="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700">
-            <span class="text-gray-400 text-sm">{{ $t('Dashboard.Design.Backgrounds.NoImage') }}</span>
-          </div>
-        </div>
-
-        <div class="absolute bottom-2 right-2">
-          <button type="button" :disabled="!$can('update_design')"
-            @click="backgrounds?.background3?.[0]
-              ? emit('edit_item', backgrounds.background3[0], backgrounds.background3Setting.id)
-              : emit('create_item', backgrounds.background3Setting.id)"
-            title="Editar" class="p-2 bg-white/90 backdrop-blur-sm text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 rounded-lg shadow-md transition-all
-                  dark:bg-gray-800/90 dark:text-gray-300 dark:hover:text-yellow-400 dark:hover:bg-gray-700">
-            <LucideSquarePen class="w-4 h-4" />
-          </button>
-        </div>
-
-        <div class="absolute top-2 left-2">
-          <span class="px-2 py-1 bg-black/50 backdrop-blur-sm text-white text-xs rounded">
-            {{ $t('Dashboard.Design.Backgrounds.Background3') }}
-          </span>
-        </div>
-      </div>
-
     </div>
   </div>
 </template>
