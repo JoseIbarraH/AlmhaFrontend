@@ -11,8 +11,10 @@ import DashboardBlog from "@/views/blog/Index.vue"
 import DashboardBlogEdit from "@/views/blog/Edit.vue"
 import DashboardHome from "@/views/home/Index.vue"
 import DashboardDesign from "@/views/design/Index.vue"
-import DashboardService from "@/views/service/Index.vue"
-import DashboardServiceCreateUpdate from "@/views/service/CreateUpdate.vue"
+
+import DashboardProcedure from "@/views/procedure/Index.vue"
+import DashboardProcedureCreateUpdate from "@/views/procedure/CreateUpdate.vue"
+
 import DashboardTeam from "@/views/team/Index.vue"
 import DashboardTeamCreate from "@/views/team/CreateUpdate.vue"
 import SettingProfile from "@/views/setting/profile/Index.vue"
@@ -163,35 +165,27 @@ const routes: RouteRecordRaw[] = [
             }
           },
           {
-            path: "service",
-            name: "dashboard.service",
-            component: DashboardService,
+            path: "procedure",
+            name: "dashboard.procedure",
+            component: DashboardProcedure,
             meta: {
-              title: "Service",
-              requiresAuth: true,
-              permission: "view_services"
+              title: "Procedure"
             }
           },
           {
-            path: "service/create",
-            name: "dashboard.service.create",
-            component: DashboardServiceCreateUpdate,
-            props: true,
+            path: "procedure/create",
+            name: "dashboard.procedure.create",
+            component: DashboardProcedureCreateUpdate,
             meta: {
-              title: "Create Service",
-              requiresAuth: true,
-              permission: "create_services"
+              title: "Create Procedure"
             }
           },
           {
-            path: "service/:id/edit",
-            name: "dashboard.service.edit",
-            component: DashboardServiceCreateUpdate,
-            props: true,
+            path: "procedure/:id/edit",
+            name: "dashboard.procedure.edit",
+            component: DashboardProcedureCreateUpdate,
             meta: {
-              title: "Edit Service",
-              requiresAuth: true,
-              permission: "update_services"
+              title: "Edit Procedure"
             }
           },
           {

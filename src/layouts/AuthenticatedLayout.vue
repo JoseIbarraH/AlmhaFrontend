@@ -41,7 +41,8 @@ const { isDark } = useDarkMode()
               <NavLink :href="{ name: 'dashboard.home' }" :active="current({ name: 'dashboard.home' })">
                 {{ $t('Helper.Navbar.Dashboard') }}
               </NavLink>
-              <NavLink v-if="$can('view_design')" :href="{ name: 'dashboard.design' }" :active="current({ name: 'dashboard.design' })">
+              <NavLink v-if="$can('view_design')" :href="{ name: 'dashboard.design' }"
+                :active="current({ name: 'dashboard.design' })">
                 {{ $t('Helper.Navbar.Design') }}
               </NavLink>
               <NavLink v-if="$can('view_teams')" :href="{ name: 'dashboard.team' }"
@@ -52,9 +53,9 @@ const { isDark } = useDarkMode()
                 :active="current({ name: 'dashboard.blog' }) || current({ name: 'dashboard.blog.edit' })">
                 {{ $t('Helper.Navbar.Blog') }}
               </NavLink>
-              <NavLink v-if="$can('view_services')" :href="{ name: 'dashboard.service' }"
-                :active="current({ name: 'dashboard.service' }) || current({ name: 'dashboard.service.create' }) || current({ name: 'dashboard.service.edit' })">
-                {{ $t('Helper.Navbar.Service') }}
+              <NavLink :href="{ name: 'dashboard.procedure' }"
+                :active="current({ name: 'dashboard.procedure' }) || current({ name: 'dashboard.procedure.create' }) || current({ name: 'dashboard.service.edit' })">
+                {{ $t('Helper.Navbar.Procedure') }}
               </NavLink>
             </div>
           </div>
@@ -91,7 +92,7 @@ const { isDark } = useDarkMode()
             <LanguageSwitcher color="bg-blue-500" />
             <button @click="showingNavigationDropdown = !showingNavigationDropdown"
               class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 dark:text-gray-500 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-500 dark:hover:text-gray-300 focus:bg-gray-100 dark:focus:bg-gray-700 focus:text-gray-500 dark:focus:text-gray-300 focus:outline-none">
-              <LucideMenu class="w-6 h-6"/>
+              <LucideMenu class="w-6 h-6" />
             </button>
           </div>
         </div>
@@ -106,17 +107,21 @@ const { isDark } = useDarkMode()
           <ResponsiveNavLink :href="{ name: 'dashboard.home' }" :active="current({ name: 'dashboard.home' })">
             {{ $t('Helper.Navbar.Dashboard') }}
           </ResponsiveNavLink>
-          <ResponsiveNavLink v-if="$can('view_design')" :href="{ name: 'dashboard.design' }" :active="current({ name: 'dashboard.design' })">
+          <ResponsiveNavLink v-if="$can('view_design')" :href="{ name: 'dashboard.design' }"
+            :active="current({ name: 'dashboard.design' })">
             {{ $t('Helper.Navbar.Design') }}
           </ResponsiveNavLink>
-          <ResponsiveNavLink v-if="$can('view_teams')" :href="{ name: 'dashboard.team' }" :active="current({ name: 'dashboard.team' })">
+          <ResponsiveNavLink v-if="$can('view_teams')" :href="{ name: 'dashboard.team' }"
+            :active="current({ name: 'dashboard.team' })">
             {{ $t('Helper.Navbar.Team') }}
           </ResponsiveNavLink>
-          <ResponsiveNavLink v-if="$can('view_blogs')" :href="{ name: 'dashboard.blog' }" :active="current({ name: 'dashboard.blog' })">
+          <ResponsiveNavLink v-if="$can('view_blogs')" :href="{ name: 'dashboard.blog' }"
+            :active="current({ name: 'dashboard.blog' })">
             {{ $t('Helper.Navbar.Blog') }}
           </ResponsiveNavLink>
-          <ResponsiveNavLink v-if="$can('view_services')" :href="{ name: 'dashboard.service' }" :active="current({ name: 'dashboard.service' })">
-            {{ $t('Helper.Navbar.Service') }}
+          <ResponsiveNavLink :href="{ name: 'dashboard.procedure' }"
+            :active="current({ name: 'dashboard.procedure' })">
+            {{ $t('Helper.Navbar.Procedure') }}
           </ResponsiveNavLink>
         </div>
 

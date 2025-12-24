@@ -221,72 +221,14 @@
         }
       }
     },
-    "Service": {
-      "Header": "Servicios",
-      "Title": "Servicios - Gestion de Servicios",
-      "CreateButton": "Crear Servicio",
+    "Procedure": {
+      "Title": "Procedimientos - Gestion de Procedimientos",
+      "CreateButton": "Crear procedimiento",
       "Statistics": {
-        "Total": "Servicios totales",
-        "TeamsActives": "Servicios activos",
-        "TeamsInactives": "Servicios inactivos",
-        "Last": "Nuevos servicios (15d)"
-      },
-      "CreateUpdate": {
-        "UpdateTitle": "Actualizar servicio",
-        "CreateTitle": "Crear nuevo servicio",
-        "BackButton": "Volver",
-        "CreateButton": "Crear Servicio",
-        "UpdateButton": "Actualizar",
-        "MainInfo": {
-          "Information": "Información del Procedimiento",
-          "Title": "Nombre del Procedimiento",
-          "TitlePlaceholder": "Ingrese el nombre del procedimiento",
-          "Description": "Descripción del Procedimiento",
-          "DescriptionPlaceholder": "Ingrese la descripción del procedimiento",
-          "Image": "Imagen del Procedimiento"
-        },
-        "Phases": {
-          "Title": "Fases del Procedimiento",
-          "RecoveryTime": "Tiempo de recuperación",
-          "PreOperative": "Sugerencias Prequirúrgicas",
-          "PostOperative": "Sugerencias Postquirúrgicas"
-        },
-        "SampleImages": {
-          "Title": "Imagenes de muestra",
-          "Technique": "Tecnica",
-          "Recovery": "Recuperación",
-          "PostOperativeCare": "Cuidado Postoperatorio"
-        },
-        "ResultsGallery": {
-          "Title": "Galería de Resultados",
-          "TextCount": "{count} imagen | {count} imagenes",
-          "AddImage": "Agregar imagen",
-          "NoImage": "No hay imágenes en la galería",
-          "AddImageText": "Agrega imagenes de resultados para aportar fiabilidad a tus clientes",
-          "ButtonFirst": "Agregar primera imagen",
-          "Advices": {
-            "Title": "Consejos para una mejor galería:",
-            "First": "• Haz clic en cualquier imagen para cambiarla o editarla",
-            "Second": "• Usa imágenes de alta calidad y buena iluminación",
-            "Third": "• Mantén un formato consistente para mejor visualización"
-          }
-        },
-        "FrequentlyAskedQuestions": {
-          "Title": "Preguntas Frecuentes",
-          "Question": "Pregunta",
-          "Answer": "Respuesta",
-          "TextCount": "{count} pregunta | {count} preguntas",
-          "AddQuestion": "Agregar pregunta",
-          "NoQuestion": "No hay preguntas frecuentes",
-          "AddQuestionText": "Agrega preguntas frecuentes para ayudar a tus clientes a encontrar respuestas rápidamente",
-          "ButtonFirst": "Agregar primera pregunta",
-          "Advices": {
-            "Title": "Consejos para buenas preguntas frecuentes:",
-            "First": "• Usa preguntas claras y directas",
-            "Second": "• Proporciona respuestas concisas pero completas",
-            "Third": "• Ordena las preguntas de más a menos frecuentes"
-          }
-        }
+        "Total": "Procedimientos totales",
+        "TeamsActives": "Procedimientos activos",
+        "TeamsInactives": "Procedimientos inactivos",
+        "Last": "Nuevos procedimientos (15d)"
       },
       "List": {
         "Services": "Servicios",
@@ -632,7 +574,7 @@
       "Design": "Diseño",
       "Profile": "Perfil",
       "Logout": "Cerrar sesión",
-      "Service": "Servicios",
+      "Procedure": "Procedimientos",
       "Setting": "Configuraciones"
     },
     "TimeSince": {
