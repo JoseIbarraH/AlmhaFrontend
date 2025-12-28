@@ -6,10 +6,7 @@
         {{ $t('Dashboard.Team.List.TeamMembers') }}
       </h2>
 
-      <Search
-        :placeholder="$t('Dashboard.Team.List.Search')"
-        @search="handleSearch"
-        v-model="localSearch"/>
+      <Search :placeholder="$t('Dashboard.Team.List.Search')" @search="handleSearch" v-model="localSearch" />
     </div>
 
     <!-- Tabla responsive -->
@@ -69,7 +66,7 @@
                 ]">
                   {{ value.status === 'active'
                     ? $t('Dashboard.Team.List.Status.Active')
-                    : $t('Dashboard.Team.List.Status.Inactive')}}
+                    : $t('Dashboard.Team.List.Status.Inactive') }}
                 </span>
               </div>
             </td>
@@ -107,7 +104,12 @@
         <tbody v-else>
           <tr>
             <td colspan="5" class="py-10 text-center text-gray-500 dark:text-gray-400">
-              {{ $t('Dashboard.Team.List.NoMembers') }}
+              <div class="w-full flex flex-col items-center justify-center">
+                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4 dark:bg-gray-700">
+                  <LucideUsers class="w-8 h-8 text-gray-500 dark:text-gray-400" />
+                </div>
+                {{ $t('Dashboard.Team.List.NoMembers') }}
+              </div>
             </td>
           </tr>
         </tbody>
@@ -115,16 +117,10 @@
     </div>
   </div>
 
-  <ConfirmDeleteModal
-    :show="isOpen" :title="$t('Dashboard.Team.Delete.ConfirmTitle')"
-    :subtitle="$t('Dashboard.Team.Delete.ConfirmSubtitle')"
-    :message="$t('Dashboard.Team.Delete.ConfirmDelete')"
-    :itemName="memberToDelete?.name"
-    :cancel-text="$t('Dashboard.Team.Delete.Cancel')"
-    :confirm-text="$t('Dashboard.Team.Delete.Delete')"
-    @close="closeModal"
-    @confirm="confirmDelete"
-  />
+  <ConfirmDeleteModal :show="isOpen" :title="$t('Dashboard.Team.Delete.ConfirmTitle')"
+    :subtitle="$t('Dashboard.Team.Delete.ConfirmSubtitle')" :message="$t('Dashboard.Team.Delete.ConfirmDelete')"
+    :itemName="memberToDelete?.name" :cancel-text="$t('Dashboard.Team.Delete.Cancel')"
+    :confirm-text="$t('Dashboard.Team.Delete.Delete')" @close="closeModal" @confirm="confirmDelete" />
 </template>
 
 <script setup lang="ts">
@@ -138,7 +134,7 @@ import type { Data } from '../types';
 import { api } from '@/plugins/api';
 import { useI18n } from 'vue-i18n';
 import { ref } from 'vue'
-import { LucideSquarePen, LucideTrash2 } from 'lucide-vue-next';
+import { LucideSquarePen, LucideTrash2, LucideUsers } from 'lucide-vue-next';
 
 const auth = useAuthStore()
 

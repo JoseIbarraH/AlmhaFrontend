@@ -13,7 +13,7 @@ import DashboardHome from "@/views/home/Index.vue"
 import DashboardDesign from "@/views/design/Index.vue"
 
 import DashboardProcedure from "@/views/procedure/Index.vue"
-import DashboardProcedureCreateUpdate from "@/views/procedure/CreateUpdate.vue"
+import DashboardProcedureEdit from "@/views/procedure/Edit.vue"
 
 import DashboardTeam from "@/views/team/Index.vue"
 import DashboardTeamCreate from "@/views/team/CreateUpdate.vue"
@@ -55,7 +55,7 @@ const routes: RouteRecordRaw[] = [
       if (!SUPPORTED_LOCALES.includes(locale)) {
         return next(`/${DEFAULT_LOCALE}`)
       }
- 
+
       const path = to.path
       if (path.endsWith('/') && path !== `/${locale}`) {
         return next({
@@ -173,17 +173,10 @@ const routes: RouteRecordRaw[] = [
             }
           },
           {
-            path: "procedure/create",
-            name: "dashboard.procedure.create",
-            component: DashboardProcedureCreateUpdate,
-            meta: {
-              title: "Create Procedure"
-            }
-          },
-          {
             path: "procedure/:id/edit",
             name: "dashboard.procedure.edit",
-            component: DashboardProcedureCreateUpdate,
+            component: DashboardProcedureEdit,
+            props: true,
             meta: {
               title: "Edit Procedure"
             }
@@ -246,7 +239,7 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.setting",
             component: SettingsLayout,
             redirect: { name: "setting.profile" },
-            meta: {  
+            meta: {
               title: "Settings",
               requiresAuth: true,
             },

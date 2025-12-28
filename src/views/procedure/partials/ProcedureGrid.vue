@@ -113,7 +113,7 @@
     :title="$t('Dashboard.Procedure.Delete.ConfirmTitle')"
     :subtitle="$t('Dashboard.Procedure.Delete.ConfirmSubtitle')"
     :message="$t('Dashboard.Procedure.Delete.ConfirmDelete')"
-    :itemName="serviceToDelete?.title"
+    :itemName="procedureToDelete?.title"
     :cancel-text="$t('Dashboard.Procedure.Delete.Cancel')"
     :confirm-text="$t('Dashboard.Procedure.Delete.Delete')"
     @close="closeModal" @confirm="confirmDelete" />
@@ -140,7 +140,7 @@ const emit = defineEmits<{
 const router = useRouter()
 
 const isOpen = ref(false)
-const serviceToDelete = ref<Data | null>(null)
+const procedureToDelete = ref<Data | null>(null)
 
 const localData = ref<Data[]>([])
 const localSearch = ref('')
@@ -150,13 +150,13 @@ const props = defineProps<{
 }>()
 
 const openModal = (blog: Data) => {
-  serviceToDelete.value = blog
+  procedureToDelete.value = blog
   isOpen.value = true
 }
 
 const closeModal = () => {
   isOpen.value = false
-  serviceToDelete.value = null
+  procedureToDelete.value = null
 }
 
 const handleEdit = (id: number) => {
@@ -164,10 +164,10 @@ const handleEdit = (id: number) => {
 }
 
 const confirmDelete = async () => {
-  if (!serviceToDelete.value) return
+  if (!procedureToDelete.value) return
 
   try {
-    await api.delete(`/api/service/${serviceToDelete.value.id}`)
+    await api.delete(`/api/procedure/${procedureToDelete.value.id}`)
     showNotification('success', t('Dashboard.Procedure.Validations.Success.Delete'), 3000)
     emit('status-updated')
     closeModal()
@@ -188,7 +188,7 @@ const handleToggleStatus = async (data: Data) => {
   const newStatus = data.status === 'active' ? 'inactive' : 'active';
   const original = data.status
   try {
-    await api.post(`/api/service/update_status/${data.id}`, { status: newStatus });
+    await api.post(`/api/procedure/update_status/${data.id}`, { status: newStatus });
     // Actualizamos el valor localmente si la API responde bien
     data.status = newStatus;
     showNotification('success', t('Dashboard.Procedure.Validations.Success.Status'), 3000)

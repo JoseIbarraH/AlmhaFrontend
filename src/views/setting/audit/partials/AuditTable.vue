@@ -144,7 +144,7 @@
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium">{{ value.ip_address }}</span>
                       </div>
                       <div>
-                        <span class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.ConectionInfo.Url') }}</span>
+                        <span class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Setting.Audit.List.Expand.ConectionInfo.URL') }}</span>
                         <span class="ml-2 text-gray-900 dark:text-gray-100 font-medium break-all">{{ value.url }}</span>
                       </div>
                       <div>

@@ -54,7 +54,7 @@ const { isDark } = useDarkMode()
                 {{ $t('Helper.Navbar.Blog') }}
               </NavLink>
               <NavLink :href="{ name: 'dashboard.procedure' }"
-                :active="current({ name: 'dashboard.procedure' }) || current({ name: 'dashboard.procedure.create' }) || current({ name: 'dashboard.service.edit' })">
+                :active="current({ name: 'dashboard.procedure' }) || current({ name: 'dashboard.procedure.edit' })">
                 {{ $t('Helper.Navbar.Procedure') }}
               </NavLink>
             </div>
@@ -120,7 +120,7 @@ const { isDark } = useDarkMode()
             {{ $t('Helper.Navbar.Blog') }}
           </ResponsiveNavLink>
           <ResponsiveNavLink :href="{ name: 'dashboard.procedure' }"
-            :active="current({ name: 'dashboard.procedure' })">
+            :active="current({ name: 'dashboard.procedure' }) || current({ name: 'dashboard.procedure.edit' })">
             {{ $t('Helper.Navbar.Procedure') }}
           </ResponsiveNavLink>
         </div>

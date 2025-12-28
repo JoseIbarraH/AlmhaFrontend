@@ -230,8 +230,17 @@
         "TeamsInactives": "Procedimientos inactivos",
         "Last": "Nuevos procedimientos (15d)"
       },
+      "Create": {
+        "Title": "Crear procedimiento",
+        "Subtitle": "Asignale un nombre al procedimiento",
+        "LabelTitle": "Titulo (Opcional)",
+        "Optional": "Opcional: Puedes agregar el título ahora o después",
+        "Placeholder": "Ingresa el título del procedimiento.",
+        "Cancel": "Cancelar",
+        "CreateButton": "Crear procedimiento"
+      },
       "List": {
-        "Services": "Servicios",
+        "Procedures": "Procedimientos",
         "Search": "Buscar por título",
         "Active": "Activo",
         "Inactive": "Inactivo",
@@ -246,52 +255,25 @@
       "Delete": {
         "ConfirmTitle": "Confirmar Eliminación",
         "ConfirmSubtitle": "Esta acción se puede revertir",
-        "ConfirmDelete": "¿Estás seguro de que deseas eliminar el servicio",
+        "ConfirmDelete": "¿Estás seguro de que deseas eliminar el procedimiento",
         "Cancel": "Cancelar",
-        "Delete": "Eliminar Servicio"
+        "Delete": "Eliminar Procedimiento"
       },
       "Validations": {
         "Form": {
-          "Title": "El titulo es obligatorio.",
-          "Description": "La descripcion es obligatoria.",
-          "Status": "El estado es obligatorio.",
-          "Image": "La imagen es obligatoria.",
-          "RecoveryTime": {
-            "Empty": "El tiempo de recuperación no puede estar vacío.",
-            "Item": "El tiempo de recuperación n.º {n} no puede estar vacío."
-          },
-          "PreoperativeRecommendations": {
-            "Empty": "Las recomendaciones preoperatorias no pueden estar vacías.",
-            "Item": "La recomendación preoperatoria n.º {n} no puede estar vacía."
-          },
-          "PostoperativeRecommendations": {
-            "Empty": "Las recomendaciones postoperatorias no pueden estar vacías.",
-            "Item": "La recomendación postoperatoria n.º {n} no puede estar vacía."
-          },
-          "SampleImages": {
-            "Recovery": "La imagen de muestra del proceso de recuperación no puede estar vacía.",
-            "PostoperativeCare": "La imagen de muestra del cuidado postoperatorio no puede estar vacía.",
-            "Technique": "La imagen de muestra de la técnica quirúrgica no puede estar vacía."
-          },
-          "ResultsGallery": {
-            "Item": "El resultado n.º {n} no puede estar vacío."
-          },
-          "FAQ": {
-            "Question": "La pregunta n.º {n} no puede estar vacía.",
-            "Answer": "La respuesta n.º {n} no puede estar vacía."
-          }
+          "Title": "El titulo es obligatorio."
         },
         "Success": {
           "Status": "Estado actualizado correctamente.",
-          "Delete": "Servicio eliminado correctamente.",
-          "Create": "Servicio creado correctamente.",
-          "Update": "Servicio actualizado correctamente."
+          "Delete": "procedimiento eliminado correctamente.",
+          "Create": "procedimiento creado correctamente.",
+          "Update": "procedimiento actualizado correctamente."
         },
         "Error": {
           "Status": "Error al actualizar el estado.",
-          "Delete": "Error al eliminar el servicio.",
-          "Create": "Error al crear el servicio.",
-          "Update": "Error al actualizar el servicio.",
+          "Delete": "Error al eliminar el procedimiento.",
+          "Create": "Error al crear el procedimiento.",
+          "Update": "Error al actualizar el procedimiento.",
           "GetData": "Error al obtener los datos"
         }
       }
@@ -471,7 +453,7 @@
           "IpAddress": "Direccion Ip",
           "Details": "Detalles",
           "Expand": {
-            "BeforeValues": "Valores Anteriores",
+            "PreviousValues": "Valores Anteriores",
             "NewValues": "Valores Nuevos",
             "UserInfo": {
               "Title": "Información del Usuario",
