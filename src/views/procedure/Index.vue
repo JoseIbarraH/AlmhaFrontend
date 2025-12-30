@@ -80,7 +80,6 @@ const fetchProcedures = async (page = 1, search = '') => {
     const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/procedure?${params.toString()}`)
     apiResponse.value = data.data
     paginate.value = apiResponse.value?.pagination
-    console.log(apiResponse.value)
     router.replace({ query: { page } })
   } catch (error: any) {
 

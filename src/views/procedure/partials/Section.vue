@@ -21,32 +21,32 @@
 
       <!-- Contenido de la sección -->
       <div>
-        <InputLabel :for="`section-content-${sectionKey}`" value="Contenido" class="text-[17px] mb-2" />
+        <InputLabel :for="`section-content-${sectionKey}`" value="Párrafo 1" class="text-[17px] mb-2" />
         <textarea
           :id="`section-content-${sectionKey}`"
           :value="sectionData.contentOne"
           @input="updateContentOne"
           rows="8"
-          class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none resize-none transition-colors"
+          class="w-full max-h-36 px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none resize-none transition-colors"
           :placeholder="placeholderContentOne"
         />
         <p class="text-xs text-gray-500 mt-2">
-          {{ sectionData.contentOne.length }} caracteres
+          {{ sectionData.contentOne?.length ?? 0 }} caracteres
         </p>
       </div>
 
       <div>
-        <InputLabel :for="`section-content-${sectionKey}`" value="Contenido" class="text-[17px] mb-2" />
+        <InputLabel :for="`section-content-${sectionKey}`" value="Párrafo 2" class="text-[17px] mb-2" />
         <textarea
           :id="`section-content-${sectionKey}`"
           :value="sectionData.contentTwo"
           @input="updateContentTwo"
           rows="8"
-          class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none resize-none transition-colors"
+          class="w-full max-h-36 px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none resize-none transition-colors"
           :placeholder="placeholderContentTwo"
         />
         <p class="text-xs text-gray-500 mt-2">
-          {{ sectionData.contentTwo.length }} caracteres
+          {{ sectionData.contentTwo?.length ?? 0 }} caracteres
         </p>
       </div>
 
@@ -67,7 +67,7 @@
 
         <button
           type="button"
-          class="w-full bg-transparent flex items-center justify-center gap-2 border border-gray-300 shadow rounded-md py-2 hover:bg-gray-50 transition"
+          class="w-full bg-transparent flex items-center justify-center gap-2 border border-gray-300 shadow rounded-md py-2 hover:bg-gray-300 transition"
           @click="openFilePicker"
         >
           <LucideUpload class="w-4 h-4" />
@@ -92,13 +92,21 @@ import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import InputLabel from '@/components/ui/InputLabel.vue'
 import TextInput from '@/components/ui/TextInput.vue'
 import { LucideUpload, LucideX } from 'lucide-vue-next'
-import type { Section } from '../types'
+
+interface SectionCustom {
+  id?: number
+  type: 'what_is' | 'technique' | 'recovery'
+  title: string
+  contentOne: string
+  contentTwo: string
+  image: File | null
+}
 
 interface Props {
   sectionKey: 'what_is' | 'technique' | 'recovery' // Clave de la sección
   title: string // Título del card
   subtitle: string // Subtítulo del card
-  modelValue: Section | undefined // Datos de la sección
+  modelValue: SectionCustom | undefined // Datos de la sección
   placeholderTitle?: string
   placeholderContentOne?: string
   placeholderContentTwo?: string
@@ -107,12 +115,11 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   placeholderTitle: 'Ej: Título de la sección',
-  placeholderContent: 'Describe el contenido...',
   allowImage: false
 })
 
 const emit = defineEmits<{
-  'update:modelValue': [value: Section]
+  'update:modelValue': [value: SectionCustom]
 }>()
 
 // Refs
@@ -120,13 +127,14 @@ const fileInput = ref<HTMLInputElement | null>(null)
 const imagePreview = ref<string | null>(null)
 
 // Computed para datos de la sección con valores por defecto
-const sectionData = computed<Section>(() => {
+const sectionData = computed<SectionCustom>(() => {
   return props.modelValue ?? {
-    type: '',
+    id: 0,
+    type: props.sectionKey,
     title: '',
     contentOne: '',
     contentTwo: '',
-    image: null
+    image: null,
   }
 })
 
@@ -175,7 +183,7 @@ const onImageChange = (event: Event) => {
 }
 
 const removeImage = () => {
-  if (imagePreview.value && imagePreview.value.startsWith('blob:')) {
+  if (imagePreview.value?.startsWith('blob:')) {
     URL.revokeObjectURL(imagePreview.value)
   }
 
@@ -191,7 +199,7 @@ const removeImage = () => {
   }
 }
 
-// Watch para imagen inicial
+
 watch(
   () => sectionData.value.image,
   (image) => {

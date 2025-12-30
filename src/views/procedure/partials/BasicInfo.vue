@@ -7,11 +7,11 @@
       </div>
       <div>
         <InputLabel for="title" value="Titulo del Procedimiento" class="text-[17px] mb-2" />
-        <TextInput id="title" v-model="modelValue.title" />
+        <TextInput id="title" v-model="modelValue.title"  />
       </div>
       <div>
         <InputLabel for="subtitle" value="Subtitulo" class="text-[17px] mb-2" />
-        <TextInput id="subtitle" v-model="modelValue.subtitle" />
+        <TextInput id="subtitle" v-model="modelValue.subtitle"  />
       </div>
       <div class="space-y-2">
         <InputLabel for="image" value="Imagen Principal (Hero)" class="text-[17px] mb-2" />
@@ -27,7 +27,7 @@
 
         <div class="flex items-center gap-4">
           <button type="button" variant="outline"
-            class="w-full bg-transparent flex items-center justify-center gap-2 border border-gray-300 shadow rounded-md py-2"
+            class="w-full bg-transparent flex items-center justify-center gap-2 border border-gray-300 hover:bg-gray-300 shadow rounded-md py-2"
             @click="openFilePicker">
             <LucideUpload class="w-4 h-4" />
             {{ imagePreview ? 'Cambiar imagen' : 'Subir imagen' }}
@@ -43,42 +43,29 @@
     </div>
   </div>
 
-  <Section sectionKey="what_is"
-    title="¿Qué es?"
+  <Section
+    sectionKey="what_is"
+    title="¿Qué es este procedimiento?"
     subtitle="Descripción general del procedimiento"
     :modelValue="modelValue.section[0]"
     @update:modelValue="updateSection(0, $event)"
     placeholderTitle="Ej: ¿Qué es la Rinoplastia?"
-    placeholderContentOne="Explica en qué consiste el procedimiento..."
-    placeholderContentTwo="Explica en qué consiste el procedimiento..."
+    placeholderContentOne="Primera descripción del procedimiento..."
+    placeholderContentTwo="Segunda descripción del procedimiento..."
     :allowImage="true" />
 </template>
 
 <script setup lang="ts">
 import InputLabel from '@/components/ui/InputLabel.vue'
 import TextInput from '@/components/ui/TextInput.vue'
-import type { Procedure } from '../types'
+import type { ProcedureFrontend } from '../types'
 import { LucideUpload, LucideX } from 'lucide-vue-next'
 import { ref, watch } from 'vue'
 import Section from './Section.vue'
 
-const modelValue = defineModel<Procedure>({
+const modelValue = defineModel<ProcedureFrontend>({
   required: true
 })
-
-/* if (!modelValue.value.section) {
-  modelValue.value.section = []
-}
-
-if (!modelValue.value.section[0]) {
-  modelValue.value.section[0] = {
-    type: 'what_is',
-    title: '',
-    contentOne: '',
-    contentTwo: '',
-    image: null
-  }
-} */
 
 const updateSection = (index: number, section: any) => {
   const newSections = [...modelValue.value.section]
@@ -90,11 +77,10 @@ const updateSection = (index: number, section: any) => {
   }
 }
 
-
 const fileInput = ref<HTMLInputElement | null>(null)
 const imagePreview = ref<string | null>(null)
 
-const updateModel = (payload: Partial<Procedure>) => {
+const updateModel = (payload: Partial<ProcedureFrontend>) => {
   modelValue.value = {
     ...modelValue.value,
     ...payload

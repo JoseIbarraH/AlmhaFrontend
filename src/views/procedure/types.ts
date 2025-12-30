@@ -7,63 +7,50 @@ export interface Data {
   updated_at: string;
 }
 
-export interface Procedure {
+export interface ProcedureBackend {
   id: number
   status: string
-  image: File | null
-
   title: string
   subtitle: string
+  slug: string
+  image: string | null
 
-  section: Section[]
-
-  preStep: PreStep
-
-  phase: Phase
-
-  faq: Faq
-
-  do: Do
-
-  dont: Dont
-
-  gallery: Gallery
+  // Arrays simples como llegan del backend
+  section?: SectionBackend[]
+  faq?: FaqBackend[]
+  phase?: PhaseBackend[]
+  preStep?: PreStepBackend[]
+  do?: DoBackend[]
+  dont?: DontBackend[]
+  gallery?: GalleryBackend[]
 }
 
-export interface Section {
-  type: string
-  image: File | null
+export interface SectionBackend {
+  id: number
+  type: 'what_is' | 'technique' | 'recovery'
   title: string
   contentOne: string
   contentTwo: string
+  image: File | null
+  imageUrl?: string | null
 }
 
-export interface PreStep {
-  deleted: number[]
-  updated: PreStepUpdated[]
-  new: PreStepNew[]
-}
+/* export interface SectionCustom {
+  type: 'what_is' | 'technique' | 'recovery'
+  title: string
+  contentOne: string
+  contentTwo: string
+  image: File | null
+} */
 
-export interface PreStepUpdated {
+interface FaqBackend {
   id: number
-  title: string
-  description: string
+  question: string
+  answer: string
   order: number
 }
 
-export interface PreStepNew {
-  title: string
-  description: string
-  order: number
-}
-
-export interface Phase {
-  deleted: number[]
-  updated: PhaseUpdated[]
-  new: PhaseNew[]
-}
-
-export interface PhaseUpdated {
+export interface PhaseBackend {
   id: number
   period: string
   title: string
@@ -71,77 +58,79 @@ export interface PhaseUpdated {
   order: number
 }
 
-export interface PhaseNew {
-  period: string
+export interface PreStepBackend {
+  id: number
   title: string
   description: string
   order: number
 }
 
-export interface Faq {
-  deleted: number[]
-  updated: FaqUpdated[]
-  new: FaqNew[]
-}
-
-export interface FaqUpdated {
+interface DoBackend {
   id: number
-  question: string
-  answer: string
+  description: string
   order: number
 }
 
-export interface FaqNew {
-  question: string
-  answer: string
-  order: number
-}
-
-export interface Do {
-  deleted: number[]
-  updated: DoUpdated[]
-  new: DoNew[]
-}
-
-export interface DoUpdated {
+interface DontBackend {
   id: number
-  content: string
+  description: string
   order: number
 }
 
-export interface DoNew {
-  content: string
-  order: number
-}
-
-export interface Dont {
-  deleted: number[]
-  updated: DontUpdated[]
-  new: DontNew[]
-}
-
-export interface DontUpdated {
+interface GalleryBackend {
   id: number
-  content: string
+  image: string
   order: number
 }
 
-export interface DontNew {
-  content: string
-  order: number
+export interface ProcedureFrontend {
+  status: string
+  title: string
+  subtitle: string
+  image: File | string | null
+
+  section: {
+    type: 'what_is' | 'technique' | 'recovery'
+    image: File | null
+    title: string
+    contentOne: string
+    contentTwo: string
+  }[]
+
+  faq: {
+    deleted: number[]
+    updated: FaqBackend[]
+    new: Omit<FaqBackend, 'id'>[]
+  }
+
+  phase: {
+    deleted: number[]
+    updated: PhaseBackend[]
+    new: Omit<PhaseBackend, 'id'>[]
+  }
+
+  preStep: {
+    deleted: number[]
+    updated: PreStepBackend[]
+    new: Omit<PreStepBackend, 'id'>[]
+  }
+
+  do: {
+    deleted: number[]
+    updated: DoBackend[]
+    new: Omit<DoBackend, 'id'>[]
+  }
+
+  dont: {
+    deleted: number[]
+    updated: DontBackend[]
+    new: Omit<DontBackend, 'id'>[]
+  }
+
+  gallery: {
+    deleted: number[]
+    updated: GalleryBackend[]
+    new: Omit<GalleryBackend, 'id'>[]
+  }
 }
 
-export interface Gallery {
-  deleted: number[]
-  updated: GalleryUpdated[]
-  new: GalleryNew[]
-}
-
-export interface GalleryUpdated {
-  id: number
-  path: File | null
-}
-
-export interface GalleryNew {
-  path: File | null
-}
