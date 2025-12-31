@@ -54,6 +54,17 @@
         ">
           Recuperación
         </TabsTrigger>
+        <TabsTrigger value="post-op" class="
+          px-4 py-2 text-sm font-medium transition
+          border-b-2 border-transparent
+          text-gray-500
+          hover:text-gray-300
+          data-[state=active]:border-blue-500
+          data-[state=active]:text-neutral-900
+          data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
+        ">
+          Recomendaciones postoperatorias
+        </TabsTrigger>
       </TabsList>
 
       <TabsContent value="basic" forceMount>
@@ -71,6 +82,12 @@
       <TabsContent value="recovery" forceMount>
         <div>
           <Recovery :modelValue="form" @update:modelValue="handleFormUpdate" :phase="procedureResponse?.phase" />
+        </div>
+      </TabsContent>
+
+      <TabsContent value="post-op" forceMount>
+        <div>
+          <Postoperative :modelValue="form" @update:modelValue="handleFormUpdate" :do="procedureResponse?.do" :dont="procedureResponse?.dont" />
         </div>
       </TabsContent>
     </TabsRoot>
@@ -93,6 +110,7 @@ import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import { api } from '@/plugins/api';
 import Preparation from './partials/Preparation.vue';
 import Recovery from './partials/Recovery.vue';
+import Postoperative from './partials/Postoperative.vue';
 
 const router = useRouter()
 const loading = ref(false)
@@ -100,6 +118,9 @@ const tab = ref('basic')
 
 const initialPreStep = ref<any[]>([])
 const initialPhase = ref<any[]>([])
+const initialDo = ref<any[]>([])
+const initialDont = ref<any[]>([])
+const initialGallery = ref<any[]>([])
 
 
 const procedureResponse = ref<ProcedureBackend>()
@@ -273,6 +294,85 @@ const buildFormData = (): FormData => {
       formData.append(`phase[deleted][${index}]`, String(id))
     })
   }
+
+  if (form.do) {
+    const { new: created, updated } = normalize(form.do)
+
+    const diff = diffById(
+      [...created, ...updated],
+      initialDo.value,
+      (a, b) =>
+        a.content === b.content &&
+        a.order === b.order
+    )
+
+    diff.new.forEach((dos, index) => {
+      formData.append(`do[new][${index}][content]`, dos.content)
+      formData.append(`do[new][${index}][order]`, String(dos.order))
+    })
+
+    diff.updated.forEach((dos, index) => {
+      formData.append(`do[updated][${index}][id]`, String(dos.id))
+      formData.append(`do[updated][${index}][content ]`, dos.content)
+      formData.append(`do[updated][${index}][order]`, String(dos.order))
+    })
+
+    diff.deleted.forEach((id, index) => {
+      formData.append(`do[deleted][${index}]`, String(id))
+    })
+  }
+
+  if (form.dont) {
+    const { new: created, updated } = normalize(form.dont)
+
+    const diff = diffById(
+      [...created, ...updated],
+      initialDont.value,
+      (a, b) =>
+        a.content === b.content &&
+        a.order === b.order
+    )
+
+    diff.new.forEach((donts, index) => {
+      formData.append(`dont[new][${index}][content]`, donts.content)
+      formData.append(`dont[new][${index}][order]`, String(donts.order))
+    })
+
+    diff.updated.forEach((donts, index) => {
+      formData.append(`dont[updated][${index}][id]`, String(donts.id))
+      formData.append(`dont[updated][${index}][content ]`, donts.content)
+      formData.append(`dont[updated][${index}][order]`, String(donts.order))
+    })
+
+    diff.deleted.forEach((id, index) => {
+      formData.append(`dont[deleted][${index}]`, String(id))
+    })
+  }
+
+  if (form.gallery) {
+    const { new: created, updated } = normalize(form.gallery)
+
+    const diff = diffById(
+      [...created, ...updated],
+      initialDont.value,
+      (a, b) =>
+        a.content === b.content &&
+        a.order === b.order
+    )
+
+    diff.new.forEach((gallery, index) => {
+      formData.append(`gallery[new][${index}][path]`, gallery.path)
+    })
+
+    diff.updated.forEach((gallery, index) => {
+      formData.append(`gallery[updated][${index}][id]`, String(gallery.id))
+      formData.append(`gallery[updated][${index}][path]`, gallery.path)
+    })
+
+    diff.deleted.forEach((id, index) => {
+      formData.append(`gallery[deleted][${index}]`, String(id))
+    })
+  }
   return formData
 }
 
@@ -313,7 +413,6 @@ const saveChanges = async () => {
   } finally {
 
   }
-
 }
 
 const backToIndex = () => {
@@ -359,15 +458,26 @@ const editingForm = () => {
   }
   initialPhase.value = JSON.parse(JSON.stringify(p.phase ?? []))
 
+  form.do = {
+    new: [],
+    updated: p.do ?? [],
+    deleted: []
+  }
+  initialDo.value = JSON.parse(JSON.stringify(p.do ?? []))
+
+  form.dont = {
+    new: [],
+    updated: p.dont ?? [],
+    deleted: []
+  }
+  initialDont.value = JSON.parse(JSON.stringify(p.dont ?? []))
+
   // snapshot inicial
   Object.assign(
     initialForm,
     JSON.parse(JSON.stringify(form))
   )
 }
-
-
-
 
 const diffById = <T extends { id?: number }>(
   current: T[],

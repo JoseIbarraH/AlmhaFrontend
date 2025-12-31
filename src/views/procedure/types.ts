@@ -65,15 +65,15 @@ export interface PreStepBackend {
   order: number
 }
 
-interface DoBackend {
+export interface DoBackend {
   id: number
-  description: string
+  content: string
   order: number
 }
 
-interface DontBackend {
+export interface DontBackend {
   id: number
-  description: string
+  content: string
   order: number
 }
 
