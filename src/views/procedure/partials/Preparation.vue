@@ -35,7 +35,7 @@
           </div>
 
           <!-- Botón Eliminar -->
-          <CloseButton class="top-1 right-1" :disabled="localPreStep.length === 1" @click="removePreStep(index)" />
+          <CloseButton class="top-1 right-1" @click="removePreStep(index)" />
         </div>
       </template>
     </draggable>

@@ -49,7 +49,7 @@ import Statistics from '@/components/app/Statistics.vue';
 import { LucideClipboardList, LucideClipboardPlus } from 'lucide-vue-next';
 import ProcedureGrid from './partials/ProcedureGrid.vue';
 import Pagination from '@/components/app/Pagination.vue';
-import NewProcedureModal from './partials/NewProcedureModal.vue';
+import NewProcedureModal from './components/NewProcedureModal.vue';
 
 const route = useRoute()
 const router = useRouter()

@@ -43,7 +43,7 @@ export interface SectionBackend {
   image: File | null
 } */
 
-interface FaqBackend {
+export interface FaqBackend {
   id: number
   question: string
   answer: string
@@ -77,9 +77,9 @@ export interface DontBackend {
   order: number
 }
 
-interface GalleryBackend {
+export interface GalleryBackend {
   id: number
-  image: string
+  path: string
   order: number
 }
 

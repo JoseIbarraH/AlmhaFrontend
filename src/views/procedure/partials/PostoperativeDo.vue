@@ -28,7 +28,7 @@
           </div>
 
           <!-- Botón Eliminar -->
-          <CloseButton class="top-1 right-1" :disabled="localDo.length === 1" @click="removeDo(index)" />
+          <CloseButton class="top-1 right-1" @click="removeDo(index)" />
         </div>
       </template>
     </draggable>

@@ -28,7 +28,7 @@
           </div>
 
           <!-- Botón Eliminar -->
-          <CloseButton class="top-1 right-1" :disabled="localDont.length === 1" @click="removeDont(index)" />
+          <CloseButton class="top-1 right-1" @click="removeDont(index)" />
         </div>
       </template>
     </draggable>
@@ -72,10 +72,6 @@ let tempIdCounter = 0
 
 // Generar ID temporal único
 const generateTempId = () => `temp_${Date.now()}_${tempIdCounter++}`
-
-// ============================================
-// INICIALIZACIÓN
-// ============================================
 
 // Asegurar que la estructura do existe
 if (!modelValue.value.dont) {
@@ -202,10 +198,6 @@ function removeDont(index: number) {
   // Recalcular orden
   updateOrder()
 }
-
-// ============================================
-// ACTUALIZAR ORDEN (después de drag)
-// ============================================
 
 function updateOrder() {
   localDont.value.forEach((dontValue, index) => {

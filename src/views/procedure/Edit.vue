@@ -20,75 +20,107 @@
     </header>
 
     <TabsRoot v-model="tab" class="space-y-6">
-      <TabsList class="flex gap-2 rounded-xl bg-white p-1 w-fi justify-center">
+      <TabsList
+        class="flex flex-wrap gap-2 rounded-xl bg-white p-1 w-full justify-center sm:justify-start lg:justify-center">
         <TabsTrigger value="basic" class="
-          px-4 py-2 text-sm font-medium transition
+          px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
           hover:text-gray-300
           data-[state=active]:border-blue-500
           data-[state=active]:text-neutral-900
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
+          flex-shrink-0
         ">
           Básico
         </TabsTrigger>
         <TabsTrigger value="preparation" class="
-          px-4 py-2 text-sm font-medium transition
+          px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
           hover:text-gray-300
           data-[state=active]:border-blue-500
           data-[state=active]:text-neutral-900
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
+          flex-shrink-0
         ">
-          Preparacion
+          Preparación
         </TabsTrigger>
         <TabsTrigger value="recovery" class="
-          px-4 py-2 text-sm font-medium transition
+          px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
           hover:text-gray-300
           data-[state=active]:border-blue-500
           data-[state=active]:text-neutral-900
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
+          flex-shrink-0
         ">
           Recuperación
         </TabsTrigger>
         <TabsTrigger value="post-op" class="
-          px-4 py-2 text-sm font-medium transition
+          px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
           hover:text-gray-300
           data-[state=active]:border-blue-500
           data-[state=active]:text-neutral-900
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
+          flex-shrink-0
         ">
-          Recomendaciones postoperatorias
+          <span class="hidden sm:inline">Recomendaciones postoperatorias</span>
+          <span class="sm:hidden">Post-op</span>
+        </TabsTrigger>
+        <TabsTrigger value="faqs" class="
+          px-3 py-2 text-xs sm:text-sm font-medium transition
+          border-b-2 border-transparent
+          text-gray-500
+          hover:text-gray-300
+          data-[state=active]:border-blue-500
+          data-[state=active]:text-neutral-900
+          data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
+          flex-shrink-0
+        ">
+          FAQs
+        </TabsTrigger>
+        <TabsTrigger value="galleries" class="
+          px-3 py-2 text-xs sm:text-sm font-medium transition
+          border-b-2 border-transparent
+          text-gray-500
+          hover:text-gray-300
+          data-[state=active]:border-blue-500
+          data-[state=active]:text-neutral-900
+          data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
+          flex-shrink-0
+        ">
+          <span class="hidden sm:inline">Galería de resultados</span>
+          <span class="sm:hidden">Galería</span>
         </TabsTrigger>
       </TabsList>
 
       <TabsContent value="basic" forceMount>
-        <div>
-          <BasicInfo :modelValue="form" @update:modelValue="handleFormUpdate" />
-        </div>
+        <BasicInfo :modelValue="form" @update:modelValue="handleFormUpdate" />
       </TabsContent>
 
       <TabsContent value="preparation" forceMount>
-        <div>
-          <Preparation :modelValue="form" @update:modelValue="handleFormUpdate" :preStep="procedureResponse?.preStep" />
-        </div>
+        <Preparation :modelValue="form" @update:modelValue="handleFormUpdate" :preStep="procedureResponse?.preStep" />
       </TabsContent>
 
       <TabsContent value="recovery" forceMount>
-        <div>
-          <Recovery :modelValue="form" @update:modelValue="handleFormUpdate" :phase="procedureResponse?.phase" />
-        </div>
+        <Recovery :modelValue="form" @update:modelValue="handleFormUpdate" :phase="procedureResponse?.phase" />
       </TabsContent>
 
       <TabsContent value="post-op" forceMount>
-        <div>
-          <Postoperative :modelValue="form" @update:modelValue="handleFormUpdate" :do="procedureResponse?.do" :dont="procedureResponse?.dont" />
-        </div>
+        <Postoperative :modelValue="form" @update:modelValue="handleFormUpdate" :do="procedureResponse?.do"
+          :dont="procedureResponse?.dont" />
+      </TabsContent>
+
+      <TabsContent value="faqs" forceMount>
+        <Faq :modelValue="form" @update:modelValue="handleFormUpdate" :faq="procedureResponse?.faq" />
+      </TabsContent>
+
+      <TabsContent value="galleries" forceMount>
+        <Gallery :modelValue="form" @update:modelValue="handleFormUpdate" :gallery="procedureResponse?.gallery" />
       </TabsContent>
     </TabsRoot>
   </section>
@@ -111,6 +143,8 @@ import { api } from '@/plugins/api';
 import Preparation from './partials/Preparation.vue';
 import Recovery from './partials/Recovery.vue';
 import Postoperative from './partials/Postoperative.vue';
+import Faq from './partials/Faq.vue';
+import Gallery from './partials/Gallery.vue';
 
 const router = useRouter()
 const loading = ref(false)
@@ -120,8 +154,8 @@ const initialPreStep = ref<any[]>([])
 const initialPhase = ref<any[]>([])
 const initialDo = ref<any[]>([])
 const initialDont = ref<any[]>([])
+const initialFaq = ref<any[]>([])
 const initialGallery = ref<any[]>([])
-
 
 const procedureResponse = ref<ProcedureBackend>()
 
@@ -349,24 +383,62 @@ const buildFormData = (): FormData => {
     })
   }
 
+  if (form.faq) {
+    const { new: created, updated } = normalize(form.faq)
+
+    const diff = diffById(
+      [...created, ...updated],
+      initialFaq.value,
+      (a, b) =>
+        a.question === b.question &&
+        a.answer === b.answer &&
+        a.order === b.order
+    )
+
+    diff.new.forEach((faq, index) => {
+      formData.append(`faq[new][${index}][question]`, faq.question)
+      formData.append(`faq[new][${index}][answer]`, faq.answer)
+      formData.append(`faq[new][${index}][order]`, String(faq.order))
+    })
+
+    diff.updated.forEach((faq, index) => {
+      formData.append(`faq[updated][${index}][id]`, String(faq.id))
+      formData.append(`faq[updated][${index}][question]`, faq.question)
+      formData.append(`faq[updated][${index}][answer]`, faq.answer)
+      formData.append(`faq[updated][${index}][order]`, String(faq.order))
+    })
+
+    diff.deleted.forEach((id, index) => {
+      formData.append(`faq[deleted][${index}]`, String(id))
+    })
+  }
+
   if (form.gallery) {
     const { new: created, updated } = normalize(form.gallery)
 
     const diff = diffById(
       [...created, ...updated],
-      initialDont.value,
+      initialGallery.value,
       (a, b) =>
         a.content === b.content &&
         a.order === b.order
     )
 
     diff.new.forEach((gallery, index) => {
-      formData.append(`gallery[new][${index}][path]`, gallery.path)
+      if (gallery.path instanceof File) {
+        formData.append(`gallery[new][${index}][path]`, gallery.path)
+      } else {
+        return
+      }
     })
 
     diff.updated.forEach((gallery, index) => {
-      formData.append(`gallery[updated][${index}][id]`, String(gallery.id))
-      formData.append(`gallery[updated][${index}][path]`, gallery.path)
+      if (gallery.path instanceof File) {
+        formData.append(`gallery[updated][${index}][id]`, String(gallery.id))
+        formData.append(`gallery[updated][${index}][path]`, gallery.path)
+      } else {
+        return
+      }
     })
 
     diff.deleted.forEach((id, index) => {
@@ -378,40 +450,19 @@ const buildFormData = (): FormData => {
 
 const saveChanges = async () => {
   const formData = buildFormData()
-
-  const entries = [...formData.entries()]
-  console.log('📦 FormData entries:', entries.length)
-
-  if (entries.length === 0) {
-    console.warn('⚠️ FormData está vacío')
-    return
-  }
-
-  console.log('📋 Construcción dinámica:')
-  formData.forEach((value, key) => {
-    if (value instanceof File) {
-      console.log(
-        key,
-        '→ File:',
-        value.name,
-        `(${value.type})`,
-        value.size,
-        'bytes'
-      )
-    } else {
-      console.log(key, '→', value)
-    }
-  })
+  loading.value = true
 
   try {
     await api.post(`/api/procedure/${props.id}`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
 
+    loading.value = false
+    router.push({ name: 'dashboard.procedure' })
   } catch (error) {
     console.error('❌ Error guardando:', error)
   } finally {
-
+    loading.value = false
   }
 }
 
@@ -498,7 +549,6 @@ const diffById = <T extends { id?: number }>(
       .map(i => i.id)
   }
 }
-
 
 onMounted(async () => {
   const { data } = await api.get(`/api/procedure/${props.id}`)
