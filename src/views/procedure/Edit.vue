@@ -13,7 +13,7 @@
         </BackButton>
 
         <PrimaryButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center"
-          :disabled="loading || !$can('update_blogs')">
+          :disabled="loading || !$can('update_procedures')">
           {{ loading ? $t('Dashboard.Blog.Edit.Saving') : $t('Dashboard.Blog.Edit.SaveChanges') }}
         </PrimaryButton>
       </div>
@@ -145,7 +145,9 @@ import Recovery from './partials/Recovery.vue';
 import Postoperative from './partials/Postoperative.vue';
 import Faq from './partials/Faq.vue';
 import Gallery from './partials/Gallery.vue';
+import { useAuthStore } from '@/stores/authStore';
 
+const auth = useAuthStore()
 const router = useRouter()
 const loading = ref(false)
 const tab = ref('basic')
@@ -449,10 +451,11 @@ const buildFormData = (): FormData => {
 }
 
 const saveChanges = async () => {
-  const formData = buildFormData()
+  if (!auth.can('update_procedures'))
   loading.value = true
 
   try {
+    const formData = buildFormData()
     await api.post(`/api/procedure/${props.id}`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })

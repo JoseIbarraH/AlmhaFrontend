@@ -145,7 +145,7 @@ const buildFormData = (): FormData => {
 
 const saveChanges = async () => {
   if (!auth.can('update_blogs'))
-    loading.value = true;
+  loading.value = true;
   error.value = '';
 
   try {
