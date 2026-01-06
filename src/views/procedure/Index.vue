@@ -82,7 +82,7 @@ const fetchProcedures = async (page = 1, search = '') => {
     paginate.value = apiResponse.value?.pagination
     router.replace({ query: { page } })
   } catch (error: any) {
-
+    console.error(error)
   } finally {
     loading.value = false;
     initialLoading.value = false

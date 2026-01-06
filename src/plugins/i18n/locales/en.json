@@ -660,7 +660,8 @@
         "User": "Users",
         "RolePermission": "Roles and Permissions",
         "Record": "Logs",
-        "Trash": "Trash"
+        "Trash": "Trash",
+        "PageSettings": "Page settings"
       }
     }
   },

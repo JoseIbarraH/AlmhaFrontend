@@ -22,6 +22,8 @@ import SettingUser from "@/views/setting/user/Index.vue"
 import SettingRole from "@/views/setting/role/Index.vue"
 import SettingAudit from "@/views/setting/audit/Index.vue"
 import SettingTrash from "@/views/setting/trash/Index.vue"
+import SettingPage from  "@/views/setting/setting-page/Index.vue"
+
 import AuthLogin from "@/views/auth/Login.vue"
 import { useAuthStore } from '@/stores/authStore'
 import { pinia } from '@/main'
@@ -251,6 +253,14 @@ const routes: RouteRecordRaw[] = [
                 meta: {
                   title: 'Profile',
                   requiresAuth: true,
+                }
+              },
+              {
+                path: "pageSetting",
+                name: "setting.pageSetting",
+                component: SettingPage,
+                meta: {
+                  title: 'Setting-Page',
                 }
               },
               {

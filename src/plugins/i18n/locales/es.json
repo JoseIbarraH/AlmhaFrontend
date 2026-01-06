@@ -586,7 +586,8 @@
         "User": "Usuarios",
         "RolePermission": "Roles y Permisos",
         "Record": "Registros",
-        "Trash": "Papelera"
+        "Trash": "Papelera",
+        "PageSettings": "Configuraciones de la pagina"
       }
     }
   },
