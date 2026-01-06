@@ -484,6 +484,7 @@
       },
       "Trash": {
         "List": {
+          "Title": "Papelera",
           "ModelType": "Tipo de modelo",
           "ModelId": "Id del modelo",
           "Name": "Nombre",

@@ -288,7 +288,7 @@ async function saveChanges() {
     const formData = buildFormData()
 
     if (props.editing === false) {
-      await api.post('/api/setting/user', formData, {
+      await api.post('/api/settings/user', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
@@ -296,7 +296,7 @@ async function saveChanges() {
     }
 
     if (props.editing === true) {
-      await api.post(`/api/setting/user/${props.data?.id}`, formData, {
+      await api.post(`/api/settings/user/${props.data?.id}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 

@@ -30,7 +30,7 @@ const confirmUserDeletion = () => {
 
 const deleteUser = async () => {
   try {
-    await api.delete('/api/setting/profile/delete', {
+    await api.delete('/api/settings/profile/delete', {
       data: { password: form.value.password }
     });
 

@@ -33,7 +33,7 @@ const SaveChanges = async () => {
     formData.append('name', form.value.name ?? '')
     formData.append('email', form.value.email ?? '')
 
-    const { data } = await api.post('/api/setting/profile/info', formData, {
+    const { data } = await api.post('/api/settings/profile/info', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
 

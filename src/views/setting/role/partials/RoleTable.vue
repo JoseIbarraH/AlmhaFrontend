@@ -176,7 +176,7 @@ const confirmDelete = async () => {
   if (!roleToDelete.value) return
 
   try {
-    await api.delete(`/api/setting/role/${roleToDelete.value.id}`)
+    await api.delete(`/api/settings/role/${roleToDelete.value.id}`)
     showNotification('success', t('Dashboard.Setting.RolePermission.Validations.Success.Delete'), 3000)
     emit('status-updated')
     closeModal()

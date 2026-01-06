@@ -560,6 +560,7 @@
       },
       "Trash": {
         "List": {
+          "Title": "Recycling bin",
           "ModelType": "Model type",
           "ModelId": "Model ID",
           "Name": "Name",

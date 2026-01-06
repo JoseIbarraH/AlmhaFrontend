@@ -58,7 +58,7 @@ const fetchRoles = async (page = 1, search = '') => {
       params.append('search', search)
     }
 
-    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/setting/role?${params.toString()}`);
+    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/settings/role?${params.toString()}`);
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
     router.replace({
@@ -78,7 +78,7 @@ const fetchRoles = async (page = 1, search = '') => {
 
 const fetchPermission = async () => {
   try {
-    const { data } = await api.get<ApiResponse<PermissionData>>('/api/setting/role/permits');
+    const { data } = await api.get<ApiResponse<PermissionData>>('/api/settings/role/permits');
     permissions.value = data.data.permissions
   } catch (error) {
     console.error(error)

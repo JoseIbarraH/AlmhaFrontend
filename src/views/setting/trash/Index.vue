@@ -42,7 +42,7 @@ const fetchTrash = async (page = 1, search = '') => {
       params.append('search', search)
     }
 
-    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/setting/trash?${params.toString()}`)
+    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/settings/trash?${params.toString()}`)
     apiResponse.value = data.data
     paginate.value = apiResponse.value?.pagination
 

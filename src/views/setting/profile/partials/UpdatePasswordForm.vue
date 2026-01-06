@@ -62,7 +62,7 @@ const SaveChanges = async () => {
     formData.append('password', form.value.password);
     formData.append('password_confirmation', form.value.password_confirmation);
 
-    await api.post('/api/setting/profile/password', formData, {
+    await api.post('/api/settings/profile/password', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
 

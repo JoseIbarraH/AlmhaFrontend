@@ -220,7 +220,7 @@ const handleToggleStatus = async (data: Data) => {
   const newStatus = data.status === 'active' ? 'inactive' : 'active';
   const original = data.status
   try {
-    await api.post(`/api/setting/user/update_status/${data.id}`, { status: newStatus });
+    await api.post(`/api/settings/user/update_status/${data.id}`, { status: newStatus });
     data.status = newStatus;
     showNotification('success', t('Dashboard.Team.Validations.Success.Status'), 3000)
     emit('status-updated')
@@ -234,7 +234,7 @@ const confirmDelete = async () => {
   if (!userToDelete.value) return
 
   try {
-    await api.delete(`/api/setting/user/${userToDelete.value.id}`)
+    await api.delete(`/api/settings/user/${userToDelete.value.id}`)
     showNotification(
       'success',
       t('Dashboard.Setting.User.Validations.Success.ConfirmDelete', {name: userToDelete.value.name}),

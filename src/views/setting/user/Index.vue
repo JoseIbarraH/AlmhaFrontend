@@ -119,7 +119,7 @@ const fetchUsers = async (page = 1, search = '') => {
       params.append('search', search)
     }
 
-    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/setting/user?${params.toString()}`);
+    const { data } = await api.get<ApiResponse<Default<Data>>>(`/api/settings/user?${params.toString()}`);
     apiResponse.value = data.data;
     paginate.value = apiResponse.value?.pagination;
   } catch (error: any) {
@@ -132,7 +132,7 @@ const fetchUsers = async (page = 1, search = '') => {
 
 const fetchRoles = async () => {
   try {
-    const { data } = await api.get<ApiResponse<RoleData>>('/api/setting/user/roles');
+    const { data } = await api.get<ApiResponse<RoleData>>('/api/settings/user/roles');
     roles.value = data.data?.roles
   } catch (error) {
     console.error(error)

@@ -6,7 +6,7 @@
             dark:border-gray-700 dark:bg-gray-800/50">
 
       <h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-        {{ $t('Dashboard.Setting.RolePermission.List.Title') }}
+        {{ $t('Dashboard.Setting.Trash.List.Title') }}
       </h2>
 
       <Search :placeholder="$t('Dashboard.Setting.Trash.List.Search')" v-model="localSearch" @search="handleSearch" />
@@ -55,10 +55,7 @@
                   <LucideChevronDown v-if="openRow !== index" class="h-5 w-5" />
                   <LucideChevronUp v-else class="h-5 w-5" />
                 </button>
-                <button 
-                  @click="openRestoreModal(value)" 
-                  title="Restaurar" 
-                  class="p-2 text-gray-500 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-colors
+                <button @click="openRestoreModal(value)" title="Restaurar" class="p-2 text-gray-500 hover:text-yellow-600 hover:bg-yellow-100 rounded-lg transition-colors
                          dark:text-gray-400 dark:hover:text-yellow-400 dark:hover:bg-gray-700"
                   :disabled="!$can('restore_trash')">
                   <LucideArchiveRestore class="w-4 h-4" />
@@ -179,7 +176,7 @@ const stripHtml = (value: any): any => {
 const restoreData = async (modelType: string, modelId: number) => {
   if (!auth.can('restore_trash')) return
   try {
-    await api.post(`/api/setting/trash/${modelType}/${modelId}/restore`)
+    await api.post(`/api/settings/trash/${modelType}/${modelId}/restore`)
     emit('refresh-requested')
     showNotification('success', t('Dashboard.Setting.Trash.Validations.Success.RestoreData'), 3000)
   } catch (error) {
@@ -192,7 +189,7 @@ const restoreData = async (modelType: string, modelId: number) => {
 const forceDelete = async (modelType: string, modelId: number) => {
   if (!auth.can('delete_trash')) return
   try {
-    await api.delete(`/api/setting/trash/${modelType}/${modelId}/force`)
+    await api.delete(`/api/settings/trash/${modelType}/${modelId}/force`)
     closeModal()
     emit('refresh-requested')
     showNotification('success', t('Dashboard.Setting.Trash.Validations.Success.ForceDelete'), 3000)
