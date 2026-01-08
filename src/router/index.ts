@@ -16,7 +16,7 @@ import DashboardProcedure from "@/views/procedure/Index.vue"
 import DashboardProcedureEdit from "@/views/procedure/Edit.vue"
 
 import DashboardTeam from "@/views/team/Index.vue"
-import DashboardTeamCreate from "@/views/team/CreateUpdate.vue"
+import DashboardTeamEdit from "@/views/team/Edit.vue"
 import SettingProfile from "@/views/setting/profile/Index.vue"
 import SettingUser from "@/views/setting/user/Index.vue"
 import SettingRole from "@/views/setting/role/Index.vue"
@@ -215,20 +215,9 @@ const routes: RouteRecordRaw[] = [
             }
           },
           {
-            path: "team/create",
-            name: "dashboard.team.create",
-            component: DashboardTeamCreate,
-            props: true,
-            meta: {
-              title: "Create Team",
-              requiresAuth: true,
-              permission: "create_teams"
-            }
-          },
-          {
             path: "team/:id/edit",
             name: "dashboard.team.edit",
-            component: DashboardTeamCreate,
+            component: DashboardTeamEdit,
             props: true,
             meta: {
               title: "Edit Team",

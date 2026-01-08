@@ -216,17 +216,14 @@ function removePhase(index: number) {
   }
 
   if (rec.id > 0) {
-    // ✅ Existe en BD → agregar ID a "deleted"
     if (!modelValue.value.phase.deleted.includes(rec.id)) {
       modelValue.value.phase.deleted.push(rec.id)
     }
 
-    // ✅ Remover de "updated"
     modelValue.value.phase.updated = modelValue.value.phase.updated.filter(
       s => s.id !== rec.id
     )
   } else {
-    // ✅ Es nuevo → remover de "new"
     modelValue.value.phase.new = modelValue.value.phase.new.filter(
       s => s.order !== rec.order
     )

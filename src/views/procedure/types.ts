@@ -35,14 +35,6 @@ export interface SectionBackend {
   imageUrl?: string | null
 }
 
-/* export interface SectionCustom {
-  type: 'what_is' | 'technique' | 'recovery'
-  title: string
-  contentOne: string
-  contentTwo: string
-  image: File | null
-} */
-
 export interface FaqBackend {
   id: number
   question: string

@@ -7,6 +7,25 @@
     "Team": {
       "Title": "Equipo - Gestión de Miembros del Equipo",
       "CreateButton": "Agregar Miembro",
+      "Create": {
+        "Title": "Agregar miembro al equipo",
+        "Subtitle": "Agrega un miembro al equipo",
+        "Name": "Nombre",
+        "Placeholder": "Ingresa nombre del nuevo miembro...",
+        "Optional": "Requerido: El nombre es requerido",
+        "Cancel": "Cancelar",
+        "CreateButton": "Crear Miembro"
+      },
+      "Edit": {
+        "BackButton": "Volver",
+        "UpdateButton": "Actualizar",
+        "PersonalInfo": {
+          "Title": "Información Personal",
+          "Name": "Nombre",
+          "Specialization": "Especializacion",
+          "Biography": "Biografía Profesional"
+        }
+      },
       "Statistics": {
         "Total": "Miembros del equipo totales",
         "TeamsActives": "Miembros del equipo activos",
@@ -26,37 +45,6 @@
           "Title": "Estado",
           "Active": "Activo",
           "Inactive": "Inactivo"
-        }
-      },
-      "CreateUpdate": {
-        "CreateTitle": "Crear nuevo miembro del equipo",
-        "UpdateTitle": "Actualizar miembro del equipo",
-        "BackButton": "Volver",
-        "CreateButton": "Crear",
-        "UpdateButton": "Actualizar",
-        "PersonalInfo": {
-          "Specialization": "Especialización",
-          "Title": "Informacion personal",
-          "Biography": "Biografia",
-          "Image": "Imagen",
-          "Name": "Nombre",
-          "Result": {
-            "Title": "Galería de Resultados",
-            "Description": "Descripción"
-          },
-          "Status": {
-            "Title": "Estado",
-            "Active": "Activo",
-            "Inactive": "Inactivo"
-          }
-        },
-        "Results": {
-          "Description": "Descripcion"
-        },
-        "Cropper": {
-          "Title": "Recortar imagen",
-          "Cancel": "Cancelar",
-          "Confirm": "Confirmar"
         }
       },
       "Validations": {

@@ -133,7 +133,7 @@ import {
   TabsTrigger,
   TabsContent
 } from 'radix-vue'
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, watch } from 'vue'
 import BasicInfo from './partials/BasicInfo.vue';
 import type { ProcedureBackend, ProcedureFrontend } from './types';
 import { useRouter } from 'vue-router';
@@ -195,7 +195,6 @@ const handleFormUpdate = (updatedForm: ProcedureFrontend) => {
   form.status = updatedForm.status
   form.image = updatedForm.image ?? form.image
 
-  // ✅ MERGE seguro de section
   if (updatedForm.section) {
     form.section = updatedForm.section.map((s, i) => ({
       ...form.section[i], // conserva imageUrl
@@ -210,7 +209,6 @@ const handleFormUpdate = (updatedForm: ProcedureFrontend) => {
   if (updatedForm.dont) form.dont = updatedForm.dont
   if (updatedForm.gallery) form.gallery = updatedForm.gallery
 }
-
 
 const normalize = (normal?: {
   new?: any[]
@@ -416,13 +414,14 @@ const buildFormData = (): FormData => {
   }
 
   if (form.gallery) {
+    console.log("gallery build", form.gallery)
     const { new: created, updated } = normalize(form.gallery)
 
     const diff = diffById(
       [...created, ...updated],
       initialGallery.value,
       (a, b) =>
-        a.content === b.content &&
+        a.path === b.path &&
         a.order === b.order
     )
 
@@ -452,10 +451,16 @@ const buildFormData = (): FormData => {
 
 const saveChanges = async () => {
   if (!auth.can('update_procedures'))
-  loading.value = true
+    loading.value = true
 
   try {
     const formData = buildFormData()
+
+    for (const pair of formData.entries()) {
+      console.log(pair[0], pair[1])
+    }
+
+
     await api.post(`/api/procedure/${props.id}`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
@@ -472,7 +477,6 @@ const saveChanges = async () => {
 const backToIndex = () => {
   router.push({ name: 'dashboard.procedure' })
 }
-
 
 const editingForm = () => {
   if (!procedureResponse.value) return
@@ -526,6 +530,22 @@ const editingForm = () => {
   }
   initialDont.value = JSON.parse(JSON.stringify(p.dont ?? []))
 
+  // faq
+  form.faq = {
+    new: [],
+    updated: p.faq ?? [],
+    deleted: []
+  }
+  initialFaq.value = JSON.parse(JSON.stringify(p.faq ?? []))
+
+  // gallery
+  form.gallery = {
+    new: [],
+    updated: p.gallery ?? [],
+    deleted: []
+  }
+  initialGallery.value = JSON.parse(JSON.stringify(p.gallery ?? []))
+
   // snapshot inicial
   Object.assign(
     initialForm,
@@ -552,6 +572,10 @@ const diffById = <T extends { id?: number }>(
       .map(i => i.id)
   }
 }
+
+watch(form, (value) => {
+  console.log("form: ", value)
+})
 
 onMounted(async () => {
   const { data } = await api.get(`/api/procedure/${props.id}`)

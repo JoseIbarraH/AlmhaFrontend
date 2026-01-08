@@ -192,17 +192,14 @@ function removePreStep(index: number) {
   }
 
   if (step.id > 0) {
-    // ✅ Existe en BD → agregar ID a "deleted"
     if (!modelValue.value.preStep.deleted.includes(step.id)) {
       modelValue.value.preStep.deleted.push(step.id)
     }
 
-    // ✅ Remover de "updated"
     modelValue.value.preStep.updated = modelValue.value.preStep.updated.filter(
       s => s.id !== step.id
     )
   } else {
-    // ✅ Es nuevo → remover de "new"
     modelValue.value.preStep.new = modelValue.value.preStep.new.filter(
       s => s.order !== step.order
     )

@@ -38,7 +38,7 @@
 
 <script setup lang="ts">
 import { api } from '@/plugins/api';
-import Communication from './partials/communication.vue';
+import Communication from './partials/Communication.vue';
 import Maintenance from './partials/Maintenance.vue';
 import SocialMedia from './partials/SocialMedia.vue';
 import { computed, onMounted, reactive } from 'vue';

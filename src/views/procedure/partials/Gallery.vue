@@ -48,13 +48,6 @@ import { LucidePlus } from 'lucide-vue-next'
 import type { ProcedureFrontend, GalleryBackend } from '../types'
 import ImagesPreview from '@/components/ui/ImagesPreview.vue'
 
-/* interface Gallery {
-  id: number
-  displayPath: string | File
-  order: number
-  tempId?: string
-} */
-
 interface Gallery extends Omit<GalleryBackend, 'path'> {
   displayPath: string | File
   tempId?: string
