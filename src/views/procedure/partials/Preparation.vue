@@ -1,36 +1,36 @@
 <template>
-  <div class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-10 bg-white mb-6">
+  <div class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-10 bg-white dark:bg-gray-800 dark:border-gray-900 mb-6">
     <!-- Header -->
     <div class="space-y-2">
-      <h1 class="text-xl font-bold">Pasos de Preparación Prequirúrgica</h1>
-      <h2 class="text-gray-600">Agregue los pasos que el paciente debe seguir antes de la cirugía</h2>
+      <h1 class="text-xl font-bold dark:text-gray-100">{{ $t('Dashboard.Procedure.Edit.Preparation.Title') }}</h1>
+      <h2 class="text-gray-600 dark:text-gray-400">{{ $t('Dashboard.Procedure.Edit.Preparation.Subtitle') }}</h2>
     </div>
 
     <!-- DRAG & DROP -->
     <draggable v-model="localPreStep" item-key="tempId" handle=".drag-handle" @end="updateOrder"
       class="space-y-4 max-h-[500px] overflow-y-scroll">
       <template #item="{ element, index }">
-        <div class="relative flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-4 bg-white">
+        <div class="relative flex flex-col p-6 border-3 rounded-xl border-gray-300 shadow space-y-4 bg-white dark:bg-gray-800 dark:border-gray-900">
 
           <!-- Drag Handle -->
-          <div class="drag-handle cursor-move text-sm text-gray-500 flex items-center gap-2">
+          <div class="drag-handle cursor-move text-sm text-gray-500 flex items-center gap-2 dark:text-gray-100">
             <span>☰</span>
-            <span class="font-semibold">Paso {{ element.order }}</span>
+            <span class="font-semibold">{{ $t('Dashboard.Procedure.Edit.Preparation.Step') }} {{ element.order }}</span>
             <span v-if="element.id === 0" class="ml-2 px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">
-              Nuevo
+              {{ $t('Dashboard.Procedure.Edit.Preparation.New') }}
             </span>
           </div>
 
           <!-- Título -->
           <div>
-            <InputLabel value="Título" />
-            <TextInput v-model="element.title" placeholder="Ej: Consulta Médica" @input="handleEdit(element)" />
+            <InputLabel :value="$t('Dashboard.Procedure.Edit.Preparation.InputTitle')" />
+            <TextInput v-model="element.title" :placeholder="$t('Dashboard.Procedure.Edit.Preparation.InputTitlePlaceholder')" @input="handleEdit(element)" />
           </div>
 
           <!-- Descripción -->
           <div>
-            <InputLabel value="Descripción" />
-            <TextInput v-model="element.description" placeholder="Descripción del paso..."
+            <InputLabel :value="$t('Dashboard.Procedure.Edit.Preparation.InputDescription')" />
+            <TextInput v-model="element.description" :placeholder="$t('Dashboard.Procedure.Edit.Preparation.InputDescriptionPlaceholder')"
               @input="handleEdit(element)" />
           </div>
 
@@ -42,9 +42,9 @@
 
     <!-- Botón Agregar -->
     <button @click="addPreStep"
-      class="flex justify-center items-center gap-2 p-2 hover:bg-gray-300 border rounded-lg border-gray-300 w-full transition">
+      class="flex justify-center items-center gap-2 p-2 hover:bg-gray-300 border rounded-lg border-gray-300 w-full transition dark:text-gray-100 dark:hover:text-gray-800">
       <LucidePlus class="w-4 h-4" />
-      Agregar Paso
+      {{$t('Dashboard.Procedure.Edit.Preparation.AddStep')}}
     </button>
   </div>
 </template>

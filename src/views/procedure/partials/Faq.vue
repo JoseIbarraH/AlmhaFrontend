@@ -1,37 +1,40 @@
 <template>
-  <section class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-10 bg-white mb-6">
+  <section
+    class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-10 bg-white mb-6 dark:bg-gray-800 dark:border-gray-900">
     <!-- Header -->
     <div class="space-y-2">
-      <h1 class="text-xl font-bold">Preguntas Frecuentes</h1>
-      <h2 class="text-gray-600">Agregue las preguntas y respuestas más comunes</h2>
+      <h1 class="text-xl font-bold dark:text-gray-100">{{ $t('Dashboard.Procedure.Edit.Faq.Title') }}</h1>
+      <h2 class="text-gray-600 dark:text-gray-400">{{ $t('Dashboard.Procedure.Edit.Faq.Subtitle') }}</h2>
     </div>
 
     <!-- DRAG & DROP -->
     <draggable v-model="localFaq" item-key="tempId" handle=".drag-handle" @end="updateOrder"
       class="space-y-4 max-h-[500px] overflow-y-scroll">
       <template #item="{ element, index }">
-        <div class="relative flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-4 bg-white">
+        <div
+          class="relative flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-4 bg-white dark:bg-gray-800 dark:border-gray-900">
 
           <!-- Drag Handle -->
-          <div class="drag-handle cursor-move text-sm text-gray-500 flex items-center gap-2">
+          <div class="drag-handle cursor-move text-sm text-gray-500 flex items-center gap-2 dark:text-gray-100">
             <span>☰</span>
-            <span class="font-semibold">Pregunta {{ element.order }}</span>
+            <span class="font-semibold">{{ $t('Dashboard.Procedure.Edit.Faq.DragTitle') }} {{ element.order }}</span>
             <span v-if="element.id === 0" class="ml-2 px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">
-              Nuevo
+              {{ $t('Dashboard.Procedure.Edit.Faq.New') }}
             </span>
           </div>
 
           <!-- Título -->
           <div>
-            <InputLabel for="question"  value="Pregunta" />
-            <TextInput id="question" v-model="element.question" placeholder="¿Cuánto tiempo dura la cirugía?" @input="handleEdit(element)" />
+            <InputLabel for="question" :value="$t('Dashboard.Procedure.Edit.Faq.InputQuestion')" />
+            <TextInput id="question" v-model="element.question"
+              :placeholder="$t('Dashboard.Procedure.Edit.Faq.InputQuestionPlaceholder')" @input="handleEdit(element)" />
           </div>
 
           <!-- Descripción -->
           <div>
-            <InputLabel for="answer" value="Respuesta" />
-            <TextInput id="answer" v-model="element.answer" placeholder="La respuesta a la pregunta..."
-              @input="handleEdit(element)" />
+            <InputLabel for="answer" :value="$t('Dashboard.Procedure.Edit.Faq.InputAnswer')" />
+            <TextInput id="answer" v-model="element.answer"
+              :placeholder="$t('Dashboard.Procedure.Edit.Faq.InputAnswerPlaceholder')" @input="handleEdit(element)" />
           </div>
 
           <!-- Botón Eliminar -->
@@ -42,9 +45,9 @@
 
     <!-- Botón Agregar -->
     <button @click="addFaq"
-      class="flex justify-center items-center gap-2 p-2 hover:bg-gray-300 border rounded-lg border-gray-300 w-full transition">
+      class="flex justify-center items-center gap-2 p-2 hover:bg-gray-300 border rounded-lg border-gray-300 w-full transition dark:text-gray-100 dark:hover:text-gray-800">
       <LucidePlus class="w-4 h-4" />
-      Agregar Pregunta
+      {{ $t('Dashboard.Procedure.Edit.Faq.AddStep') }}
     </button>
   </section>
 </template>

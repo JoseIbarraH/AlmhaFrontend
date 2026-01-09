@@ -1,43 +1,49 @@
 <template>
-  <div class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-10 bg-white mb-6">
+  <div
+    class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-10 bg-white mb-6 dark:bg-gray-800 dark:border-gray-900">
     <!-- Header -->
     <div class="space-y-2">
-      <h1 class="text-xl font-bold">Pasos de Preparación Prequirúrgica</h1>
-      <h2 class="text-gray-600">Agregue los pasos que el paciente debe seguir antes de la cirugía</h2>
+      <h1 class="text-xl font-bold dark:text-gray-100">{{ $t('Dashboard.Procedure.Edit.Recovery.Title') }}</h1>
+      <h2 class="text-gray-600 dark:text-gray-400">{{ $t('Dashboard.Procedure.Edit.Recovery.Subtitle') }}</h2>
     </div>
 
     <!-- DRAG & DROP -->
     <draggable v-model="localPhase" item-key="tempId" handle=".drag-handle" @end="updateOrder"
       class="space-y-4 max-h-[500px] overflow-y-scroll">
       <template #item="{ element, index }">
-        <div class="relative flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-4 bg-white">
+        <div
+          class="relative flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-4 bg-white dark:bg-gray-800 dark:border-gray-900">
 
           <!-- Drag Handle -->
-          <div class="drag-handle cursor-move text-sm text-gray-500 flex items-center gap-2">
+          <div class="drag-handle cursor-move text-sm text-gray-500 flex items-center gap-2 dark:text-gray-100">
             <span>☰</span>
-            <span class="font-semibold">Paso {{ element.order }}</span>
+            <span class="font-semibold">{{ $t('Dashboard.Procedure.Edit.Recovery.Step') }} {{ element.order }}</span>
             <span v-if="element.id === 0" class="ml-2 px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">
-              Nuevo
+              {{ $t('Dashboard.Procedure.Edit.Recovery.New') }}
             </span>
           </div>
 
           <!-- Periodo -->
           <div>
-            <InputLabel value="Periodo" />
-            <TextInput v-model="element.period" placeholder="Ej: Día 1-3, Semana 1, 2-3 Meses"
+            <InputLabel :value="$t('Dashboard.Procedure.Edit.Recovery.InputPeriod')" />
+            <TextInput v-model="element.period"
+              :placeholder="$t('Dashboard.Procedure.Edit.Recovery.InputPeriodPlaceholder')"
               @input="handleEdit(element)" />
           </div>
 
           <!-- Título -->
           <div>
-            <InputLabel value="Título" />
-            <TextInput v-model="element.title" placeholder="Ej: Fase Inicial" @input="handleEdit(element)" />
+            <InputLabel :value="$t('Dashboard.Procedure.Edit.Recovery.InputTitle')" />
+            <TextInput v-model="element.title"
+              :placeholder="$t('Dashboard.Procedure.Edit.Recovery.InputTitlePlaceholder')"
+              @input="handleEdit(element)" />
           </div>
 
           <!-- Descripción -->
           <div>
-            <InputLabel value="Descripción" />
-            <TextInput v-model="element.description" placeholder="Descripción del paso..."
+            <InputLabel :value="$t('Dashboard.Procedure.Edit.Recovery.InputDescription')" />
+            <TextInput v-model="element.description"
+              :placeholder="$t('Dashboard.Procedure.Edit.Recovery.InputDescriptionPlaceholder')"
               @input="handleEdit(element)" />
           </div>
 
@@ -49,15 +55,16 @@
 
     <!-- Botón Agregar -->
     <button @click="addPhase"
-      class="flex justify-center items-center gap-2 p-2 hover:bg-gray-300 border rounded-lg border-gray-300 w-full transition">
+      class="flex justify-center items-center gap-2 p-2 hover:bg-gray-300 border rounded-lg border-gray-300 w-full transition dark:text-gray-100 dark:hover:text-gray-800">
       <LucidePlus class="w-4 h-4" />
-      Agregar Paso
+      {{ $t('Dashboard.Procedure.Edit.Recovery.AddStep') }}
     </button>
   </div>
 
-  <Section sectionKey="recovery" title="Tu Recuperación - Texto Adicional"
-    subtitle="Información complementaria sobre la recuperación" :modelValue="modelValue.section[1]"
-    @update:modelValue="updateSection(1, $event)" placeholderTitle="Ej: Tu Recuperación" :allowImage="true" />
+  <Section sectionKey="recovery" :title="$t('Dashboard.Procedure.Edit.Recovery.Title')"
+    :subtitle="$t('Dashboard.Procedure.Edit.Recovery.Subtitle')" :modelValue="modelValue.section[1]"
+    @update:modelValue="updateSection(1, $event)"
+    :placeholderTitle="$t('Dashboard.Procedure.Edit.Recovery.InputTitlePlaceholder')" :allowImage="true" />
 </template>
 
 <script setup lang="ts">

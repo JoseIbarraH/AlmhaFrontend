@@ -1,21 +1,22 @@
 <template>
-  <div class="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+  <div class="min-h-screen py-8 px-4 sm:px-6 lg:px-8 dark:bg-gray-900">
     <div class="max-w-4xl mx-auto">
       <!-- Header -->
       <div class="mb-8 flex justify-between">
         <div>
-          <h1 class="text-3xl font-bold text-gray-900">Configuraciones</h1>
-          <p class="mt-2 text-gray-600">Administra la configuración general de tu sitio web</p>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ $t('Dashboard.Setting.SettingPage.Title') }}
+          </h1>
+          <p class="mt-2 text-gray-600 dark:text-gray-400">{{ $t('Dashboard.Setting.SettingPage.Subtitle') }}</p>
         </div>
         <div>
           <div class="flex justify-end gap-3">
             <button type="button" @click="cancelChanges" :hidden="!hasChanged"
-              class="px-6 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition font-medium">
-              Restaurar cambios
+              class="px-6 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition font-medium dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-700">
+              {{ $t('Dashboard.Setting.SettingPage.Restore') }}
             </button>
             <PrimaryButton type="button" @click="saveChanges" :disabled="!hasChanged"
               class="px-6 py-2.5 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition font-medium shadow-sm">
-              Guardar cambios
+              {{ $t('Dashboard.Setting.SettingPage.Save') }}
             </PrimaryButton>
           </div>
         </div>
@@ -47,7 +48,9 @@ import type { Contact, Settings, Social, System } from './types';
 import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import { showNotification } from '@/components/composables/useNotification';
 import { useAuthStore } from '@/stores/authStore';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n()
 const auth = useAuthStore()
 
 const form = reactive<{
@@ -172,10 +175,10 @@ const saveChanges = async () => {
       system: form.system
     });
 
-    showNotification('success', 'Configuracion actualizada correctamente.', 3000)
+    showNotification('success', t('Dashboard.Setting.SettingPage.Validations.Success'), 3000)
   } catch (error) {
     console.error('Error al guardar:', error);
-    showNotification('error', 'Error al actualizar las configuraciones.', 4000)
+    showNotification('error', t('Dashboard.Setting.SettingPage.Validations.Error'), 4000)
   }
 }
 

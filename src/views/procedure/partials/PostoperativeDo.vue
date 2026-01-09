@@ -1,30 +1,35 @@
 <template>
-  <div class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-10 bg-white mb-6">
+  <div
+    class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-10 bg-white mb-6 dark:bg-gray-800 dark:border-gray-900">
     <!-- Header -->
     <div class="space-y-2">
-      <h1 class="text-xl font-bold">Lo que SÍ debes hacer</h1>
-      <h2 class="text-gray-600">Cuidados recomendados después de la cirugía</h2>
+      <h1 class="text-xl font-bold dark:text-gray-100">{{ $t('Dashboard.Procedure.Edit.Postoperative.Do.Title') }}</h1>
+      <h2 class="text-gray-600 dark:text-gray-400">{{ $t('Dashboard.Procedure.Edit.Postoperative.Do.Subtitle') }}</h2>
     </div>
 
     <!-- DRAG & DROP -->
     <draggable v-model="localDo" item-key="tempId" handle=".drag-handle" @end="updateOrder"
       class="space-y-4 max-h-[500px] overflow-y-scroll">
       <template #item="{ element, index }">
-        <div class="relative flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-4 bg-white">
+        <div
+          class="relative flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-4 bg-white dark:bg-gray-800 dark:border-gray-900">
 
           <!-- Drag Handle -->
-          <div class="drag-handle cursor-move text-sm text-gray-500 flex items-center gap-2">
+          <div class="drag-handle cursor-move text-sm text-gray-500 flex items-center gap-2 dark:text-gray-100">
             <span>☰</span>
-            <span class="font-semibold">Recomendación {{ element.order }}</span>
+            <span class="font-semibold">{{ $t('Dashboard.Procedure.Edit.Postoperative.Do.DragTitle') }} {{ element.order
+              }}</span>
             <span v-if="element.id === 0" class="ml-2 px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">
-              Nuevo
+              {{ $t('Dashboard.Procedure.Edit.Postoperative.Do.New') }}
             </span>
           </div>
 
           <!-- Título -->
           <div>
-            <InputLabel value="Contenido" />
-            <TextInput v-model="element.content" placeholder="Ej: Consulta Médica" @input="handleEdit(element)" />
+            <InputLabel :value="$t('Dashboard.Procedure.Edit.Postoperative.Do.InputContent')" />
+            <TextInput v-model="element.content"
+              :placeholder="$t('Dashboard.Procedure.Edit.Postoperative.Do.InputContentPlaceholder')"
+              @input="handleEdit(element)" />
           </div>
 
           <!-- Botón Eliminar -->
@@ -35,9 +40,9 @@
 
     <!-- Botón Agregar -->
     <button @click="addDo"
-      class="flex justify-center items-center gap-2 p-2 hover:bg-gray-300 border rounded-lg border-gray-300 w-full transition">
+      class="flex justify-center items-center gap-2 p-2 hover:bg-gray-300 border rounded-lg border-gray-300 w-full transition dark:text-gray-100 dark:hover:text-gray-800">
       <LucidePlus class="w-4 h-4" />
-      Agregar Paso
+      {{ $t('Dashboard.Procedure.Edit.Postoperative.Do.AddStep') }}
     </button>
   </div>
 </template>

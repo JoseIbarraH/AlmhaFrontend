@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-white rounded-2xl shadow-lg dark:bg-gray-900 p-6 sticky top-6">
+  <section class="bg-white rounded-2xl shadow-lg dark:bg-gray-900 p-6 top-6">
     <h3 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left dark:text-gray-100">
       {{ $t('Dashboard.Team.Edit.PersonalInfo.Title') }}
     </h3>

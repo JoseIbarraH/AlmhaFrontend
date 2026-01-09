@@ -1,72 +1,48 @@
 <template>
   <div>
     <!-- Caja de upload -->
-    <div
-      class="relative rounded w-full justify-center flex items-center border-2 border-spacing-1 border-dashed"
-      :class="error ? 'border-red-500' : 'border-gray-300'"
-      :style="{
+    <div class="relative rounded w-full justify-center flex items-center border-2 border-spacing-1 border-dashed"
+      :class="error ? 'border-red-500' : 'border-gray-300'" :style="{
         aspectRatio: aspectRatio
-      }"
-    >
-      <input
-        type="file"
-        accept="image/*"
-        class="absolute inset-0 opacity-0 cursor-pointer"
-        @change="openCropper"
-      />
+      }">
+      <input type="file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" @change="openCropper" />
 
       <!-- Si no hay imagen -->
       <span v-if="!preview" class="text-4xl text-gray-400 font-bold">+</span>
 
       <!-- Si hay preview -->
       <div v-else class="w-full h-full">
-        <img
-          :src="preview"
-          alt="Preview"
-          class="w-full h-full object-cover rounded"
-        />
+        <img :src="preview" alt="Preview" class="w-full h-full object-cover rounded" />
       </div>
     </div>
 
     <!-- Modal -->
-    <div
-      v-if="show"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4"
-    >
-      <div class="bg-white rounded-xl shadow-lg w-full max-w-4xl p-6">
-        <h3 class="text-lg font-semibold mb-4">{{ $t('Dashboard.Team.CreateUpdate.Cropper.Title') }}</h3>
+    <Teleport to="body">
+      <div v-if="show" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-50 p-4">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-4xl p-6">
+          <h3 class="text-lg font-semibold mb-4">{{ $t('Dashboard.Team.Edit.Cropper.Title') }}</h3>
 
-        <!-- Cropper container con altura fija -->
-        <div class="w-full h-[500px] rounded bg-gray-900 overflow-hidden">
-          <VuePictureCropper
-            v-if="img"
-            :boxStyle="{
+          <!-- Cropper container con altura fija -->
+          <div class="w-full h-[500px] rounded bg-gray-900 overflow-hidden">
+            <VuePictureCropper v-if="img" :boxStyle="{
               width: '100%',
               height: '100%',
               backgroundColor: '#111827'
-            }"
-            :img="img"
-            :options="cropperOptions"
-          />
-        </div>
+            }" :img="img" :options="cropperOptions" />
+          </div>
 
-        <!-- Botones -->
-        <div class="flex justify-end gap-2 mt-4">
-          <button
-            @click="close"
-            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
-          >
-            {{ $t('Dashboard.Team.CreateUpdate.Cropper.Cancel') }}
-          </button>
-          <button
-            @click="confirmCrop"
-            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-          >
-            {{ $t('Dashboard.Team.CreateUpdate.Cropper.Confirm') }}
-          </button>
+          <!-- Botones -->
+          <div class="flex justify-end gap-2 mt-4">
+            <button @click="close" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
+              {{ $t('Dashboard.Team.Edit.Cropper.Cancel') }}
+            </button>
+            <button @click="confirmCrop" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+              {{ $t('Dashboard.Team.Edit.Cropper.Confirm') }}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </Teleport>
   </div>
 </template>
 

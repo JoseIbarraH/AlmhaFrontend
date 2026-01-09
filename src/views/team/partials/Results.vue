@@ -1,15 +1,16 @@
 <template>
-  <section class="flex flex-col p-6 rounded-2xl shadow-lg space-y-10 bg-white mb-6 dark:bg-gray-900">
+  <section class="flex flex-col p-6 rounded-2xl shadow-lg space-y-5 bg-white mb-6 dark:bg-gray-900">
     <!-- Header -->
-    <div class="space-y-2">
-      <h1 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left mb-4 dark:text-gray-100">
-        Galeria de resultados</h1>
-      <h2 class="text-gray-600">Agregue los resultados mas destacados</h2>
+    <div>
+      <h1 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left dark:text-gray-100">
+        {{ $t('Dashboard.Team.Edit.Results.Title') }}
+      </h1>
+      <h2 class="text-gray-600 dark:text-gray-400">{{ $t('Dashboard.Team.Edit.Results.Subtitle') }}</h2>
     </div>
 
     <!-- DRAG & DROP -->
-    <draggable v-model="localResult" item-key="tempId" handle=".drag-handle" @end="updateOrder"
-      class="flex flex-wrap gap-4 max-h-[500px] overflow-y-auto">
+    <draggable v-model="localResult" item-key="tempId" handle=".drag-handle" @end="updateOrder" :force-fallback="true"
+      class="flex flex-wrap gap-4 max-h-[500px] overflow-y-auto draggable-container">
       <template #item="{ element, index }">
         <div
           class="relative p-4 border rounded-xl border-gray-200 shadow-sm hover:shadow-md transition-shadow bg-white dark:bg-gray-800 dark:border-gray-900 w-fit">
@@ -18,7 +19,7 @@
             <div
               class="drag-handle cursor-move text-sm text-gray-600 flex items-center gap-2 pb-2 border-b border-gray-100">
               <span class="text-gray-400">☰</span>
-              <span class="font-semibold dark:text-gray-100">Imagen {{ element.order }}</span>
+              <span class="font-semibold dark:text-gray-100">{{ $t('Dashboard.Team.Edit.Results.DragTitle') }} {{ element.order }}</span>
             </div>
 
             <div class="relative rounded-lg overflow-hidden w-40 h-40 mt-3">
@@ -26,7 +27,7 @@
                 @update:modelValue="handleImageChange(element, $event)" />
               <span v-if="element.id === 0"
                 class="absolute top-2 left-2 px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full font-medium shadow-sm">
-                Nuevo
+                {{ $t('Dashboard.Team.Edit.Results.New') }}
               </span>
             </div>
 
@@ -45,7 +46,7 @@
     <button @click="addResult"
       class="flex justify-center items-center gap-2 p-2 hover:bg-gray-300 border rounded-lg border-gray-300 w-full transition dark:text-gray-100 dark:hover:text-gray-800">
       <LucidePlus class="w-4 h-4" />
-      Agregar Resultado
+      {{ $t('Dashboard.Team.Edit.Results.Add') }}
     </button>
   </section>
 </template>
@@ -269,6 +270,11 @@ function updateOrder() {
 </script>
 
 <style scoped>
+.draggable-container {
+  position: relative;
+  z-index: 0;
+}
+
 .drag-handle {
   user-select: none;
 }

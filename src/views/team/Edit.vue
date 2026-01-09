@@ -3,7 +3,7 @@
     <header
       class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 w-full">
       <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left dark:text-gray-100">
-        {{ $t('Dashboard.Team.CreateUpdate.UpdateTitle') }}
+        {{ $t('Dashboard.Team.Edit.Title') }}
       </h2>
 
       <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
@@ -51,13 +51,14 @@ import { onMounted, reactive, ref, watch } from 'vue';
 import TeamInfo from './partials/TeamInfo.vue';
 import Results from './partials/Results.vue';
 import type { TeamMemberBackend, TeamMemberFrontend } from './types';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { api } from '@/plugins/api';
 import { useI18n } from 'vue-i18n';
 
 const auth = useAuthStore()
 const { t } = useI18n()
 const router = useRouter()
+const route = useRoute()
 
 const loading = ref(false)
 const teamMemberResponse = ref<TeamMemberBackend>()
@@ -215,17 +216,35 @@ const backToIndex = () => {
   router.push({ name: 'dashboard.team' })
 }
 
-watch(form, (value) => {
-  console.log("Form: ", value)
-})
+const fetchMember = async () => {
+  if (!auth.can('view_teams')) return
+  try {
+    const { data } = await api.get(`/api/team_member/${props.id}`);
 
+    teamMemberResponse.value = data.data;
+    if (data) {
+      editingForm()
+    }
+  } catch (error) {
+    showNotification('error', t('Dashboard.Blog.Validations.Error.GetData'), 4000);
+  } finally {
+    loading.value = false;
+  }
+}
+
+let initialized = false;
 onMounted(async () => {
-  const { data } = await api.get(`/api/team_member/${props.id}`)
-  teamMemberResponse.value = data.data
-  console.log("asd", data.data)
-  if (data) {
-    editingForm()
+  if (!initialized) {
+    fetchMember()
+    initialized = true;
   }
 })
+
+watch(
+  () => route.params.locale,
+  () => {
+    fetchMember()
+  }
+)
 
 </script>

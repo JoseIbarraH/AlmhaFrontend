@@ -1,7 +1,7 @@
 <template>
   <section class="bg-white rounded-2xl shadow-lg dark:bg-gray-900 p-6 sticky top-6">
     <h3 class="text-lg font-semibold leading-tight text-gray-800 text-center sm:text-left mb-4 dark:text-gray-100">
-      Foto del miembro del equipo
+      {{ $t('Dashboard.Team.Edit.PersonalInfo.Image') }}
     </h3>
 
     <div class="relative">
@@ -10,7 +10,7 @@
 
     <div class="mt-6 pt-6 border-t border-slate-200">
       <label class="block text-sm font-semibold text-gray-800 dark:text-gray-100 mb-3">
-        Estado del Miembro
+        {{ $t('Dashboard.Team.Edit.Status.Title') }}
       </label>
 
       <div class="flex gap-3">
@@ -22,7 +22,7 @@
                transition-all text-center">
             <div class="w-3 h-3 bg-emerald-500 rounded-full mx-auto mb-1"></div>
             <span class="text-sm font-medium text-slate-700 peer-checked:text-emerald-700">
-              Activo
+              {{ $t('Dashboard.Team.Edit.Status.Active') }}
             </span>
           </div>
         </label>
@@ -35,7 +35,7 @@
                transition-all text-center">
             <div class="w-3 h-3 bg-slate-400 rounded-full mx-auto mb-1"></div>
             <span class="text-sm font-medium text-slate-700">
-              Inactivo
+              {{ $t('Dashboard.Team.Edit.Status.Inactive') }}
             </span>
           </div>
         </label>

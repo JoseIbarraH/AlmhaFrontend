@@ -28,35 +28,33 @@
           "Inactive": "Inactive"
         }
       },
-      "CreateUpdate": {
-        "CreateTitle": "Create new team member",
-        "UpdateTitle": "Update team member",
+      "Edit": {
+        "Title": "Team Member Data Management",
         "BackButton": "Back",
-        "CreateButton": "Create",
         "UpdateButton": "Update",
         "PersonalInfo": {
-          "Specialization": "Specialization",
-          "Title": "Personal information",
-          "Biography": "Biography",
-          "Image": "Image",
+          "Image": "Photo of team member",
+          "Title": "Personal Information",
           "Name": "Name",
-          "Result": {
-            "Title": "Results Gallery",
-            "Description": "Description"
-          },
-          "Status": {
-            "Title": "Status",
-            "Active": "Active",
-            "Inactive": "Inactive"
-          }
+          "Specialization": "Specialization",
+          "Biography": "Professional Biography"
         },
-        "Results": {
-          "Description": "Description"
+        "Status": {
+          "Title": "Member State",
+          "Active": "Active",
+          "Inactive": "Inactive"
         },
         "Cropper": {
           "Title": "Crop image",
           "Cancel": "Cancel",
           "Confirm": "Confirm"
+        },
+        "Results": {
+          "Title": "Results Gallery",
+          "Subtitle": "Add the most outstanding results",
+          "DragTitle": "Image",
+          "New": "New",
+          "Add": "Add Result"
         }
       },
       "Validations": {
@@ -218,6 +216,164 @@
           "Create": "Error creating item",
           "Update": "Error updating item",
           "Delete": "Error deleting item"
+        }
+      }
+    },
+    "Procedure": {
+      "Title": "Procedures - Procedure Management",
+      "CreateButton": "Create Procedure",
+      "Statistics": {
+        "Total": "Total procedures",
+        "TeamsActives": "Active procedures",
+        "TeamsInactives": "Inactive procedures",
+        "Last": "New procedures (15d)"
+      },
+      "Create": {
+        "Title": "Create Procedure",
+        "Subtitle": "Assign a name to the procedure",
+        "LabelTitle": "Title (Optional)",
+        "Optional": "Optional: You can add the title now or later",
+        "Placeholder": "Enter the procedure title.",
+        "Cancel": "Cancel",
+        "CreateButton": "Create Procedure"
+      },
+      "Edit": {
+        "Tabs": {
+          "Basic": "Basic",
+          "Preparation": "Preparation",
+          "Recovery": "Recovery",
+          "PostOp": "Postoperative recommendations",
+          "PostOpShort": "Post-op",
+          "Faq": "FAQs",
+          "Gallery": "Gallery"
+        },
+        "BasicInfo": {
+          "Title": "Basic Procedure Information",
+          "Subtitle": "Main data to be displayed on the page",
+          "InputTitle": "Procedure Title",
+          "InputTitlePlaceholder": "E.g.: Rhinoplasty",
+          "InputSubtitle": "Subtitle",
+          "InputSubtitlePlaceholder": "E.g.: Nasal reshaping surgery",
+          "ImageTitle": "Main Image (Hero)",
+          "ChangeImage": "Change image",
+          "UploadImage": "Upload image",
+          "Recommendation": "Recommended format: 1920×1080px",
+          "Section": {
+            "Title": "What is this procedure?",
+            "Subtitle": "General description of the procedure",
+            "TitlePlaceholder": "E.g.: What is Rhinoplasty?",
+            "ContentOnePlaceholder": "First description of the procedure...",
+            "ContentTwoPlaceholder": "Second description of the procedure..."
+          }
+        },
+        "Section": {
+          "Title": "Section Title",
+          "Paragraph1": "Paragraph 1",
+          "Paragraph2": "Paragraph 2",
+          "Characters": "characters",
+          "ChangeImage": "Change image",
+          "UploadImage": "Upload image",
+          "ImageTitle": "Image (Optional)"
+        },
+        "Preparation": {
+          "Title": "Pre-surgical Preparation Steps",
+          "Subtitle": "Add the steps the patient must follow before surgery",
+          "Step": "Step",
+          "New": "New",
+          "InputTitle": "Title",
+          "InputTitlePlaceholder": "E.g.: Medical Consultation",
+          "InputDescription": "Description",
+          "InputDescriptionPlaceholder": "Step description...",
+          "AddStep": "Add Step"
+        },
+        "Recovery": {
+          "Title": "Recovery",
+          "Subtitle": "Add details about the recovery process",
+          "Step": "Phase",
+          "New": "New",
+          "InputPeriod": "Period",
+          "InputPeriodPlaceholder": "E.g.: Day 1-3, Week 1, 2-3 Months",
+          "InputTitle": "Title",
+          "InputTitlePlaceholder": "E.g.: Initial Phase",
+          "InputDescription": "Description",
+          "InputDescriptionPlaceholder": "Phase description...",
+          "AddStep": "Add Phase"
+        },
+        "Postoperative": {
+          "Do": {
+            "Title": "What you MUST do",
+            "Subtitle": "Recommended care after surgery",
+            "DragTitle": "Recommendation",
+            "New": "New",
+            "InputContent": "Content",
+            "InputContentPlaceholder": "E.g.: Take medication as prescribed...",
+            "AddStep": "Add Recommendation"
+          },
+          "Dont": {
+            "Title": "What you MUST NOT do",
+            "Subtitle": "Activities or practices to avoid",
+            "DragTitle": "Restriction",
+            "New": "New",
+            "InputContent": "Content",
+            "InputContentPlaceholder": "E.g.: Do not perform intense exercise...",
+            "AddStep": "Add Restriction"
+          }
+        },
+        "Faq": {
+          "Title": "Frequently Asked Questions",
+          "Subtitle": "Add the most common questions and answers",
+          "DragTitle": "Question",
+          "New": "New",
+          "InputQuestion": "Question",
+          "InputQuestionPlaceholder": "How long does the surgery take?",
+          "InputAnswer": "Answer",
+          "InputAnswerPlaceholder": "The answer to the question...",
+          "AddStep": "Add Question"
+        },
+        "Gallery": {
+          "Title": "Results Gallery",
+          "Subtitle": "Add the most outstanding results",
+          "DragTitle": "Image",
+          "New": "New",
+          "AddStep": "Add Result"
+        }
+      },
+      "List": {
+        "Procedures": "Procedures",
+        "Search": "Search by title",
+        "Active": "Active",
+        "Inactive": "Inactive",
+        "LastUpdate": "Last update:",
+        "CreationDate": "Creation date:",
+        "Edit": "Edit",
+        "Deactivate": "Deactivate",
+        "Activate": "Activate",
+        "NoResults": "No results",
+        "Try": "Try adjusting your search."
+      },
+      "Delete": {
+        "ConfirmTitle": "Confirm Deletion",
+        "ConfirmSubtitle": "This action can be reversed",
+        "ConfirmDelete": "Are you sure you want to delete the procedure",
+        "Cancel": "Cancel",
+        "Delete": "Delete Procedure"
+      },
+      "Validations": {
+        "Form": {
+          "Title": "Title is required."
+        },
+        "Success": {
+          "Status": "Status updated successfully.",
+          "Delete": "Procedure deleted successfully.",
+          "Create": "Procedure created successfully.",
+          "Update": "Procedure updated successfully."
+        },
+        "Error": {
+          "Status": "Error updating status.",
+          "Delete": "Error deleting procedure.",
+          "Create": "Error creating procedure.",
+          "Update": "Error updating procedure.",
+          "GetData": "Error retrieving data"
         }
       }
     },
@@ -516,6 +672,38 @@
             "ConfirmDelete": "Error deleting user: {name}",
             "SaveChanges": "Error saving changes"
           }
+        }
+      },
+      "SettingPage": {
+        "Title": "Settings",
+        "Subtitle": "Manage your website's general configuration",
+        "Restore": "Restore changes",
+        "Save": "Save changes",
+        "Communication": {
+          "Title": "Communication",
+          "Subtitle": "Contact information for your visitors",
+          "Phone": "Phone",
+          "Email": "Email",
+          "Location": "Location"
+        },
+        "SocialMedia": {
+          "Title": "Social Media",
+          "Subtitle": "Links to your social media profiles",
+          "Facebook": "Facebook",
+          "Instagram": "Instagram",
+          "Twitter": "Twitter / X",
+          "LinkedIn": "LinkedIn",
+          "Threads": "Threads"
+        },
+        "Maintenance": {
+          "Title": "Maintenance",
+          "Subtitle": "Enable maintenance mode to show a maintenance page",
+          "ModeTitle": "Maintenance mode",
+          "ModeSubtitle": "Visitors will see a maintenance page"
+        },
+        "Validations": {
+          "Success": "Configuration updated successfully.",
+          "Error": "Error updating configuration."
         }
       },
       "Audit": {

@@ -1,27 +1,33 @@
 <template>
-  <section class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-10 bg-white mb-6">
+  <section
+    class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-10 bg-white mb-6 dark:bg-gray-800 dark:border-gray-900">
     <!-- Header -->
     <div class="space-y-2">
-      <h1 class="text-xl font-bold">Galeria de resultados</h1>
-      <h2 class="text-gray-600">Agregue los resultados mas destacados</h2>
+      <h1 class="text-xl font-bold dark:text-gray-100">{{ $t('Dashboard.Procedure.Edit.Gallery.Title') }}</h1>
+      <h2 class="text-gray-600 dark:text-gray-400">{{ $t('Dashboard.Procedure.Edit.Gallery.Subtitle') }}</h2>
     </div>
 
     <!-- DRAG & DROP -->
     <draggable v-model="localGallery" item-key="tempId" handle=".drag-handle" @end="updateOrder"
       class="flex flex-wrap gap-4 max-h-[500px] overflow-y-auto">
       <template #item="{ element, index }">
-        <div class="relative p-4 border rounded-xl border-gray-200 shadow-sm hover:shadow-md transition-shadow bg-white w-fit">
+        <div
+          class="relative p-4 border rounded-xl border-gray-200 shadow-sm hover:shadow-md transition-shadow bg-white w-fit dark:bg-gray-800 dark:border-gray-900">
           <div class="w-40">
             <!-- Drag Handle -->
-            <div class="drag-handle cursor-move text-sm text-gray-600 flex items-center gap-2 pb-2 border-b border-gray-100">
+            <div
+              class="drag-handle cursor-move text-sm text-gray-600 flex items-center gap-2 pb-2 border-b border-gray-100 dark:text-gray-100">
               <span class="text-gray-400">☰</span>
-              <span class="font-semibold">Imagen {{ element.order }}</span>
+              <span class="font-semibold">{{ $t('Dashboard.Procedure.Edit.Gallery.DragTitle') }} {{ element.order
+                }}</span>
             </div>
 
             <div class="relative rounded-lg overflow-hidden w-40 h-40 mt-3">
-              <ImagesPreview v-model="element.displayPath" :close-button="false" class="w-full h-full object-cover" @update:modelValue="handleImageChange(element, $event)"/>
-              <span v-if="element.id === 0" class="absolute top-2 left-2 px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full font-medium shadow-sm">
-                Nuevo
+              <ImagesPreview v-model="element.displayPath" :close-button="false" class="w-full h-full object-cover"
+                @update:modelValue="handleImageChange(element, $event)" />
+              <span v-if="element.id === 0"
+                class="absolute top-2 left-2 px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full font-medium shadow-sm">
+                {{ $t('Dashboard.Procedure.Edit.Gallery.New') }}
               </span>
             </div>
 
@@ -33,9 +39,9 @@
 
     <!-- Botón Agregar -->
     <button @click="addGallery"
-      class="flex justify-center items-center gap-2 p-2 hover:bg-gray-300 border rounded-lg border-gray-300 w-full transition">
+      class="flex justify-center items-center gap-2 p-2 hover:bg-gray-300 border rounded-lg border-gray-300 w-full transition dark:text-gray-100 dark:hover:text-gray-800">
       <LucidePlus class="w-4 h-4" />
-      Agregar Resultado
+      {{ $t('Dashboard.Procedure.Edit.Gallery.AddStep') }}
     </button>
   </section>
 </template>

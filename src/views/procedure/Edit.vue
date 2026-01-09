@@ -21,80 +21,92 @@
 
     <TabsRoot v-model="tab" class="space-y-6">
       <TabsList
-        class="flex flex-wrap gap-2 rounded-xl bg-white p-1 w-full justify-center sm:justify-start lg:justify-center">
+        class="flex flex-wrap gap-2 rounded-xl bg-white p-1 w-full justify-center sm:justify-start lg:justify-center dark:bg-gray-800">
         <TabsTrigger value="basic" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
+          dark:text-gray-400
           hover:text-gray-300
           data-[state=active]:border-blue-500
           data-[state=active]:text-neutral-900
+          data-[state=active]:dark:text-white
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
           flex-shrink-0
         ">
-          Básico
+          {{ $t('Dashboard.Procedure.Edit.Tabs.Basic') }}
         </TabsTrigger>
         <TabsTrigger value="preparation" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
+          dark:text-gray-400
           hover:text-gray-300
           data-[state=active]:border-blue-500
           data-[state=active]:text-neutral-900
+          data-[state=active]:dark:text-white
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
           flex-shrink-0
         ">
-          Preparación
+          {{ $t('Dashboard.Procedure.Edit.Tabs.Preparation') }}
         </TabsTrigger>
         <TabsTrigger value="recovery" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
+          dark:text-gray-400
           hover:text-gray-300
           data-[state=active]:border-blue-500
           data-[state=active]:text-neutral-900
+          data-[state=active]:dark:text-white
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
           flex-shrink-0
         ">
-          Recuperación
+          {{ $t('Dashboard.Procedure.Edit.Tabs.Recovery') }}
         </TabsTrigger>
         <TabsTrigger value="post-op" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
+          dark:text-gray-400
           hover:text-gray-300
           data-[state=active]:border-blue-500
           data-[state=active]:text-neutral-900
+          data-[state=active]:dark:text-white
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
           flex-shrink-0
         ">
-          <span class="hidden sm:inline">Recomendaciones postoperatorias</span>
-          <span class="sm:hidden">Post-op</span>
+          <span class="hidden sm:inline">{{ $t('Dashboard.Procedure.Edit.Tabs.PostOp') }}</span>
+          <span class="sm:hidden">{{ $t('Dashboard.Procedure.Edit.Tabs.PostOpShort') }}</span>
         </TabsTrigger>
         <TabsTrigger value="faqs" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
+          dark:text-gray-400
           hover:text-gray-300
           data-[state=active]:border-blue-500
           data-[state=active]:text-neutral-900
+          data-[state=active]:dark:text-white
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
           flex-shrink-0
         ">
-          FAQs
+          {{ $t('Dashboard.Procedure.Edit.Tabs.Faq') }}
         </TabsTrigger>
         <TabsTrigger value="galleries" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
+          dark:text-gray-400
+
           hover:text-gray-300
           data-[state=active]:border-blue-500
           data-[state=active]:text-neutral-900
+          data-[state=active]:dark:text-white
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
           flex-shrink-0
         ">
-          <span class="hidden sm:inline">Galería de resultados</span>
-          <span class="sm:hidden">Galería</span>
+          {{ $t('Dashboard.Procedure.Edit.Tabs.Gallery') }}
         </TabsTrigger>
       </TabsList>
 
@@ -136,7 +148,7 @@ import {
 import { ref, reactive, onMounted, watch } from 'vue'
 import BasicInfo from './partials/BasicInfo.vue';
 import type { ProcedureBackend, ProcedureFrontend } from './types';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import BackButton from '@/components/ui/BackButton.vue';
 import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import { api } from '@/plugins/api';
@@ -146,11 +158,16 @@ import Postoperative from './partials/Postoperative.vue';
 import Faq from './partials/Faq.vue';
 import Gallery from './partials/Gallery.vue';
 import { useAuthStore } from '@/stores/authStore';
+import { showNotification } from '@/components/composables/useNotification';
+import { useI18n } from 'vue-i18n';
 
 const auth = useAuthStore()
 const router = useRouter()
+const route = useRoute()
 const loading = ref(false)
 const tab = ref('basic')
+
+const { t } = useI18n()
 
 const initialPreStep = ref<any[]>([])
 const initialPhase = ref<any[]>([])
@@ -573,16 +590,34 @@ const diffById = <T extends { id?: number }>(
   }
 }
 
-watch(form, (value) => {
-  console.log("form: ", value)
-})
+const fetchProcedure = async() => {
+  if (!auth.can('view_procedures')) return
+  try {
+    const { data } = await api.get(`/api/procedure/${props.id}`);
 
+    procedureResponse.value = data.data;
+    if (data) {
+      editingForm()
+    }
+  } catch (error) {
+    showNotification('error', t('Dashboard.Blog.Validations.Error.GetData'), 4000);
+  } finally {
+    loading.value = false;
+  }
+}
+
+let initialized = false;
 onMounted(async () => {
-  const { data } = await api.get(`/api/procedure/${props.id}`)
-  procedureResponse.value = data.data
-  console.log("asd", data.data)
-  if (data) {
-    editingForm()
+  if (!initialized) {
+    fetchProcedure()
+    initialized = true;
   }
 })
+
+watch(
+  () => route.params.locale,
+  () => {
+    fetchProcedure()
+  }
+)
 </script>

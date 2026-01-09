@@ -1,87 +1,70 @@
 <!-- SectionEditor.vue -->
 <template>
-  <div class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-6 bg-white">
+  <div
+    class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-6 bg-white dark:bg-gray-800 dark:border-gray-900">
     <div class="space-y-4">
       <!-- Header -->
       <div class="space-y-2">
-        <h1 class="text-xl font-bold">{{ title }}</h1>
-        <h2 class="text-gray-600">{{ subtitle }}</h2>
+        <h1 class="text-xl font-bold dark:text-gray-100">{{ title }}</h1>
+        <h2 class="text-gray-600 dark:text-gray-400">{{ subtitle }}</h2>
       </div>
 
       <!-- Título de la sección -->
       <div>
-        <InputLabel :for="`section-title-${sectionKey}`" value="Título de la sección" class="text-[17px] mb-2" />
-        <TextInput
-          :id="`section-title-${sectionKey}`"
-          :modelValue="sectionData.title"
-          @update:modelValue="updateTitle"
-          :placeholder="placeholderTitle"
-        />
+        <InputLabel :for="`section-title-${sectionKey}`" :value="$t('Dashboard.Procedure.Edit.Section.Title')"
+          class="text-[17px] mb-2" />
+        <TextInput :id="`section-title-${sectionKey}`" :modelValue="sectionData.title" @update:modelValue="updateTitle"
+          :placeholder="placeholderTitle" />
       </div>
 
       <!-- Contenido de la sección -->
       <div>
-        <InputLabel :for="`section-content-${sectionKey}`" value="Párrafo 1" class="text-[17px] mb-2" />
-        <textarea
-          :id="`section-content-${sectionKey}`"
-          :value="sectionData.contentOne"
-          @input="updateContentOne"
+        <InputLabel :for="`section-content-${sectionKey}`" :value="$t('Dashboard.Procedure.Edit.Section.Paragraph1')"
+          class="text-[17px] mb-2" />
+        <textarea :id="`section-content-${sectionKey}`" :value="sectionData.contentOne" @input="updateContentOne"
           rows="8"
-          class="w-full max-h-36 px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none resize-none transition-colors"
-          :placeholder="placeholderContentOne"
-        />
-        <p class="text-xs text-gray-500 mt-2">
-          {{ sectionData.contentOne?.length ?? 0 }} caracteres
+          class="w-full max-h-36 px-4 py-3 border-2 border-gray-300 dark:border-gray-900 dark:bg-gray-900 dark:text-gray-300 rounded-xl focus:border-blue-500 focus:outline-none resize-none transition-colors"
+          :placeholder="placeholderContentOne" />
+        <p class="text-xs text-gray-500 mt-2 dark:text-gray-300">
+          {{ sectionData.contentOne?.length ?? 0 }} {{ $t('Dashboard.Procedure.Edit.Section.Characters') }}
         </p>
       </div>
 
       <div>
-        <InputLabel :for="`section-content-${sectionKey}`" value="Párrafo 2" class="text-[17px] mb-2" />
-        <textarea
-          :id="`section-content-${sectionKey}`"
-          :value="sectionData.contentTwo"
-          @input="updateContentTwo"
+        <InputLabel :for="`section-content-${sectionKey}`" :value="$t('Dashboard.Procedure.Edit.Section.Paragraph2')"
+          class="text-[17px] mb-2" />
+        <textarea :id="`section-content-${sectionKey}`" :value="sectionData.contentTwo" @input="updateContentTwo"
           rows="8"
-          class="w-full max-h-36 px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none resize-none transition-colors"
-          :placeholder="placeholderContentTwo"
-        />
-        <p class="text-xs text-gray-500 mt-2">
-          {{ sectionData.contentTwo?.length ?? 0 }} caracteres
+          class="w-full max-h-36 px-4 py-3 border-2 border-gray-300 dark:border-gray-900 dark:bg-gray-900 dark:text-gray-300 rounded-xl focus:border-blue-500 focus:outline-none resize-none transition-colors"
+          :placeholder="placeholderContentTwo" />
+        <p class="text-xs text-gray-500 mt-2 dark:text-gray-300">
+          {{ sectionData.contentTwo?.length ?? 0 }} {{ $t('Dashboard.Procedure.Edit.Section.Characters') }}
         </p>
       </div>
 
       <!-- Imagen opcional -->
       <div v-if="allowImage" class="space-y-2">
-        <InputLabel :for="`section-image-${sectionKey}`" value="Imagen (Opcional)" class="text-[17px] mb-2" />
+        <InputLabel :for="`section-image-${sectionKey}`" :value="$t('Dashboard.Procedure.Edit.Section.ImageTitle')" class="text-[17px] mb-2" />
 
         <div v-if="imagePreview" class="relative w-full h-48 rounded-lg overflow-hidden border border-gray-300">
           <img :src="imagePreview" alt="Preview" class="w-full h-full object-cover" />
-          <button
-            type="button"
+          <button type="button"
             class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition"
-            @click="removeImage"
-          >
+            @click="removeImage">
             <LucideX class="w-4 h-4" />
           </button>
         </div>
 
-        <button
-          type="button"
-          class="w-full bg-transparent flex items-center justify-center gap-2 border border-gray-300 shadow rounded-md py-2 hover:bg-gray-300 transition"
-          @click="openFilePicker"
-        >
+        <button type="button"
+          class="w-full bg-transparent flex items-center justify-center gap-2 border border-gray-300 shadow rounded-md py-2 hover:bg-gray-300 transition dark:text-gray-100 dark:hover:text-gray-800"
+          @click="openFilePicker">
           <LucideUpload class="w-4 h-4" />
-          {{ imagePreview ? 'Cambiar imagen' : 'Subir imagen' }}
+          {{ imagePreview ? $t('Dashboard.Procedure.Edit.Section.ChangeImage') :
+            $t('Dashboard.Procedure.Edit.Section.UploadImage') }}
         </button>
 
-        <input
-          ref="fileInput"
-          :id="`section-image-${sectionKey}`"
-          type="file"
-          accept="image/*"
-          class="hidden"
-          @change="onImageChange"
-        />
+        <input ref="fileInput" :id="`section-image-${sectionKey}`" type="file" accept="image/*" class="hidden"
+          @change="onImageChange" />
       </div>
     </div>
   </div>

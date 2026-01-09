@@ -180,7 +180,9 @@ const routes: RouteRecordRaw[] = [
             component: DashboardProcedureEdit,
             props: true,
             meta: {
-              title: "Edit Procedure"
+              title: "Edit Procedure",
+              requiresAuth: true,
+              permission: "view_teams"
             }
           },
           {
