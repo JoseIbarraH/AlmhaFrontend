@@ -1,42 +1,46 @@
 <template>
   <section class="space-y-6 dark:bg-gray-950 min-h-screen p-6">
-    <header
-      class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 w-full">
-      <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left dark:text-gray-100">
-        {{ $t('Dashboard.Team.Edit.Title') }}
-      </h2>
+    <FormSkeleton v-if="loading && !form.name" />
 
-      <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
-        <BackButton @click="backToIndex" class="w-full sm:w-auto justify-center" :disabled="loading">
-          {{ $t('Dashboard.Team.Edit.BackButton') }}
-        </BackButton>
+    <template v-else>
+      <header
+        class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 w-full">
+        <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left dark:text-gray-100">
+          {{ $t('Dashboard.Team.Edit.Title') }}
+        </h2>
 
-        <CreateButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center"
-          :disabled="loading || !$can('update_teams')">
-          {{ $t('Dashboard.Team.Edit.UpdateButton') }}
-        </CreateButton>
-      </div>
-    </header>
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
+          <BackButton @click="backToIndex" class="w-full sm:w-auto justify-center" :disabled="loading">
+            {{ $t('Dashboard.Team.Edit.BackButton') }}
+          </BackButton>
 
-    <div class="max-w-6xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 p-x">
-        <div class="lg:col-span-1">
-          <SelectedImage :modelValue="form" @update:modelValue="handleFormUpdate" />
+          <CreateButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center"
+            :disabled="loading || !$can('update_teams')">
+            {{ $t('Dashboard.Team.Edit.UpdateButton') }}
+          </CreateButton>
         </div>
+      </header>
 
-        <div class="lg:col-span-2 space-y-6">
-          <div>
-            <TeamInfo :modelValue="form" @update:modelValue="handleFormUpdate" />
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 p-x">
+          <div class="lg:col-span-1">
+            <SelectedImage :modelValue="form" @update:modelValue="handleFormUpdate" />
           </div>
-          <div>
-            <Biography :modelValue="form" @update:modelValue="handleFormUpdate" />
-          </div>
-          <div>
-            <Results :modelValue="form" @update:modelValue="handleFormUpdate" :result="teamMemberResponse?.result" />
+
+          <div class="lg:col-span-2 space-y-6">
+            <div>
+              <TeamInfo :modelValue="form" @update:modelValue="handleFormUpdate" />
+            </div>
+            <div>
+              <Biography :modelValue="form" @update:modelValue="handleFormUpdate" />
+            </div>
+            <div>
+              <Results :modelValue="form" @update:modelValue="handleFormUpdate" :result="teamMemberResponse?.result" />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </template>
   </section>
 </template>
 
@@ -47,6 +51,7 @@ import SelectedImage from './partials/SelectedImage.vue';
 import BackButton from '@/components/ui/BackButton.vue';
 import { useAuthStore } from '@/stores/authStore';
 import Biography from './partials/Biography.vue';
+import FormSkeleton from './partials/FormSkeleton.vue';
 import { onMounted, reactive, ref, watch } from 'vue';
 import TeamInfo from './partials/TeamInfo.vue';
 import Results from './partials/Results.vue';
@@ -218,6 +223,7 @@ const backToIndex = () => {
 
 const fetchMember = async () => {
   if (!auth.can('view_teams')) return
+  loading.value = true
   try {
     const { data } = await api.get(`/api/team_member/${props.id}`);
 

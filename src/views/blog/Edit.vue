@@ -1,52 +1,52 @@
 <template>
   <section class="p-6 space-y-6 dark:bg-gray-950">
-    <header
-      class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 w-full">
+    <FormSkeleton v-if="loading && !form.id" />
 
-      <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left dark:text-gray-100">
-        {{ $t('Dashboard.Blog.Edit.Title') }}
-      </h2>
+    <template v-else>
+      <header
+        class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 w-full">
 
-      <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
-        <BackButton @click="backToIndex" class="w-full sm:w-auto justify-center" :disabled="loading">
-          {{ $t('Dashboard.Blog.Edit.BackButton') }}
-        </BackButton>
+        <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left dark:text-gray-100">
+          {{ $t('Dashboard.Blog.Edit.Title') }}
+        </h2>
 
-        <PrimaryButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center"
-          :disabled="loading || !$can('update_blogs')">
-          {{ loading ? $t('Dashboard.Blog.Edit.Saving') : $t('Dashboard.Blog.Edit.SaveChanges') }}
-        </PrimaryButton>
-      </div>
-    </header>
-    <div class="max-w-6xl mx-auto space-y-6">
-      <!-- Loading state -->
-      <div v-if="loading && !form.id" class="flex justify-center items-center py-12">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
+          <BackButton @click="backToIndex" class="w-full sm:w-auto justify-center" :disabled="loading">
+            {{ $t('Dashboard.Blog.Edit.BackButton') }}
+          </BackButton>
 
-      <!-- Error state -->
-      <div v-else-if="error" class="bg-red-50 border border-red-200 rounded-lg p-4">
-        <p class="text-red-800">{{ error }}</p>
-        <button @click="loadBlog" class="mt-2 text-red-600 hover:text-red-800 underline">
-          {{ $t('Dashboard.Blog.Edit.Retry') }}
-        </button>
-      </div>
+          <PrimaryButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center"
+            :disabled="loading || !$can('update_blogs')">
+            {{ loading ? $t('Dashboard.Blog.Edit.Saving') : $t('Dashboard.Blog.Edit.SaveChanges') }}
+          </PrimaryButton>
+        </div>
+      </header>
+      <div class="max-w-6xl mx-auto space-y-6">
 
-      <!-- Content -->
-      <template v-if="form.id">
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden dark:bg-gray-800">
-          <BlogInfo :model-value="form" :categories="categories" @update:model-value="updateForm"
-            @update="fetchCategories" />
-          <div class="bg-accent/30 px-6 py-4  border-y border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-            <h2 class="text-xl font-semibold text-primary dark:text-gray-100">Contenido del Artículo</h2>
-          </div>
-          <div class="p-4">
-            <Editor v-model="form.content" :id="form.id" />
-          </div>
+        <!-- Error state -->
+        <div v-if="error" class="bg-red-50 border border-red-200 rounded-lg p-4">
+          <p class="text-red-800">{{ error }}</p>
+          <button @click="loadBlog" class="mt-2 text-red-600 hover:text-red-800 underline">
+            {{ $t('Dashboard.Blog.Edit.Retry') }}
+          </button>
         </div>
 
-      </template>
-    </div>
+        <!-- Content -->
+        <template v-if="form.id">
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden dark:bg-gray-800">
+            <BlogInfo :model-value="form" :categories="categories" @update:model-value="updateForm"
+              @update="fetchCategories" />
+            <div class="bg-accent/30 px-6 py-4  border-y border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+              <h2 class="text-xl font-semibold text-primary dark:text-gray-100">Contenido del Artículo</h2>
+            </div>
+            <div class="p-4">
+              <Editor v-model="form.content" :id="form.id" />
+            </div>
+          </div>
+
+        </template>
+      </div>
+    </template>
   </section>
 </template>
 
@@ -55,6 +55,7 @@ import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import BackButton from '@/components/ui/BackButton.vue';
 import BlogInfo from './partials/BlogInfo.vue';
 import Editor from './partials/Editor.vue';
+import FormSkeleton from './partials/FormSkeleton.vue';
 import { onMounted, reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { api } from '@/plugins/api';

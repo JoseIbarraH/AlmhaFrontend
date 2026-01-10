@@ -1,27 +1,32 @@
 <template>
   <section class="p-6 space-y-6 dark:bg-gray-950">
-    <header
-      class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 w-full">
+    <!-- Loading State -->
+    <FormSkeleton v-if="loading && !form.title" />
 
-      <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left dark:text-gray-100">
-        {{ $t('Dashboard.Blog.Edit.Title') }}
-      </h2>
+    <template v-else>
+      <header
+        class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-6 w-full">
 
-      <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
-        <BackButton @click="backToIndex" class="w-full sm:w-auto justify-center" :disabled="loading">
-          {{ $t('Dashboard.Blog.Edit.BackButton') }}
-        </BackButton>
+        <h2 class="text-lg sm:text-xl font-semibold text-gray-800 text-center sm:text-left dark:text-gray-100">
+          {{ $t('Dashboard.Blog.Edit.Title') }}
+        </h2>
 
-        <PrimaryButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center"
-          :disabled="loading || !$can('update_procedures')">
-          {{ loading ? $t('Dashboard.Blog.Edit.Saving') : $t('Dashboard.Blog.Edit.SaveChanges') }}
-        </PrimaryButton>
-      </div>
-    </header>
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
+          <BackButton @click="backToIndex" class="w-full sm:w-auto justify-center" :disabled="loading">
+            {{ $t('Dashboard.Blog.Edit.BackButton') }}
+          </BackButton>
 
-    <TabsRoot v-model="tab" class="space-y-6 max-w-6xl mx-auto">
-      <TabsList class="flex flex-wrap gap-2 rounded-xl bg-white p-1 w-full justify-center sm:justify-start lg:justify-center dark:bg-gray-800">
-        <TabsTrigger value="basic" class="
+          <PrimaryButton @click="saveChanges" class="w-full sm:w-auto flex items-center justify-center"
+            :disabled="loading || !$can('update_procedures')">
+            {{ loading ? $t('Dashboard.Blog.Edit.Saving') : $t('Dashboard.Blog.Edit.SaveChanges') }}
+          </PrimaryButton>
+        </div>
+      </header>
+
+      <TabsRoot v-model="tab" class="space-y-6 max-w-6xl mx-auto">
+        <TabsList
+          class="flex flex-wrap gap-2 rounded-xl bg-white p-1 w-full justify-center sm:justify-start lg:justify-center dark:bg-gray-800">
+          <TabsTrigger value="basic" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
@@ -33,9 +38,9 @@
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
           flex-shrink-0
         ">
-          {{ $t('Dashboard.Procedure.Edit.Tabs.Basic') }}
-        </TabsTrigger>
-        <TabsTrigger value="preparation" class="
+            {{ $t('Dashboard.Procedure.Edit.Tabs.Basic') }}
+          </TabsTrigger>
+          <TabsTrigger value="preparation" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
@@ -47,9 +52,9 @@
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
           flex-shrink-0
         ">
-          {{ $t('Dashboard.Procedure.Edit.Tabs.Preparation') }}
-        </TabsTrigger>
-        <TabsTrigger value="recovery" class="
+            {{ $t('Dashboard.Procedure.Edit.Tabs.Preparation') }}
+          </TabsTrigger>
+          <TabsTrigger value="recovery" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
@@ -61,9 +66,9 @@
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
           flex-shrink-0
         ">
-          {{ $t('Dashboard.Procedure.Edit.Tabs.Recovery') }}
-        </TabsTrigger>
-        <TabsTrigger value="post-op" class="
+            {{ $t('Dashboard.Procedure.Edit.Tabs.Recovery') }}
+          </TabsTrigger>
+          <TabsTrigger value="post-op" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
@@ -75,10 +80,10 @@
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
           flex-shrink-0
         ">
-          <span class="hidden sm:inline">{{ $t('Dashboard.Procedure.Edit.Tabs.PostOp') }}</span>
-          <span class="sm:hidden">{{ $t('Dashboard.Procedure.Edit.Tabs.PostOpShort') }}</span>
-        </TabsTrigger>
-        <TabsTrigger value="faqs" class="
+            <span class="hidden sm:inline">{{ $t('Dashboard.Procedure.Edit.Tabs.PostOp') }}</span>
+            <span class="sm:hidden">{{ $t('Dashboard.Procedure.Edit.Tabs.PostOpShort') }}</span>
+          </TabsTrigger>
+          <TabsTrigger value="faqs" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
@@ -90,9 +95,9 @@
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
           flex-shrink-0
         ">
-          {{ $t('Dashboard.Procedure.Edit.Tabs.Faq') }}
-        </TabsTrigger>
-        <TabsTrigger value="galleries" class="
+            {{ $t('Dashboard.Procedure.Edit.Tabs.Faq') }}
+          </TabsTrigger>
+          <TabsTrigger value="galleries" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
           text-gray-500
@@ -105,35 +110,36 @@
           data-[state=active]:shadow-[0_2px_0_0_rgba(59,130,246,0.8)]
           flex-shrink-0
         ">
-          {{ $t('Dashboard.Procedure.Edit.Tabs.Gallery') }}
-        </TabsTrigger>
-      </TabsList>
+            {{ $t('Dashboard.Procedure.Edit.Tabs.Gallery') }}
+          </TabsTrigger>
+        </TabsList>
 
-      <TabsContent value="basic" forceMount>
-        <BasicInfo :modelValue="form" @update:modelValue="handleFormUpdate" />
-      </TabsContent>
+        <TabsContent value="basic" forceMount>
+          <BasicInfo :modelValue="form" @update:modelValue="handleFormUpdate" />
+        </TabsContent>
 
-      <TabsContent value="preparation" forceMount>
-        <Preparation :modelValue="form" @update:modelValue="handleFormUpdate" :preStep="procedureResponse?.preStep" />
-      </TabsContent>
+        <TabsContent value="preparation" forceMount>
+          <Preparation :modelValue="form" @update:modelValue="handleFormUpdate" :preStep="procedureResponse?.preStep" />
+        </TabsContent>
 
-      <TabsContent value="recovery" forceMount>
-        <Recovery :modelValue="form" @update:modelValue="handleFormUpdate" :phase="procedureResponse?.phase" />
-      </TabsContent>
+        <TabsContent value="recovery" forceMount>
+          <Recovery :modelValue="form" @update:modelValue="handleFormUpdate" :phase="procedureResponse?.phase" />
+        </TabsContent>
 
-      <TabsContent value="post-op" forceMount>
-        <Postoperative :modelValue="form" @update:modelValue="handleFormUpdate" :do="procedureResponse?.do"
-          :dont="procedureResponse?.dont" />
-      </TabsContent>
+        <TabsContent value="post-op" forceMount>
+          <Postoperative :modelValue="form" @update:modelValue="handleFormUpdate" :do="procedureResponse?.do"
+            :dont="procedureResponse?.dont" />
+        </TabsContent>
 
-      <TabsContent value="faqs" forceMount>
-        <Faq :modelValue="form" @update:modelValue="handleFormUpdate" :faq="procedureResponse?.faq" />
-      </TabsContent>
+        <TabsContent value="faqs" forceMount>
+          <Faq :modelValue="form" @update:modelValue="handleFormUpdate" :faq="procedureResponse?.faq" />
+        </TabsContent>
 
-      <TabsContent value="galleries" forceMount>
-        <Gallery :modelValue="form" @update:modelValue="handleFormUpdate" :gallery="procedureResponse?.gallery" />
-      </TabsContent>
-    </TabsRoot>
+        <TabsContent value="galleries" forceMount>
+          <Gallery :modelValue="form" @update:modelValue="handleFormUpdate" :gallery="procedureResponse?.gallery" />
+        </TabsContent>
+      </TabsRoot>
+    </template>
   </section>
 </template>
 
@@ -145,6 +151,7 @@ import {
   TabsContent
 } from 'radix-vue'
 import { ref, reactive, onMounted, watch } from 'vue'
+import FormSkeleton from './partials/FormSkeleton.vue';
 import BasicInfo from './partials/BasicInfo.vue';
 import type { ProcedureBackend, ProcedureFrontend } from './types';
 import { useRoute, useRouter } from 'vue-router';
@@ -589,8 +596,9 @@ const diffById = <T extends { id?: number }>(
   }
 }
 
-const fetchProcedure = async() => {
+const fetchProcedure = async () => {
   if (!auth.can('view_procedures')) return
+  loading.value = true
   try {
     const { data } = await api.get(`/api/procedure/${props.id}`);
 
