@@ -18,5 +18,8 @@ const handleLogout = async () => {
 </script>
 
 <template>
-  <button @click="handleLogout" class="block cursor-pointer w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-white dark:hover:bg-indigo-900">Cerrar sesión</button>
+  <button @click="handleLogout"
+    class="block cursor-pointer w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:bg-gray-100 focus:outline-none dark:text-white dark:hover:bg-indigo-900">
+    {{ $t('Helper.Navbar.Logout') }}
+      </button>
 </template>

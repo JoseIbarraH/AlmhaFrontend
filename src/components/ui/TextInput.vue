@@ -23,7 +23,7 @@ const inputClasses = computed(() => {
     rounded-md py-2 px-4 shadow-sm w-full border
     border-gray-300 focus:border-indigo-500 focus:ring-indigo-500
     bg-white text-gray-900
-    dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
+    dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100
     dark:focus:border-indigo-600 dark:focus:ring-indigo-600
   `;
 });

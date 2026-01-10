@@ -134,7 +134,10 @@
         "Saving": "Guardando...",
         "TitlePost": "Titulo del post",
         "Category": "Categoria",
-        "Default": "Categorias"
+        "Default": "Categorias",
+        "Writer": "Escritor",
+        "Image": "Imagen Principal",
+        "Placeholder": "Escribe o pega tu contenido aqui!"
       },
       "Validations": {
         "Success": {

@@ -125,7 +125,9 @@
         "Saving": "Saving...",
         "TitlePost": "Post title",
         "Category": "Category",
-        "Default": "Categories"
+        "Default": "Categories",
+        "Writer": "Writer",
+        "Image": "Main Image"
       },
       "Validations": {
         "Success": {
@@ -821,7 +823,7 @@
       "Design": "Design",
       "Profile": "Profile",
       "Logout": "Log out",
-      "Service": "Services",
+      "Procedure": "Procedures",
       "Setting": "Settings"
     },
     "TimeSince": {
@@ -834,7 +836,9 @@
       "seconds": "a few seconds ago"
     },
     "Pagination": {
-      "Showing": "Showing {from} – {to} of {total} records"
+      "Showing": "Showing {from} – {to} of {total} records",
+      "Previous": "Previous",
+      "Next": "Next"
     },
     "Setting": {
       "Title": "Settings",

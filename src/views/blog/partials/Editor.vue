@@ -5,13 +5,7 @@
       ref="editorContainerElement">
       <div class="editor-container__editor">
         <div ref="editorElement">
-          <ckeditor
-            v-if="editor && config"
-            v-model="content"
-            :editor="editor"
-            :config="config"
-            @ready="onReady"
-          />
+          <ckeditor v-if="editor && config" v-model="content" :editor="editor" :config="config" @ready="onReady" />
         </div>
       </div>
       <div class="editor_container__word-count dark" ref="editorWordCountElement"></div>
@@ -96,13 +90,15 @@ import {
   TodoList,
   Underline,
   WordCount,
-  type EditorConfig
 } from 'ckeditor5';
 
 import translations from 'ckeditor5/translations/es.js';
 import 'ckeditor5/ckeditor5.css';
 import { api } from '@/plugins/api';
 import { showNotification } from '@/components/composables/useNotification';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
 
 // Adapter personalizado para upload de imágenes
 class MyUploadAdapter {
@@ -232,14 +228,14 @@ const deleteImagesFromServer = async (imageUrls: string[]) => {
         uploadedImages.value = uploadedImages.value.filter(img => img !== url);
         initialImages.value = initialImages.value.filter(img => img !== url);
       } else {
-        showNotification('error', error.response?.data || error.message, 4000 )
+        showNotification('error', error.response?.data || error.message, 4000)
       }
     }
   }
 };
 
 // Configuración del editor
-const config = computed<EditorConfig | null>(() => {
+const config = computed(() => {
   if (!isLayoutReady.value) return null;
 
   return {
@@ -461,10 +457,7 @@ const config = computed<EditorConfig | null>(() => {
         reversed: true
       }
     },
-    menuBar: {
-      isVisible: true
-    },
-    placeholder: 'Type or paste your content here!',
+    placeholder: t('Dashboard.Blog.Edit.Placeholder'),
     style: {
       definitions: [
         { name: 'Article category', element: 'h3', classes: ['category'] },
@@ -488,7 +481,7 @@ const config = computed<EditorConfig | null>(() => {
         };
       }
     ]
-  };
+  } as any;
 });
 
 onMounted(() => {
@@ -669,10 +662,11 @@ function onReady(editor: any) {
   gap: 10px;
   padding: 10px;
   justify-content: end;
+  color: #2e2e2e !important;
 }
 
 .dark :deep(.ck-word-count) {
-  color: #d1d5db !important; /* texto gris claro */
+  color: #d1d5db !important;
 }
 
 :deep(.ck.ck-dropdown__panel .ck.ck-list) {

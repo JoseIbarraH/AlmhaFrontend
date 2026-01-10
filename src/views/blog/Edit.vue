@@ -18,28 +18,35 @@
         </PrimaryButton>
       </div>
     </header>
-
-    <!-- Loading state -->
-    <div v-if="loading && !form.id" class="flex justify-center items-center py-12">
-      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-    </div>
-
-    <!-- Error state -->
-    <div v-else-if="error" class="bg-red-50 border border-red-200 rounded-lg p-4">
-      <p class="text-red-800">{{ error }}</p>
-      <button @click="loadBlog" class="mt-2 text-red-600 hover:text-red-800 underline">
-        {{ $t('Dashboard.Blog.Edit.Retry') }}
-      </button>
-    </div>
-
-    <!-- Content -->
-    <template v-if="form.id">
-      <BlogInfo :model-value="form" :categories="categories" @update:model-value="updateForm" />
-
-      <div>
-        <Editor v-model="form.content" :id="form.id" />
+    <div class="max-w-6xl mx-auto space-y-6">
+      <!-- Loading state -->
+      <div v-if="loading && !form.id" class="flex justify-center items-center py-12">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
-    </template>
+
+      <!-- Error state -->
+      <div v-else-if="error" class="bg-red-50 border border-red-200 rounded-lg p-4">
+        <p class="text-red-800">{{ error }}</p>
+        <button @click="loadBlog" class="mt-2 text-red-600 hover:text-red-800 underline">
+          {{ $t('Dashboard.Blog.Edit.Retry') }}
+        </button>
+      </div>
+
+      <!-- Content -->
+      <template v-if="form.id">
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden dark:bg-gray-800">
+          <BlogInfo :model-value="form" :categories="categories" @update:model-value="updateForm"
+            @update="fetchCategories" />
+          <div class="bg-accent/30 px-6 py-4  border-y border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+            <h2 class="text-xl font-semibold text-primary dark:text-gray-100">Contenido del Artículo</h2>
+          </div>
+          <div class="p-4">
+            <Editor v-model="form.content" :id="form.id" />
+          </div>
+        </div>
+
+      </template>
+    </div>
   </section>
 </template>
 
@@ -51,7 +58,7 @@ import Editor from './partials/Editor.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { api } from '@/plugins/api';
-import type { Blog, BlogForm, Category, CategoryData } from './types';
+import type { Blog, BlogForm, Category } from './types';
 import type { ApiResponse } from '@/types/apiResponse';
 import { useAuthStore } from '@/stores/authStore';
 import { showNotification } from '@/components/composables/useNotification';
@@ -68,7 +75,7 @@ const props = defineProps<{
 
 const loading = ref(false);
 const error = ref('');
-const categories = ref<Category[] | null>(null)
+const categories = ref<Category[]>([])
 
 const form = reactive<BlogForm>({
   id: 0,
@@ -76,7 +83,8 @@ const form = reactive<BlogForm>({
   status: '',
   image: '',
   content: '',
-  category: 0
+  category: 0,
+  writer: ''
 });
 
 // Actualizar formulario (si BlogInfo emite cambios)
@@ -87,6 +95,8 @@ const updateForm = (updates: Partial<BlogForm>) => {
 const backToIndex = () => {
   router.push({ name: 'dashboard.blog' });
 };
+
+const initialForm = reactive<Partial<BlogForm>>({})
 
 const loadBlog = async () => {
   if (!props.id) {
@@ -107,6 +117,17 @@ const loadBlog = async () => {
       form.image = data.data.image;
       form.content = data.data.content;
       form.category = data.data.category;
+      form.writer = data.data.writer ?? '';
+
+      // Save initial state
+      Object.assign(initialForm, {
+        title: form.title,
+        status: form.status,
+        image: form.image,
+        content: form.content,
+        category: form.category,
+        writer: form.writer
+      })
     }
 
   } catch (error: any) {
@@ -118,34 +139,43 @@ const loadBlog = async () => {
 
 const fetchCategories = async () => {
   try {
-    const { data } = await api.get<ApiResponse<CategoryData>>('/api/blog/categories');
-    categories.value = data.data?.categories
+    const { data } = await api.get<ApiResponse<Category[]>>('/api/category');
+    categories.value = data.data
   } catch (error: any) {
     showNotification('error', t('Dashboard.Blog.Validations.Error.GetCategories'), 4000)
+    console.log('Category: ', error)
   }
 }
 
 const buildFormData = (): FormData => {
   const formData = new FormData()
 
-  formData.append('title', form.title)
-  formData.append('status', form.status)
+  if (form.title !== initialForm.title) formData.append('title', form.title)
+  if (form.status !== initialForm.status) formData.append('status', form.status)
 
   if (form.image instanceof File) {
     formData.append('image', form.image)
-  } else if (typeof form.image === 'string' && form.image.trim() !== '') {
+  } else if (typeof form.image === 'string' && form.image.trim() !== '' && form.image !== initialForm.image) {
+    // Only send image string if it changed (though usually we only send files on update)
+    // If it's a string, it's likely the URL, which backend might not need unless it's a new URL/path
+    // Assuming backend handles image update only if a file is sent usually.
+    // However keeping logic generic:
     formData.append('image', form.image)
   }
 
-  formData.append('content', form.content)
-  formData.append('category', String(form.category))
+  if (form.content !== initialForm.content) formData.append('content', form.content)
+
+  // Compare numbers carefully
+  if (Number(form.category) !== Number(initialForm.category)) formData.append('category', String(form.category))
+
+  if (form.writer !== initialForm.writer) formData.append('writer', form.writer)
 
   return formData
 }
 
 const saveChanges = async () => {
   if (!auth.can('update_blogs'))
-  loading.value = true;
+    loading.value = true;
   error.value = '';
 
   try {
@@ -159,6 +189,7 @@ const saveChanges = async () => {
     router.push({ name: 'dashboard.blog' });
   } catch (err: any) {
     showNotification('error', t('Dashboard.Blog.Validations.Error.Update'), 3000)
+    console.log('erro del update: ', err)
   } finally {
     loading.value = false;
   }
@@ -167,5 +198,6 @@ const saveChanges = async () => {
 onMounted(() => {
   loadBlog();
   fetchCategories();
+  console.log('asd: ', categories.value)
 });
 </script>
