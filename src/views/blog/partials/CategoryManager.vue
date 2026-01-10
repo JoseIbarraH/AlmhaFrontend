@@ -101,10 +101,6 @@
         <SecondaryButton @click="handleClose">
           Cerrar
         </SecondaryButton>
-        <PrimaryButton @click="handleConfirm"
-          class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium dark:bg-blue-500 dark:hover:bg-blue-600">
-          Guardar Cambios
-        </PrimaryButton>
       </div>
     </div>
   </Modal>
@@ -201,10 +197,6 @@ const deleteCategory = async (id: number) => {
   } catch (error) {
     console.log("Error al eliminar la categoria: ", error)
   }
-}
-
-const handleConfirm = () => {
-  emit('close')
 }
 
 </script>

@@ -112,11 +112,11 @@ const { isDark } = useDarkMode()
             {{ $t('Helper.Navbar.Design') }}
           </ResponsiveNavLink>
           <ResponsiveNavLink v-if="$can('view_teams')" :href="{ name: 'dashboard.team' }"
-            :active="current({ name: 'dashboard.team' })">
+            :active="current({ name: 'dashboard.team' }) || current({ name: 'dashboard.team.edit' })">
             {{ $t('Helper.Navbar.Team') }}
           </ResponsiveNavLink>
           <ResponsiveNavLink v-if="$can('view_blogs')" :href="{ name: 'dashboard.blog' }"
-            :active="current({ name: 'dashboard.blog' })">
+            :active="current({ name: 'dashboard.blog' }) || current({ name: 'dashboard.blog.edit' })">
             {{ $t('Helper.Navbar.Blog') }}
           </ResponsiveNavLink>
           <ResponsiveNavLink v-if="$can('view_procedures')" :href="{ name: 'dashboard.procedure' }"

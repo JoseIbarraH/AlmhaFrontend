@@ -55,8 +55,8 @@ import PrimaryButton from '@/components/ui/PrimaryButton.vue';
 import BackButton from '@/components/ui/BackButton.vue';
 import BlogInfo from './partials/BlogInfo.vue';
 import Editor from './partials/Editor.vue';
-import { onMounted, reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { onMounted, reactive, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { api } from '@/plugins/api';
 import type { Blog, BlogForm, Category } from './types';
 import type { ApiResponse } from '@/types/apiResponse';
@@ -66,6 +66,7 @@ import { useI18n } from 'vue-i18n';
 
 const auth = useAuthStore()
 const router = useRouter();
+const route = useRoute();
 const { t } = useI18n()
 
 const props = defineProps<{
@@ -195,9 +196,20 @@ const saveChanges = async () => {
   }
 };
 
-onMounted(() => {
-  loadBlog();
-  fetchCategories();
-  console.log('asd: ', categories.value)
-});
+let initialized = false;
+onMounted(async () => {
+  if (!initialized) {
+    fetchCategories()
+    loadBlog()
+    initialized = true;
+  }
+})
+
+watch(
+  () => route.params.locale,
+  () => {
+    loadBlog()
+    fetchCategories()
+  }
+)
 </script>
