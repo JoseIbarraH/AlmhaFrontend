@@ -19,9 +19,8 @@
       </div>
     </header>
 
-    <TabsRoot v-model="tab" class="space-y-6">
-      <TabsList
-        class="flex flex-wrap gap-2 rounded-xl bg-white p-1 w-full justify-center sm:justify-start lg:justify-center dark:bg-gray-800">
+    <TabsRoot v-model="tab" class="space-y-6 max-w-6xl mx-auto">
+      <TabsList class="flex flex-wrap gap-2 rounded-xl bg-white p-1 w-full justify-center sm:justify-start lg:justify-center dark:bg-gray-800">
         <TabsTrigger value="basic" class="
           px-3 py-2 text-xs sm:text-sm font-medium transition
           border-b-2 border-transparent
