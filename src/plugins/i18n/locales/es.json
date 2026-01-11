@@ -136,8 +136,10 @@
         "Category": "Categoria",
         "Default": "Categorias",
         "Writer": "Escritor",
+        "WriterPlaceholder": "Ej: Jhon Doe",
         "Image": "Imagen Principal",
-        "Placeholder": "Escribe o pega tu contenido aqui!"
+        "Placeholder": "Escribe o pega tu contenido aqui!",
+        "NoOptions": "No se encontraron resultado!"
       },
       "Validations": {
         "Success": {
@@ -266,6 +268,8 @@
           "InputTitlePlaceholder": "Ej: Rinoplastia",
           "InputSubtitle": "Subtitulo",
           "InputSubtitlePlaceholder": "Ej: Cirugía de remodelación nasal",
+          "InputCategory": "Categoría",
+          "InputCategoryPlaceholder": "Ej: Facial",
           "ImageTitle": "Imagen Principal (Hero)",
           "ChangeImage": "Cambiar imagen",
           "UploadImage": "Subir imagen",
@@ -385,7 +389,8 @@
           "Delete": "Error al eliminar el procedimiento.",
           "Create": "Error al crear el procedimiento.",
           "Update": "Error al actualizar el procedimiento.",
-          "GetData": "Error al obtener los datos"
+          "GetData": "Error al obtener los datos",
+          "GetCategories": "Error al obtener las categorias"
         }
       }
     },

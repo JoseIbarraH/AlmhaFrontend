@@ -256,6 +256,8 @@
           "InputTitlePlaceholder": "E.g.: Rhinoplasty",
           "InputSubtitle": "Subtitle",
           "InputSubtitlePlaceholder": "E.g.: Nasal reshaping surgery",
+          "InputCategory": "Category",
+          "InputCategoryPlaceholder": "E.g.: Facial",
           "ImageTitle": "Main Image (Hero)",
           "ChangeImage": "Change image",
           "UploadImage": "Upload image",

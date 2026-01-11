@@ -157,7 +157,7 @@ const addCategory = async () => {
   formData.append('title', form.title)
 
   try {
-    await api.post('/api/blog-category', formData)
+    await api.post('/api/procedure-category', formData)
     console.log('Categoria creada con exito')
     emit('update')
   } catch (error) {
@@ -171,7 +171,7 @@ const saveEdit = async (id: number) => {
   if (!formEdit.titleEdit.trim()) return
 
   try {
-    await api.put(`/api/blog-category/${id}`, { title: formEdit.titleEdit })
+    await api.put(`/api/procedure-category/${id}`, { title: formEdit.titleEdit })
     emit('update')
     cancelEdit()
   } catch (error) {
@@ -192,7 +192,7 @@ const cancelEdit = () => {
 
 const deleteCategory = async (id: number) => {
   try {
-    await api.delete(`/api/blog-category/${id}`)
+    await api.delete(`/api/procedure-category/${id}`)
     emit('update')
   } catch (error) {
     console.log("Error al eliminar la categoria: ", error)

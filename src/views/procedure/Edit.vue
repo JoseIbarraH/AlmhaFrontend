@@ -115,7 +115,7 @@
         </TabsList>
 
         <TabsContent value="basic" forceMount>
-          <BasicInfo :modelValue="form" @update:modelValue="handleFormUpdate" />
+          <BasicInfo :modelValue="form" @update:modelValue="handleFormUpdate" :categories="categories" @update="fetchCategories" />
         </TabsContent>
 
         <TabsContent value="preparation" forceMount>
@@ -153,7 +153,7 @@ import {
 import { ref, reactive, onMounted, watch } from 'vue'
 import FormSkeleton from './partials/FormSkeleton.vue';
 import BasicInfo from './partials/BasicInfo.vue';
-import type { ProcedureBackend, ProcedureFrontend } from './types';
+import type { Category, ProcedureBackend, ProcedureFrontend } from './types';
 import { useRoute, useRouter } from 'vue-router';
 import BackButton from '@/components/ui/BackButton.vue';
 import PrimaryButton from '@/components/ui/PrimaryButton.vue';
@@ -166,6 +166,7 @@ import Gallery from './partials/Gallery.vue';
 import { useAuthStore } from '@/stores/authStore';
 import { showNotification } from '@/components/composables/useNotification';
 import { useI18n } from 'vue-i18n';
+import type { ApiResponse } from '@/types/apiResponse';
 
 const auth = useAuthStore()
 const router = useRouter()
@@ -184,6 +185,8 @@ const initialGallery = ref<any[]>([])
 
 const procedureResponse = ref<ProcedureBackend>()
 
+const categories = ref<Category[]>([])
+
 const props = defineProps<{
   id?: string,
   locale?: string
@@ -194,6 +197,7 @@ const getInitialFormState = (): ProcedureFrontend => ({
   status: 'inactive',
   title: '',
   subtitle: '',
+  category: 0,
   image: null,
   section: [
     { type: 'what_is', image: null, title: '', contentOne: '', contentTwo: '' },
@@ -215,6 +219,7 @@ const initialForm = reactive<ProcedureFrontend>(getInitialFormState())
 const handleFormUpdate = (updatedForm: ProcedureFrontend) => {
   form.title = updatedForm.title
   form.subtitle = updatedForm.subtitle
+  form.category = updatedForm.category
   form.status = updatedForm.status
   form.image = updatedForm.image ?? form.image
 
@@ -256,6 +261,10 @@ const buildFormData = (): FormData => {
 
   if (form.subtitle !== initialForm.subtitle) {
     formData.append('subtitle', form.subtitle)
+  }
+
+  if (form.category !== initialForm.category && form.category) {
+    formData.append('category', String(form.category))
   }
 
   if (form.status !== initialForm.status) {
@@ -509,6 +518,7 @@ const editingForm = () => {
   // Campos simples
   form.title = p.title
   form.subtitle = p.subtitle
+  form.category = p.category ?? 0
   form.status = p.status
   form.image = p.image
 
@@ -519,8 +529,8 @@ const editingForm = () => {
     contentOne: section.contentOne,
     contentTwo: section.contentTwo,
 
-    image: section.image,                // File futuro
-    imageUrl: null // URL backend
+    image: section.image,
+    imageUrl: null 
   }))
 
   // preStep
@@ -613,10 +623,20 @@ const fetchProcedure = async () => {
   }
 }
 
+const fetchCategories = async () => {
+  try {
+    const { data } = await api.get<ApiResponse<Category[]>>('/api/procedure-category');
+    categories.value = data.data
+  } catch (error: any) {
+    showNotification('error', t('Dashboard.Procedure.Validations.Error.GetCategories'), 4000)
+  }
+}
+
 let initialized = false;
 onMounted(async () => {
   if (!initialized) {
     fetchProcedure()
+    fetchCategories()
     initialized = true;
   }
 })
@@ -625,6 +645,7 @@ watch(
   () => route.params.locale,
   () => {
     fetchProcedure()
+    fetchCategories()
   }
 )
 </script>

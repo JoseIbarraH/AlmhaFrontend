@@ -165,7 +165,6 @@ const syncFormInitial = (settings: Settings) => {
 const saveChanges = async () => {
   if (!hasChanged.value) return;
   if (!auth.can('page_settings')) return
-
   try {
     await api.put('api/settings', form);
 

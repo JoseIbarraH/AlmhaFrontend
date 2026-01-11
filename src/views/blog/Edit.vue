@@ -141,11 +141,10 @@ const loadBlog = async () => {
 
 const fetchCategories = async () => {
   try {
-    const { data } = await api.get<ApiResponse<Category[]>>('/api/category');
+    const { data } = await api.get<ApiResponse<Category[]>>('/api/blog-category');
     categories.value = data.data
   } catch (error: any) {
     showNotification('error', t('Dashboard.Blog.Validations.Error.GetCategories'), 4000)
-    console.log('Category: ', error)
   }
 }
 
