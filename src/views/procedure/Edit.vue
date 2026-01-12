@@ -115,7 +115,8 @@
         </TabsList>
 
         <TabsContent value="basic" forceMount>
-          <BasicInfo :modelValue="form" @update:modelValue="handleFormUpdate" :categories="categories" @update="fetchCategories" />
+          <BasicInfo :modelValue="form" @update:modelValue="handleFormUpdate" :categories="categories"
+            @update="fetchCategories" />
         </TabsContent>
 
         <TabsContent value="preparation" forceMount>
@@ -197,7 +198,7 @@ const getInitialFormState = (): ProcedureFrontend => ({
   status: 'inactive',
   title: '',
   subtitle: '',
-  category: 0,
+  category: '',
   image: null,
   section: [
     { type: 'what_is', image: null, title: '', contentOne: '', contentTwo: '' },
@@ -518,7 +519,7 @@ const editingForm = () => {
   // Campos simples
   form.title = p.title
   form.subtitle = p.subtitle
-  form.category = p.category ?? 0
+  form.category = p.category ?? ''
   form.status = p.status
   form.image = p.image
 
@@ -530,7 +531,7 @@ const editingForm = () => {
     contentTwo: section.contentTwo,
 
     image: section.image,
-    imageUrl: null 
+    imageUrl: null
   }))
 
   // preStep

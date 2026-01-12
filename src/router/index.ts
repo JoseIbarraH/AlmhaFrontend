@@ -252,6 +252,7 @@ const routes: RouteRecordRaw[] = [
                 component: SettingPage,
                 meta: {
                   title: 'Setting-Page',
+                  permission: "page_settings"
                 }
               },
               {

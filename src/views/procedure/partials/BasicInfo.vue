@@ -17,7 +17,7 @@
         <TextInput id="subtitle" v-model="model.subtitle"
           :placeholder="$t('Dashboard.Procedure.Edit.BasicInfo.InputSubtitlePlaceholder')" />
       </div>
-<!--       <div>
+      <!--       <div>
         <InputLabel for="category" :value="$t('Dashboard.Procedure.Edit.BasicInfo.InputCategory')"
           class="text-[17px] mb-2" />
         <Multiselect v-model="selectedCategory" :options="categoryOptions" :searchable="true" :close-on-select="true"
@@ -26,11 +26,11 @@
           <template #noResult>
             <span>{{ $t('Dashboard.Blog.Edit.NoResults') }}</span>
           </template>
-          <template #noOptions>
+<template #noOptions>
             <span>{{ $t('Dashboard.Blog.Edit.NoOptions') }}</span>
           </template>
-        </MultiSelect>
-      </div> -->
+</MultiSelect>
+</div> -->
       <div class="flex items-end gap-3">
         <div class="flex-1">
           <InputLabel for="category" class="mb-1" :value="$t('Dashboard.Procedure.Edit.BasicInfo.InputCategory')" />
@@ -137,7 +137,7 @@ const handleCategoryModal = () => {
 
 const categoryOptions = computed(() => {
   return props.categories?.map(cat => ({
-    value: cat.id,
+    value: cat.code,
     label: cat.title
   })) ?? []
 })

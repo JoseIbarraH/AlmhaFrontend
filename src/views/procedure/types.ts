@@ -14,7 +14,7 @@ export interface ProcedureBackend {
   subtitle: string
   slug: string
   image: string | null
-  category: number | null
+  category: string | null
 
   // Arrays simples como llegan del backend
   section?: SectionBackend[]
@@ -80,7 +80,7 @@ export interface ProcedureFrontend {
   status: string
   title: string
   subtitle: string
-  category: number
+  category: string
   image: File | string | null
 
   section: {

@@ -14,7 +14,7 @@ export interface BlogForm {
   title: string
   image: string | File | null
   writer: string
-  category: number
+  category: string
   content: string
   status: string
 }
@@ -23,7 +23,7 @@ export interface Blog {
   id: number
   title: string
   image: string | File | null
-  category: number
+  category: string
   content: string
   status: string
   writer: string

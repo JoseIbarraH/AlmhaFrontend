@@ -39,7 +39,8 @@
       <!-- Escritor -->
       <div>
         <InputLabel for="writer" class="mb-1" :value="$t('Dashboard.Blog.Edit.Writer')" />
-        <TextInput id="writer" type="text" v-model="model.writer" :placeholder="$t('Dashboard.Blog.Edit.WriterPlaceholder')"/>
+        <TextInput id="writer" type="text" v-model="model.writer"
+          :placeholder="$t('Dashboard.Blog.Edit.WriterPlaceholder')" />
       </div>
     </div>
 
@@ -95,10 +96,8 @@ const handleCategoryModal = () => {
 
 const categoryOptions = computed(() => {
   return props.categories?.map(cat => ({
-    value: cat.id,
+    value: cat.code,
     label: cat.title
   })) ?? []
 })
 </script>
-
-
