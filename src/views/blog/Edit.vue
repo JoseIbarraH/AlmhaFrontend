@@ -85,7 +85,7 @@ const form = reactive<BlogForm>({
   status: '',
   image: '',
   content: '',
-  category: 0,
+  category: '',
   writer: ''
 });
 
