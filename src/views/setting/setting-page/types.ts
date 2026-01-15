@@ -16,6 +16,7 @@ export interface Social {
   social_linkedin: string;
   social_threads: string;
   social_twitter: string;
+  social_tiktok: string;
 }
 
 export interface System {

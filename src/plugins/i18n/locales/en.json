@@ -127,7 +127,28 @@
         "Category": "Category",
         "Default": "Categories",
         "Writer": "Writer",
-        "Image": "Main Image"
+        "Image": "Main Image",
+        "Placeholder": "Write or paste your content here!",
+        "NoOptions": "No results found!",
+        "CategoryData": {
+          "Title": "Category Management",
+          "New": {
+            "Title": "New Category",
+            "Input": "Category name",
+            "Add": "Add"
+          },
+          "List": {
+            "Title": "Existing Categories",
+            "Search": "Search...",
+            "NotFound": "No categories found.",
+            "Empty": "There are no categories. Add one to get started.",
+            "TitleSave": "Save",
+            "TitleEdit": "Edit",
+            "TitleCancel": "Cancel",
+            "TitleDelete": "Delete",
+            "CloseButton": "Close"
+          }
+        }
       },
       "Validations": {
         "Success": {
@@ -340,6 +361,25 @@
           "DragTitle": "Image",
           "New": "New",
           "AddStep": "Add Result"
+        },
+        "Category": {
+          "Title": "Category Management",
+          "New": {
+            "Title": "New Category",
+            "Input": "Category name",
+            "Add": "Add"
+          },
+          "List": {
+            "Title": "Existing Categories",
+            "Search": "Search...",
+            "NoFound": "No categories found.",
+            "Empty": "There are no categories. Add one to get started.",
+            "TitleSave": "Save",
+            "TitleEdit": "Edit",
+            "TitleCancel": "Cancel",
+            "TitleDelete": "Delete",
+            "CloseButton": "Close"
+          }
         }
       },
       "List": {
@@ -697,7 +737,8 @@
           "Instagram": "Instagram",
           "Twitter": "Twitter / X",
           "LinkedIn": "LinkedIn",
-          "Threads": "Threads"
+          "Threads": "Threads",
+          "Tiktok": "Tiktok"
         },
         "Maintenance": {
           "Title": "Maintenance",

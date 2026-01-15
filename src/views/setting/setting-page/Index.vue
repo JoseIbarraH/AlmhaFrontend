@@ -68,7 +68,8 @@ const form = reactive<{
     social_instagram: '',
     social_linkedin: '',
     social_threads: '',
-    social_twitter: ''
+    social_twitter: '',
+    social_tiktok: ''
   },
   system: {
     is_maintenance_mode: false
@@ -90,7 +91,8 @@ const formInitial = reactive<{
     social_instagram: '',
     social_linkedin: '',
     social_threads: '',
-    social_twitter: ''
+    social_twitter: '',
+    social_tiktok: ''
   },
   system: {
     is_maintenance_mode: false
@@ -131,6 +133,7 @@ const syncForm = (settings: Settings) => {
     form.social.social_linkedin = settings.social.social_linkedin ?? '';
     form.social.social_threads = settings.social.social_threads ?? '';
     form.social.social_twitter = settings.social.social_twitter ?? '';
+    form.social.social_tiktok = settings.social.social_tiktok ?? '';
   }
 
   // SYSTEM / MAINTENANCE
@@ -154,6 +157,7 @@ const syncFormInitial = (settings: Settings) => {
     formInitial.social.social_linkedin = settings.social.social_linkedin ?? '';
     formInitial.social.social_threads = settings.social.social_threads ?? '';
     formInitial.social.social_twitter = settings.social.social_twitter ?? '';
+    formInitial.social.social_tiktok = settings.social.social_tiktok ?? '';
   }
 
   // SYSTEM / MAINTENANCE

@@ -139,7 +139,26 @@
         "WriterPlaceholder": "Ej: Jhon Doe",
         "Image": "Imagen Principal",
         "Placeholder": "Escribe o pega tu contenido aqui!",
-        "NoOptions": "No se encontraron resultado!"
+        "NoOptions": "No se encontraron resultado!",
+        "CategoryData": {
+          "Title": "Gestión de Categorías",
+          "New": {
+            "Title": "Nueva Categoría",
+            "Input": "Nombre de la categoría",
+            "Add": "Agregar"
+          },
+          "List": {
+            "Title": "Categorías Existentes",
+            "Search": "Buscar...",
+            "NoFound": "No se encontraron categorías.",
+            "Empty": "No hay categorías. Agrega una para comenzar.",
+            "TitleSave": "Guardar",
+            "TitleEdit": "Editar",
+            "TitleCancel": "Cancelar",
+            "TitleDelete": "Eliminar",
+            "CloseButton": "Cerrar"
+          }
+        }
       },
       "Validations": {
         "Success": {
@@ -352,6 +371,25 @@
           "DragTitle": "Imagen",
           "New": "Nuevo",
           "AddStep": "Agregar Resultado"
+        },
+        "Category": {
+          "Title": "Gestión de Categorías",
+          "New": {
+            "Title": "Nueva Categoría",
+            "Input": "Nombre de la categoría",
+            "Add": "Agregar"
+          },
+          "List": {
+            "Title": "Categorías Existentes",
+            "Search": "Buscar...",
+            "NotFound": "No se encontraron categorías.",
+            "Empty": "No hay categorías. Agrega una para comenzar.",
+            "TitleSave": "Guardar",
+            "TitleEdit": "Editar",
+            "TitleCancel": "Cancelar",
+            "TitleDelete": "Eliminar",
+            "CloseButton": "Cerrar"
+          }
         }
       },
       "List": {
@@ -660,7 +698,8 @@
           "Instagram": "Instagram",
           "Twitter": "Twitter / X",
           "LinkedIn": "LinkedIn",
-          "Threads": "Threads"
+          "Threads": "Threads",
+          "Tiktok": "Tiktok"
         },
         "Maintenance": {
           "Title": "Mantenimiento",
