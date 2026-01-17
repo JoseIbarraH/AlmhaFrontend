@@ -8,6 +8,14 @@ export interface Contact {
   contact_email: string;
   contact_location: string;
   contact_phone: string;
+  whatsapp?: WhatsApp;
+}
+
+export interface WhatsApp {
+  phone: string;
+  default_message: string;
+  is_active: boolean;
+  open_in_new_tab: boolean;
 }
 
 export interface Social {

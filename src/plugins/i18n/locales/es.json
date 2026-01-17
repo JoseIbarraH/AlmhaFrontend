@@ -694,7 +694,15 @@
           "Subtitle": "Información de contacto para tus visitantes",
           "Phone": "Teléfono",
           "Email": "Correo electrónico",
-          "Location": "Ubicación"
+          "Location": "Ubicación",
+          "WhatsApp": {
+            "Title": "WhatsApp",
+            "Subtitle": "Configuración del botón de contacto flotante",
+            "Phone": "Número de WhatsApp",
+            "Message": "Mensaje Predeterminado",
+            "IsActive": "Mostrar botón de WhatsApp",
+            "OpenInNewTab": "Abrir en nueva pestaña"
+          }
         },
         "SocialMedia": {
           "Title": "Redes Sociales",

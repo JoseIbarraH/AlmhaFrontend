@@ -61,7 +61,13 @@ const form = reactive<{
   contact: {
     contact_phone: '',
     contact_email: '',
-    contact_location: ''
+    contact_location: '',
+    whatsapp: {
+      phone: '',
+      default_message: '',
+      is_active: true,
+      open_in_new_tab: true
+    }
   },
   social: {
     social_facebook: '',
@@ -84,7 +90,13 @@ const formInitial = reactive<{
   contact: {
     contact_phone: '',
     contact_email: '',
-    contact_location: ''
+    contact_location: '',
+    whatsapp: {
+      phone: '',
+      default_message: '',
+      is_active: true,
+      open_in_new_tab: true
+    }
   },
   social: {
     social_facebook: '',
@@ -124,6 +136,9 @@ const syncForm = (settings: Settings) => {
     form.contact.contact_phone = settings.contact.contact_phone ?? '';
     form.contact.contact_email = settings.contact.contact_email ?? '';
     form.contact.contact_location = settings.contact.contact_location ?? '';
+    if (settings.contact.whatsapp) {
+      form.contact.whatsapp = { ...settings.contact.whatsapp };
+    }
   }
 
   // SOCIAL MEDIA
@@ -148,6 +163,9 @@ const syncFormInitial = (settings: Settings) => {
     formInitial.contact.contact_phone = settings.contact.contact_phone ?? '';
     formInitial.contact.contact_email = settings.contact.contact_email ?? '';
     formInitial.contact.contact_location = settings.contact.contact_location ?? '';
+    if (settings.contact.whatsapp) {
+      formInitial.contact.whatsapp = { ...settings.contact.whatsapp };
+    }
   }
 
   // SOCIAL MEDIA

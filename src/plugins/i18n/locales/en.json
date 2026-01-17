@@ -733,7 +733,15 @@
           "Subtitle": "Contact information for your visitors",
           "Phone": "Phone",
           "Email": "Email",
-          "Location": "Location"
+          "Location": "Location",
+          "WhatsApp": {
+            "Title": "WhatsApp",
+            "Subtitle": "Floating contact button configuration",
+            "Phone": "WhatsApp Number",
+            "Message": "Default Message",
+            "IsActive": "Show WhatsApp button",
+            "OpenInNewTab": "Open in new tab"
+          }
         },
         "SocialMedia": {
           "Title": "Social Media",
