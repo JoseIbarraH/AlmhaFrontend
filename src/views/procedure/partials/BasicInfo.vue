@@ -88,7 +88,7 @@
 
   <Section sectionKey="what_is" :title="$t('Dashboard.Procedure.Edit.BasicInfo.Section.Title')"
     :subtitle="$t('Dashboard.Procedure.Edit.BasicInfo.Section.Subtitle')" :modelValue="model.section[0]"
-    @update:model="updateSection(0, $event)"
+    @update:modelValue="updateSection(0, $event)"
     :placeholderTitle="$t('Dashboard.Procedure.Edit.BasicInfo.Section.TitlePlaceholder')"
     :placeholderContentOne="$t('Dashboard.Procedure.Edit.BasicInfo.Section.ContentOnePlaceholder')"
     :placeholderContentTwo="$t('Dashboard.Procedure.Edit.BasicInfo.Section.ContentTwoPlaceholder')"

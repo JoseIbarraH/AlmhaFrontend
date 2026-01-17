@@ -1,5 +1,6 @@
 <template>
-  <div class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-10 bg-white dark:bg-gray-800 dark:border-gray-900 mb-6">
+  <div
+    class="flex flex-col p-6 border rounded-xl border-gray-300 shadow space-y-10 bg-white dark:bg-gray-800 dark:border-gray-900 mb-6">
     <!-- Header -->
     <div class="space-y-2">
       <h1 class="text-xl font-bold dark:text-gray-100">{{ $t('Dashboard.Procedure.Edit.Preparation.Title') }}</h1>
@@ -10,7 +11,8 @@
     <draggable v-model="localPreStep" item-key="tempId" handle=".drag-handle" @end="updateOrder"
       class="space-y-4 max-h-[500px] overflow-y-scroll">
       <template #item="{ element, index }">
-        <div class="relative flex flex-col p-6 border-3 rounded-xl border-gray-300 shadow space-y-4 bg-white dark:bg-gray-800 dark:border-gray-900">
+        <div
+          class="relative flex flex-col p-6 border-3 rounded-xl border-gray-300 shadow space-y-4 bg-white dark:bg-gray-800 dark:border-gray-900">
 
           <!-- Drag Handle -->
           <div class="drag-handle cursor-move text-sm text-gray-500 flex items-center gap-2 dark:text-gray-100">
@@ -24,13 +26,16 @@
           <!-- Título -->
           <div>
             <InputLabel :value="$t('Dashboard.Procedure.Edit.Preparation.InputTitle')" />
-            <TextInput v-model="element.title" :placeholder="$t('Dashboard.Procedure.Edit.Preparation.InputTitlePlaceholder')" @input="handleEdit(element)" />
+            <TextInput v-model="element.title"
+              :placeholder="$t('Dashboard.Procedure.Edit.Preparation.InputTitlePlaceholder')"
+              @input="handleEdit(element)" />
           </div>
 
           <!-- Descripción -->
           <div>
             <InputLabel :value="$t('Dashboard.Procedure.Edit.Preparation.InputDescription')" />
-            <TextInput v-model="element.description" :placeholder="$t('Dashboard.Procedure.Edit.Preparation.InputDescriptionPlaceholder')"
+            <TextInput v-model="element.description"
+              :placeholder="$t('Dashboard.Procedure.Edit.Preparation.InputDescriptionPlaceholder')"
               @input="handleEdit(element)" />
           </div>
 
@@ -44,9 +49,16 @@
     <button @click="addPreStep"
       class="flex justify-center items-center gap-2 p-2 hover:bg-gray-300 border rounded-lg border-gray-300 w-full transition dark:text-gray-100 dark:hover:text-gray-800">
       <LucidePlus class="w-4 h-4" />
-      {{$t('Dashboard.Procedure.Edit.Preparation.AddStep')}}
+      {{ $t('Dashboard.Procedure.Edit.Preparation.AddStep') }}
     </button>
   </div>
+
+  <!-- Section Technique -->
+  <Section sectionKey="technique" :title="$t('Dashboard.Procedure.Edit.Preparation.Technique.Title')"
+    :subtitle="$t('Dashboard.Procedure.Edit.Preparation.Technique.Subtitle')" :modelValue="modelValue.section[1]"
+    @update:modelValue="updateSection(1, $event)"
+    :placeholderTitle="$t('Dashboard.Procedure.Edit.Preparation.Technique.TitlePlaceholder')" :allowImage="true" />
+
 </template>
 
 <script setup lang="ts">
@@ -57,6 +69,7 @@ import InputLabel from '@/components/ui/InputLabel.vue'
 import CloseButton from '@/components/ui/CloseButton.vue'
 import { LucidePlus } from 'lucide-vue-next'
 import type { ProcedureFrontend, PreStepBackend } from '../types'
+import Section from './Section.vue'
 
 interface PreStep extends PreStepBackend {
   tempId?: string
@@ -116,6 +129,16 @@ watch(
   },
   { immediate: true }
 )
+
+const updateSection = (index: number, section: any) => {
+  const newSections = [...modelValue.value.section]
+  newSections[index] = section
+
+  modelValue.value = {
+    ...modelValue.value,
+    section: newSections
+  }
+}
 
 function addPreStep() {
   const newStep: PreStep = {

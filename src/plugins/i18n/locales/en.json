@@ -309,7 +309,12 @@
           "InputTitlePlaceholder": "E.g.: Medical Consultation",
           "InputDescription": "Description",
           "InputDescriptionPlaceholder": "Step description...",
-          "AddStep": "Add Step"
+          "AddStep": "Add Step",
+          "Technique": {
+            "Title": "Surgical Technique",
+            "Subtitle": "Describe the technique used in the procedure",
+            "TitlePlaceholder": "E.g.: Open Technique"
+          }
         },
         "Recovery": {
           "Title": "Recovery",

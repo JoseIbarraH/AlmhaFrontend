@@ -523,16 +523,28 @@ const editingForm = () => {
   form.status = p.status
   form.image = p.image
 
-  form.section = (p.section ?? []).map(section => ({
-    id: section.id,
-    type: section.type,
-    title: section.title,
-    contentOne: section.contentOne,
-    contentTwo: section.contentTwo,
-
-    image: section.image,
-    imageUrl: null
-  }))
+  const sectionTypes = ['what_is', 'technique', 'recovery'] as const;
+  form.section = sectionTypes.map(type => {
+    const found = (p.section ?? []).find(s => s.type === type);
+    if (found) {
+      return {
+        id: found.id,
+        type: found.type,
+        title: found.title,
+        contentOne: found.contentOne,
+        contentTwo: found.contentTwo,
+        image: found.image,
+        imageUrl: null
+      };
+    }
+    return {
+      type: type,
+      image: null,
+      title: '',
+      contentOne: '',
+      contentTwo: ''
+    };
+  });
 
   // preStep
   form.preStep = {
@@ -614,6 +626,8 @@ const fetchProcedure = async () => {
     const { data } = await api.get(`/api/procedure/${props.id}`);
 
     procedureResponse.value = data.data;
+
+    console.log('procedimiento: ', procedureResponse.value)
     if (data) {
       editingForm()
     }

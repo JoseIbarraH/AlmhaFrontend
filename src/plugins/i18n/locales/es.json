@@ -319,7 +319,12 @@
           "InputTitlePlaceholder": "Ej: Consulta Médica",
           "InputDescription": "Descripción",
           "InputDescriptionPlaceholder": "Descripción del paso...",
-          "AddStep": "Agregar Paso"
+          "AddStep": "Agregar Paso",
+          "Technique": {
+            "Title": "Técnica Quirúrgica",
+            "Subtitle": "Describe la técnica utilizada en el procedimiento",
+            "TitlePlaceholder": "Ej: Técnica Abierta"
+          }
         },
         "Recovery": {
           "Title": "Recuperación",

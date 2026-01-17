@@ -62,8 +62,8 @@
   </div>
 
   <Section sectionKey="recovery" :title="$t('Dashboard.Procedure.Edit.Recovery.Title')"
-    :subtitle="$t('Dashboard.Procedure.Edit.Recovery.Subtitle')" :modelValue="modelValue.section[1]"
-    @update:modelValue="updateSection(1, $event)"
+    :subtitle="$t('Dashboard.Procedure.Edit.Recovery.Subtitle')" :modelValue="modelValue.section[2]"
+    @update:modelValue="updateSection(2, $event)"
     :placeholderTitle="$t('Dashboard.Procedure.Edit.Recovery.InputTitlePlaceholder')" :allowImage="true" />
 </template>
 
