@@ -73,7 +73,7 @@
                 placeholder="Hola, quiero información..."
                 class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition dark:bg-gray-900 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-500" />
               <InputLabel class="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-200"
-              :value="$t('Dashboard.Setting.SettingPage.Communication.WhatsApp.MessageOption')" />
+                :value="$t('Dashboard.Setting.SettingPage.Communication.WhatsApp.MessageOption')" />
             </div>
           </div>
 
