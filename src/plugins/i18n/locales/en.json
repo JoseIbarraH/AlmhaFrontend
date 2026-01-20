@@ -739,7 +739,7 @@
             "Subtitle": "Floating contact button configuration",
             "Phone": "WhatsApp Number",
             "Message": "Default Message",
-            "MessageOption": "use {{procedure}} where you want the procedure name to appear",
+            "MessageOption": "use {'{{procedure}}'} where you want the procedure name to appear",
             "IsActive": "Show WhatsApp button",
             "OpenInNewTab": "Open in new tab"
           }
