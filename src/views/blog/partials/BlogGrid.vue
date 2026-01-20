@@ -173,6 +173,8 @@ const handleToggleStatus = async (data: Data) => {
 
   const newStatus = data.status === 'active' ? 'inactive' : 'active';
   const original = data.status
+
+  console.log(newStatus)
   try {
     await api.post(`/api/blog/update_status/${data.id}`, { status: newStatus });
     data.status = newStatus;

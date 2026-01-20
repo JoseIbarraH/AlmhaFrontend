@@ -700,6 +700,7 @@
             "Subtitle": "Configuración del botón de contacto flotante",
             "Phone": "Número de WhatsApp",
             "Message": "Mensaje Predeterminado",
+            "MessageOption": "usa {{procedure}} donde quieras que vaya el nombre de un procedimiento",
             "IsActive": "Mostrar botón de WhatsApp",
             "OpenInNewTab": "Abrir en nueva pestaña"
           }
