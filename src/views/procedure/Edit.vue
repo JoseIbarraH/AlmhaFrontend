@@ -499,9 +499,10 @@ const saveChanges = async () => {
     })
 
     loading.value = false
-    router.push({ name: 'dashboard.procedure' })
+    showNotification('success', t('Dashboard.Procedure.Validations.Success.Update'), 3000)
   } catch (error) {
     console.error('❌ Error guardando:', error)
+    showNotification('error', t('Dashboard.Procedure.Validations.Error.Update'), 3000)
   } finally {
     loading.value = false
   }

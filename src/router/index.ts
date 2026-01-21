@@ -22,7 +22,7 @@ import SettingUser from "@/views/setting/user/Index.vue"
 import SettingRole from "@/views/setting/role/Index.vue"
 import SettingAudit from "@/views/setting/audit/Index.vue"
 import SettingTrash from "@/views/setting/trash/Index.vue"
-import SettingPage from  "@/views/setting/setting-page/Index.vue"
+import SettingPage from "@/views/setting/setting-page/Index.vue"
 
 import AuthLogin from "@/views/auth/Login.vue"
 import { useAuthStore } from '@/stores/authStore'
@@ -171,7 +171,9 @@ const routes: RouteRecordRaw[] = [
             name: "dashboard.procedure",
             component: DashboardProcedure,
             meta: {
-              title: "Procedure"
+              title: "Procedure",
+              requiresAuth: true,
+              permission: "view_procedures"
             }
           },
           {
@@ -182,7 +184,7 @@ const routes: RouteRecordRaw[] = [
             meta: {
               title: "Edit Procedure",
               requiresAuth: true,
-              permission: "view_teams"
+              permission: "update_procedures"
             }
           },
           {
