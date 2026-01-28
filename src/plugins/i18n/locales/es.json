@@ -123,6 +123,7 @@
         "Edit": "Editar",
         "Activate": "Activar",
         "Deactivate": "Desactivar",
+        "Publish": "Publicar con notificación",
         "NoResults": "No hay resultados",
         "Search": "Buscar por título",
         "AdjustingSearch": "Intenta ajustar tu búsqueda."
@@ -165,7 +166,8 @@
           "Status": "Estado actualizado correctamente.",
           "Create": "Blog creado con exito.",
           "Update": "Blog actualizado con exito.",
-          "Delete": "Blog eliminado correctamente"
+          "Delete": "Blog eliminado correctamente",
+          "Published": "Blog publicado y notificado correctamente."
         },
         "Error": {
           "GetData": "Error al obtener los datos.",
@@ -173,6 +175,7 @@
           "Status": "Error al actualizar el estado.",
           "Create": "Error al crear el blog en blanco.",
           "Update": "Error al actualizar el blog.",
+          "Publish": "Error al publicar el blog.",
           "Delete": "Error al eliminar el blog.",
           "IdNotFound": "ID del blog no proporcionado.",
           "BlogNotFound": "ID del blog no proporcionado."

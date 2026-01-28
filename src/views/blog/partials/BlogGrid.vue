@@ -59,6 +59,13 @@
           {{ $t('Dashboard.Blog.List.Edit') }}
         </button>
 
+        <button v-if="!value.published_at" @click="handlePublish(value.id)" :disabled="!$can('update_blogs')"
+          class="flex-1 px-4 py-2 text-sm font-medium text-purple-700 bg-purple-50 border border-purple-200 rounded-md hover:bg-purple-100 transition-colors duration-200
+                 dark:text-purple-300 dark:bg-purple-900/50 dark:border-purple-800 dark:hover:bg-purple-900 flex items-center justify-center gap-2">
+          <LucideSend class="w-4 h-4" />
+          {{ $t('Dashboard.Blog.List.Publish') }}
+        </button>
+
         <button :class="[
           'flex-1 px-4 py-2 text-sm font-medium border rounded-md transition-colors duration-200',
           value.status === 'active'
@@ -85,21 +92,14 @@
     <p class="text-gray-500 dark:text-gray-400">{{ $t('Dashboard.Blog.List.AdjustingSearch') }}</p>
   </div>
 
-  <ConfirmDeleteModal
-    :show="isOpen"
-    :title="$t('Dashboard.Blog.Delete.ConfirmTitle')"
-    :subtitle="$t('Dashboard.Blog.Delete.ConfirmSubtitle')"
-    :message="$t('Dashboard.Blog.Delete.ConfirmDelete')"
-    :itemName="blogToDelete?.title"
-    :cancel-text="$t('Dashboard.Blog.Delete.Cancel')"
-    :confirm-text="$t('Dashboard.Blog.Delete.Delete')"
-    @close="closeModal"
-    @confirm="confirmDelete"
-  />
+  <ConfirmDeleteModal :show="isOpen" :title="$t('Dashboard.Blog.Delete.ConfirmTitle')"
+    :subtitle="$t('Dashboard.Blog.Delete.ConfirmSubtitle')" :message="$t('Dashboard.Blog.Delete.ConfirmDelete')"
+    :itemName="blogToDelete?.title" :cancel-text="$t('Dashboard.Blog.Delete.Cancel')"
+    :confirm-text="$t('Dashboard.Blog.Delete.Delete')" @close="closeModal" @confirm="confirmDelete" />
 </template>
 
 <script setup lang="ts">
-import { LucideEllipsisVertical, LucideFilePlus, LucideTrash2 } from 'lucide-vue-next';
+import { LucideEllipsisVertical, LucideFilePlus, LucideTrash2, LucideSend } from 'lucide-vue-next';
 import { showNotification } from '@/components/composables/useNotification';
 import ConfirmDeleteModal from '@/components/app/ConfirmDeleteModal.vue';
 import Search from '@/components/ui/Search.vue';
@@ -185,5 +185,19 @@ const handleToggleStatus = async (data: Data) => {
     data.status = original
   }
 };
+
+const handlePublish = async (id: number) => {
+  if (!auth.can('update_blogs')) return
+
+  if (!confirm('¿Estás seguro de que deseas publicar este blog y enviar notificación a los suscriptores?')) return;
+
+  try {
+    await api.post(`/api/blog/publish/${id}`);
+    showNotification('success', t('Dashboard.Blog.Validations.Success.Published'), 3000)
+    emit('status-updated')
+  } catch (error) {
+    showNotification('error', t('Dashboard.Blog.Validations.Error.Publish'), 4000)
+  }
+}
 
 </script>

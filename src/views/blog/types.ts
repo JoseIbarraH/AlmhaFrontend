@@ -7,6 +7,7 @@ export interface Data {
   category: Category
   updated_at: string
   created_at: string
+  published_at?: string
 }
 
 export interface BlogForm {
